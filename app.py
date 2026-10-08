@@ -1,5 +1,6 @@
 import os
 import tempfile
+import base64
 
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
@@ -16,8 +17,8 @@ client = Groq(
 SYSTEM_PROMPT = """
 You are Wiens AI, a helpful multilingual AI assistant.
 
-Automatically detect the language of the user and answer
-in the same language.
+Automatically detect the language of the user
+and answer in the same language.
 
 Russian, German and English are especially important.
 
@@ -26,74 +27,126 @@ Explain difficult things simply.
 
 Your name is Wiens AI.
 
-You have access to browser search.
+You have access to browser search when using the
+main text model.
+
 Use browser search when the user asks about current,
 recent, changing, or internet-based information.
-
-Examples include:
-- current news
-- today's information
-- current prices
-- recent events
-- current companies or products
-- information the user explicitly asks you to search online
-
-When browser search is not necessary, answer normally.
 
 Never claim that you searched the internet unless
 browser search was actually used.
 """
 
 
+VISION_PROMPT = """
+You are Wiens AI with image understanding.
+
+Analyze the image carefully.
+
+Answer in the same language as the user's question.
+
+Russian, German and English are especially important.
+
+You can:
+- describe images
+- read text from images
+- explain screenshots
+- analyze documents
+- answer questions about visible objects
+- translate visible text
+- help understand errors shown in screenshots
+
+If something cannot be determined reliably from the
+image, say so instead of guessing.
+"""
+
+
 @app.route("/")
 def home():
-    return render_template("index.html")
+
+    return render_template(
+        "index.html"
+    )
 
 
-@app.route("/api/chat", methods=["POST"])
+@app.route(
+    "/api/chat",
+    methods=["POST"]
+)
 def chat():
 
     try:
 
-        data = request.get_json(silent=True) or {}
+        data = request.get_json(
+            silent=True
+        ) or {}
+
 
         message = str(
-            data.get("message", "")
+            data.get(
+                "message",
+                ""
+            )
         ).strip()
+
 
         history = data.get(
             "history",
             []
         )
 
+
         if not message:
 
             return jsonify({
-                "error": "Message is empty"
+                "error":
+                    "Message is empty"
             }), 400
 
 
         messages = [
             {
                 "role": "system",
-                "content": SYSTEM_PROMPT
+                "content":
+                    SYSTEM_PROMPT
             }
         ]
 
 
-        if isinstance(history, list):
+        if isinstance(
+            history,
+            list
+        ):
 
             for item in history:
 
-                if not isinstance(item, dict):
+                if not isinstance(
+                    item,
+                    dict
+                ):
                     continue
 
-                role = item.get("role")
-                content = item.get("content")
+
+                role = item.get(
+                    "role"
+                )
+
+                content = item.get(
+                    "content"
+                )
+
 
                 if (
-                    role in ["user", "assistant"]
-                    and isinstance(content, str)
+                    role
+                    in [
+                        "user",
+                        "assistant"
+                    ]
+                    and
+                    isinstance(
+                        content,
+                        str
+                    )
                 ):
 
                     messages.append({
@@ -108,21 +161,31 @@ def chat():
         })
 
 
-        response = client.chat.completions.create(
+        response = (
+            client
+            .chat
+            .completions
+            .create(
 
-            model="openai/gpt-oss-120b",
+                model=
+                    "openai/gpt-oss-120b",
 
-            messages=messages,
+                messages=
+                    messages,
 
-            temperature=0.7,
+                temperature=
+                    0.7,
 
-            max_tokens=1500,
+                max_tokens=
+                    1500,
 
-            tools=[
-                {
-                    "type": "browser_search"
-                }
-            ]
+                tools=[
+                    {
+                        "type":
+                            "browser_search"
+                    }
+                ]
+            )
         )
 
 
@@ -146,6 +209,7 @@ def chat():
             e
         )
 
+
         return jsonify({
             "error":
                 "Wiens AI could not answer: "
@@ -153,38 +217,220 @@ def chat():
         }), 500
 
 
-@app.route("/api/transcribe", methods=["POST"])
+@app.route(
+    "/api/vision",
+    methods=["POST"]
+)
+def vision():
+
+    try:
+
+        if "image" not in request.files:
+
+            return jsonify({
+                "error":
+                    "Image is missing"
+            }), 400
+
+
+        image = request.files[
+            "image"
+        ]
+
+
+        question = str(
+            request.form.get(
+                "message",
+                ""
+            )
+        ).strip()
+
+
+        if not question:
+
+            question = (
+                "Describe this image "
+                "and explain what you see."
+            )
+
+
+        image_bytes = image.read()
+
+
+        if not image_bytes:
+
+            return jsonify({
+                "error":
+                    "Image is empty"
+            }), 400
+
+
+        if len(image_bytes) > 20 * 1024 * 1024:
+
+            return jsonify({
+                "error":
+                    "Image is too large. "
+                    "Maximum size is 20 MB."
+            }), 400
+
+
+        mime_type = (
+            image.mimetype
+            or
+            "image/jpeg"
+        )
+
+
+        encoded_image = (
+            base64.b64encode(
+                image_bytes
+            )
+            .decode(
+                "utf-8"
+            )
+        )
+
+
+        data_url = (
+            f"data:{mime_type};"
+            f"base64,{encoded_image}"
+        )
+
+
+        response = (
+            client
+            .chat
+            .completions
+            .create(
+
+                model=
+                    "qwen/qwen3.8-27b",
+
+                messages=[
+                    {
+                        "role":
+                            "system",
+
+                        "content":
+                            VISION_PROMPT
+                    },
+
+                    {
+                        "role":
+                            "user",
+
+                        "content": [
+                            {
+                                "type":
+                                    "text",
+
+                                "text":
+                                    question
+                            },
+
+                            {
+                                "type":
+                                    "image_url",
+
+                                "image_url": {
+                                    "url":
+                                        data_url
+                                }
+                            }
+                        ]
+                    }
+                ],
+
+                temperature=
+                    0.7,
+
+                max_tokens=
+                    1500
+            )
+        )
+
+
+        answer = (
+            response
+            .choices[0]
+            .message
+            .content
+        )
+
+
+        return jsonify({
+            "answer": answer
+        })
+
+
+    except Exception as e:
+
+        print(
+            "Wiens AI vision error:",
+            e
+        )
+
+
+        return jsonify({
+            "error":
+                "Image analysis error: "
+                + str(e)
+        }), 500
+
+
+@app.route(
+    "/api/transcribe",
+    methods=["POST"]
+)
 def transcribe():
 
     temp_path = None
+
 
     try:
 
         if "audio" not in request.files:
 
             return jsonify({
-                "error": "Audio file is missing"
+                "error":
+                    "Audio file is missing"
             }), 400
 
 
-        audio = request.files["audio"]
+        audio = request.files[
+            "audio"
+        ]
+
 
         if not audio.filename:
 
             return jsonify({
-                "error": "Audio file is empty"
+                "error":
+                    "Audio file is empty"
             }), 400
 
 
         suffix = ".webm"
 
-        if audio.filename.lower().endswith(".mp4"):
+
+        if audio.filename.lower().endswith(
+            ".mp4"
+        ):
+
             suffix = ".mp4"
 
-        elif audio.filename.lower().endswith(".m4a"):
+
+        elif audio.filename.lower().endswith(
+            ".m4a"
+        ):
+
             suffix = ".m4a"
 
-        elif audio.filename.lower().endswith(".wav"):
+
+        elif audio.filename.lower().endswith(
+            ".wav"
+        ):
+
             suffix = ".wav"
 
 
@@ -193,9 +439,13 @@ def transcribe():
             suffix=suffix
         ) as temp_file:
 
-            audio.save(temp_file.name)
+            audio.save(
+                temp_file.name
+            )
 
-            temp_path = temp_file.name
+            temp_path = (
+                temp_file.name
+            )
 
 
         with open(
@@ -204,15 +454,28 @@ def transcribe():
         ) as audio_file:
 
             transcription = (
-                client.audio.transcriptions.create(
-                    file=audio_file,
-                    model="whisper-large-v3-turbo",
-                    response_format="json"
+                client
+                .audio
+                .transcriptions
+                .create(
+
+                    file=
+                        audio_file,
+
+                    model=
+                        "whisper-large-v3-turbo",
+
+                    response_format=
+                        "json"
                 )
             )
 
 
-        text = transcription.text.strip()
+        text = (
+            transcription
+            .text
+            .strip()
+        )
 
 
         return jsonify({
@@ -227,6 +490,7 @@ def transcribe():
             e
         )
 
+
         return jsonify({
             "error":
                 "Voice recognition error: "
@@ -238,13 +502,20 @@ def transcribe():
 
         if (
             temp_path
-            and os.path.exists(temp_path)
+            and
+            os.path.exists(
+                temp_path
+            )
         ):
 
             try:
-                os.remove(temp_path)
+
+                os.remove(
+                    temp_path
+                )
 
             except Exception:
+
                 pass
 
 
@@ -256,6 +527,7 @@ if __name__ == "__main__":
             10000
         )
     )
+
 
     app.run(
         host="0.0.0.0",
