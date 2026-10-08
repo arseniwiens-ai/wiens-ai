@@ -1,12 +1,16 @@
 import os
+
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
 
+
 app = Flask(__name__)
+
 
 client = Groq(
     api_key=os.environ.get("GROQ_API_KEY")
 )
+
 
 SYSTEM_PROMPT = """
 You are Wiens AI, a helpful multilingual AI assistant.
@@ -20,6 +24,23 @@ Be helpful, clear, friendly and concise.
 Explain difficult things simply.
 
 Your name is Wiens AI.
+
+You have access to browser search.
+Use browser search when the user asks about current,
+recent, changing, or internet-based information.
+
+Examples include:
+- current news
+- today's information
+- current prices
+- recent events
+- current companies or products
+- information the user explicitly asks you to search online
+
+When browser search is not necessary, answer normally.
+
+Never claim that you searched the internet unless
+browser search was actually used.
 """
 
 
@@ -32,15 +53,24 @@ def home():
 def chat():
 
     try:
-        data = request.get_json()
 
-        message = data.get("message", "").strip()
-        history = data.get("history", [])
+        data = request.get_json(silent=True) or {}
+
+        message = str(
+            data.get("message", "")
+        ).strip()
+
+        history = data.get(
+            "history",
+            []
+        )
 
         if not message:
+
             return jsonify({
                 "error": "Message is empty"
             }), 400
+
 
         messages = [
             {
@@ -49,49 +79,86 @@ def chat():
             }
         ]
 
-        # Add conversation history
-        for item in history[-20:]:
 
-            role = item.get("role")
-            content = item.get("content")
+        if isinstance(history, list):
 
-            if role in ["user", "assistant"] and content:
-                messages.append({
-                    "role": role,
-                    "content": str(content)
-                })
+            for item in history:
+
+                if not isinstance(item, dict):
+                    continue
+
+                role = item.get("role")
+                content = item.get("content")
+
+                if (
+                    role in ["user", "assistant"]
+                    and isinstance(content, str)
+                ):
+
+                    messages.append({
+                        "role": role,
+                        "content": content
+                    })
+
 
         messages.append({
             "role": "user",
             "content": message
         })
 
+
         response = client.chat.completions.create(
+
             model="openai/gpt-oss-120b",
+
             messages=messages,
+
             temperature=0.7,
-            max_tokens=1500
+
+            max_tokens=1500,
+
+            tools=[
+                {
+                    "type": "browser_search"
+                }
+            ]
         )
 
-        answer = response.choices[0].message.content
+
+        answer = (
+            response
+            .choices[0]
+            .message
+            .content
+        )
+
 
         return jsonify({
             "answer": answer
         })
 
+
     except Exception as e:
 
-        print("Wiens AI error:", e)
+        print(
+            "Wiens AI error:",
+            e
+        )
 
         return jsonify({
-            "error": "Wiens AI could not answer. Please try again."
+            "error":
+                "Wiens AI could not answer: "
+                + str(e)
         }), 500
 
 
 if __name__ == "__main__":
 
     port = int(
-        os.environ.get("PORT", 10000)
+        os.environ.get(
+            "PORT",
+            10000
+        )
     )
 
     app.run(
