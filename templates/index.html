@@ -19,7 +19,6 @@
 
         :root {
             --panel: rgba(20, 20, 30, 0.92);
-            --panel2: rgba(14, 14, 23, 0.98);
             --border: rgba(255,255,255,0.10);
             --text: #ffffff;
             --muted: #9696a5;
@@ -54,15 +53,6 @@
             overflow: hidden;
         }
 
-        button,
-        textarea {
-            font: inherit;
-        }
-
-        button {
-            -webkit-tap-highlight-color: transparent;
-        }
-
         .app {
             height: 100dvh;
             max-width: 900px;
@@ -70,8 +60,6 @@
 
             display: flex;
             flex-direction: column;
-
-            position: relative;
         }
 
         header {
@@ -84,7 +72,7 @@
 
             padding:
                 calc(8px + env(safe-area-inset-top))
-                12px
+                14px
                 8px;
 
             border-bottom: 1px solid var(--border);
@@ -93,36 +81,14 @@
 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-
-            z-index: 10;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .menu-button {
-            width: 40px;
-            height: 40px;
-
-            border: 1px solid var(--border);
-            border-radius: 12px;
-
-            background: rgba(255,255,255,0.06);
-            color: white;
-
-            font-size: 20px;
-            cursor: pointer;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 10px;
 
-            font-size: 19px;
+            font-size: 20px;
             font-weight: 750;
         }
 
@@ -150,15 +116,13 @@
 
         .header-button {
             border: 1px solid var(--border);
-
             background: rgba(255,255,255,0.06);
             color: white;
 
-            min-height: 40px;
+            min-height: 38px;
             padding: 8px 11px;
 
             border-radius: 12px;
-
             cursor: pointer;
         }
 
@@ -187,7 +151,6 @@
         .welcome {
             margin: auto;
             text-align: center;
-
             max-width: 520px;
             padding: 20px;
         }
@@ -197,7 +160,6 @@
             height: 115px;
 
             border-radius: 27px;
-
             object-fit: cover;
 
             box-shadow:
@@ -210,13 +172,11 @@
         .welcome h1 {
             font-size: 34px;
             letter-spacing: -1px;
-
             margin-bottom: 8px;
         }
 
         .welcome p {
             color: var(--muted);
-
             line-height: 1.5;
             font-size: 15px;
         }
@@ -226,14 +186,12 @@
 
             display: flex;
             justify-content: center;
-
             flex-wrap: wrap;
             gap: 8px;
         }
 
         .feature {
             background: rgba(255,255,255,.055);
-
             border: 1px solid var(--border);
             border-radius: 20px;
 
@@ -246,7 +204,6 @@
         .message-row {
             display: flex;
             flex-direction: column;
-
             max-width: 90%;
         }
 
@@ -285,9 +242,7 @@
 
         .assistant {
             background: var(--panel);
-
             border: 1px solid var(--border);
-
             border-bottom-left-radius: 6px;
         }
 
@@ -310,51 +265,26 @@
             border: 1px solid var(--border);
         }
 
-        .saved-image-placeholder {
-            width: 210px;
-
-            padding: 25px 15px;
-
-            margin-bottom: 7px;
-
-            border-radius: 17px;
-
-            border: 1px solid var(--border);
-
-            background: rgba(255,255,255,.05);
-
-            text-align: center;
-
-            color: var(--muted);
-
-            font-size: 14px;
-        }
-
         .speak-message {
             margin-top: 5px;
 
             border: none;
-
             background: transparent;
             color: #9e9eae;
 
             font-size: 17px;
-
             cursor: pointer;
         }
 
         .recording-bar {
             display: none;
-
             align-items: center;
             justify-content: center;
-
             gap: 8px;
 
             padding: 8px;
 
             color: #ff8294;
-
             font-size: 13px;
         }
 
@@ -389,7 +319,6 @@
 
         .preview-card {
             position: relative;
-
             width: 90px;
         }
 
@@ -409,4 +338,1382 @@
         .remove-image {
             position: absolute;
 
-            top: -
+            top: -7px;
+            right: -7px;
+
+            width: 25px;
+            height: 25px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #353542;
+            color: white;
+
+            font-size: 15px;
+
+            cursor: pointer;
+        }
+
+        .input-area {
+            flex-shrink: 0;
+
+            padding:
+                8px
+                12px
+                calc(10px + env(safe-area-inset-bottom));
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(7,8,13,.98) 25%
+                );
+        }
+
+        .input-box {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+
+            padding: 7px;
+
+            background: rgba(24,24,35,.97);
+
+            border:
+                1px solid rgba(255,255,255,.11);
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 12px 40px rgba(0,0,0,.32);
+        }
+
+        textarea {
+            flex: 1;
+
+            resize: none;
+
+            max-height: 130px;
+            min-height: 42px;
+
+            padding: 11px 6px;
+
+            background: transparent;
+
+            border: none;
+            outline: none;
+
+            color: white;
+
+            font: inherit;
+            font-size: 16px;
+        }
+
+        textarea::placeholder {
+            color: #777786;
+        }
+
+        .icon-button {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            border: none;
+            border-radius: 14px;
+
+            font-size: 19px;
+
+            cursor: pointer;
+        }
+
+        .attach,
+        .mic {
+            background: rgba(255,255,255,.06);
+            color: white;
+        }
+
+        .mic.recording {
+            background: var(--danger);
+        }
+
+        .send {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+
+            color: white;
+        }
+
+        .send:disabled {
+            opacity: .45;
+        }
+
+        .input-note {
+            text-align: center;
+
+            color: #5f5f6b;
+
+            font-size: 10px;
+
+            margin-top: 6px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+
+            .new-chat-text {
+                display: none;
+            }
+
+            .welcome h1 {
+                font-size: 31px;
+            }
+
+            .hero-logo {
+                width: 105px;
+                height: 105px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <header>
+
+        <div class="brand">
+
+            <img
+                class="mini-logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <div>
+                Wiens AI
+
+                <div class="online">
+                    ● AI Online
+                </div>
+            </div>
+
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                id="speakerButton"
+                class="header-button speaker-on"
+                onclick="toggleSpeech()"
+            >
+                🔊
+            </button>
+
+            <button
+                class="header-button"
+                onclick="newChat()"
+            >
+                ＋
+                <span class="new-chat-text">
+                    Новый чат
+                </span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main id="chat">
+
+        <div
+            class="welcome"
+            id="welcome"
+        >
+
+            <img
+                class="hero-logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <h1>Wiens AI</h1>
+
+            <p>
+                Напишите, скажите голосом
+                или отправьте фотографию.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">🧠 AI</div>
+                <div class="feature">🌐 Internet</div>
+                <div class="feature">📷 Vision</div>
+                <div class="feature">🎙️ Voice</div>
+                <div class="feature">🔊 Speech</div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <div
+        class="recording-bar"
+        id="recordingBar"
+    >
+        <div class="recording-dot"></div>
+
+        <span id="recordingText">
+            Запись голоса…
+        </span>
+    </div>
+
+
+    <div
+        class="image-preview-area"
+        id="imagePreviewArea"
+    >
+
+        <div class="preview-card">
+
+            <img
+                id="imagePreview"
+                alt="Selected image"
+            >
+
+            <button
+                class="remove-image"
+                onclick="removeSelectedImage()"
+            >
+                ×
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="input-area">
+
+        <div class="input-box">
+
+            <button
+                class="icon-button attach"
+                onclick="
+                    document
+                    .getElementById('fileInput')
+                    .click()
+                "
+                title="Добавить фото"
+            >
+                ＋
+            </button>
+
+            <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+            >
+
+            <textarea
+                id="messageInput"
+                rows="1"
+                placeholder="Сообщение Wiens AI..."
+            ></textarea>
+
+            <button
+                class="icon-button mic"
+                id="micButton"
+                onclick="toggleRecording()"
+            >
+                🎙️
+            </button>
+
+            <button
+                class="icon-button send"
+                id="sendButton"
+                onclick="sendMessage()"
+            >
+                ➤
+            </button>
+
+        </div>
+
+        <div class="input-note">
+            Wiens AI может допускать ошибки
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const chat =
+    document.getElementById("chat");
+
+const input =
+    document.getElementById("messageInput");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+const micButton =
+    document.getElementById("micButton");
+
+const recordingBar =
+    document.getElementById("recordingBar");
+
+const recordingText =
+    document.getElementById("recordingText");
+
+const speakerButton =
+    document.getElementById("speakerButton");
+
+const fileInput =
+    document.getElementById("fileInput");
+
+const imagePreviewArea =
+    document.getElementById("imagePreviewArea");
+
+const imagePreview =
+    document.getElementById("imagePreview");
+
+
+let history = [];
+
+let mediaRecorder = null;
+
+let audioChunks = [];
+
+let recording = false;
+
+let speechEnabled = true;
+
+let selectedImage = null;
+
+let selectedImageURL = null;
+
+
+function removeWelcome() {
+
+    const welcome =
+        document.getElementById("welcome");
+
+    if (welcome) {
+        welcome.remove();
+    }
+}
+
+
+function addTextMessage(
+    text,
+    role
+) {
+
+    removeWelcome();
+
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "message-row "
+        +
+        (
+            role === "user"
+            ? "user-row"
+            : "assistant-row"
+        );
+
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message " + role;
+
+    message.textContent =
+        text;
+
+
+    row.appendChild(
+        message
+    );
+
+
+    if (
+        role === "assistant"
+        &&
+        !message.classList.contains(
+            "thinking"
+        )
+    ) {
+
+        const speak =
+            document.createElement(
+                "button"
+            );
+
+        speak.className =
+            "speak-message";
+
+        speak.textContent =
+            "🔊";
+
+        speak.onclick =
+            function() {
+                speakText(text);
+            };
+
+
+        row.appendChild(
+            speak
+        );
+    }
+
+
+    chat.appendChild(
+        row
+    );
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+
+    return row;
+}
+
+
+function addImageMessage(
+    imageURL,
+    text
+) {
+
+    removeWelcome();
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+    row.className =
+        "message-row user-row";
+
+
+    const image =
+        document.createElement(
+            "img"
+        );
+
+    image.className =
+        "chat-image";
+
+    image.src =
+        imageURL;
+
+
+    row.appendChild(
+        image
+    );
+
+
+    if (text) {
+
+        const message =
+            document.createElement(
+                "div"
+            );
+
+        message.className =
+            "message user";
+
+        message.textContent =
+            text;
+
+        row.appendChild(
+            message
+        );
+    }
+
+
+    chat.appendChild(
+        row
+    );
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+}
+
+
+fileInput.addEventListener(
+    "change",
+    function() {
+
+        const file =
+            fileInput.files[0];
+
+
+        if (!file) {
+            return;
+        }
+
+
+        if (
+            !file.type.startsWith(
+                "image/"
+            )
+        ) {
+
+            alert(
+                "Пожалуйста, выберите изображение."
+            );
+
+            fileInput.value = "";
+
+            return;
+        }
+
+
+        selectedImage =
+            file;
+
+
+        if (selectedImageURL) {
+
+            URL.revokeObjectURL(
+                selectedImageURL
+            );
+        }
+
+
+        selectedImageURL =
+            URL.createObjectURL(
+                file
+            );
+
+
+        imagePreview.src =
+            selectedImageURL;
+
+
+        imagePreviewArea.style.display =
+            "block";
+
+
+        input.placeholder =
+            "Спросите что-нибудь о фото...";
+    }
+);
+
+
+function removeSelectedImage() {
+
+    selectedImage = null;
+
+    fileInput.value = "";
+
+
+    if (selectedImageURL) {
+
+        URL.revokeObjectURL(
+            selectedImageURL
+        );
+
+        selectedImageURL = null;
+    }
+
+
+    imagePreview.src = "";
+
+    imagePreviewArea.style.display =
+        "none";
+
+
+    input.placeholder =
+        "Сообщение Wiens AI...";
+}
+
+
+async function sendMessage(
+    customText = null
+) {
+
+    const text =
+        (
+            customText !== null
+            ? customText
+            : input.value
+        ).trim();
+
+
+    if (
+        !text
+        &&
+        !selectedImage
+    ) {
+        return;
+    }
+
+
+    if (selectedImage) {
+
+        await sendImageMessage(
+            text
+        );
+
+        return;
+    }
+
+
+    addTextMessage(
+        text,
+        "user"
+    );
+
+
+    input.value = "";
+
+    input.style.height =
+        "auto";
+
+
+    sendButton.disabled =
+        true;
+
+
+    const thinking =
+        addTextMessage(
+            "Wiens AI думает…",
+            "assistant thinking"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/chat",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            message:
+                                text,
+
+                            history:
+                                history
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        thinking.remove();
+
+
+        if (!response.ok) {
+
+            addTextMessage(
+                data.error ||
+                "Произошла ошибка.",
+                "assistant"
+            );
+
+            return;
+        }
+
+
+        addTextMessage(
+            data.answer,
+            "assistant"
+        );
+
+
+        history.push({
+            role: "user",
+            content: text
+        });
+
+
+        history.push({
+            role: "assistant",
+            content: data.answer
+        });
+
+
+        if (speechEnabled) {
+
+            speakText(
+                data.answer
+            );
+        }
+
+
+    } catch (error) {
+
+        thinking.remove();
+
+
+        addTextMessage(
+            "Не удалось связаться с Wiens AI.",
+            "assistant"
+        );
+
+
+    } finally {
+
+        sendButton.disabled =
+            false;
+
+        input.focus();
+    }
+}
+
+
+async function sendImageMessage(
+    text
+) {
+
+    const imageFile =
+        selectedImage;
+
+    const imageURL =
+        selectedImageURL;
+
+
+    const question =
+        text ||
+        "Что изображено на этой фотографии?";
+
+
+    addImageMessage(
+        imageURL,
+        text
+    );
+
+
+    input.value = "";
+
+    input.style.height =
+        "auto";
+
+
+    selectedImage = null;
+
+    fileInput.value = "";
+
+    imagePreviewArea.style.display =
+        "none";
+
+    imagePreview.src = "";
+
+    selectedImageURL = null;
+
+
+    input.placeholder =
+        "Сообщение Wiens AI...";
+
+
+    sendButton.disabled =
+        true;
+
+
+    const thinking =
+        addTextMessage(
+            "Wiens AI анализирует изображение…",
+            "assistant thinking"
+        );
+
+
+    try {
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "image",
+            imageFile
+        );
+
+
+        formData.append(
+            "message",
+            question
+        );
+
+
+        const response =
+            await fetch(
+                "/api/vision",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        thinking.remove();
+
+
+        if (!response.ok) {
+
+            addTextMessage(
+                data.error ||
+                "Не удалось проанализировать изображение.",
+                "assistant"
+            );
+
+            return;
+        }
+
+
+        addTextMessage(
+            data.answer,
+            "assistant"
+        );
+
+
+        history.push({
+            role: "user",
+            content:
+                "[Image] "
+                + question
+        });
+
+
+        history.push({
+            role: "assistant",
+            content:
+                data.answer
+        });
+
+
+        if (speechEnabled) {
+
+            speakText(
+                data.answer
+            );
+        }
+
+
+    } catch (error) {
+
+        thinking.remove();
+
+
+        addTextMessage(
+            "Ошибка отправки изображения.",
+            "assistant"
+        );
+
+
+    } finally {
+
+        sendButton.disabled =
+            false;
+
+        input.focus();
+    }
+}
+
+
+async function toggleRecording() {
+
+    if (recording) {
+
+        if (
+            mediaRecorder
+            &&
+            mediaRecorder.state
+            !== "inactive"
+        ) {
+
+            mediaRecorder.stop();
+        }
+
+        return;
+    }
+
+
+    try {
+
+        const stream =
+            await navigator
+                .mediaDevices
+                .getUserMedia({
+                    audio: true
+                });
+
+
+        let options = {};
+
+
+        if (
+            MediaRecorder
+            .isTypeSupported(
+                "audio/mp4"
+            )
+        ) {
+
+            options = {
+                mimeType:
+                    "audio/mp4"
+            };
+
+        } else if (
+            MediaRecorder
+            .isTypeSupported(
+                "audio/webm"
+            )
+        ) {
+
+            options = {
+                mimeType:
+                    "audio/webm"
+            };
+        }
+
+
+        mediaRecorder =
+            new MediaRecorder(
+                stream,
+                options
+            );
+
+
+        audioChunks = [];
+
+
+        mediaRecorder.ondataavailable =
+            function(event) {
+
+                if (
+                    event.data
+                    &&
+                    event.data.size > 0
+                ) {
+
+                    audioChunks.push(
+                        event.data
+                    );
+                }
+            };
+
+
+        mediaRecorder.onstop =
+            async function() {
+
+                recording = false;
+
+                micButton.classList.remove(
+                    "recording"
+                );
+
+                micButton.textContent =
+                    "🎙️";
+
+                recordingBar.style.display =
+                    "none";
+
+
+                stream
+                    .getTracks()
+                    .forEach(
+                        track =>
+                            track.stop()
+                    );
+
+
+                const mimeType =
+                    mediaRecorder.mimeType
+                    ||
+                    "audio/webm";
+
+
+                const blob =
+                    new Blob(
+                        audioChunks,
+                        {
+                            type:
+                                mimeType
+                        }
+                    );
+
+
+                await transcribeAudio(
+                    blob,
+                    mimeType
+                );
+            };
+
+
+        mediaRecorder.start();
+
+
+        recording = true;
+
+
+        micButton.classList.add(
+            "recording"
+        );
+
+
+        micButton.textContent =
+            "⏹️";
+
+
+        recordingBar.style.display =
+            "flex";
+
+
+        recordingText.textContent =
+            "Запись голоса… нажмите ⏹️ для отправки";
+
+
+    } catch (error) {
+
+        alert(
+            "Разрешите Safari использовать микрофон."
+        );
+    }
+}
+
+
+async function transcribeAudio(
+    blob,
+    mimeType
+) {
+
+    recordingBar.style.display =
+        "flex";
+
+
+    recordingText.textContent =
+        "Распознаю голос…";
+
+
+    try {
+
+        const formData =
+            new FormData();
+
+
+        let extension =
+            "webm";
+
+
+        if (
+            mimeType.includes(
+                "mp4"
+            )
+        ) {
+
+            extension =
+                "mp4";
+        }
+
+
+        formData.append(
+            "audio",
+            blob,
+            "voice." + extension
+        );
+
+
+        const response =
+            await fetch(
+                "/api/transcribe",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        recordingBar.style.display =
+            "none";
+
+
+        if (!response.ok) {
+
+            addTextMessage(
+                data.error ||
+                "Не удалось распознать голос.",
+                "assistant"
+            );
+
+            return;
+        }
+
+
+        if (data.text) {
+
+            await sendMessage(
+                data.text
+            );
+        }
+
+
+    } catch (error) {
+
+        recordingBar.style.display =
+            "none";
+
+
+        addTextMessage(
+            "Ошибка отправки голосового сообщения.",
+            "assistant"
+        );
+    }
+}
+
+
+function speakText(text) {
+
+    if (
+        !(
+            "speechSynthesis"
+            in window
+        )
+    ) {
+        return;
+    }
+
+
+    window
+        .speechSynthesis
+        .cancel();
+
+
+    const cleanText =
+        text
+            .replace(
+                /https?:\/\/\S+/g,
+                ""
+            )
+            .replace(
+                /[*#`]/g,
+                ""
+            );
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            cleanText
+        );
+
+
+    if (
+        /[А-Яа-яЁё]/.test(
+            cleanText
+        )
+    ) {
+
+        utterance.lang =
+            "ru-RU";
+
+    } else if (
+        /[äöüßÄÖÜ]/.test(
+            cleanText
+        )
+    ) {
+
+        utterance.lang =
+            "de-DE";
+
+    } else {
+
+        utterance.lang =
+            "en-US";
+    }
+
+
+    utterance.rate =
+        1.0;
+
+
+    window
+        .speechSynthesis
+        .speak(
+            utterance
+        );
+}
+
+
+function toggleSpeech() {
+
+    speechEnabled =
+        !speechEnabled;
+
+
+    if (!speechEnabled) {
+
+        window
+            .speechSynthesis
+            .cancel();
+
+
+        speakerButton.textContent =
+            "🔇";
+
+
+        speakerButton.classList.remove(
+            "speaker-on"
+        );
+
+    } else {
+
+        speakerButton.textContent =
+            "🔊";
+
+
+        speakerButton.classList.add(
+            "speaker-on"
+        );
+    }
+}
+
+
+function newChat() {
+
+    history = [];
+
+
+    removeSelectedImage();
+
+
+    if (
+        "speechSynthesis"
+        in window
+    ) {
+
+        window
+            .speechSynthesis
+            .cancel();
+    }
+
+
+    chat.innerHTML = `
+
+        <div
+            class="welcome"
+            id="welcome"
+        >
+
+            <img
+                class="hero-logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <h1>
+                Wiens AI
+            </h1>
+
+            <p>
+                Напишите, скажите голосом
+                или отправьте фотографию.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">
+                    🧠 AI
+                </div>
+
+                <div class="feature">
+                    🌐 Internet
+                </div>
+
+                <div class="feature">
+                    📷 Vision
+                </div>
+
+                <div class="feature">
+                    🎙️ Voice
+                </div>
+
+                <div class="feature">
+                    🔊 Speech
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+input.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+            &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+        }
+    }
+);
+
+
+input.addEventListener(
+    "input",
+    function() {
+
+        this.style.height =
+            "auto";
+
+
+        this.style.height =
+            Math.min(
+                this.scrollHeight,
+                130
+            )
+            + "px";
+    }
+);
+
+</script>
+
+</body>
+</html>
