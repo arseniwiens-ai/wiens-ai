@@ -2,7 +2,14 @@ import os
 import tempfile
 import base64
 
-from flask import Flask, render_template, request, jsonify
+from flask import (
+    Flask,
+    render_template,
+    request,
+    jsonify,
+    send_from_directory
+)
+
 from groq import Groq
 
 
@@ -67,6 +74,23 @@ def home():
     return render_template(
         "index.html"
     )
+
+
+# PWA service worker
+@app.route("/service-worker.js")
+def service_worker():
+
+    response = send_from_directory(
+        "static",
+        "service-worker.js",
+        mimetype="application/javascript"
+    )
+
+    response.headers[
+        "Cache-Control"
+    ] = "no-cache"
+
+    return response
 
 
 @app.route(
@@ -137,8 +161,7 @@ def chat():
 
 
                 if (
-                    role
-                    in [
+                    role in [
                         "user",
                         "assistant"
                     ]
@@ -265,7 +288,11 @@ def vision():
             }), 400
 
 
-        if len(image_bytes) > 20 * 1024 * 1024:
+        if (
+            len(image_bytes)
+            >
+            20 * 1024 * 1024
+        ):
 
             return jsonify({
                 "error":
@@ -282,7 +309,8 @@ def vision():
 
 
         encoded_image = (
-            base64.b64encode(
+            base64
+            .b64encode(
                 image_bytes
             )
             .decode(
@@ -413,22 +441,34 @@ def transcribe():
         suffix = ".webm"
 
 
-        if audio.filename.lower().endswith(
-            ".mp4"
+        if (
+            audio.filename
+            .lower()
+            .endswith(
+                ".mp4"
+            )
         ):
 
             suffix = ".mp4"
 
 
-        elif audio.filename.lower().endswith(
-            ".m4a"
+        elif (
+            audio.filename
+            .lower()
+            .endswith(
+                ".m4a"
+            )
         ):
 
             suffix = ".m4a"
 
 
-        elif audio.filename.lower().endswith(
-            ".wav"
+        elif (
+            audio.filename
+            .lower()
+            .endswith(
+                ".wav"
+            )
         ):
 
             suffix = ".wav"
@@ -443,9 +483,9 @@ def transcribe():
                 temp_file.name
             )
 
-            temp_path = (
+
+            temp_path =
                 temp_file.name
-            )
 
 
         with open(
