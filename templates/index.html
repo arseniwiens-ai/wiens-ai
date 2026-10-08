@@ -81,7 +81,6 @@
                 );
 
             color: var(--text);
-
             overflow: hidden;
         }
 
@@ -92,41 +91,34 @@
 
         button {
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-            -webkit-tap-highlight-color:
-                transparent;
+        a {
+            color: #9e8cff;
         }
 
         .app {
             height: 100dvh;
-
             max-width: 900px;
-
             margin: auto;
 
             display: flex;
-
             flex-direction: column;
         }
 
         header {
             min-height: 70px;
-
             flex-shrink: 0;
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
             gap: 8px;
 
             padding:
-                calc(
-                    8px +
-                    env(safe-area-inset-top)
-                )
+                calc(8px + env(safe-area-inset-top))
                 12px
                 8px;
 
@@ -136,18 +128,13 @@
             background:
                 rgba(7,8,13,.60);
 
-            backdrop-filter:
-                blur(20px);
-
-            -webkit-backdrop-filter:
-                blur(20px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .header-left {
             display: flex;
-
             align-items: center;
-
             gap: 8px;
 
             min-width: 0;
@@ -155,17 +142,17 @@
 
         .menu-button,
         .header-button {
+            min-height: 40px;
+
             border:
                 1px solid var(--border);
+
+            border-radius: 12px;
 
             background:
                 rgba(255,255,255,.06);
 
             color: white;
-
-            border-radius: 12px;
-
-            min-height: 40px;
         }
 
         .menu-button {
@@ -183,13 +170,11 @@
 
         .brand {
             display: flex;
-
             align-items: center;
 
             gap: 9px;
 
             font-size: 19px;
-
             font-weight: 750;
 
             min-width: 0;
@@ -215,11 +200,11 @@
         }
 
         .online {
+            margin-top: 2px;
+
             font-size: 11px;
 
             color: #79ffac;
-
-            margin-top: 2px;
         }
 
         .header-actions {
@@ -250,38 +235,33 @@
                 20px;
 
             display: flex;
-
             flex-direction: column;
 
             gap: 14px;
 
-            scroll-behavior:
-                smooth;
+            scroll-behavior: smooth;
         }
 
         .welcome {
             margin: auto;
 
-            text-align: center;
-
             width: 100%;
-
             max-width: 540px;
 
             padding:
                 10px 20px 20px;
-        }
 
-        /* CHARACTER */
+            text-align: center;
+        }
 
         .assistant-character-wrap {
             position: relative;
 
-            width: 210px;
-            height: 245px;
+            width: 205px;
+            height: 235px;
 
             margin:
-                0 auto 5px;
+                0 auto 6px;
         }
 
         .assistant-character {
@@ -298,12 +278,8 @@
 
             filter:
                 drop-shadow(
-                    0 0 17px
-                    rgba(117,92,255,.48)
-                )
-                drop-shadow(
-                    0 0 32px
-                    rgba(91,92,255,.20)
+                    0 0 20px
+                    rgba(117,92,255,.50)
                 );
 
             animation:
@@ -313,26 +289,21 @@
                 infinite;
 
             user-select: none;
-
             -webkit-user-select: none;
         }
 
         .assistant-character.speaking {
             animation:
                 characterTalk
-                .30s
+                .28s
                 ease-in-out
                 infinite
                 alternate;
 
             filter:
                 drop-shadow(
-                    0 0 24px
-                    rgba(162,108,255,.75)
-                )
-                drop-shadow(
-                    0 0 45px
-                    rgba(80,130,255,.38)
+                    0 0 28px
+                    rgba(162,108,255,.82)
                 );
         }
 
@@ -370,10 +341,10 @@
 
             z-index: 5;
 
-            top: 6px;
-            right: -38px;
+            top: 5px;
+            right: -35px;
 
-            max-width: 170px;
+            max-width: 165px;
 
             padding:
                 9px 12px;
@@ -385,21 +356,10 @@
                 15px 15px 15px 4px;
 
             background:
-                rgba(23,23,36,.90);
-
-            backdrop-filter:
-                blur(10px);
-
-            -webkit-backdrop-filter:
-                blur(10px);
+                rgba(23,23,36,.92);
 
             font-size: 12px;
-
             line-height: 1.35;
-
-            box-shadow:
-                0 12px 35px
-                rgba(0,0,0,.25);
 
             opacity: 0;
 
@@ -452,42 +412,33 @@
             0%,
             100% {
                 opacity: .45;
-
-                transform:
-                    translateX(-50%)
-                    scale(.94);
             }
 
             50% {
                 opacity: .95;
-
-                transform:
-                    translateX(-50%)
-                    scale(1.10);
             }
         }
 
         .welcome h1 {
+            margin-bottom: 8px;
+
             font-size: 34px;
 
             letter-spacing: -1px;
-
-            margin-bottom: 8px;
         }
 
         .welcome p {
             color: var(--muted);
 
-            line-height: 1.5;
-
             font-size: 15px;
+
+            line-height: 1.5;
         }
 
         .features {
             margin-top: 18px;
 
             display: flex;
-
             justify-content: center;
 
             flex-wrap: wrap;
@@ -496,16 +447,16 @@
         }
 
         .feature {
-            background:
-                rgba(255,255,255,.055);
+            padding:
+                7px 11px;
 
             border:
                 1px solid var(--border);
 
             border-radius: 20px;
 
-            padding:
-                7px 11px;
+            background:
+                rgba(255,255,255,.055);
 
             color: #b7b7c5;
 
@@ -514,7 +465,6 @@
 
         .message-row {
             display: flex;
-
             flex-direction: column;
 
             max-width: 90%;
@@ -522,13 +472,11 @@
 
         .user-row {
             align-self: flex-end;
-
             align-items: flex-end;
         }
 
         .assistant-row {
             align-self: flex-start;
-
             align-items: flex-start;
         }
 
@@ -538,13 +486,19 @@
 
             border-radius: 19px;
 
-            line-height: 1.45;
-
             font-size: 15px;
+
+            line-height: 1.48;
 
             white-space: pre-wrap;
 
             overflow-wrap: anywhere;
+        }
+
+        .message a {
+            text-decoration: underline;
+
+            text-underline-offset: 2px;
         }
 
         .user {
@@ -555,8 +509,7 @@
                     var(--purple2)
                 );
 
-            border-bottom-right-radius:
-                6px;
+            border-bottom-right-radius: 6px;
         }
 
         .assistant {
@@ -566,17 +519,127 @@
             border:
                 1px solid var(--border);
 
-            border-bottom-left-radius:
-                6px;
+            border-bottom-left-radius: 6px;
         }
 
         .thinking {
             color: var(--muted);
         }
 
+        .web-badge {
+            display: inline-flex;
+            align-items: center;
+
+            gap: 5px;
+
+            margin-bottom: 6px;
+
+            padding:
+                4px 8px;
+
+            border:
+                1px solid
+                rgba(117,92,255,.28);
+
+            border-radius: 20px;
+
+            background:
+                rgba(117,92,255,.10);
+
+            color: #b7aaff;
+
+            font-size: 10px;
+        }
+
+        .sources {
+            width: 100%;
+
+            margin-top: 9px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+        .sources-title {
+            color: #a3a3b3;
+
+            font-size: 11px;
+            font-weight: 650;
+        }
+
+        .source-card {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            width: 100%;
+
+            padding:
+                9px 11px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.045);
+
+            color: white;
+
+            text-decoration: none;
+        }
+
+        .source-icon {
+            width: 30px;
+            height: 30px;
+
+            display: grid;
+            place-items: center;
+
+            flex-shrink: 0;
+
+            border-radius: 9px;
+
+            background:
+                rgba(117,92,255,.16);
+        }
+
+        .source-text {
+            min-width: 0;
+        }
+
+        .source-host {
+            overflow: hidden;
+
+            color: #ffffff;
+
+            font-size: 12px;
+
+            font-weight: 650;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .source-url {
+            overflow: hidden;
+
+            margin-top: 2px;
+
+            color: #828291;
+
+            font-size: 9px;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         .file-card {
             display: flex;
-
             align-items: center;
 
             gap: 10px;
@@ -588,10 +651,10 @@
 
             margin-bottom: 7px;
 
-            border-radius: 16px;
-
             border:
                 1px solid var(--border);
+
+            border-radius: 16px;
 
             background:
                 rgba(255,255,255,.06);
@@ -602,27 +665,9 @@
         }
 
         .file-name {
-            font-size: 14px;
-
             overflow-wrap: anywhere;
-        }
 
-        .chat-image {
-            display: block;
-
-            max-width:
-                min(290px,75vw);
-
-            max-height: 360px;
-
-            object-fit: contain;
-
-            border-radius: 17px;
-
-            margin-bottom: 7px;
-
-            border:
-                1px solid var(--border);
+            font-size: 14px;
         }
 
         .speak-message {
@@ -630,7 +675,8 @@
 
             border: none;
 
-            background: transparent;
+            background:
+                transparent;
 
             color: #9e9eae;
 
@@ -641,7 +687,6 @@
             display: none;
 
             align-items: center;
-
             justify-content: center;
 
             gap: 8px;
@@ -669,9 +714,6 @@
         @keyframes pulse {
             50% {
                 opacity: .3;
-
-                transform:
-                    scale(.8);
             }
         }
 
@@ -702,10 +744,10 @@
 
             object-fit: cover;
 
-            border-radius: 16px;
-
             border:
                 1px solid var(--border);
+
+            border-radius: 16px;
         }
 
         #documentPreview {
@@ -723,19 +765,19 @@
                 11px
                 12px;
 
-            border-radius: 14px;
-
             border:
                 1px solid var(--border);
+
+            border-radius: 14px;
 
             background:
                 rgba(255,255,255,.06);
         }
 
         #documentPreviewName {
-            font-size: 13px;
-
             overflow-wrap: anywhere;
+
+            font-size: 13px;
         }
 
         .remove-attachment {
@@ -779,21 +821,20 @@
 
         .input-box {
             display: flex;
-
             align-items: flex-end;
 
             gap: 6px;
 
             padding: 7px;
 
-            background:
-                rgba(24,24,35,.97);
-
             border:
                 1px solid
                 rgba(255,255,255,.11);
 
             border-radius: 22px;
+
+            background:
+                rgba(24,24,35,.97);
 
             box-shadow:
                 0 12px 40px
@@ -803,20 +844,20 @@
         textarea {
             flex: 1;
 
-            resize: none;
-
-            max-height: 130px;
             min-height: 42px;
+            max-height: 130px;
 
             padding:
                 11px 6px;
 
-            background:
-                transparent;
-
             border: none;
 
             outline: none;
+
+            resize: none;
+
+            background:
+                transparent;
 
             color: white;
 
@@ -869,37 +910,35 @@
         }
 
         .input-note {
+            margin-top: 6px;
+
             text-align: center;
 
             color: #5f5f6b;
 
             font-size: 10px;
-
-            margin-top: 6px;
         }
 
         #fileInput {
             display: none;
         }
 
-        /* HISTORY */
-
         .overlay {
             position: fixed;
 
             inset: 0;
 
-            background:
-                rgba(0,0,0,.55);
+            z-index: 90;
 
             opacity: 0;
 
             pointer-events: none;
 
+            background:
+                rgba(0,0,0,.55);
+
             transition:
                 .2s;
-
-            z-index: 90;
         }
 
         .overlay.open {
@@ -914,6 +953,8 @@
             top: 0;
             left: 0;
             bottom: 0;
+
+            z-index: 100;
 
             width:
                 min(86vw,340px);
@@ -931,23 +972,20 @@
                     env(safe-area-inset-bottom)
                 );
 
-            background:
-                var(--drawer);
+            display: flex;
+            flex-direction: column;
 
             border-right:
                 1px solid var(--border);
+
+            background:
+                var(--drawer);
 
             transform:
                 translateX(-105%);
 
             transition:
                 transform .22s ease;
-
-            z-index: 100;
-
-            display: flex;
-
-            flex-direction: column;
         }
 
         .drawer.open {
@@ -957,9 +995,7 @@
 
         .drawer-header {
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
             margin-bottom: 12px;
@@ -1007,7 +1043,6 @@
 
         .history-item {
             display: flex;
-
             align-items: center;
 
             margin-bottom: 6px;
@@ -1029,7 +1064,8 @@
 
             border: none;
 
-            background: transparent;
+            background:
+                transparent;
 
             color: white;
 
@@ -1040,16 +1076,15 @@
             overflow: hidden;
 
             text-overflow: ellipsis;
-
             white-space: nowrap;
         }
 
         .history-date {
+            margin-top: 3px;
+
             color: var(--muted);
 
             font-size: 10px;
-
-            margin-top: 3px;
         }
 
         .history-delete {
@@ -1057,29 +1092,20 @@
 
             border: none;
 
-            background: transparent;
+            background:
+                transparent;
 
             color: white;
         }
 
-        @media (
-            max-width: 600px
-        ) {
+        @media (max-width: 600px) {
             .new-chat-text {
                 display: none;
             }
 
             .assistant-character-wrap {
                 width: 180px;
-                height: 210px;
-            }
-
-            .character-bubble {
-                right: -26px;
-
-                max-width: 145px;
-
-                font-size: 11px;
+                height: 205px;
             }
 
             .welcome h1 {
@@ -1132,7 +1158,6 @@
 
         </div>
 
-
         <div class="header-actions">
 
             <button
@@ -1168,9 +1193,7 @@
         id="recordingBar"
     >
 
-        <div
-            class="recording-dot"
-        ></div>
+        <div class="recording-dot"></div>
 
         <span id="recordingText">
             Запись…
@@ -1191,9 +1214,7 @@
                 alt="Preview"
             >
 
-            <div
-                id="documentPreview"
-            >
+            <div id="documentPreview">
 
                 <span id="documentPreviewIcon">
                     📄
@@ -1318,89 +1339,54 @@ const STORAGE_KEY =
 const ACTIVE_CHAT_KEY =
     "wiens_ai_active_chat_v1";
 
-const GREETING_KEY =
-    "wiens_ai_greeting_seen";
-
 
 const chat =
-    document.getElementById(
-        "chat"
-    );
+    document.getElementById("chat");
 
 const input =
-    document.getElementById(
-        "messageInput"
-    );
+    document.getElementById("messageInput");
 
 const sendButton =
-    document.getElementById(
-        "sendButton"
-    );
+    document.getElementById("sendButton");
 
 const micButton =
-    document.getElementById(
-        "micButton"
-    );
+    document.getElementById("micButton");
 
 const recordingBar =
-    document.getElementById(
-        "recordingBar"
-    );
+    document.getElementById("recordingBar");
 
 const recordingText =
-    document.getElementById(
-        "recordingText"
-    );
+    document.getElementById("recordingText");
 
 const speakerButton =
-    document.getElementById(
-        "speakerButton"
-    );
+    document.getElementById("speakerButton");
 
 const fileInput =
-    document.getElementById(
-        "fileInput"
-    );
+    document.getElementById("fileInput");
 
 const attachmentPreviewArea =
-    document.getElementById(
-        "attachmentPreviewArea"
-    );
+    document.getElementById("attachmentPreviewArea");
 
 const imagePreview =
-    document.getElementById(
-        "imagePreview"
-    );
+    document.getElementById("imagePreview");
 
 const documentPreview =
-    document.getElementById(
-        "documentPreview"
-    );
+    document.getElementById("documentPreview");
 
 const documentPreviewIcon =
-    document.getElementById(
-        "documentPreviewIcon"
-    );
+    document.getElementById("documentPreviewIcon");
 
 const documentPreviewName =
-    document.getElementById(
-        "documentPreviewName"
-    );
+    document.getElementById("documentPreviewName");
 
 const drawer =
-    document.getElementById(
-        "drawer"
-    );
+    document.getElementById("drawer");
 
 const overlay =
-    document.getElementById(
-        "overlay"
-    );
+    document.getElementById("overlay");
 
 const chatList =
-    document.getElementById(
-        "chatList"
-    );
+    document.getElementById("chatList");
 
 
 let chats = [];
@@ -1490,9 +1476,7 @@ function saveChats() {
 
         localStorage.setItem(
             STORAGE_KEY,
-            JSON.stringify(
-                chats
-            )
+            JSON.stringify(chats)
         );
 
 
@@ -1500,6 +1484,7 @@ function saveChats() {
             ACTIVE_CHAT_KEY,
             activeChatId || ""
         );
+
 
     } catch (error) {
 
@@ -1655,12 +1640,6 @@ function loadChats() {
     renderCurrentChat();
 
     renderChatList();
-
-
-    setTimeout(
-        showInitialGreeting,
-        600
-    );
 }
 
 
@@ -1694,7 +1673,6 @@ function welcomeHtml() {
                 ></div>
 
             </div>
-
 
             <h1>
                 Wiens AI
@@ -1736,7 +1714,7 @@ function welcomeHtml() {
                 </div>
 
                 <div class="feature">
-                    💾 History
+                    🔗 Sources
                 </div>
 
             </div>
@@ -1755,14 +1733,14 @@ function removeWelcome() {
 
 
     if (welcome) {
+
         welcome.remove();
     }
 }
 
 
 function showCharacterBubble(
-    text,
-    duration = 3500
+    text
 ) {
 
     const bubble =
@@ -1793,39 +1771,8 @@ function showCharacterBubble(
             );
 
         },
-        duration
+        3500
     );
-}
-
-
-function setCharacterSpeaking(
-    state
-) {
-
-    const character =
-        document.getElementById(
-            "assistantCharacter"
-        );
-
-
-    if (!character) {
-        return;
-    }
-
-
-    if (state) {
-
-        character.classList.add(
-            "speaking"
-        );
-
-
-    } else {
-
-        character.classList.remove(
-            "speaking"
-        );
-    }
 }
 
 
@@ -1846,68 +1793,367 @@ function characterGreeting() {
 }
 
 
-function showInitialGreeting() {
+function setCharacterSpeaking(
+    state
+) {
 
-    const current =
-        getActiveChat();
+    const character =
+        document.getElementById(
+            "assistantCharacter"
+        );
 
 
-    if (
-        !current
-        ||
-        current.uiMessages.length
-        !== 0
-    ) {
+    if (!character) {
         return;
     }
 
 
-    showCharacterBubble(
-        "Привет! Я Wiens AI 👋 Чем могу помочь?"
+    character.classList.toggle(
+        "speaking",
+        state
     );
+}
 
 
-    /*
-      iPhone Safari may block automatic
-      speech before the first user action.
-      Tapping the character will always
-      try the greeting again.
-    */
+function extractUrls(
+    text
+) {
 
-    if (
-        sessionStorage
-        .getItem(
-            GREETING_KEY
+    const matches =
+        String(text)
+        .match(
+            /https?:\/\/[^\s<>"')\]}]+/gi
         )
+        ||
+        [];
+
+
+    const cleaned =
+        matches.map(
+            url =>
+                url.replace(
+                    /[.,;:!?]+$/,
+                    ""
+                )
+        );
+
+
+    return [
+        ...new Set(cleaned)
+    ];
+}
+
+
+function getHostname(
+    url
+) {
+
+    try {
+
+        return new URL(
+            url
+        ).hostname
+        .replace(
+            /^www\./,
+            ""
+        );
+
+
+    } catch (error) {
+
+        return "Источник";
+    }
+}
+
+
+function appendLinkedText(
+    container,
+    text
+) {
+
+    const value =
+        String(text);
+
+
+    const regex =
+        /https?:\/\/[^\s<>"')\]}]+/gi;
+
+
+    let lastIndex =
+        0;
+
+
+    let match;
+
+
+    while (
+        (
+            match =
+                regex.exec(value)
+        )
+        !== null
     ) {
+
+        if (
+            match.index
+            >
+            lastIndex
+        ) {
+
+            container.appendChild(
+                document.createTextNode(
+                    value.slice(
+                        lastIndex,
+                        match.index
+                    )
+                )
+            );
+        }
+
+
+        let url =
+            match[0];
+
+
+        const punctuation =
+            url.match(
+                /[.,;:!?]+$/
+            );
+
+
+        if (punctuation) {
+
+            url =
+                url.slice(
+                    0,
+                    -punctuation[0].length
+                );
+        }
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            url;
+
+
+        link.target =
+            "_blank";
+
+
+        link.rel =
+            "noopener noreferrer";
+
+
+        link.textContent =
+            url;
+
+
+        container.appendChild(
+            link
+        );
+
+
+        if (punctuation) {
+
+            container.appendChild(
+                document.createTextNode(
+                    punctuation[0]
+                )
+            );
+        }
+
+
+        lastIndex =
+            match.index
+            +
+            match[0].length;
+    }
+
+
+    if (
+        lastIndex
+        <
+        value.length
+    ) {
+
+        container.appendChild(
+            document.createTextNode(
+                value.slice(
+                    lastIndex
+                )
+            )
+        );
+    }
+}
+
+
+function addSources(
+    row,
+    text
+) {
+
+    const urls =
+        extractUrls(
+            text
+        );
+
+
+    if (
+        urls.length
+        === 0
+    ) {
+
         return;
     }
 
 
-    sessionStorage.setItem(
-        GREETING_KEY,
-        "1"
+    const wrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    wrapper.className =
+        "sources";
+
+
+    const title =
+        document.createElement(
+            "div"
+        );
+
+
+    title.className =
+        "sources-title";
+
+
+    title.textContent =
+        "Источники";
+
+
+    wrapper.appendChild(
+        title
     );
 
 
-    setTimeout(
-        () => {
+    urls
+    .slice(
+        0,
+        5
+    )
+    .forEach(
+        url => {
 
-            try {
-
-                speakText(
-                    "Привет! Я Wiens AI. Чем могу помочь?"
+            const card =
+                document.createElement(
+                    "a"
                 );
 
-            } catch (error) {
 
-                console.log(
-                    "Automatic greeting blocked"
+            card.className =
+                "source-card";
+
+
+            card.href =
+                url;
+
+
+            card.target =
+                "_blank";
+
+
+            card.rel =
+                "noopener noreferrer";
+
+
+            const icon =
+                document.createElement(
+                    "div"
                 );
-            }
 
-        },
-        500
+
+            icon.className =
+                "source-icon";
+
+
+            icon.textContent =
+                "🌐";
+
+
+            const content =
+                document.createElement(
+                    "div"
+                );
+
+
+            content.className =
+                "source-text";
+
+
+            const host =
+                document.createElement(
+                    "div"
+                );
+
+
+            host.className =
+                "source-host";
+
+
+            host.textContent =
+                getHostname(
+                    url
+                );
+
+
+            const address =
+                document.createElement(
+                    "div"
+                );
+
+
+            address.className =
+                "source-url";
+
+
+            address.textContent =
+                url;
+
+
+            content.appendChild(
+                host
+            );
+
+
+            content.appendChild(
+                address
+            );
+
+
+            card.appendChild(
+                icon
+            );
+
+
+            card.appendChild(
+                content
+            );
+
+
+            wrapper.appendChild(
+                card
+            );
+        }
+    );
+
+
+    row.appendChild(
+        wrapper
     );
 }
 
@@ -1939,24 +2185,43 @@ function addTextMessage(
         );
 
 
-    const bubble =
+    const message =
         document.createElement(
             "div"
         );
 
 
-    bubble.className =
+    message.className =
         "message "
         +
         role;
 
 
-    bubble.textContent =
-        text;
+    if (
+        role
+        === "assistant"
+        &&
+        !String(text)
+        .includes(
+            "Wiens AI думает"
+        )
+    ) {
+
+        appendLinkedText(
+            message,
+            text
+        );
+
+
+    } else {
+
+        message.textContent =
+            text;
+    }
 
 
     row.appendChild(
-        bubble
+        message
     );
 
 
@@ -1964,27 +2229,27 @@ function addTextMessage(
         role
         === "assistant"
         &&
-        !bubble.classList
+        !message.classList
         .contains(
             "thinking"
         )
     ) {
 
-        const button =
+        const speak =
             document.createElement(
                 "button"
             );
 
 
-        button.className =
+        speak.className =
             "speak-message";
 
 
-        button.textContent =
+        speak.textContent =
             "🔊";
 
 
-        button.onclick =
+        speak.onclick =
             () =>
                 speakText(
                     text
@@ -1992,7 +2257,13 @@ function addTextMessage(
 
 
         row.appendChild(
-            button
+            speak
+        );
+
+
+        addSources(
+            row,
+            text
         );
     }
 
@@ -2450,14 +2721,9 @@ function newChat() {
         === 0
     ) {
 
-        closeDrawer();
-
         renderCurrentChat();
 
-        setTimeout(
-            showInitialGreeting,
-            100
-        );
+        closeDrawer();
 
         return;
     }
@@ -2493,12 +2759,6 @@ function newChat() {
 
 
     closeDrawer();
-
-
-    setTimeout(
-        showInitialGreeting,
-        150
-    );
 }
 
 
@@ -2511,6 +2771,7 @@ function deleteChat(
             "Удалить чат?"
         )
     ) {
+
         return;
     }
 
@@ -2712,7 +2973,8 @@ fileInput.addEventListener(
 
 
         if (
-            type === "image"
+            type
+            === "image"
         ) {
 
             selectedImageURL =
@@ -2808,9 +3070,7 @@ function removeSelectedAttachment(
         "none";
 
 
-    attachmentPreviewArea
-    .style
-    .display =
+    attachmentPreviewArea.style.display =
         "none";
 
 
@@ -2834,7 +3094,8 @@ async function sendMessage(
 
     const text =
         (
-            customText !== null
+            customText
+            !== null
             ?
             customText
             :
@@ -3529,7 +3790,7 @@ async function toggleRecording() {
 
 
         recordingText.textContent =
-            "Запись голоса… нажмите ⏹️ для отправки";
+            "Запись голоса… нажмите ⏹️";
 
 
     } catch (error) {
@@ -3677,49 +3938,11 @@ function chooseVoice(
         );
 
 
-    if (
-        matching.length
-        === 0
-    ) {
-
-        return null;
-    }
-
-
-    const preferredWords = [
-        "premium",
-        "enhanced",
-        "siri",
-        "milena",
-        "katja",
-        "anna",
-        "daniel"
-    ];
-
-
-    for (
-        const keyword
-        of preferredWords
-    ) {
-
-        const found =
-            matching.find(
-                voice =>
-                    voice.name
-                    .toLowerCase()
-                    .includes(
-                        keyword
-                    )
-            );
-
-
-        if (found) {
-            return found;
-        }
-    }
-
-
-    return matching[0];
+    return (
+        matching[0]
+        ||
+        null
+    );
 }
 
 
@@ -3808,15 +4031,15 @@ function speakText(
 
 
     utterance.rate =
-        0.96;
+        .96;
 
 
     utterance.pitch =
-        0.95;
+        .95;
 
 
     utterance.onstart =
-        function() {
+        () => {
 
             setCharacterSpeaking(
                 true
@@ -3825,7 +4048,7 @@ function speakText(
 
 
     utterance.onend =
-        function() {
+        () => {
 
             setCharacterSpeaking(
                 false
@@ -3834,7 +4057,7 @@ function speakText(
 
 
     utterance.onerror =
-        function() {
+        () => {
 
             setCharacterSpeaking(
                 false
@@ -3864,21 +4087,15 @@ function toggleSpeech() {
         "🔇";
 
 
-    if (
+    speakerButton.classList.toggle(
+        "speaker-on",
         speechEnabled
+    );
+
+
+    if (
+        !speechEnabled
     ) {
-
-        speakerButton.classList.add(
-            "speaker-on"
-        );
-
-
-    } else {
-
-        speakerButton.classList.remove(
-            "speaker-on"
-        );
-
 
         window
         .speechSynthesis
@@ -3956,32 +4173,6 @@ if (
             );
         }
     );
-}
-
-
-/*
-Wait for iPhone voices to load.
-*/
-
-if (
-    "speechSynthesis"
-    in window
-) {
-
-    window
-    .speechSynthesis
-    .getVoices();
-
-
-    window
-    .speechSynthesis
-    .onvoiceschanged =
-        function() {
-
-            window
-            .speechSynthesis
-            .getVoices();
-        };
 }
 
 
