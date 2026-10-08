@@ -18,7 +18,6 @@
         }
 
         :root {
-            --bg: #07080d;
             --panel: rgba(20, 20, 30, 0.92);
             --border: rgba(255,255,255,0.10);
             --text: #ffffff;
@@ -28,7 +27,8 @@
             --danger: #ff4d67;
         }
 
-        html, body {
+        html,
+        body {
             height: 100%;
         }
 
@@ -95,6 +95,7 @@
         .mini-logo {
             width: 38px;
             height: 38px;
+
             border-radius: 11px;
             object-fit: cover;
 
@@ -203,21 +204,22 @@
         .message-row {
             display: flex;
             flex-direction: column;
-            max-width: 88%;
+            max-width: 90%;
         }
 
-        .message-row.user-row {
+        .user-row {
             align-self: flex-end;
             align-items: flex-end;
         }
 
-        .message-row.assistant-row {
+        .assistant-row {
             align-self: flex-start;
             align-items: flex-start;
         }
 
         .message {
             padding: 12px 15px;
+
             border-radius: 19px;
 
             line-height: 1.45;
@@ -248,6 +250,21 @@
             color: var(--muted);
         }
 
+        .chat-image {
+            display: block;
+
+            max-width: min(290px, 75vw);
+            max-height: 360px;
+
+            object-fit: contain;
+
+            border-radius: 17px;
+
+            margin-bottom: 7px;
+
+            border: 1px solid var(--border);
+        }
+
         .speak-message {
             margin-top: 5px;
 
@@ -274,7 +291,9 @@
         .recording-dot {
             width: 9px;
             height: 9px;
+
             border-radius: 50%;
+
             background: var(--danger);
 
             animation: pulse 1s infinite;
@@ -285,6 +304,55 @@
                 opacity: .3;
                 transform: scale(.8);
             }
+        }
+
+        .image-preview-area {
+            display: none;
+
+            padding:
+                8px
+                14px
+                0;
+
+            flex-shrink: 0;
+        }
+
+        .preview-card {
+            position: relative;
+            width: 90px;
+        }
+
+        #imagePreview {
+            display: block;
+
+            width: 90px;
+            height: 90px;
+
+            object-fit: cover;
+
+            border-radius: 16px;
+
+            border: 1px solid var(--border);
+        }
+
+        .remove-image {
+            position: absolute;
+
+            top: -7px;
+            right: -7px;
+
+            width: 25px;
+            height: 25px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: #353542;
+            color: white;
+
+            font-size: 15px;
+
+            cursor: pointer;
         }
 
         .input-area {
@@ -331,6 +399,7 @@
             padding: 11px 6px;
 
             background: transparent;
+
             border: none;
             outline: none;
 
@@ -354,14 +423,11 @@
             border-radius: 14px;
 
             font-size: 19px;
+
             cursor: pointer;
         }
 
-        .attach {
-            background: rgba(255,255,255,.06);
-            color: white;
-        }
-
+        .attach,
         .mic {
             background: rgba(255,255,255,.06);
             color: white;
@@ -388,8 +454,11 @@
 
         .input-note {
             text-align: center;
+
             color: #5f5f6b;
+
             font-size: 10px;
+
             margin-top: 6px;
         }
 
@@ -398,8 +467,9 @@
         }
 
         @media (max-width: 600px) {
-            .message-row {
-                max-width: 90%;
+
+            .new-chat-text {
+                display: none;
             }
 
             .welcome h1 {
@@ -409,10 +479,6 @@
             .hero-logo {
                 width: 105px;
                 height: 105px;
-            }
-
-            .new-chat-text {
-                display: none;
             }
         }
     </style>
@@ -446,9 +512,8 @@
 
             <button
                 id="speakerButton"
-                class="header-button"
+                class="header-button speaker-on"
                 onclick="toggleSpeech()"
-                title="Озвучивание ответов"
             >
                 🔊
             </button>
@@ -481,37 +546,20 @@
                 alt="Wiens AI"
             >
 
-            <h1>
-                Wiens AI
-            </h1>
+            <h1>Wiens AI</h1>
 
             <p>
-                Чем я могу помочь?
-                <br>
-                Напишите или отправьте голосовое сообщение.
+                Напишите, скажите голосом
+                или отправьте фотографию.
             </p>
 
             <div class="features">
 
-                <div class="feature">
-                    🧠 AI
-                </div>
-
-                <div class="feature">
-                    🌐 Internet
-                </div>
-
-                <div class="feature">
-                    🎙️ Voice
-                </div>
-
-                <div class="feature">
-                    🔊 Speech
-                </div>
-
-                <div class="feature">
-                    🇷🇺 🇩🇪 🇬🇧
-                </div>
+                <div class="feature">🧠 AI</div>
+                <div class="feature">🌐 Internet</div>
+                <div class="feature">📷 Vision</div>
+                <div class="feature">🎙️ Voice</div>
+                <div class="feature">🔊 Speech</div>
 
             </div>
 
@@ -532,6 +580,30 @@
     </div>
 
 
+    <div
+        class="image-preview-area"
+        id="imagePreviewArea"
+    >
+
+        <div class="preview-card">
+
+            <img
+                id="imagePreview"
+                alt="Selected image"
+            >
+
+            <button
+                class="remove-image"
+                onclick="removeSelectedImage()"
+            >
+                ×
+            </button>
+
+        </div>
+
+    </div>
+
+
     <div class="input-area">
 
         <div class="input-box">
@@ -543,7 +615,7 @@
                     .getElementById('fileInput')
                     .click()
                 "
-                title="Добавить изображение"
+                title="Добавить фото"
             >
                 ＋
             </button>
@@ -564,7 +636,6 @@
                 class="icon-button mic"
                 id="micButton"
                 onclick="toggleRecording()"
-                title="Голосовое сообщение"
             >
                 🎙️
             </button>
@@ -611,6 +682,15 @@ const recordingText =
 const speakerButton =
     document.getElementById("speakerButton");
 
+const fileInput =
+    document.getElementById("fileInput");
+
+const imagePreviewArea =
+    document.getElementById("imagePreviewArea");
+
+const imagePreview =
+    document.getElementById("imagePreview");
+
 
 let history = [];
 
@@ -622,8 +702,12 @@ let recording = false;
 
 let speechEnabled = true;
 
+let selectedImage = null;
 
-function addMessage(text, role) {
+let selectedImageURL = null;
+
+
+function removeWelcome() {
 
     const welcome =
         document.getElementById("welcome");
@@ -631,6 +715,15 @@ function addMessage(text, role) {
     if (welcome) {
         welcome.remove();
     }
+}
+
+
+function addTextMessage(
+    text,
+    role
+) {
+
+    removeWelcome();
 
 
     const row =
@@ -652,43 +745,208 @@ function addMessage(text, role) {
     message.className =
         "message " + role;
 
-    message.textContent = text;
+    message.textContent =
+        text;
 
-    row.appendChild(message);
+
+    row.appendChild(
+        message
+    );
 
 
     if (
         role === "assistant"
         &&
-        !message.classList.contains("thinking")
+        !message.classList.contains(
+            "thinking"
+        )
     ) {
 
         const speak =
-            document.createElement("button");
+            document.createElement(
+                "button"
+            );
 
         speak.className =
             "speak-message";
 
-        speak.textContent = "🔊";
-
-        speak.title =
-            "Озвучить ответ";
+        speak.textContent =
+            "🔊";
 
         speak.onclick =
             function() {
                 speakText(text);
             };
 
-        row.appendChild(speak);
+
+        row.appendChild(
+            speak
+        );
     }
 
 
-    chat.appendChild(row);
+    chat.appendChild(
+        row
+    );
+
 
     chat.scrollTop =
         chat.scrollHeight;
 
+
     return row;
+}
+
+
+function addImageMessage(
+    imageURL,
+    text
+) {
+
+    removeWelcome();
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+    row.className =
+        "message-row user-row";
+
+
+    const image =
+        document.createElement(
+            "img"
+        );
+
+    image.className =
+        "chat-image";
+
+    image.src =
+        imageURL;
+
+
+    row.appendChild(
+        image
+    );
+
+
+    if (text) {
+
+        const message =
+            document.createElement(
+                "div"
+            );
+
+        message.className =
+            "message user";
+
+        message.textContent =
+            text;
+
+        row.appendChild(
+            message
+        );
+    }
+
+
+    chat.appendChild(
+        row
+    );
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+}
+
+
+fileInput.addEventListener(
+    "change",
+    function() {
+
+        const file =
+            fileInput.files[0];
+
+
+        if (!file) {
+            return;
+        }
+
+
+        if (
+            !file.type.startsWith(
+                "image/"
+            )
+        ) {
+
+            alert(
+                "Пожалуйста, выберите изображение."
+            );
+
+            fileInput.value = "";
+
+            return;
+        }
+
+
+        selectedImage =
+            file;
+
+
+        if (selectedImageURL) {
+
+            URL.revokeObjectURL(
+                selectedImageURL
+            );
+        }
+
+
+        selectedImageURL =
+            URL.createObjectURL(
+                file
+            );
+
+
+        imagePreview.src =
+            selectedImageURL;
+
+
+        imagePreviewArea.style.display =
+            "block";
+
+
+        input.placeholder =
+            "Спросите что-нибудь о фото...";
+    }
+);
+
+
+function removeSelectedImage() {
+
+    selectedImage = null;
+
+    fileInput.value = "";
+
+
+    if (selectedImageURL) {
+
+        URL.revokeObjectURL(
+            selectedImageURL
+        );
+
+        selectedImageURL = null;
+    }
+
+
+    imagePreview.src = "";
+
+    imagePreviewArea.style.display =
+        "none";
+
+
+    input.placeholder =
+        "Сообщение Wiens AI...";
 }
 
 
@@ -704,12 +962,26 @@ async function sendMessage(
         ).trim();
 
 
-    if (!text) {
+    if (
+        !text
+        &&
+        !selectedImage
+    ) {
         return;
     }
 
 
-    addMessage(
+    if (selectedImage) {
+
+        await sendImageMessage(
+            text
+        );
+
+        return;
+    }
+
+
+    addTextMessage(
         text,
         "user"
     );
@@ -717,13 +989,16 @@ async function sendMessage(
 
     input.value = "";
 
-    input.style.height = "auto";
+    input.style.height =
+        "auto";
 
-    sendButton.disabled = true;
+
+    sendButton.disabled =
+        true;
 
 
     const thinking =
-        addMessage(
+        addTextMessage(
             "Wiens AI думает…",
             "assistant thinking"
         );
@@ -744,8 +1019,11 @@ async function sendMessage(
 
                     body:
                         JSON.stringify({
-                            message: text,
-                            history: history
+                            message:
+                                text,
+
+                            history:
+                                history
                         })
                 }
             );
@@ -760,7 +1038,7 @@ async function sendMessage(
 
         if (!response.ok) {
 
-            addMessage(
+            addTextMessage(
                 data.error ||
                 "Произошла ошибка.",
                 "assistant"
@@ -770,7 +1048,7 @@ async function sendMessage(
         }
 
 
-        addMessage(
+        addTextMessage(
             data.answer,
             "assistant"
         );
@@ -800,14 +1078,169 @@ async function sendMessage(
 
         thinking.remove();
 
-        addMessage(
+
+        addTextMessage(
             "Не удалось связаться с Wiens AI.",
             "assistant"
         );
 
+
     } finally {
 
-        sendButton.disabled = false;
+        sendButton.disabled =
+            false;
+
+        input.focus();
+    }
+}
+
+
+async function sendImageMessage(
+    text
+) {
+
+    const imageFile =
+        selectedImage;
+
+    const imageURL =
+        selectedImageURL;
+
+
+    const question =
+        text ||
+        "Что изображено на этой фотографии?";
+
+
+    addImageMessage(
+        imageURL,
+        text
+    );
+
+
+    input.value = "";
+
+    input.style.height =
+        "auto";
+
+
+    selectedImage = null;
+
+    fileInput.value = "";
+
+    imagePreviewArea.style.display =
+        "none";
+
+    imagePreview.src = "";
+
+    selectedImageURL = null;
+
+
+    input.placeholder =
+        "Сообщение Wiens AI...";
+
+
+    sendButton.disabled =
+        true;
+
+
+    const thinking =
+        addTextMessage(
+            "Wiens AI анализирует изображение…",
+            "assistant thinking"
+        );
+
+
+    try {
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "image",
+            imageFile
+        );
+
+
+        formData.append(
+            "message",
+            question
+        );
+
+
+        const response =
+            await fetch(
+                "/api/vision",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        thinking.remove();
+
+
+        if (!response.ok) {
+
+            addTextMessage(
+                data.error ||
+                "Не удалось проанализировать изображение.",
+                "assistant"
+            );
+
+            return;
+        }
+
+
+        addTextMessage(
+            data.answer,
+            "assistant"
+        );
+
+
+        history.push({
+            role: "user",
+            content:
+                "[Image] "
+                + question
+        });
+
+
+        history.push({
+            role: "assistant",
+            content:
+                data.answer
+        });
+
+
+        if (speechEnabled) {
+
+            speakText(
+                data.answer
+            );
+        }
+
+
+    } catch (error) {
+
+        thinking.remove();
+
+
+        addTextMessage(
+            "Ошибка отправки изображения.",
+            "assistant"
+        );
+
+
+    } finally {
+
+        sendButton.disabled =
+            false;
 
         input.focus();
     }
@@ -821,7 +1254,8 @@ async function toggleRecording() {
         if (
             mediaRecorder
             &&
-            mediaRecorder.state !== "inactive"
+            mediaRecorder.state
+            !== "inactive"
         ) {
 
             mediaRecorder.stop();
@@ -930,7 +1364,8 @@ async function toggleRecording() {
                     new Blob(
                         audioChunks,
                         {
-                            type: mimeType
+                            type:
+                                mimeType
                         }
                     );
 
@@ -947,15 +1382,19 @@ async function toggleRecording() {
 
         recording = true;
 
+
         micButton.classList.add(
             "recording"
         );
 
+
         micButton.textContent =
             "⏹️";
 
+
         recordingBar.style.display =
             "flex";
+
 
         recordingText.textContent =
             "Запись голоса… нажмите ⏹️ для отправки";
@@ -964,7 +1403,7 @@ async function toggleRecording() {
     } catch (error) {
 
         alert(
-            "Не удалось получить доступ к микрофону. Разрешите Safari использовать микрофон."
+            "Разрешите Safari использовать микрофон."
         );
     }
 }
@@ -978,6 +1417,7 @@ async function transcribeAudio(
     recordingBar.style.display =
         "flex";
 
+
     recordingText.textContent =
         "Распознаю голос…";
 
@@ -988,12 +1428,18 @@ async function transcribeAudio(
             new FormData();
 
 
-        let extension = "webm";
+        let extension =
+            "webm";
+
 
         if (
-            mimeType.includes("mp4")
+            mimeType.includes(
+                "mp4"
+            )
         ) {
-            extension = "mp4";
+
+            extension =
+                "mp4";
         }
 
 
@@ -1024,7 +1470,7 @@ async function transcribeAudio(
 
         if (!response.ok) {
 
-            addMessage(
+            addTextMessage(
                 data.error ||
                 "Не удалось распознать голос.",
                 "assistant"
@@ -1047,7 +1493,8 @@ async function transcribeAudio(
         recordingBar.style.display =
             "none";
 
-        addMessage(
+
+        addTextMessage(
             "Ошибка отправки голосового сообщения.",
             "assistant"
         );
@@ -1058,7 +1505,10 @@ async function transcribeAudio(
 function speakText(text) {
 
     if (
-        !("speechSynthesis" in window)
+        !(
+            "speechSynthesis"
+            in window
+        )
     ) {
         return;
     }
@@ -1087,24 +1537,20 @@ function speakText(text) {
         );
 
 
-    const hasCyrillic =
+    if (
         /[А-Яа-яЁё]/.test(
             cleanText
-        );
-
-
-    const hasGerman =
-        /[äöüßÄÖÜ]/.test(
-            cleanText
-        );
-
-
-    if (hasCyrillic) {
+        )
+    ) {
 
         utterance.lang =
             "ru-RU";
 
-    } else if (hasGerman) {
+    } else if (
+        /[äöüßÄÖÜ]/.test(
+            cleanText
+        )
+    ) {
 
         utterance.lang =
             "de-DE";
@@ -1112,16 +1558,12 @@ function speakText(text) {
     } else {
 
         utterance.lang =
-            document.documentElement.lang
-            === "de"
-            ? "de-DE"
-            : "en-US";
+            "en-US";
     }
 
 
-    utterance.rate = 1.0;
-
-    utterance.pitch = 1.0;
+    utterance.rate =
+        1.0;
 
 
     window
@@ -1144,8 +1586,10 @@ function toggleSpeech() {
             .speechSynthesis
             .cancel();
 
+
         speakerButton.textContent =
             "🔇";
+
 
         speakerButton.classList.remove(
             "speaker-on"
@@ -1155,6 +1599,7 @@ function toggleSpeech() {
 
         speakerButton.textContent =
             "🔊";
+
 
         speakerButton.classList.add(
             "speaker-on"
@@ -1166,6 +1611,9 @@ function toggleSpeech() {
 function newChat() {
 
     history = [];
+
+
+    removeSelectedImage();
 
 
     if (
@@ -1197,9 +1645,8 @@ function newChat() {
             </h1>
 
             <p>
-                Чем я могу помочь?
-                <br>
-                Напишите или отправьте голосовое сообщение.
+                Напишите, скажите голосом
+                или отправьте фотографию.
             </p>
 
             <div class="features">
@@ -1213,15 +1660,15 @@ function newChat() {
                 </div>
 
                 <div class="feature">
+                    📷 Vision
+                </div>
+
+                <div class="feature">
                     🎙️ Voice
                 </div>
 
                 <div class="feature">
                     🔊 Speech
-                </div>
-
-                <div class="feature">
-                    🇷🇺 🇩🇪 🇬🇧
                 </div>
 
             </div>
@@ -1256,6 +1703,7 @@ input.addEventListener(
         this.style.height =
             "auto";
 
+
         this.style.height =
             Math.min(
                 this.scrollHeight,
@@ -1263,11 +1711,6 @@ input.addEventListener(
             )
             + "px";
     }
-);
-
-
-speakerButton.classList.add(
-    "speaker-on"
 );
 
 </script>
