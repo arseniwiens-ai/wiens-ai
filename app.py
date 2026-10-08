@@ -41,25 +41,25 @@ You have access to browser search.
 
 Use browser search when the user asks about:
 - current information
+- today's information
 - recent events
 - news
+- weather
 - prices
 - products
 - companies
 - websites
 - travel information
 - schedules
+- opening hours
 - laws or rules that may have changed
 - anything that clearly requires fresh internet information
 
 When browser search is used:
-- base factual claims on the retrieved sources
+- use the retrieved information carefully
+- do not invent facts
 - do not invent sources
-- keep citations from the search in the answer
-- when possible, finish with a short section named
-  "Источники", "Quellen", or "Sources"
-  depending on the user's language
-- include useful source URLs when they are available
+- mention uncertainty if the information is unclear
 
 Never claim that you searched the internet unless
 browser search was actually used.
@@ -106,28 +106,39 @@ Rules:
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template(
+        "index.html"
+    )
 
 
 @app.route("/service-worker.js")
 def service_worker():
+
     response = send_from_directory(
         "static",
         "service-worker.js",
         mimetype="application/javascript"
     )
 
-    response.headers["Cache-Control"] = "no-cache"
+    response.headers[
+        "Cache-Control"
+    ] = "no-cache"
 
     return response
 
 
-@app.route("/api/chat", methods=["POST"])
+@app.route(
+    "/api/chat",
+    methods=["POST"]
+)
 def chat():
+
     try:
+
         data = request.get_json(
             silent=True
         ) or {}
+
 
         message = str(
             data.get(
@@ -136,38 +147,55 @@ def chat():
             )
         ).strip()
 
+
         history = data.get(
             "history",
             []
         )
 
+
         if not message:
+
             return jsonify({
-                "error": "Message is empty"
+                "error":
+                    "Message is empty"
             }), 400
 
 
         messages = [
             {
-                "role": "system",
-                "content": SYSTEM_PROMPT
+                "role":
+                    "system",
+
+                "content":
+                    SYSTEM_PROMPT
             }
         ]
 
 
-        if isinstance(history, list):
+        if isinstance(
+            history,
+            list
+        ):
+
             for item in history:
 
-                if not isinstance(item, dict):
+                if not isinstance(
+                    item,
+                    dict
+                ):
                     continue
+
 
                 role = item.get(
                     "role"
                 )
 
+
                 content = item.get(
                     "content"
                 )
+
 
                 if (
                     role in [
@@ -180,15 +208,22 @@ def chat():
                         str
                     )
                 ):
+
                     messages.append({
-                        "role": role,
-                        "content": content
+                        "role":
+                            role,
+
+                        "content":
+                            content
                     })
 
 
         messages.append({
-            "role": "user",
-            "content": message
+            "role":
+                "user",
+
+            "content":
+                message
         })
 
 
@@ -197,21 +232,26 @@ def chat():
             .chat
             .completions
             .create(
-                model="openai/gpt-oss-120b",
 
-                messages=messages,
+                model=
+                    "openai/gpt-oss-120b",
 
-                temperature=0.6,
+                messages=
+                    messages,
 
-                max_completion_tokens=2200,
+                temperature=
+                    0.6,
 
-                reasoning_effort="low",
+                max_completion_tokens=
+                    2200,
 
-                citation_options="enabled",
+                reasoning_effort=
+                    "low",
 
                 tools=[
                     {
-                        "type": "browser_search"
+                        "type":
+                            "browser_search"
                     }
                 ]
             )
@@ -227,7 +267,8 @@ def chat():
 
 
         return jsonify({
-            "answer": answer
+            "answer":
+                answer
         })
 
 
@@ -238,6 +279,7 @@ def chat():
             e
         )
 
+
         return jsonify({
             "error":
                 "Wiens AI could not answer: "
@@ -245,30 +287,41 @@ def chat():
         }), 500
 
 
-@app.route("/api/document", methods=["POST"])
+@app.route(
+    "/api/document",
+    methods=["POST"]
+)
 def document():
+
     try:
 
         if "document" not in request.files:
 
             return jsonify({
-                "error": "Document is missing"
+                "error":
+                    "Document is missing"
             }), 400
 
 
-        uploaded_file = request.files[
-            "document"
-        ]
+        uploaded_file = (
+            request.files[
+                "document"
+            ]
+        )
 
 
         if not uploaded_file.filename:
 
             return jsonify({
-                "error": "Document is empty"
+                "error":
+                    "Document is empty"
             }), 400
 
 
-        filename = uploaded_file.filename
+        filename = (
+            uploaded_file.filename
+        )
+
 
         filename_lower = (
             filename.lower()
@@ -283,7 +336,8 @@ def document():
         if not file_bytes:
 
             return jsonify({
-                "error": "Document is empty"
+                "error":
+                    "Document is empty"
             }), 400
 
 
@@ -311,15 +365,19 @@ def document():
         if not question:
 
             question = (
-                "Summarize this document and explain "
-                "the most important points."
+                "Summarize this document "
+                "and explain the most "
+                "important points."
             )
 
 
         document_text = ""
 
 
-        if filename_lower.endswith(".pdf"):
+        # PDF
+        if filename_lower.endswith(
+            ".pdf"
+        ):
 
             reader = PdfReader(
                 io.BytesIO(
@@ -327,9 +385,12 @@ def document():
                 )
             )
 
+
             pages = []
 
+
             max_pages = 50
+
 
             for index, page in enumerate(
                 reader.pages[:max_pages]
@@ -360,23 +421,31 @@ def document():
 
             document_text = (
                 "\n"
-                .join(pages)
+                .join(
+                    pages
+                )
                 .strip()
             )
 
 
-        elif filename_lower.endswith(".docx"):
+        # DOCX
+        elif filename_lower.endswith(
+            ".docx"
+        ):
 
-            document = Document(
+            document_file = Document(
                 io.BytesIO(
                     file_bytes
                 )
             )
 
+
             paragraphs = []
 
 
-            for paragraph in document.paragraphs:
+            for paragraph in (
+                document_file.paragraphs
+            ):
 
                 text = (
                     paragraph.text
@@ -393,12 +462,17 @@ def document():
 
             document_text = (
                 "\n"
-                .join(paragraphs)
+                .join(
+                    paragraphs
+                )
                 .strip()
             )
 
 
-        elif filename_lower.endswith(".txt"):
+        # TXT
+        elif filename_lower.endswith(
+            ".txt"
+        ):
 
             encodings = [
                 "utf-8",
@@ -406,6 +480,7 @@ def document():
                 "cp1251",
                 "latin-1"
             ]
+
 
             decoded = None
 
@@ -439,7 +514,8 @@ def document():
 
             return jsonify({
                 "error":
-                    "Supported files: PDF, DOCX and TXT."
+                    "Supported files: "
+                    "PDF, DOCX and TXT."
             }), 400
 
 
@@ -447,8 +523,9 @@ def document():
 
             return jsonify({
                 "error":
-                    "Wiens AI could not extract text "
-                    "from this document."
+                    "Wiens AI could not "
+                    "extract text from "
+                    "this document."
             }), 400
 
 
@@ -462,10 +539,14 @@ def document():
         ):
 
             document_text = (
-                document_text[:max_chars]
+                document_text[
+                    :max_chars
+                ]
                 +
-                "\n\n[Document text was shortened because "
-                "the file is very long.]"
+                "\n\n"
+                "[Document text was "
+                "shortened because the "
+                "file is very long.]"
             )
 
 
@@ -474,15 +555,22 @@ def document():
             .chat
             .completions
             .create(
-                model="openai/gpt-oss-120b",
+
+                model=
+                    "openai/gpt-oss-120b",
 
                 messages=[
                     {
-                        "role": "system",
-                        "content": DOCUMENT_PROMPT
+                        "role":
+                            "system",
+
+                        "content":
+                            DOCUMENT_PROMPT
                     },
                     {
-                        "role": "user",
+                        "role":
+                            "user",
+
                         "content":
                             f"""
 User question:
@@ -497,9 +585,11 @@ Document text:
                     }
                 ],
 
-                temperature=0.4,
+                temperature=
+                    0.4,
 
-                max_completion_tokens=1800
+                max_completion_tokens=
+                    1800
             )
         )
 
@@ -513,8 +603,11 @@ Document text:
 
 
         return jsonify({
-            "answer": answer,
-            "filename": filename
+            "answer":
+                answer,
+
+            "filename":
+                filename
         })
 
 
@@ -525,6 +618,7 @@ Document text:
             e
         )
 
+
         return jsonify({
             "error":
                 "Document analysis error: "
@@ -532,20 +626,27 @@ Document text:
         }), 500
 
 
-@app.route("/api/vision", methods=["POST"])
+@app.route(
+    "/api/vision",
+    methods=["POST"]
+)
 def vision():
+
     try:
 
         if "image" not in request.files:
 
             return jsonify({
-                "error": "Image is missing"
+                "error":
+                    "Image is missing"
             }), 400
 
 
-        image = request.files[
-            "image"
-        ]
+        image = (
+            request.files[
+                "image"
+            ]
+        )
 
 
         question = str(
@@ -559,7 +660,8 @@ def vision():
         if not question:
 
             question = (
-                "Describe this image and explain what you see."
+                "Describe this image "
+                "and explain what you see."
             )
 
 
@@ -571,7 +673,8 @@ def vision():
         if not image_bytes:
 
             return jsonify({
-                "error": "Image is empty"
+                "error":
+                    "Image is empty"
             }), 400
 
 
@@ -583,7 +686,8 @@ def vision():
 
             return jsonify({
                 "error":
-                    "Image is too large. Maximum size is 20 MB."
+                    "Image is too large. "
+                    "Maximum size is 20 MB."
             }), 400
 
 
@@ -616,33 +720,48 @@ def vision():
             .chat
             .completions
             .create(
-                model="qwen/qwen3.8-27b",
+
+                model=
+                    "qwen/qwen3.8-27b",
 
                 messages=[
                     {
-                        "role": "system",
-                        "content": VISION_PROMPT
+                        "role":
+                            "system",
+
+                        "content":
+                            VISION_PROMPT
                     },
                     {
-                        "role": "user",
+                        "role":
+                            "user",
+
                         "content": [
                             {
-                                "type": "text",
-                                "text": question
+                                "type":
+                                    "text",
+
+                                "text":
+                                    question
                             },
                             {
-                                "type": "image_url",
+                                "type":
+                                    "image_url",
+
                                 "image_url": {
-                                    "url": data_url
+                                    "url":
+                                        data_url
                                 }
                             }
                         ]
                     }
                 ],
 
-                temperature=0.7,
+                temperature=
+                    0.7,
 
-                max_completion_tokens=1500
+                max_completion_tokens=
+                    1500
             )
         )
 
@@ -656,7 +775,8 @@ def vision():
 
 
         return jsonify({
-            "answer": answer
+            "answer":
+                answer
         })
 
 
@@ -667,6 +787,7 @@ def vision():
             e
         )
 
+
         return jsonify({
             "error":
                 "Image analysis error: "
@@ -674,7 +795,10 @@ def vision():
         }), 500
 
 
-@app.route("/api/transcribe", methods=["POST"])
+@app.route(
+    "/api/transcribe",
+    methods=["POST"]
+)
 def transcribe():
 
     temp_path = None
@@ -690,9 +814,11 @@ def transcribe():
             }), 400
 
 
-        audio = request.files[
-            "audio"
-        ]
+        audio = (
+            request.files[
+                "audio"
+            ]
+        )
 
 
         if not audio.filename:
@@ -711,17 +837,23 @@ def transcribe():
         )
 
 
-        if filename_lower.endswith(".mp4"):
+        if filename_lower.endswith(
+            ".mp4"
+        ):
 
             suffix = ".mp4"
 
 
-        elif filename_lower.endswith(".m4a"):
+        elif filename_lower.endswith(
+            ".m4a"
+        ):
 
             suffix = ".m4a"
 
 
-        elif filename_lower.endswith(".wav"):
+        elif filename_lower.endswith(
+            ".wav"
+        ):
 
             suffix = ".wav"
 
@@ -734,6 +866,7 @@ def transcribe():
             audio.save(
                 temp_file.name
             )
+
 
             temp_path = (
                 temp_file.name
@@ -750,9 +883,15 @@ def transcribe():
                 .audio
                 .transcriptions
                 .create(
-                    file=audio_file,
-                    model="whisper-large-v3-turbo",
-                    response_format="json"
+
+                    file=
+                        audio_file,
+
+                    model=
+                        "whisper-large-v3-turbo",
+
+                    response_format=
+                        "json"
                 )
             )
 
@@ -765,7 +904,8 @@ def transcribe():
 
 
         return jsonify({
-            "text": text
+            "text":
+                text
         })
 
 
@@ -775,6 +915,7 @@ def transcribe():
             "Wiens AI transcription error:",
             e
         )
+
 
         return jsonify({
             "error":
