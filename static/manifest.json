@@ -1,0 +1,19 @@
+{
+  "name": "Wiens AI",
+  "short_name": "Wiens AI",
+  "description": "Wiens AI multilingual artificial intelligence assistant",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#07080d",
+  "theme_color": "#07080d",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/logo.png.PNG",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
