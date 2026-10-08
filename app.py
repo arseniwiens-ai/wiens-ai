@@ -13,6 +13,7 @@ from flask import (
 
 from groq import Groq
 from pypdf import PdfReader
+from docx import Document
 
 
 app = Flask(__name__)
@@ -36,11 +37,29 @@ Explain difficult things simply.
 
 Your name is Wiens AI.
 
-You have access to browser search when using the
-main text model.
+You have access to browser search.
 
-Use browser search when the user asks about current,
-recent, changing, or internet-based information.
+Use browser search when the user asks about:
+- current information
+- recent events
+- news
+- prices
+- products
+- companies
+- websites
+- travel information
+- schedules
+- laws or rules that may have changed
+- anything that clearly requires fresh internet information
+
+When browser search is used:
+- base factual claims on the retrieved sources
+- do not invent sources
+- keep citations from the search in the answer
+- when possible, finish with a short section named
+  "Источники", "Quellen", or "Sources"
+  depending on the user's language
+- include useful source URLs when they are available
 
 Never claim that you searched the internet unless
 browser search was actually used.
@@ -65,8 +84,8 @@ You can:
 - translate visible text
 - help understand errors shown in screenshots
 
-If something cannot be determined reliably from the
-image, say so instead of guessing.
+If something cannot be determined reliably from the image,
+say so instead of guessing.
 """
 
 
@@ -75,21 +94,19 @@ You are Wiens AI working with a document supplied by the user.
 
 Answer the user's question using the document text below.
 
-Important rules:
+Rules:
 - Answer in the same language as the user's question.
 - Russian, German and English are especially important.
-- Do not invent information that is not present in the document.
-- If the answer cannot be found in the document, clearly say so.
-- You may summarize, explain, translate, extract key points,
-  or answer questions about the document.
+- Do not invent information that is not in the document.
+- If the answer cannot be found, clearly say so.
+- You can summarize, explain, translate, extract key points,
+  and answer questions about the document.
 """
 
 
 @app.route("/")
 def home():
-    return render_template(
-        "index.html"
-    )
+    return render_template("index.html")
 
 
 @app.route("/service-worker.js")
@@ -105,10 +122,7 @@ def service_worker():
     return response
 
 
-@app.route(
-    "/api/chat",
-    methods=["POST"]
-)
+@app.route("/api/chat", methods=["POST"])
 def chat():
     try:
         data = request.get_json(
@@ -132,6 +146,7 @@ def chat():
                 "error": "Message is empty"
             }), 400
 
+
         messages = [
             {
                 "role": "system",
@@ -139,15 +154,11 @@ def chat():
             }
         ]
 
-        if isinstance(
-            history,
-            list
-        ):
+
+        if isinstance(history, list):
             for item in history:
-                if not isinstance(
-                    item,
-                    dict
-                ):
+
+                if not isinstance(item, dict):
                     continue
 
                 role = item.get(
@@ -174,10 +185,12 @@ def chat():
                         "content": content
                     })
 
+
         messages.append({
             "role": "user",
             "content": message
         })
+
 
         response = (
             client
@@ -185,9 +198,17 @@ def chat():
             .completions
             .create(
                 model="openai/gpt-oss-120b",
+
                 messages=messages,
-                temperature=0.7,
-                max_tokens=1500,
+
+                temperature=0.6,
+
+                max_completion_tokens=2200,
+
+                reasoning_effort="low",
+
+                citation_options="enabled",
+
                 tools=[
                     {
                         "type": "browser_search"
@@ -196,6 +217,7 @@ def chat():
             )
         )
 
+
         answer = (
             response
             .choices[0]
@@ -203,11 +225,14 @@ def chat():
             .content
         )
 
+
         return jsonify({
             "answer": answer
         })
 
+
     except Exception as e:
+
         print(
             "Wiens AI chat error:",
             e
@@ -220,46 +245,60 @@ def chat():
         }), 500
 
 
-@app.route(
-    "/api/document",
-    methods=["POST"]
-)
+@app.route("/api/document", methods=["POST"])
 def document():
     try:
+
         if "document" not in request.files:
+
             return jsonify({
                 "error": "Document is missing"
             }), 400
+
 
         uploaded_file = request.files[
             "document"
         ]
 
+
         if not uploaded_file.filename:
+
             return jsonify({
                 "error": "Document is empty"
             }), 400
 
-        filename = uploaded_file.filename.lower()
 
-        if not filename.endswith(".pdf"):
-            return jsonify({
-                "error":
-                    "For now Wiens AI supports PDF files only."
-            }), 400
+        filename = uploaded_file.filename
 
-        file_bytes = uploaded_file.read()
+        filename_lower = (
+            filename.lower()
+        )
+
+
+        file_bytes = (
+            uploaded_file.read()
+        )
+
 
         if not file_bytes:
+
             return jsonify({
-                "error": "PDF file is empty"
+                "error": "Document is empty"
             }), 400
 
-        if len(file_bytes) > 15 * 1024 * 1024:
+
+        if (
+            len(file_bytes)
+            >
+            15 * 1024 * 1024
+        ):
+
             return jsonify({
                 "error":
-                    "PDF is too large. Maximum size is 15 MB."
+                    "Document is too large. "
+                    "Maximum size is 15 MB."
             }), 400
+
 
         question = str(
             request.form.get(
@@ -268,76 +307,167 @@ def document():
             )
         ).strip()
 
+
         if not question:
+
             question = (
-                "Summarize this PDF and explain the most important points."
+                "Summarize this document and explain "
+                "the most important points."
             )
 
-        reader = PdfReader(
-            io.BytesIO(
-                file_bytes
+
+        document_text = ""
+
+
+        if filename_lower.endswith(".pdf"):
+
+            reader = PdfReader(
+                io.BytesIO(
+                    file_bytes
+                )
             )
-        )
 
-        extracted_pages = []
+            pages = []
 
-        max_pages = 50
+            max_pages = 50
 
-        for index, page in enumerate(
-            reader.pages[:max_pages]
-        ):
-            try:
-                text = page.extract_text() or ""
-            except Exception:
-                text = ""
+            for index, page in enumerate(
+                reader.pages[:max_pages]
+            ):
 
-            text = text.strip()
+                try:
 
-            if text:
-                extracted_pages.append(
-                    f"\n--- Page {index + 1} ---\n{text}"
+                    text = (
+                        page.extract_text()
+                        or
+                        ""
+                    )
+
+                except Exception:
+
+                    text = ""
+
+
+                text = text.strip()
+
+
+                if text:
+
+                    pages.append(
+                        f"\n--- Page {index + 1} ---\n{text}"
+                    )
+
+
+            document_text = (
+                "\n"
+                .join(pages)
+                .strip()
+            )
+
+
+        elif filename_lower.endswith(".docx"):
+
+            document = Document(
+                io.BytesIO(
+                    file_bytes
+                )
+            )
+
+            paragraphs = []
+
+
+            for paragraph in document.paragraphs:
+
+                text = (
+                    paragraph.text
+                    .strip()
                 )
 
-        document_text = "\n".join(
-            extracted_pages
-        ).strip()
 
-        if not document_text:
+                if text:
+
+                    paragraphs.append(
+                        text
+                    )
+
+
+            document_text = (
+                "\n"
+                .join(paragraphs)
+                .strip()
+            )
+
+
+        elif filename_lower.endswith(".txt"):
+
+            encodings = [
+                "utf-8",
+                "utf-8-sig",
+                "cp1251",
+                "latin-1"
+            ]
+
+            decoded = None
+
+
+            for encoding in encodings:
+
+                try:
+
+                    decoded = (
+                        file_bytes
+                        .decode(
+                            encoding
+                        )
+                    )
+
+                    break
+
+                except Exception:
+
+                    continue
+
+
+            if decoded:
+
+                document_text = (
+                    decoded.strip()
+                )
+
+
+        else:
+
             return jsonify({
                 "error":
-                    "I could not extract text from this PDF. "
-                    "It may be a scanned PDF or contain only images."
+                    "Supported files: PDF, DOCX and TXT."
             }), 400
+
+
+        if not document_text:
+
+            return jsonify({
+                "error":
+                    "Wiens AI could not extract text "
+                    "from this document."
+            }), 400
+
 
         max_chars = 60000
 
-        if len(document_text) > max_chars:
+
+        if (
+            len(document_text)
+            >
+            max_chars
+        ):
+
             document_text = (
                 document_text[:max_chars]
                 +
-                "\n\n[Document text was shortened because the PDF is very long.]"
+                "\n\n[Document text was shortened because "
+                "the file is very long.]"
             )
 
-        messages = [
-            {
-                "role": "system",
-                "content": DOCUMENT_PROMPT
-            },
-            {
-                "role": "user",
-                "content":
-                    f"""
-User question:
-{question}
-
-PDF file:
-{uploaded_file.filename}
-
-Document text:
-{document_text}
-"""
-            }
-        ]
 
         response = (
             client
@@ -345,11 +475,34 @@ Document text:
             .completions
             .create(
                 model="openai/gpt-oss-120b",
-                messages=messages,
+
+                messages=[
+                    {
+                        "role": "system",
+                        "content": DOCUMENT_PROMPT
+                    },
+                    {
+                        "role": "user",
+                        "content":
+                            f"""
+User question:
+{question}
+
+File:
+{filename}
+
+Document text:
+{document_text}
+"""
+                    }
+                ],
+
                 temperature=0.4,
-                max_tokens=1800
+
+                max_completion_tokens=1800
             )
         )
+
 
         answer = (
             response
@@ -358,16 +511,15 @@ Document text:
             .content
         )
 
+
         return jsonify({
             "answer": answer,
-            "filename": uploaded_file.filename,
-            "pages_read": min(
-                len(reader.pages),
-                max_pages
-            )
+            "filename": filename
         })
 
+
     except Exception as e:
+
         print(
             "Wiens AI document error:",
             e
@@ -380,20 +532,21 @@ Document text:
         }), 500
 
 
-@app.route(
-    "/api/vision",
-    methods=["POST"]
-)
+@app.route("/api/vision", methods=["POST"])
 def vision():
     try:
+
         if "image" not in request.files:
+
             return jsonify({
                 "error": "Image is missing"
             }), 400
 
+
         image = request.files[
             "image"
         ]
+
 
         question = str(
             request.form.get(
@@ -402,35 +555,44 @@ def vision():
             )
         ).strip()
 
+
         if not question:
+
             question = (
-                "Describe this image "
-                "and explain what you see."
+                "Describe this image and explain what you see."
             )
 
-        image_bytes = image.read()
+
+        image_bytes = (
+            image.read()
+        )
+
 
         if not image_bytes:
+
             return jsonify({
                 "error": "Image is empty"
             }), 400
+
 
         if (
             len(image_bytes)
             >
             20 * 1024 * 1024
         ):
+
             return jsonify({
                 "error":
-                    "Image is too large. "
-                    "Maximum size is 20 MB."
+                    "Image is too large. Maximum size is 20 MB."
             }), 400
+
 
         mime_type = (
             image.mimetype
             or
             "image/jpeg"
         )
+
 
         encoded_image = (
             base64
@@ -442,10 +604,12 @@ def vision():
             )
         )
 
+
         data_url = (
             f"data:{mime_type};"
             f"base64,{encoded_image}"
         )
+
 
         response = (
             client
@@ -453,6 +617,7 @@ def vision():
             .completions
             .create(
                 model="qwen/qwen3.8-27b",
+
                 messages=[
                     {
                         "role": "system",
@@ -474,10 +639,13 @@ def vision():
                         ]
                     }
                 ],
+
                 temperature=0.7,
-                max_tokens=1500
+
+                max_completion_tokens=1500
             )
         )
+
 
         answer = (
             response
@@ -486,11 +654,14 @@ def vision():
             .content
         )
 
+
         return jsonify({
             "answer": answer
         })
 
+
     except Exception as e:
+
         print(
             "Wiens AI vision error:",
             e
@@ -503,73 +674,77 @@ def vision():
         }), 500
 
 
-@app.route(
-    "/api/transcribe",
-    methods=["POST"]
-)
+@app.route("/api/transcribe", methods=["POST"])
 def transcribe():
+
     temp_path = None
 
+
     try:
+
         if "audio" not in request.files:
+
             return jsonify({
                 "error":
                     "Audio file is missing"
             }), 400
 
+
         audio = request.files[
             "audio"
         ]
 
+
         if not audio.filename:
+
             return jsonify({
                 "error":
                     "Audio file is empty"
             }), 400
 
+
         suffix = ".webm"
 
-        if (
-            audio.filename
-            .lower()
-            .endswith(
-                ".mp4"
-            )
-        ):
+
+        filename_lower = (
+            audio.filename.lower()
+        )
+
+
+        if filename_lower.endswith(".mp4"):
+
             suffix = ".mp4"
 
-        elif (
-            audio.filename
-            .lower()
-            .endswith(
-                ".m4a"
-            )
-        ):
+
+        elif filename_lower.endswith(".m4a"):
+
             suffix = ".m4a"
 
-        elif (
-            audio.filename
-            .lower()
-            .endswith(
-                ".wav"
-            )
-        ):
+
+        elif filename_lower.endswith(".wav"):
+
             suffix = ".wav"
+
 
         with tempfile.NamedTemporaryFile(
             delete=False,
             suffix=suffix
         ) as temp_file:
+
             audio.save(
                 temp_file.name
             )
 
-            temp_path = temp_file.name
+            temp_path = (
+                temp_file.name
+            )
+
 
         with open(
             temp_path,
             "rb"
         ) as audio_file:
+
             transcription = (
                 client
                 .audio
@@ -581,17 +756,21 @@ def transcribe():
                 )
             )
 
+
         text = (
             transcription
             .text
             .strip()
         )
 
+
         return jsonify({
             "text": text
         })
 
+
     except Exception as e:
+
         print(
             "Wiens AI transcription error:",
             e
@@ -603,7 +782,9 @@ def transcribe():
                 + str(e)
         }), 500
 
+
     finally:
+
         if (
             temp_path
             and
@@ -611,22 +792,27 @@ def transcribe():
                 temp_path
             )
         ):
+
             try:
+
                 os.remove(
                     temp_path
                 )
 
             except Exception:
+
                 pass
 
 
 if __name__ == "__main__":
+
     port = int(
         os.environ.get(
             "PORT",
             10000
         )
     )
+
 
     app.run(
         host="0.0.0.0",
