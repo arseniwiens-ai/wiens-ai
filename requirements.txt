@@ -1,2 +1,2 @@
 gradio
-huggingface_hub
+groq
