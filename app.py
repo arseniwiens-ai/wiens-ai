@@ -1,52 +1,61 @@
 import os
 import gradio as gr
-from huggingface_hub import InferenceClient
+from groq import Groq
 
-client = InferenceClient(
-    api_key=os.environ.get("HF_TOKEN")
+client = Groq(
+    api_key=os.environ.get("GROQ_API_KEY")
 )
-
-MODEL = "Qwen/Qwen2.5-72B-Instruct"
 
 SYSTEM_PROMPT = """
 You are Wiens AI, a helpful multilingual AI assistant.
 
-Always answer in the same language as the user.
-You understand Russian, German and English.
-Give clear, useful and natural answers.
-Remember the context of the current conversation.
-If you do not know something, say so instead of inventing facts.
+Automatically detect the language of the user.
+If the user writes in Russian, answer in Russian.
+If the user writes in German, answer in German.
+If the user writes in English, answer in English.
+If the user uses another language, answer in that language when possible.
+
+Be helpful, clear, friendly, and concise.
 """
 
-def respond(message, history):
-    messages = [
-        {
-            "role": "system",
-            "content": SYSTEM_PROMPT
-        }
-    ]
-
-    for item in history:
-        if isinstance(item, dict):
-            messages.append(item)
-
-    messages.append({
-        "role": "user",
-        "content": message
-    })
-
+def chat(message, history):
     try:
+        messages = [
+            {"role": "system", "content": SYSTEM_PROMPT}
+        ]
+
+        for item in history:
+            if isinstance(item, dict):
+                messages.append({
+                    "role": item["role"],
+                    "content": item["content"]
+                })
+            elif isinstance(item, (list, tuple)) and len(item) == 2:
+                messages.append({
+                    "role": "user",
+                    "content": item[0]
+                })
+                messages.append({
+                    "role": "assistant",
+                    "content": item[1]
+                })
+
+        messages.append({
+            "role": "user",
+            "content": message
+        })
+
         response = client.chat.completions.create(
-            model=MODEL,
+            model="llama-3.3-70b-versatile",
             messages=messages,
-            max_tokens=700,
-            temperature=0.7
+            temperature=0.7,
+            max_tokens=1024
         )
 
         return response.choices[0].message.content
 
-    except Exception as error:
-        return f"AI connection error: {error}"
+    except Exception as e:
+        return f"AI connection error: {str(e)}"
 
 
 css = """
@@ -55,48 +64,34 @@ css = """
     margin: auto !important;
 }
 
-#title {
+h1 {
     text-align: center;
-    margin-bottom: 0;
+    font-size: 42px !important;
+    margin-bottom: 5px !important;
 }
 
-#subtitle {
+.subtitle {
     text-align: center;
     opacity: 0.7;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 """
 
+with gr.Blocks(css=css, title="Wiens AI") as demo:
 
-with gr.Blocks(
-    title="Wiens AI",
-    css=css,
-    theme=gr.themes.Soft()
-) as demo:
-
-    gr.Markdown(
-        "# ✦ Wiens AI",
-        elem_id="title"
-    )
-
-    gr.Markdown(
-        "Русский • Deutsch • English",
-        elem_id="subtitle"
+    gr.Markdown("# ✦ Wiens AI")
+    gr.HTML(
+        '<div class="subtitle">Русский · Deutsch · English</div>'
     )
 
     gr.ChatInterface(
-        fn=respond,
-        chatbot=gr.Chatbot(
-            height=520,
-            placeholder="<h3>Wiens AI</h3><p>Чем могу помочь?</p>"
-        ),
-        textbox=gr.Textbox(
-            placeholder="Напишите сообщение...",
-            container=False
-        ),
-        submit_btn="➤"
+        fn=chat,
+        examples=[
+            "Привет! Что ты умеешь?",
+            "Hallo! Wer bist du?",
+            "Hello! What can you do?"
+        ]
     )
-
 
 demo.launch(
     server_name="0.0.0.0",
