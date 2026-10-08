@@ -18,9 +18,7 @@
         }
 
         :root {
-            --bg: #07080d;
-            --panel: rgba(20, 20, 30, 0.94);
-            --panel2: #101019;
+            --panel: rgba(20, 20, 30, 0.92);
             --border: rgba(255,255,255,0.10);
             --text: #ffffff;
             --muted: #9696a5;
@@ -55,15 +53,6 @@
             overflow: hidden;
         }
 
-        button,
-        textarea {
-            font: inherit;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
         .app {
             height: 100dvh;
             max-width: 900px;
@@ -83,48 +72,23 @@
 
             padding:
                 calc(8px + env(safe-area-inset-top))
-                12px
+                14px
                 8px;
 
-            border-bottom:
-                1px solid var(--border);
+            border-bottom: 1px solid var(--border);
 
-            background:
-                rgba(7,8,13,0.65);
+            background: rgba(7,8,13,0.60);
 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .menu-button {
-            width: 40px;
-            height: 40px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.06);
-
-            color: white;
-
-            font-size: 20px;
-        }
-
         .brand {
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 10px;
 
-            font-size: 19px;
+            font-size: 20px;
             font-weight: 750;
         }
 
@@ -133,12 +97,10 @@
             height: 38px;
 
             border-radius: 11px;
-
             object-fit: cover;
 
             box-shadow:
-                0 0 20px
-                rgba(117,92,255,.45);
+                0 0 20px rgba(117,92,255,0.45);
         }
 
         .online {
@@ -153,19 +115,15 @@
         }
 
         .header-button {
-            min-height: 40px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.06);
+            color: white;
 
+            min-height: 38px;
             padding: 8px 11px;
 
-            border:
-                1px solid var(--border);
-
             border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.06);
-
-            color: white;
+            cursor: pointer;
         }
 
         .speaker-on {
@@ -179,11 +137,9 @@
 
         #chat {
             flex: 1;
-
             overflow-y: auto;
 
-            padding:
-                25px 16px 20px;
+            padding: 25px 16px 20px;
 
             display: flex;
             flex-direction: column;
@@ -194,40 +150,34 @@
 
         .welcome {
             margin: auto;
-
             text-align: center;
-
             max-width: 520px;
-
             padding: 20px;
         }
 
         .hero-logo {
-            width: 110px;
-            height: 110px;
+            width: 115px;
+            height: 115px;
 
             border-radius: 27px;
-
             object-fit: cover;
 
             box-shadow:
-                0 0 35px
-                rgba(117,92,255,.38);
+                0 0 35px rgba(117,92,255,.38),
+                0 18px 50px rgba(0,0,0,.4);
 
             margin-bottom: 20px;
         }
 
         .welcome h1 {
             font-size: 34px;
-
+            letter-spacing: -1px;
             margin-bottom: 8px;
         }
 
         .welcome p {
             color: var(--muted);
-
             line-height: 1.5;
-
             font-size: 15px;
         }
 
@@ -235,34 +185,25 @@
             margin-top: 20px;
 
             display: flex;
-
             justify-content: center;
-
             flex-wrap: wrap;
-
             gap: 8px;
         }
 
         .feature {
-            background:
-                rgba(255,255,255,.055);
-
-            border:
-                1px solid var(--border);
-
+            background: rgba(255,255,255,.055);
+            border: 1px solid var(--border);
             border-radius: 20px;
 
             padding: 7px 11px;
 
             color: #b7b7c5;
-
             font-size: 12px;
         }
 
         .message-row {
             display: flex;
             flex-direction: column;
-
             max-width: 90%;
         }
 
@@ -282,11 +223,9 @@
             border-radius: 19px;
 
             line-height: 1.45;
-
             font-size: 15px;
 
             white-space: pre-wrap;
-
             overflow-wrap: anywhere;
         }
 
@@ -303,10 +242,7 @@
 
         .assistant {
             background: var(--panel);
-
-            border:
-                1px solid var(--border);
-
+            border: 1px solid var(--border);
             border-bottom-left-radius: 6px;
         }
 
@@ -324,52 +260,31 @@
 
             border-radius: 17px;
 
-            border:
-                1px solid var(--border);
-
-            margin-bottom: 7px;
-        }
-
-        .image-placeholder {
-            padding: 18px;
-
-            border-radius: 16px;
-
-            background:
-                rgba(255,255,255,.06);
-
-            border:
-                1px solid var(--border);
-
             margin-bottom: 7px;
 
-            color: var(--muted);
+            border: 1px solid var(--border);
         }
 
         .speak-message {
             margin-top: 5px;
 
             border: none;
-
             background: transparent;
-
-            color: #aaaabb;
+            color: #9e9eae;
 
             font-size: 17px;
+            cursor: pointer;
         }
 
         .recording-bar {
             display: none;
-
             align-items: center;
             justify-content: center;
-
             gap: 8px;
 
             padding: 8px;
 
             color: #ff8294;
-
             font-size: 13px;
         }
 
@@ -381,13 +296,13 @@
 
             background: var(--danger);
 
-            animation:
-                pulse 1s infinite;
+            animation: pulse 1s infinite;
         }
 
         @keyframes pulse {
             50% {
                 opacity: .3;
+                transform: scale(.8);
             }
         }
 
@@ -398,15 +313,18 @@
                 8px
                 14px
                 0;
+
+            flex-shrink: 0;
         }
 
         .preview-card {
             position: relative;
-
             width: 90px;
         }
 
         #imagePreview {
+            display: block;
+
             width: 90px;
             height: 90px;
 
@@ -414,8 +332,7 @@
 
             border-radius: 16px;
 
-            border:
-                1px solid var(--border);
+            border: 1px solid var(--border);
         }
 
         .remove-image {
@@ -428,12 +345,14 @@
             height: 25px;
 
             border: none;
-
             border-radius: 50%;
 
             background: #353542;
-
             color: white;
+
+            font-size: 15px;
+
+            cursor: pointer;
         }
 
         .input-area {
@@ -442,10 +361,7 @@
             padding:
                 8px
                 12px
-                calc(
-                    10px +
-                    env(safe-area-inset-bottom)
-                );
+                calc(10px + env(safe-area-inset-bottom));
 
             background:
                 linear-gradient(
@@ -456,21 +372,20 @@
 
         .input-box {
             display: flex;
-
             align-items: flex-end;
-
             gap: 6px;
 
             padding: 7px;
 
-            background:
-                rgba(24,24,35,.97);
+            background: rgba(24,24,35,.97);
 
             border:
-                1px solid
-                rgba(255,255,255,.11);
+                1px solid rgba(255,255,255,.11);
 
             border-radius: 22px;
+
+            box-shadow:
+                0 12px 40px rgba(0,0,0,.32);
         }
 
         textarea {
@@ -490,6 +405,7 @@
 
             color: white;
 
+            font: inherit;
             font-size: 16px;
         }
 
@@ -504,17 +420,16 @@
             flex-shrink: 0;
 
             border: none;
-
             border-radius: 14px;
 
             font-size: 19px;
+
+            cursor: pointer;
         }
 
         .attach,
         .mic {
-            background:
-                rgba(255,255,255,.06);
-
+            background: rgba(255,255,255,.06);
             color: white;
         }
 
@@ -551,214 +466,1254 @@
             display: none;
         }
 
-        /* Chat history */
+        @media (max-width: 600px) {
 
-        .overlay {
-            position: fixed;
+            .new-chat-text {
+                display: none;
+            }
 
-            inset: 0;
+            .welcome h1 {
+                font-size: 31px;
+            }
 
-            background:
-                rgba(0,0,0,.55);
+            .hero-logo {
+                width: 105px;
+                height: 105px;
+            }
+        }
+    </style>
+</head>
 
-            opacity: 0;
+<body>
 
-            pointer-events: none;
+<div class="app">
 
-            transition: .2s;
+    <header>
 
-            z-index: 90;
+        <div class="brand">
+
+            <img
+                class="mini-logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <div>
+                Wiens AI
+
+                <div class="online">
+                    ● AI Online
+                </div>
+            </div>
+
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                id="speakerButton"
+                class="header-button speaker-on"
+                onclick="toggleSpeech()"
+            >
+                🔊
+            </button>
+
+            <button
+                class="header-button"
+                onclick="newChat()"
+            >
+                ＋
+                <span class="new-chat-text">
+                    Новый чат
+                </span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main id="chat">
+
+        <div
+            class="welcome"
+            id="welcome"
+        >
+
+            <img
+                class="hero-logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <h1>Wiens AI</h1>
+
+            <p>
+                Напишите, скажите голосом
+                или отправьте фотографию.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">🧠 AI</div>
+                <div class="feature">🌐 Internet</div>
+                <div class="feature">📷 Vision</div>
+                <div class="feature">🎙️ Voice</div>
+                <div class="feature">🔊 Speech</div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <div
+        class="recording-bar"
+        id="recordingBar"
+    >
+        <div class="recording-dot"></div>
+
+        <span id="recordingText">
+            Запись голоса…
+        </span>
+    </div>
+
+
+    <div
+        class="image-preview-area"
+        id="imagePreviewArea"
+    >
+
+        <div class="preview-card">
+
+            <img
+                id="imagePreview"
+                alt="Selected image"
+            >
+
+            <button
+                class="remove-image"
+                onclick="removeSelectedImage()"
+            >
+                ×
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="input-area">
+
+        <div class="input-box">
+
+            <button
+                class="icon-button attach"
+                onclick="
+                    document
+                    .getElementById('fileInput')
+                    .click()
+                "
+                title="Добавить фото"
+            >
+                ＋
+            </button>
+
+            <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+            >
+
+            <textarea
+                id="messageInput"
+                rows="1"
+                placeholder="Сообщение Wiens AI..."
+            ></textarea>
+
+            <button
+                class="icon-button mic"
+                id="micButton"
+                onclick="toggleRecording()"
+            >
+                🎙️
+            </button>
+
+            <button
+                class="icon-button send"
+                id="sendButton"
+                onclick="sendMessage()"
+            >
+                ➤
+            </button>
+
+        </div>
+
+        <div class="input-note">
+            Wiens AI может допускать ошибки
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const chat =
+    document.getElementById("chat");
+
+const input =
+    document.getElementById("messageInput");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+const micButton =
+    document.getElementById("micButton");
+
+const recordingBar =
+    document.getElementById("recordingBar");
+
+const recordingText =
+    document.getElementById("recordingText");
+
+const speakerButton =
+    document.getElementById("speakerButton");
+
+const fileInput =
+    document.getElementById("fileInput");
+
+const imagePreviewArea =
+    document.getElementById("imagePreviewArea");
+
+const imagePreview =
+    document.getElementById("imagePreview");
+
+
+let history = [];
+
+let mediaRecorder = null;
+
+let audioChunks = [];
+
+let recording = false;
+
+let speechEnabled = true;
+
+let selectedImage = null;
+
+let selectedImageURL = null;
+
+
+function removeWelcome() {
+
+    const welcome =
+        document.getElementById("welcome");
+
+    if (welcome) {
+        welcome.remove();
+    }
+}
+
+
+function addTextMessage(
+    text,
+    role
+) {
+
+    removeWelcome();
+
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "message-row "
+        +
+        (
+            role === "user"
+            ? "user-row"
+            : "assistant-row"
+        );
+
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message " + role;
+
+    message.textContent =
+        text;
+
+
+    row.appendChild(
+        message
+    );
+
+
+    if (
+        role === "assistant"
+        &&
+        !message.classList.contains(
+            "thinking"
+        )
+    ) {
+
+        const speak =
+            document.createElement(
+                "button"
+            );
+
+        speak.className =
+            "speak-message";
+
+        speak.textContent =
+            "🔊";
+
+        speak.onclick =
+            function() {
+                speakText(text);
+            };
+
+
+        row.appendChild(
+            speak
+        );
+    }
+
+
+    chat.appendChild(
+        row
+    );
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+
+    return row;
+}
+
+
+function addImageMessage(
+    imageURL,
+    text
+) {
+
+    removeWelcome();
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+    row.className =
+        "message-row user-row";
+
+
+    const image =
+        document.createElement(
+            "img"
+        );
+
+    image.className =
+        "chat-image";
+
+    image.src =
+        imageURL;
+
+
+    row.appendChild(
+        image
+    );
+
+
+    if (text) {
+
+        const message =
+            document.createElement(
+                "div"
+            );
+
+        message.className =
+            "message user";
+
+        message.textContent =
+            text;
+
+        row.appendChild(
+            message
+        );
+    }
+
+
+    chat.appendChild(
+        row
+    );
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+}
+
+
+fileInput.addEventListener(
+    "change",
+    function() {
+
+        const file =
+            fileInput.files[0];
+
+
+        if (!file) {
+            return;
         }
 
-        .overlay.open {
-            opacity: 1;
 
-            pointer-events: auto;
+        if (
+            !file.type.startsWith(
+                "image/"
+            )
+        ) {
+
+            alert(
+                "Пожалуйста, выберите изображение."
+            );
+
+            fileInput.value = "";
+
+            return;
         }
 
-        .drawer {
-            position: fixed;
 
-            top: 0;
-            left: 0;
-            bottom: 0;
+        selectedImage =
+            file;
 
-            width:
-                min(86vw, 340px);
 
-            padding:
-                calc(
-                    14px +
-                    env(safe-area-inset-top)
-                )
-                12px
-                calc(
-                    14px +
-                    env(safe-area-inset-bottom)
+        if (selectedImageURL) {
+
+            URL.revokeObjectURL(
+                selectedImageURL
+            );
+        }
+
+
+        selectedImageURL =
+            URL.createObjectURL(
+                file
+            );
+
+
+        imagePreview.src =
+            selectedImageURL;
+
+
+        imagePreviewArea.style.display =
+            "block";
+
+
+        input.placeholder =
+            "Спросите что-нибудь о фото...";
+    }
+);
+
+
+function removeSelectedImage() {
+
+    selectedImage = null;
+
+    fileInput.value = "";
+
+
+    if (selectedImageURL) {
+
+        URL.revokeObjectURL(
+            selectedImageURL
+        );
+
+        selectedImageURL = null;
+    }
+
+
+    imagePreview.src = "";
+
+    imagePreviewArea.style.display =
+        "none";
+
+
+    input.placeholder =
+        "Сообщение Wiens AI...";
+}
+
+
+async function sendMessage(
+    customText = null
+) {
+
+    const text =
+        (
+            customText !== null
+            ? customText
+            : input.value
+        ).trim();
+
+
+    if (
+        !text
+        &&
+        !selectedImage
+    ) {
+        return;
+    }
+
+
+    if (selectedImage) {
+
+        await sendImageMessage(
+            text
+        );
+
+        return;
+    }
+
+
+    addTextMessage(
+        text,
+        "user"
+    );
+
+
+    input.value = "";
+
+    input.style.height =
+        "auto";
+
+
+    sendButton.disabled =
+        true;
+
+
+    const thinking =
+        addTextMessage(
+            "Wiens AI думает…",
+            "assistant thinking"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/chat",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            message:
+                                text,
+
+                            history:
+                                history
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        thinking.remove();
+
+
+        if (!response.ok) {
+
+            addTextMessage(
+                data.error ||
+                "Произошла ошибка.",
+                "assistant"
+            );
+
+            return;
+        }
+
+
+        addTextMessage(
+            data.answer,
+            "assistant"
+        );
+
+
+        history.push({
+            role: "user",
+            content: text
+        });
+
+
+        history.push({
+            role: "assistant",
+            content: data.answer
+        });
+
+
+        if (speechEnabled) {
+
+            speakText(
+                data.answer
+            );
+        }
+
+
+    } catch (error) {
+
+        thinking.remove();
+
+
+        addTextMessage(
+            "Не удалось связаться с Wiens AI.",
+            "assistant"
+        );
+
+
+    } finally {
+
+        sendButton.disabled =
+            false;
+
+        input.focus();
+    }
+}
+
+
+async function sendImageMessage(
+    text
+) {
+
+    const imageFile =
+        selectedImage;
+
+    const imageURL =
+        selectedImageURL;
+
+
+    const question =
+        text ||
+        "Что изображено на этой фотографии?";
+
+
+    addImageMessage(
+        imageURL,
+        text
+    );
+
+
+    input.value = "";
+
+    input.style.height =
+        "auto";
+
+
+    selectedImage = null;
+
+    fileInput.value = "";
+
+    imagePreviewArea.style.display =
+        "none";
+
+    imagePreview.src = "";
+
+    selectedImageURL = null;
+
+
+    input.placeholder =
+        "Сообщение Wiens AI...";
+
+
+    sendButton.disabled =
+        true;
+
+
+    const thinking =
+        addTextMessage(
+            "Wiens AI анализирует изображение…",
+            "assistant thinking"
+        );
+
+
+    try {
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "image",
+            imageFile
+        );
+
+
+        formData.append(
+            "message",
+            question
+        );
+
+
+        const response =
+            await fetch(
+                "/api/vision",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        thinking.remove();
+
+
+        if (!response.ok) {
+
+            addTextMessage(
+                data.error ||
+                "Не удалось проанализировать изображение.",
+                "assistant"
+            );
+
+            return;
+        }
+
+
+        addTextMessage(
+            data.answer,
+            "assistant"
+        );
+
+
+        history.push({
+            role: "user",
+            content:
+                "[Image] "
+                + question
+        });
+
+
+        history.push({
+            role: "assistant",
+            content:
+                data.answer
+        });
+
+
+        if (speechEnabled) {
+
+            speakText(
+                data.answer
+            );
+        }
+
+
+    } catch (error) {
+
+        thinking.remove();
+
+
+        addTextMessage(
+            "Ошибка отправки изображения.",
+            "assistant"
+        );
+
+
+    } finally {
+
+        sendButton.disabled =
+            false;
+
+        input.focus();
+    }
+}
+
+
+async function toggleRecording() {
+
+    if (recording) {
+
+        if (
+            mediaRecorder
+            &&
+            mediaRecorder.state
+            !== "inactive"
+        ) {
+
+            mediaRecorder.stop();
+        }
+
+        return;
+    }
+
+
+    try {
+
+        const stream =
+            await navigator
+                .mediaDevices
+                .getUserMedia({
+                    audio: true
+                });
+
+
+        let options = {};
+
+
+        if (
+            MediaRecorder
+            .isTypeSupported(
+                "audio/mp4"
+            )
+        ) {
+
+            options = {
+                mimeType:
+                    "audio/mp4"
+            };
+
+        } else if (
+            MediaRecorder
+            .isTypeSupported(
+                "audio/webm"
+            )
+        ) {
+
+            options = {
+                mimeType:
+                    "audio/webm"
+            };
+        }
+
+
+        mediaRecorder =
+            new MediaRecorder(
+                stream,
+                options
+            );
+
+
+        audioChunks = [];
+
+
+        mediaRecorder.ondataavailable =
+            function(event) {
+
+                if (
+                    event.data
+                    &&
+                    event.data.size > 0
+                ) {
+
+                    audioChunks.push(
+                        event.data
+                    );
+                }
+            };
+
+
+        mediaRecorder.onstop =
+            async function() {
+
+                recording = false;
+
+                micButton.classList.remove(
+                    "recording"
                 );
 
-            background: var(--panel2);
+                micButton.textContent =
+                    "🎙️";
 
-            border-right:
-                1px solid var(--border);
+                recordingBar.style.display =
+                    "none";
 
-            transform:
-                translateX(-105%);
 
-            transition:
-                transform .22s ease;
+                stream
+                    .getTracks()
+                    .forEach(
+                        track =>
+                            track.stop()
+                    );
 
-            z-index: 100;
 
-            display: flex;
+                const mimeType =
+                    mediaRecorder.mimeType
+                    ||
+                    "audio/webm";
 
-            flex-direction: column;
-        }
 
-        .drawer.open {
-            transform:
-                translateX(0);
-        }
+                const blob =
+                    new Blob(
+                        audioChunks,
+                        {
+                            type:
+                                mimeType
+                        }
+                    );
 
-        .drawer-header {
-            display: flex;
 
-            align-items: center;
-
-            justify-content: space-between;
-
-            margin-bottom: 12px;
-        }
-
-        .drawer-title {
-            font-size: 22px;
-
-            font-weight: 750;
-        }
-
-        .drawer-close {
-            width: 38px;
-            height: 38px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.06);
-
-            color: white;
-
-            font-size: 20px;
-        }
-
-        .drawer-new {
-            width: 100%;
-
-            padding: 12px;
-
-            margin-bottom: 12px;
-
-            border:
-                1px solid
-                rgba(162,108,255,.35);
-
-            border-radius: 14px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(117,92,255,.3),
-                    rgba(162,108,255,.2)
+                await transcribeAudio(
+                    blob,
+                    mimeType
                 );
+            };
 
-            color: white;
 
-            font-weight: 650;
+        mediaRecorder.start();
+
+
+        recording = true;
+
+
+        micButton.classList.add(
+            "recording"
+        );
+
+
+        micButton.textContent =
+            "⏹️";
+
+
+        recordingBar.style.display =
+            "flex";
+
+
+        recordingText.textContent =
+            "Запись голоса… нажмите ⏹️ для отправки";
+
+
+    } catch (error) {
+
+        alert(
+            "Разрешите Safari использовать микрофон."
+        );
+    }
+}
+
+
+async function transcribeAudio(
+    blob,
+    mimeType
+) {
+
+    recordingBar.style.display =
+        "flex";
+
+
+    recordingText.textContent =
+        "Распознаю голос…";
+
+
+    try {
+
+        const formData =
+            new FormData();
+
+
+        let extension =
+            "webm";
+
+
+        if (
+            mimeType.includes(
+                "mp4"
+            )
+        ) {
+
+            extension =
+                "mp4";
         }
 
-        #chatList {
-            flex: 1;
 
-            overflow-y: auto;
+        formData.append(
+            "audio",
+            blob,
+            "voice." + extension
+        );
 
-            display: flex;
 
-            flex-direction: column;
+        const response =
+            await fetch(
+                "/api/transcribe",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
 
-            gap: 7px;
+
+        const data =
+            await response.json();
+
+
+        recordingBar.style.display =
+            "none";
+
+
+        if (!response.ok) {
+
+            addTextMessage(
+                data.error ||
+                "Не удалось распознать голос.",
+                "assistant"
+            );
+
+            return;
         }
 
-        .history-item {
-            display: flex;
 
-            align-items: center;
+        if (data.text) {
 
-            gap: 4px;
-
-            padding: 4px;
-
-            border-radius: 13px;
-
-            border:
-                1px solid transparent;
+            await sendMessage(
+                data.text
+            );
         }
 
-        .history-item.active {
-            background:
-                rgba(117,92,255,.13);
 
-            border-color:
-                rgba(162,108,255,.2);
+    } catch (error) {
+
+        recordingBar.style.display =
+            "none";
+
+
+        addTextMessage(
+            "Ошибка отправки голосового сообщения.",
+            "assistant"
+        );
+    }
+}
+
+
+function speakText(text) {
+
+    if (
+        !(
+            "speechSynthesis"
+            in window
+        )
+    ) {
+        return;
+    }
+
+
+    window
+        .speechSynthesis
+        .cancel();
+
+
+    const cleanText =
+        text
+            .replace(
+                /https?:\/\/\S+/g,
+                ""
+            )
+            .replace(
+                /[*#`]/g,
+                ""
+            );
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            cleanText
+        );
+
+
+    if (
+        /[А-Яа-яЁё]/.test(
+            cleanText
+        )
+    ) {
+
+        utterance.lang =
+            "ru-RU";
+
+    } else if (
+        /[äöüßÄÖÜ]/.test(
+            cleanText
+        )
+    ) {
+
+        utterance.lang =
+            "de-DE";
+
+    } else {
+
+        utterance.lang =
+            "en-US";
+    }
+
+
+    utterance.rate =
+        1.0;
+
+
+    window
+        .speechSynthesis
+        .speak(
+            utterance
+        );
+}
+
+
+function toggleSpeech() {
+
+    speechEnabled =
+        !speechEnabled;
+
+
+    if (!speechEnabled) {
+
+        window
+            .speechSynthesis
+            .cancel();
+
+
+        speakerButton.textContent =
+            "🔇";
+
+
+        speakerButton.classList.remove(
+            "speaker-on"
+        );
+
+    } else {
+
+        speakerButton.textContent =
+            "🔊";
+
+
+        speakerButton.classList.add(
+            "speaker-on"
+        );
+    }
+}
+
+
+function newChat() {
+
+    history = [];
+
+
+    removeSelectedImage();
+
+
+    if (
+        "speechSynthesis"
+        in window
+    ) {
+
+        window
+            .speechSynthesis
+            .cancel();
+    }
+
+
+    chat.innerHTML = `
+
+        <div
+            class="welcome"
+            id="welcome"
+        >
+
+            <img
+                class="hero-logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <h1>
+                Wiens AI
+            </h1>
+
+            <p>
+                Напишите, скажите голосом
+                или отправьте фотографию.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">
+                    🧠 AI
+                </div>
+
+                <div class="feature">
+                    🌐 Internet
+                </div>
+
+                <div class="feature">
+                    📷 Vision
+                </div>
+
+                <div class="feature">
+                    🎙️ Voice
+                </div>
+
+                <div class="feature">
+                    🔊 Speech
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+input.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+            &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
         }
+    }
+);
 
-        .history-open {
-            flex: 1;
 
-            min-width: 0;
+input.addEventListener(
+    "input",
+    function() {
 
-            padding: 8px;
+        this.style.height =
+            "auto";
 
-            border: none;
 
-            background: transparent;
+        this.style.height =
+            Math.min(
+                this.scrollHeight,
+                130
+            )
+            + "px";
+    }
+);
 
-            color: white;
+</script>
 
-            text-align: left;
-        }
-
-        .history-title {
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-
-            white-space: nowrap;
-
-            font-size: 14px;
-        }
-
-        .history-date {
-            color: var(--muted);
-
-            font-size: 10px;
-
-            margin-top: 3px;
-        }
-
-        .history-delete {
-            width: 34px;
-            height: 34px;
-
-            border: none;
-
-            background: transparent;
-
-            color: #9999a8;
-
-            border-radius: 10px;
-        }
-
-        @media (
-            max-width: 600px
+</body>
+</html>
