@@ -1,6 +1,7 @@
 import os
 import tempfile
 import base64
+import io
 
 from flask import (
     Flask,
@@ -11,6 +12,7 @@ from flask import (
 )
 
 from groq import Groq
+from pypdf import PdfReader
 
 
 app = Flask(__name__)
@@ -65,6 +67,21 @@ You can:
 
 If something cannot be determined reliably from the
 image, say so instead of guessing.
+"""
+
+
+DOCUMENT_PROMPT = """
+You are Wiens AI working with a document supplied by the user.
+
+Answer the user's question using the document text below.
+
+Important rules:
+- Answer in the same language as the user's question.
+- Russian, German and English are especially important.
+- Do not invent information that is not present in the document.
+- If the answer cannot be found in the document, clearly say so.
+- You may summarize, explain, translate, extract key points,
+  or answer questions about the document.
 """
 
 
@@ -199,6 +216,166 @@ def chat():
         return jsonify({
             "error":
                 "Wiens AI could not answer: "
+                + str(e)
+        }), 500
+
+
+@app.route(
+    "/api/document",
+    methods=["POST"]
+)
+def document():
+    try:
+        if "document" not in request.files:
+            return jsonify({
+                "error": "Document is missing"
+            }), 400
+
+        uploaded_file = request.files[
+            "document"
+        ]
+
+        if not uploaded_file.filename:
+            return jsonify({
+                "error": "Document is empty"
+            }), 400
+
+        filename = uploaded_file.filename.lower()
+
+        if not filename.endswith(".pdf"):
+            return jsonify({
+                "error":
+                    "For now Wiens AI supports PDF files only."
+            }), 400
+
+        file_bytes = uploaded_file.read()
+
+        if not file_bytes:
+            return jsonify({
+                "error": "PDF file is empty"
+            }), 400
+
+        if len(file_bytes) > 15 * 1024 * 1024:
+            return jsonify({
+                "error":
+                    "PDF is too large. Maximum size is 15 MB."
+            }), 400
+
+        question = str(
+            request.form.get(
+                "message",
+                ""
+            )
+        ).strip()
+
+        if not question:
+            question = (
+                "Summarize this PDF and explain the most important points."
+            )
+
+        reader = PdfReader(
+            io.BytesIO(
+                file_bytes
+            )
+        )
+
+        extracted_pages = []
+
+        max_pages = 50
+
+        for index, page in enumerate(
+            reader.pages[:max_pages]
+        ):
+            try:
+                text = page.extract_text() or ""
+            except Exception:
+                text = ""
+
+            text = text.strip()
+
+            if text:
+                extracted_pages.append(
+                    f"\n--- Page {index + 1} ---\n{text}"
+                )
+
+        document_text = "\n".join(
+            extracted_pages
+        ).strip()
+
+        if not document_text:
+            return jsonify({
+                "error":
+                    "I could not extract text from this PDF. "
+                    "It may be a scanned PDF or contain only images."
+            }), 400
+
+        max_chars = 60000
+
+        if len(document_text) > max_chars:
+            document_text = (
+                document_text[:max_chars]
+                +
+                "\n\n[Document text was shortened because the PDF is very long.]"
+            )
+
+        messages = [
+            {
+                "role": "system",
+                "content": DOCUMENT_PROMPT
+            },
+            {
+                "role": "user",
+                "content":
+                    f"""
+User question:
+{question}
+
+PDF file:
+{uploaded_file.filename}
+
+Document text:
+{document_text}
+"""
+            }
+        ]
+
+        response = (
+            client
+            .chat
+            .completions
+            .create(
+                model="openai/gpt-oss-120b",
+                messages=messages,
+                temperature=0.4,
+                max_tokens=1800
+            )
+        )
+
+        answer = (
+            response
+            .choices[0]
+            .message
+            .content
+        )
+
+        return jsonify({
+            "answer": answer,
+            "filename": uploaded_file.filename,
+            "pages_read": min(
+                len(reader.pages),
+                max_pages
+            )
+        })
+
+    except Exception as e:
+        print(
+            "Wiens AI document error:",
+            e
+        )
+
+        return jsonify({
+            "error":
+                "Document analysis error: "
                 + str(e)
         }), 500
 
