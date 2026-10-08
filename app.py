@@ -8,7 +8,9 @@ from flask import (
     render_template,
     request,
     jsonify,
-    send_from_directory
+    send_from_directory,
+    Response,
+    stream_with_context
 )
 
 from groq import Groq
@@ -56,13 +58,31 @@ Use browser search when the user asks about:
 - anything that clearly requires fresh internet information
 
 When browser search is used:
-- use the retrieved information carefully
+- use retrieved information carefully
 - do not invent facts
 - do not invent sources
-- mention uncertainty if the information is unclear
+- mention uncertainty when needed
 
 Never claim that you searched the internet unless
 browser search was actually used.
+"""
+
+
+STREAM_SYSTEM_PROMPT = """
+You are Wiens AI, a helpful multilingual AI assistant.
+
+Automatically detect the language of the user
+and answer in the same language.
+
+Russian, German and English are especially important.
+
+Be helpful, clear, friendly and concise.
+Explain difficult things simply.
+
+Your name is Wiens AI.
+
+This request does not have live web access.
+Do not claim to have searched the internet.
 """
 
 
@@ -104,8 +124,63 @@ Rules:
 """
 
 
+def build_messages(
+    system_prompt,
+    message,
+    history
+):
+    messages = [
+        {
+            "role": "system",
+            "content": system_prompt
+        }
+    ]
+
+    if isinstance(history, list):
+
+        for item in history:
+
+            if not isinstance(
+                item,
+                dict
+            ):
+                continue
+
+            role = item.get(
+                "role"
+            )
+
+            content = item.get(
+                "content"
+            )
+
+            if (
+                role in [
+                    "user",
+                    "assistant"
+                ]
+                and
+                isinstance(
+                    content,
+                    str
+                )
+            ):
+                messages.append({
+                    "role": role,
+                    "content": content
+                })
+
+    messages.append({
+        "role": "user",
+        "content": message
+    })
+
+    return messages
+
+
 @app.route("/")
 def home():
+
     return render_template(
         "index.html"
     )
@@ -127,6 +202,10 @@ def service_worker():
     return response
 
 
+# --------------------------------
+# NORMAL CHAT + INTERNET SEARCH
+# --------------------------------
+
 @app.route(
     "/api/chat",
     methods=["POST"]
@@ -139,7 +218,6 @@ def chat():
             silent=True
         ) or {}
 
-
         message = str(
             data.get(
                 "message",
@@ -147,12 +225,10 @@ def chat():
             )
         ).strip()
 
-
         history = data.get(
             "history",
             []
         )
-
 
         if not message:
 
@@ -161,71 +237,11 @@ def chat():
                     "Message is empty"
             }), 400
 
-
-        messages = [
-            {
-                "role":
-                    "system",
-
-                "content":
-                    SYSTEM_PROMPT
-            }
-        ]
-
-
-        if isinstance(
-            history,
-            list
-        ):
-
-            for item in history:
-
-                if not isinstance(
-                    item,
-                    dict
-                ):
-                    continue
-
-
-                role = item.get(
-                    "role"
-                )
-
-
-                content = item.get(
-                    "content"
-                )
-
-
-                if (
-                    role in [
-                        "user",
-                        "assistant"
-                    ]
-                    and
-                    isinstance(
-                        content,
-                        str
-                    )
-                ):
-
-                    messages.append({
-                        "role":
-                            role,
-
-                        "content":
-                            content
-                    })
-
-
-        messages.append({
-            "role":
-                "user",
-
-            "content":
-                message
-        })
-
+        messages = build_messages(
+            SYSTEM_PROMPT,
+            message,
+            history
+        )
 
         response = (
             client
@@ -257,7 +273,6 @@ def chat():
             )
         )
 
-
         answer = (
             response
             .choices[0]
@@ -265,12 +280,10 @@ def chat():
             .content
         )
 
-
         return jsonify({
             "answer":
                 answer
         })
-
 
     except Exception as e:
 
@@ -279,13 +292,136 @@ def chat():
             e
         )
 
-
         return jsonify({
             "error":
                 "Wiens AI could not answer: "
                 + str(e)
         }), 500
 
+
+# --------------------------------
+# STREAMING CHAT
+# --------------------------------
+
+@app.route(
+    "/api/chat-stream",
+    methods=["POST"]
+)
+def chat_stream():
+
+    data = request.get_json(
+        silent=True
+    ) or {}
+
+    message = str(
+        data.get(
+            "message",
+            ""
+        )
+    ).strip()
+
+    history = data.get(
+        "history",
+        []
+    )
+
+    if not message:
+
+        return jsonify({
+            "error":
+                "Message is empty"
+        }), 400
+
+    messages = build_messages(
+        STREAM_SYSTEM_PROMPT,
+        message,
+        history
+    )
+
+    @stream_with_context
+    def generate():
+
+        try:
+
+            stream = (
+                client
+                .chat
+                .completions
+                .create(
+
+                    model=
+                        "openai/gpt-oss-120b",
+
+                    messages=
+                        messages,
+
+                    temperature=
+                        0.6,
+
+                    max_completion_tokens=
+                        2200,
+
+                    reasoning_effort=
+                        "low",
+
+                    stream=
+                        True
+                )
+            )
+
+            for chunk in stream:
+
+                if (
+                    not chunk.choices
+                ):
+                    continue
+
+                delta = (
+                    chunk
+                    .choices[0]
+                    .delta
+                )
+
+                content = getattr(
+                    delta,
+                    "content",
+                    None
+                )
+
+                if content:
+
+                    yield content
+
+        except Exception as e:
+
+            print(
+                "Wiens AI streaming error:",
+                e
+            )
+
+            yield (
+                "\n\n"
+                "Wiens AI streaming error: "
+                +
+                str(e)
+            )
+
+    return Response(
+        generate(),
+        mimetype="text/plain; charset=utf-8",
+        headers={
+            "Cache-Control":
+                "no-cache",
+
+            "X-Accel-Buffering":
+                "no"
+        }
+    )
+
+
+# --------------------------------
+# DOCUMENTS
+# --------------------------------
 
 @app.route(
     "/api/document",
@@ -295,20 +431,22 @@ def document():
 
     try:
 
-        if "document" not in request.files:
+        if (
+            "document"
+            not in
+            request.files
+        ):
 
             return jsonify({
                 "error":
                     "Document is missing"
             }), 400
 
-
         uploaded_file = (
             request.files[
                 "document"
             ]
         )
-
 
         if not uploaded_file.filename:
 
@@ -317,21 +455,17 @@ def document():
                     "Document is empty"
             }), 400
 
-
         filename = (
             uploaded_file.filename
         )
-
 
         filename_lower = (
             filename.lower()
         )
 
-
         file_bytes = (
             uploaded_file.read()
         )
-
 
         if not file_bytes:
 
@@ -339,7 +473,6 @@ def document():
                 "error":
                     "Document is empty"
             }), 400
-
 
         if (
             len(file_bytes)
@@ -353,14 +486,12 @@ def document():
                     "Maximum size is 15 MB."
             }), 400
 
-
         question = str(
             request.form.get(
                 "message",
                 ""
             )
         ).strip()
-
 
         if not question:
 
@@ -370,11 +501,11 @@ def document():
                 "important points."
             )
 
-
         document_text = ""
 
 
         # PDF
+
         if filename_lower.endswith(
             ".pdf"
         ):
@@ -385,15 +516,14 @@ def document():
                 )
             )
 
-
             pages = []
-
 
             max_pages = 50
 
-
             for index, page in enumerate(
-                reader.pages[:max_pages]
+                reader.pages[
+                    :max_pages
+                ]
             ):
 
                 try:
@@ -408,16 +538,15 @@ def document():
 
                     text = ""
 
-
-                text = text.strip()
-
+                text = (
+                    text.strip()
+                )
 
                 if text:
 
                     pages.append(
                         f"\n--- Page {index + 1} ---\n{text}"
                     )
-
 
             document_text = (
                 "\n"
@@ -429,6 +558,7 @@ def document():
 
 
         # DOCX
+
         elif filename_lower.endswith(
             ".docx"
         ):
@@ -439,26 +569,24 @@ def document():
                 )
             )
 
-
             paragraphs = []
 
-
             for paragraph in (
-                document_file.paragraphs
+                document_file
+                .paragraphs
             ):
 
                 text = (
-                    paragraph.text
+                    paragraph
+                    .text
                     .strip()
                 )
-
 
                 if text:
 
                     paragraphs.append(
                         text
                     )
-
 
             document_text = (
                 "\n"
@@ -470,6 +598,7 @@ def document():
 
 
         # TXT
+
         elif filename_lower.endswith(
             ".txt"
         ):
@@ -481,9 +610,7 @@ def document():
                 "latin-1"
             ]
 
-
             decoded = None
-
 
             for encoding in encodings:
 
@@ -501,7 +628,6 @@ def document():
                 except Exception:
 
                     continue
-
 
             if decoded:
 
@@ -530,7 +656,6 @@ def document():
 
 
         max_chars = 60000
-
 
         if (
             len(document_text)
@@ -593,14 +718,12 @@ Document text:
             )
         )
 
-
         answer = (
             response
             .choices[0]
             .message
             .content
         )
-
 
         return jsonify({
             "answer":
@@ -610,7 +733,6 @@ Document text:
                 filename
         })
 
-
     except Exception as e:
 
         print(
@@ -618,13 +740,16 @@ Document text:
             e
         )
 
-
         return jsonify({
             "error":
                 "Document analysis error: "
                 + str(e)
         }), 500
 
+
+# --------------------------------
+# IMAGE VISION
+# --------------------------------
 
 @app.route(
     "/api/vision",
@@ -634,20 +759,22 @@ def vision():
 
     try:
 
-        if "image" not in request.files:
+        if (
+            "image"
+            not in
+            request.files
+        ):
 
             return jsonify({
                 "error":
                     "Image is missing"
             }), 400
 
-
         image = (
             request.files[
                 "image"
             ]
         )
-
 
         question = str(
             request.form.get(
@@ -656,7 +783,6 @@ def vision():
             )
         ).strip()
 
-
         if not question:
 
             question = (
@@ -664,11 +790,9 @@ def vision():
                 "and explain what you see."
             )
 
-
         image_bytes = (
             image.read()
         )
-
 
         if not image_bytes:
 
@@ -676,7 +800,6 @@ def vision():
                 "error":
                     "Image is empty"
             }), 400
-
 
         if (
             len(image_bytes)
@@ -690,13 +813,11 @@ def vision():
                     "Maximum size is 20 MB."
             }), 400
 
-
         mime_type = (
             image.mimetype
             or
             "image/jpeg"
         )
-
 
         encoded_image = (
             base64
@@ -708,12 +829,10 @@ def vision():
             )
         )
 
-
         data_url = (
             f"data:{mime_type};"
             f"base64,{encoded_image}"
         )
-
 
         response = (
             client
@@ -765,7 +884,6 @@ def vision():
             )
         )
 
-
         answer = (
             response
             .choices[0]
@@ -773,12 +891,10 @@ def vision():
             .content
         )
 
-
         return jsonify({
             "answer":
                 answer
         })
-
 
     except Exception as e:
 
@@ -787,13 +903,16 @@ def vision():
             e
         )
 
-
         return jsonify({
             "error":
                 "Image analysis error: "
                 + str(e)
         }), 500
 
+
+# --------------------------------
+# VOICE TRANSCRIPTION
+# --------------------------------
 
 @app.route(
     "/api/transcribe",
@@ -803,23 +922,24 @@ def transcribe():
 
     temp_path = None
 
-
     try:
 
-        if "audio" not in request.files:
+        if (
+            "audio"
+            not in
+            request.files
+        ):
 
             return jsonify({
                 "error":
                     "Audio file is missing"
             }), 400
 
-
         audio = (
             request.files[
                 "audio"
             ]
         )
-
 
         if not audio.filename:
 
@@ -828,14 +948,11 @@ def transcribe():
                     "Audio file is empty"
             }), 400
 
-
         suffix = ".webm"
-
 
         filename_lower = (
             audio.filename.lower()
         )
-
 
         if filename_lower.endswith(
             ".mp4"
@@ -843,20 +960,17 @@ def transcribe():
 
             suffix = ".mp4"
 
-
         elif filename_lower.endswith(
             ".m4a"
         ):
 
             suffix = ".m4a"
 
-
         elif filename_lower.endswith(
             ".wav"
         ):
 
             suffix = ".wav"
-
 
         with tempfile.NamedTemporaryFile(
             delete=False,
@@ -867,11 +981,9 @@ def transcribe():
                 temp_file.name
             )
 
-
             temp_path = (
                 temp_file.name
             )
-
 
         with open(
             temp_path,
@@ -895,19 +1007,16 @@ def transcribe():
                 )
             )
 
-
         text = (
             transcription
             .text
             .strip()
         )
 
-
         return jsonify({
             "text":
                 text
         })
-
 
     except Exception as e:
 
@@ -916,13 +1025,11 @@ def transcribe():
             e
         )
 
-
         return jsonify({
             "error":
                 "Voice recognition error: "
                 + str(e)
         }), 500
-
 
     finally:
 
@@ -953,7 +1060,6 @@ if __name__ == "__main__":
             10000
         )
     )
-
 
     app.run(
         host="0.0.0.0",
