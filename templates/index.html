@@ -19,16 +19,16 @@
 
         :root {
             --bg: #07080d;
-            --panel: rgba(20, 20, 30, 0.88);
-            --border: rgba(255, 255, 255, 0.09);
+            --panel: rgba(20, 20, 30, 0.92);
+            --border: rgba(255,255,255,0.10);
             --text: #ffffff;
             --muted: #9696a5;
             --purple: #755cff;
             --purple2: #a26cff;
+            --danger: #ff4d67;
         }
 
-        html,
-        body {
+        html, body {
             height: 100%;
         }
 
@@ -62,9 +62,6 @@
             flex-direction: column;
         }
 
-
-        /* HEADER */
-
         header {
             min-height: 70px;
             flex-shrink: 0;
@@ -75,12 +72,13 @@
 
             padding:
                 calc(8px + env(safe-area-inset-top))
-                18px
+                14px
                 8px;
 
             border-bottom: 1px solid var(--border);
 
-            background: rgba(7, 8, 13, 0.55);
+            background: rgba(7,8,13,0.60);
+
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
@@ -88,7 +86,7 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 11px;
+            gap: 10px;
 
             font-size: 20px;
             font-weight: 750;
@@ -97,12 +95,11 @@
         .mini-logo {
             width: 38px;
             height: 38px;
-
             border-radius: 11px;
             object-fit: cover;
 
             box-shadow:
-                0 0 20px rgba(117, 92, 255, 0.45);
+                0 0 20px rgba(117,92,255,0.45);
         }
 
         .online {
@@ -111,31 +108,37 @@
             margin-top: 2px;
         }
 
-        .new-chat {
-            border: 1px solid var(--border);
-
-            background:
-                rgba(255, 255, 255, 0.06);
-
-            color: white;
-
-            padding: 9px 13px;
-            border-radius: 12px;
-
-            cursor: pointer;
-            font-size: 13px;
+        .header-actions {
+            display: flex;
+            gap: 7px;
         }
 
+        .header-button {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.06);
+            color: white;
 
-        /* CHAT */
+            min-height: 38px;
+            padding: 8px 11px;
+
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .speaker-on {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(117,92,255,.35),
+                    rgba(162,108,255,.25)
+                );
+        }
 
         #chat {
             flex: 1;
-
             overflow-y: auto;
 
-            padding:
-                25px 16px 20px;
+            padding: 25px 16px 20px;
 
             display: flex;
             flex-direction: column;
@@ -144,47 +147,36 @@
             scroll-behavior: smooth;
         }
 
-
-        /* WELCOME */
-
         .welcome {
             margin: auto;
-
             text-align: center;
-
             max-width: 520px;
-
             padding: 20px;
         }
 
         .hero-logo {
-            width: 125px;
-            height: 125px;
+            width: 115px;
+            height: 115px;
 
-            border-radius: 28px;
-
+            border-radius: 27px;
             object-fit: cover;
 
             box-shadow:
-                0 0 35px rgba(117, 92, 255, 0.38),
-                0 18px 50px rgba(0, 0, 0, 0.4);
+                0 0 35px rgba(117,92,255,.38),
+                0 18px 50px rgba(0,0,0,.4);
 
             margin-bottom: 20px;
         }
 
         .welcome h1 {
-            font-size: 36px;
-
+            font-size: 34px;
             letter-spacing: -1px;
-
             margin-bottom: 8px;
         }
 
         .welcome p {
             color: var(--muted);
-
             line-height: 1.5;
-
             font-size: 15px;
         }
 
@@ -192,52 +184,50 @@
             margin-top: 20px;
 
             display: flex;
-
             justify-content: center;
-
             flex-wrap: wrap;
-
             gap: 8px;
         }
 
         .feature {
-            background:
-                rgba(255, 255, 255, 0.055);
-
-            border:
-                1px solid var(--border);
-
+            background: rgba(255,255,255,.055);
+            border: 1px solid var(--border);
             border-radius: 20px;
 
             padding: 7px 11px;
 
             color: #b7b7c5;
-
             font-size: 12px;
         }
 
+        .message-row {
+            display: flex;
+            flex-direction: column;
+            max-width: 88%;
+        }
 
-        /* MESSAGES */
+        .message-row.user-row {
+            align-self: flex-end;
+            align-items: flex-end;
+        }
+
+        .message-row.assistant-row {
+            align-self: flex-start;
+            align-items: flex-start;
+        }
 
         .message {
-            max-width: 82%;
-
             padding: 12px 15px;
-
             border-radius: 19px;
 
             line-height: 1.45;
-
             font-size: 15px;
 
             white-space: pre-wrap;
-
             overflow-wrap: anywhere;
         }
 
         .user {
-            align-self: flex-end;
-
             background:
                 linear-gradient(
                     135deg,
@@ -249,13 +239,8 @@
         }
 
         .assistant {
-            align-self: flex-start;
-
             background: var(--panel);
-
-            border:
-                1px solid var(--border);
-
+            border: 1px solid var(--border);
             border-bottom-left-radius: 6px;
         }
 
@@ -263,48 +248,76 @@
             color: var(--muted);
         }
 
+        .speak-message {
+            margin-top: 5px;
 
-        /* INPUT */
+            border: none;
+            background: transparent;
+            color: #9e9eae;
+
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .recording-bar {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            padding: 8px;
+
+            color: #ff8294;
+            font-size: 13px;
+        }
+
+        .recording-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--danger);
+
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: .3;
+                transform: scale(.8);
+            }
+        }
 
         .input-area {
             flex-shrink: 0;
 
             padding:
-                10px
-                14px
-                calc(
-                    12px +
-                    env(safe-area-inset-bottom)
-                );
+                8px
+                12px
+                calc(10px + env(safe-area-inset-bottom));
 
             background:
                 linear-gradient(
                     transparent,
-                    rgba(7, 8, 13, 0.97) 28%
+                    rgba(7,8,13,.98) 25%
                 );
         }
 
         .input-box {
             display: flex;
-
             align-items: flex-end;
+            gap: 6px;
 
-            gap: 8px;
+            padding: 7px;
 
-            padding: 8px;
-
-            background:
-                rgba(24, 24, 35, 0.96);
+            background: rgba(24,24,35,.97);
 
             border:
-                1px solid
-                rgba(255, 255, 255, 0.11);
+                1px solid rgba(255,255,255,.11);
 
             border-radius: 22px;
 
             box-shadow:
-                0 12px 40px
-                rgba(0, 0, 0, 0.32);
+                0 12px 40px rgba(0,0,0,.32);
         }
 
         textarea {
@@ -315,17 +328,15 @@
             max-height: 130px;
             min-height: 42px;
 
-            padding: 11px 8px;
+            padding: 11px 6px;
 
             background: transparent;
-
             border: none;
             outline: none;
 
             color: white;
 
             font: inherit;
-
             font-size: 16px;
         }
 
@@ -340,19 +351,24 @@
             flex-shrink: 0;
 
             border: none;
-
             border-radius: 14px;
 
-            font-size: 20px;
-
+            font-size: 19px;
             cursor: pointer;
         }
 
         .attach {
-            background:
-                rgba(255, 255, 255, 0.06);
-
+            background: rgba(255,255,255,.06);
             color: white;
+        }
+
+        .mic {
+            background: rgba(255,255,255,.06);
+            color: white;
+        }
+
+        .mic.recording {
+            background: var(--danger);
         }
 
         .send {
@@ -367,35 +383,23 @@
         }
 
         .send:disabled {
-            opacity: 0.45;
+            opacity: .45;
         }
 
         .input-note {
             text-align: center;
-
             color: #5f5f6b;
-
             font-size: 10px;
-
-            margin-top: 7px;
+            margin-top: 6px;
         }
 
         #fileInput {
             display: none;
         }
 
-
-        /* MOBILE */
-
         @media (max-width: 600px) {
-
-            header {
-                padding-left: 14px;
-                padding-right: 14px;
-            }
-
-            .message {
-                max-width: 88%;
+            .message-row {
+                max-width: 90%;
             }
 
             .welcome h1 {
@@ -406,16 +410,17 @@
                 width: 105px;
                 height: 105px;
             }
+
+            .new-chat-text {
+                display: none;
+            }
         }
     </style>
 </head>
 
-
 <body>
 
 <div class="app">
-
-    <!-- HEADER -->
 
     <header>
 
@@ -437,18 +442,31 @@
 
         </div>
 
+        <div class="header-actions">
 
-        <button
-            class="new-chat"
-            onclick="newChat()"
-        >
-            ＋ Новый чат
-        </button>
+            <button
+                id="speakerButton"
+                class="header-button"
+                onclick="toggleSpeech()"
+                title="Озвучивание ответов"
+            >
+                🔊
+            </button>
+
+            <button
+                class="header-button"
+                onclick="newChat()"
+            >
+                ＋
+                <span class="new-chat-text">
+                    Новый чат
+                </span>
+            </button>
+
+        </div>
 
     </header>
 
-
-    <!-- CHAT -->
 
     <main id="chat">
 
@@ -470,10 +488,8 @@
             <p>
                 Чем я могу помочь?
                 <br>
-                Задайте вопрос на русском,
-                немецком или английском.
+                Напишите или отправьте голосовое сообщение.
             </p>
-
 
             <div class="features">
 
@@ -486,7 +502,11 @@
                 </div>
 
                 <div class="feature">
-                    📷 Images
+                    🎙️ Voice
+                </div>
+
+                <div class="feature">
+                    🔊 Speech
                 </div>
 
                 <div class="feature">
@@ -500,7 +520,17 @@
     </main>
 
 
-    <!-- INPUT -->
+    <div
+        class="recording-bar"
+        id="recordingBar"
+    >
+        <div class="recording-dot"></div>
+
+        <span id="recordingText">
+            Запись голоса…
+        </span>
+    </div>
+
 
     <div class="input-area">
 
@@ -518,13 +548,11 @@
                 ＋
             </button>
 
-
             <input
                 id="fileInput"
                 type="file"
                 accept="image/*"
             >
-
 
             <textarea
                 id="messageInput"
@@ -532,6 +560,14 @@
                 placeholder="Сообщение Wiens AI..."
             ></textarea>
 
+            <button
+                class="icon-button mic"
+                id="micButton"
+                onclick="toggleRecording()"
+                title="Голосовое сообщение"
+            >
+                🎙️
+            </button>
 
             <button
                 class="icon-button send"
@@ -542,7 +578,6 @@
             </button>
 
         </div>
-
 
         <div class="input-note">
             Wiens AI может допускать ошибки
@@ -555,263 +590,685 @@
 
 <script>
 
-    const chat =
-        document.getElementById("chat");
+const chat =
+    document.getElementById("chat");
 
-    const input =
-        document.getElementById(
-            "messageInput"
-        );
+const input =
+    document.getElementById("messageInput");
 
-    const sendButton =
-        document.getElementById(
-            "sendButton"
-        );
+const sendButton =
+    document.getElementById("sendButton");
 
-    let history = [];
+const micButton =
+    document.getElementById("micButton");
 
+const recordingBar =
+    document.getElementById("recordingBar");
 
-    function addMessage(
-        text,
-        role
-    ) {
+const recordingText =
+    document.getElementById("recordingText");
 
-        const welcome =
-            document.getElementById(
-                "welcome"
-            );
-
-        if (welcome) {
-            welcome.remove();
-        }
+const speakerButton =
+    document.getElementById("speakerButton");
 
 
-        const message =
-            document.createElement(
-                "div"
-            );
+let history = [];
 
-        message.className =
-            "message " + role;
+let mediaRecorder = null;
 
-        message.textContent =
-            text;
+let audioChunks = [];
 
-        chat.appendChild(
-            message
-        );
+let recording = false;
 
-        chat.scrollTop =
-            chat.scrollHeight;
+let speechEnabled = true;
 
-        return message;
+
+function addMessage(text, role) {
+
+    const welcome =
+        document.getElementById("welcome");
+
+    if (welcome) {
+        welcome.remove();
     }
 
 
-    async function sendMessage() {
+    const row =
+        document.createElement("div");
 
-        const text =
-            input.value.trim();
+    row.className =
+        "message-row "
+        +
+        (
+            role === "user"
+            ? "user-row"
+            : "assistant-row"
+        );
 
 
-        if (!text) {
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message " + role;
+
+    message.textContent = text;
+
+    row.appendChild(message);
+
+
+    if (
+        role === "assistant"
+        &&
+        !message.classList.contains("thinking")
+    ) {
+
+        const speak =
+            document.createElement("button");
+
+        speak.className =
+            "speak-message";
+
+        speak.textContent = "🔊";
+
+        speak.title =
+            "Озвучить ответ";
+
+        speak.onclick =
+            function() {
+                speakText(text);
+            };
+
+        row.appendChild(speak);
+    }
+
+
+    chat.appendChild(row);
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+    return row;
+}
+
+
+async function sendMessage(
+    customText = null
+) {
+
+    const text =
+        (
+            customText !== null
+            ? customText
+            : input.value
+        ).trim();
+
+
+    if (!text) {
+        return;
+    }
+
+
+    addMessage(
+        text,
+        "user"
+    );
+
+
+    input.value = "";
+
+    input.style.height = "auto";
+
+    sendButton.disabled = true;
+
+
+    const thinking =
+        addMessage(
+            "Wiens AI думает…",
+            "assistant thinking"
+        );
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/chat",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify({
+                            message: text,
+                            history: history
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        thinking.remove();
+
+
+        if (!response.ok) {
+
+            addMessage(
+                data.error ||
+                "Произошла ошибка.",
+                "assistant"
+            );
+
             return;
         }
 
 
         addMessage(
-            text,
-            "user"
+            data.answer,
+            "assistant"
         );
 
 
-        input.value = "";
-
-        input.style.height =
-            "auto";
-
-
-        sendButton.disabled =
-            true;
+        history.push({
+            role: "user",
+            content: text
+        });
 
 
-        const thinking =
-            addMessage(
-                "Wiens AI думает…",
-                "assistant thinking"
+        history.push({
+            role: "assistant",
+            content: data.answer
+        });
+
+
+        if (speechEnabled) {
+
+            speakText(
+                data.answer
             );
-
-
-        try {
-
-            const response =
-                await fetch(
-                    "/api/chat",
-                    {
-                        method: "POST",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify({
-                                message:
-                                    text,
-
-                                history:
-                                    history
-                            })
-                    }
-                );
-
-
-            const data =
-                await response.json();
-
-
-            thinking.remove();
-
-
-            if (!response.ok) {
-
-                addMessage(
-                    data.error ||
-                    "Произошла ошибка.",
-                    "assistant"
-                );
-
-                return;
-            }
-
-
-            addMessage(
-                data.answer,
-                "assistant"
-            );
-
-
-            history.push({
-                role: "user",
-                content: text
-            });
-
-
-            history.push({
-                role: "assistant",
-                content: data.answer
-            });
-
-
-        } catch (error) {
-
-            thinking.remove();
-
-
-            addMessage(
-                "Не удалось связаться с Wiens AI.",
-                "assistant"
-            );
-
-        } finally {
-
-            sendButton.disabled =
-                false;
-
-            input.focus();
         }
+
+
+    } catch (error) {
+
+        thinking.remove();
+
+        addMessage(
+            "Не удалось связаться с Wiens AI.",
+            "assistant"
+        );
+
+    } finally {
+
+        sendButton.disabled = false;
+
+        input.focus();
+    }
+}
+
+
+async function toggleRecording() {
+
+    if (recording) {
+
+        if (
+            mediaRecorder
+            &&
+            mediaRecorder.state !== "inactive"
+        ) {
+
+            mediaRecorder.stop();
+        }
+
+        return;
     }
 
 
-    function newChat() {
+    try {
 
-        history = [];
+        const stream =
+            await navigator
+                .mediaDevices
+                .getUserMedia({
+                    audio: true
+                });
 
 
-        chat.innerHTML = `
+        let options = {};
 
-            <div
-                class="welcome"
-                id="welcome"
+
+        if (
+            MediaRecorder
+            .isTypeSupported(
+                "audio/mp4"
+            )
+        ) {
+
+            options = {
+                mimeType:
+                    "audio/mp4"
+            };
+
+        } else if (
+            MediaRecorder
+            .isTypeSupported(
+                "audio/webm"
+            )
+        ) {
+
+            options = {
+                mimeType:
+                    "audio/webm"
+            };
+        }
+
+
+        mediaRecorder =
+            new MediaRecorder(
+                stream,
+                options
+            );
+
+
+        audioChunks = [];
+
+
+        mediaRecorder.ondataavailable =
+            function(event) {
+
+                if (
+                    event.data
+                    &&
+                    event.data.size > 0
+                ) {
+
+                    audioChunks.push(
+                        event.data
+                    );
+                }
+            };
+
+
+        mediaRecorder.onstop =
+            async function() {
+
+                recording = false;
+
+                micButton.classList.remove(
+                    "recording"
+                );
+
+                micButton.textContent =
+                    "🎙️";
+
+                recordingBar.style.display =
+                    "none";
+
+
+                stream
+                    .getTracks()
+                    .forEach(
+                        track =>
+                            track.stop()
+                    );
+
+
+                const mimeType =
+                    mediaRecorder.mimeType
+                    ||
+                    "audio/webm";
+
+
+                const blob =
+                    new Blob(
+                        audioChunks,
+                        {
+                            type: mimeType
+                        }
+                    );
+
+
+                await transcribeAudio(
+                    blob,
+                    mimeType
+                );
+            };
+
+
+        mediaRecorder.start();
+
+
+        recording = true;
+
+        micButton.classList.add(
+            "recording"
+        );
+
+        micButton.textContent =
+            "⏹️";
+
+        recordingBar.style.display =
+            "flex";
+
+        recordingText.textContent =
+            "Запись голоса… нажмите ⏹️ для отправки";
+
+
+    } catch (error) {
+
+        alert(
+            "Не удалось получить доступ к микрофону. Разрешите Safari использовать микрофон."
+        );
+    }
+}
+
+
+async function transcribeAudio(
+    blob,
+    mimeType
+) {
+
+    recordingBar.style.display =
+        "flex";
+
+    recordingText.textContent =
+        "Распознаю голос…";
+
+
+    try {
+
+        const formData =
+            new FormData();
+
+
+        let extension = "webm";
+
+        if (
+            mimeType.includes("mp4")
+        ) {
+            extension = "mp4";
+        }
+
+
+        formData.append(
+            "audio",
+            blob,
+            "voice." + extension
+        );
+
+
+        const response =
+            await fetch(
+                "/api/transcribe",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        recordingBar.style.display =
+            "none";
+
+
+        if (!response.ok) {
+
+            addMessage(
+                data.error ||
+                "Не удалось распознать голос.",
+                "assistant"
+            );
+
+            return;
+        }
+
+
+        if (data.text) {
+
+            await sendMessage(
+                data.text
+            );
+        }
+
+
+    } catch (error) {
+
+        recordingBar.style.display =
+            "none";
+
+        addMessage(
+            "Ошибка отправки голосового сообщения.",
+            "assistant"
+        );
+    }
+}
+
+
+function speakText(text) {
+
+    if (
+        !("speechSynthesis" in window)
+    ) {
+        return;
+    }
+
+
+    window
+        .speechSynthesis
+        .cancel();
+
+
+    const cleanText =
+        text
+            .replace(
+                /https?:\/\/\S+/g,
+                ""
+            )
+            .replace(
+                /[*#`]/g,
+                ""
+            );
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            cleanText
+        );
+
+
+    const hasCyrillic =
+        /[А-Яа-яЁё]/.test(
+            cleanText
+        );
+
+
+    const hasGerman =
+        /[äöüßÄÖÜ]/.test(
+            cleanText
+        );
+
+
+    if (hasCyrillic) {
+
+        utterance.lang =
+            "ru-RU";
+
+    } else if (hasGerman) {
+
+        utterance.lang =
+            "de-DE";
+
+    } else {
+
+        utterance.lang =
+            document.documentElement.lang
+            === "de"
+            ? "de-DE"
+            : "en-US";
+    }
+
+
+    utterance.rate = 1.0;
+
+    utterance.pitch = 1.0;
+
+
+    window
+        .speechSynthesis
+        .speak(
+            utterance
+        );
+}
+
+
+function toggleSpeech() {
+
+    speechEnabled =
+        !speechEnabled;
+
+
+    if (!speechEnabled) {
+
+        window
+            .speechSynthesis
+            .cancel();
+
+        speakerButton.textContent =
+            "🔇";
+
+        speakerButton.classList.remove(
+            "speaker-on"
+        );
+
+    } else {
+
+        speakerButton.textContent =
+            "🔊";
+
+        speakerButton.classList.add(
+            "speaker-on"
+        );
+    }
+}
+
+
+function newChat() {
+
+    history = [];
+
+
+    if (
+        "speechSynthesis"
+        in window
+    ) {
+
+        window
+            .speechSynthesis
+            .cancel();
+    }
+
+
+    chat.innerHTML = `
+
+        <div
+            class="welcome"
+            id="welcome"
+        >
+
+            <img
+                class="hero-logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
             >
 
-                <img
-                    class="hero-logo"
-                    src="/static/logo.png.PNG"
-                    alt="Wiens AI"
-                >
+            <h1>
+                Wiens AI
+            </h1>
 
-                <h1>
-                    Wiens AI
-                </h1>
+            <p>
+                Чем я могу помочь?
+                <br>
+                Напишите или отправьте голосовое сообщение.
+            </p>
 
-                <p>
-                    Чем я могу помочь?
-                    <br>
-                    Задайте вопрос на русском,
-                    немецком или английском.
-                </p>
+            <div class="features">
 
+                <div class="feature">
+                    🧠 AI
+                </div>
 
-                <div class="features">
+                <div class="feature">
+                    🌐 Internet
+                </div>
 
-                    <div class="feature">
-                        🧠 AI
-                    </div>
+                <div class="feature">
+                    🎙️ Voice
+                </div>
 
-                    <div class="feature">
-                        🌐 Internet
-                    </div>
+                <div class="feature">
+                    🔊 Speech
+                </div>
 
-                    <div class="feature">
-                        📷 Images
-                    </div>
-
-                    <div class="feature">
-                        🇷🇺 🇩🇪 🇬🇧
-                    </div>
-
+                <div class="feature">
+                    🇷🇺 🇩🇪 🇬🇧
                 </div>
 
             </div>
-        `;
+
+        </div>
+    `;
+}
+
+
+input.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+            &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            sendMessage();
+        }
     }
+);
 
 
-    input.addEventListener(
-        "keydown",
-        function(event) {
+input.addEventListener(
+    "input",
+    function() {
 
-            if (
-                event.key === "Enter"
-                &&
-                !event.shiftKey
-            ) {
+        this.style.height =
+            "auto";
 
-                event.preventDefault();
+        this.style.height =
+            Math.min(
+                this.scrollHeight,
+                130
+            )
+            + "px";
+    }
+);
 
-                sendMessage();
-            }
-        }
-    );
 
-
-    input.addEventListener(
-        "input",
-        function() {
-
-            this.style.height =
-                "auto";
-
-            this.style.height =
-                Math.min(
-                    this.scrollHeight,
-                    130
-                )
-                + "px";
-        }
-    );
+speakerButton.classList.add(
+    "speaker-on"
+);
 
 </script>
 
