@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>Wiens AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #07080d;
+            --panel: rgba(20, 20, 30, 0.88);
+            --border: rgba(255, 255, 255, 0.09);
+            --text: #ffffff;
+            --muted: #9696a5;
+            --purple: #755cff;
+            --purple2: #a26cff;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #25174c 0%,
+                    #10101b 32%,
+                    #07080d 70%
+                );
+
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .app {
+            height: 100dvh;
+            max-width: 900px;
+            margin: auto;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* HEADER */
+
+        header {
+            min-height: 70px;
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding:
+                calc(8px + env(safe-area-inset-top))
+                18px
+                8px;
+
+            border-bottom: 1px solid var(--border);
+
+            background: rgba(7, 8, 13, 0.55);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            font-size: 20px;
+            font-weight: 750;
+        }
+
+        .mini-logo {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 11px;
+            object-fit: cover;
+
+            box-shadow:
+                0 0 20px rgba(117, 92, 255, 0.45);
+        }
+
+        .online {
+            font-size: 11px;
+            color: #79ffac;
+            margin-top: 2px;
+        }
+
+        .new-chat {
+            border: 1px solid var(--border);
+
+            background:
+                rgba(255, 255, 255, 0.06);
+
+            color: white;
+
+            padding: 9px 13px;
+            border-radius: 12px;
+
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+
+        /* CHAT */
+
+        #chat {
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding:
+                25px 16px 20px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+
+            scroll-behavior: smooth;
+        }
+
+
+        /* WELCOME */
+
+        .welcome {
+            margin: auto;
+
+            text-align: center;
+
+            max-width: 520px;
+
+            padding: 20px;
+        }
+
+        .hero-logo {
+            width: 125px;
+            height: 125px;
+
+            border-radius: 28px;
+
+            object-fit: cover;
+
+            box-shadow:
+                0 0 35px rgba(117, 92, 255, 0.38),
+                0 18px 50px rgba(0, 0, 0, 0.4);
+
+            margin-bottom: 20px;
+        }
+
+        .welcome h1 {
+            font-size: 36px;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+
+            line-height: 1.5;
+
+            font-size: 15px;
+        }
+
+        .features {
+            margin-top: 20px;
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+        }
+
+        .feature {
+            background:
+                rgba(255, 255, 255, 0.055);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            padding: 7px 11px;
+
+            color: #b7b7c5;
+
+            font-size: 12px;
+        }
+
+
+        /* MESSAGES */
+
+        .message {
+            max-width: 82%;
+
+            padding: 12px 15px;
+
+            border-radius: 19px;
+
+            line-height: 1.45;
+
+            font-size: 15px;
+
+            white-space: pre-wrap;
+
+            overflow-wrap: anywhere;
+        }
+
+        .user {
+            align-self: flex-end;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+
+            border-bottom-right-radius: 6px;
+        }
+
+        .assistant {
+            align-self: flex-start;
+
+            background: var(--panel);
+
+            border:
+                1px solid var(--border);
+
+            border-bottom-left-radius: 6px;
+        }
+
+        .thinking {
+            color: var(--muted);
+        }
+
+
+        /* INPUT */
+
+        .input-area {
+            flex-shrink: 0;
+
+            padding:
+                10px
+                14px
+                calc(
+                    12px +
+                    env(safe-area-inset-bottom)
+                );
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(7, 8, 13, 0.97) 28%
+                );
+        }
+
+        .input-box {
+            display: flex;
+
+            align-items: flex-end;
+
+            gap: 8px;
+
+            padding: 8px;
+
+            background:
+                rgba(24, 24, 35, 0.96);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.11);
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 12px 40px
+                rgba(0, 0, 0, 0.32);
+        }
+
+        textarea {
+            flex: 1;
+
+            resize: none;
+
+            max-height: 130px;
+            min-height: 42px;
+
+            padding: 11px 8px;
+
+            background: transparent;
+
+            border: none;
+            outline: none;
+
+            color: white;
+
+            font: inherit;
+
+            font-size: 16px;
+        }
+
+        textarea::placeholder {
+            color: #777786;
+        }
+
+        .icon-button {
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            border: none;
+
+            border-radius: 14px;
+
+            font-size: 20px;
+
+            cursor: pointer;
+        }
+
+        .attach {
+            background:
+                rgba(255, 255, 255, 0.06);
+
+            color: white;
+        }
+
+        .send {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+
+            color: white;
+        }
+
+        .send:disabled {
+            opacity: 0.45;
+        }
+
+        .input-note {
+            text-align: center;
+
+            color: #5f5f6b;
+
+            font-size: 10px;
+
+            margin-top: 7px;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .message {
+                max-width: 88%;
+            }
+
+            .welcome h1 {
+                font-size: 31px;
+            }
+
+            .hero-logo {
+                width: 105px;
+                height: 105px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="brand">
+
+            <img
+                class="mini-logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <div>
+                Wiens AI
+
+                <div class="online">
+                    ● AI Online
+                </div>
+            </div>
+
+        </div>
+
+
+        <button
+            class="new-chat"
+            onclick="newChat()"
+        >
+            ＋ Новый чат
+        </button>
+
+    </header>
+
+
+    <!-- CHAT -->
+
+    <main id="chat">
+
+        <div
+            class="welcome"
+            id="welcome"
+        >
+
+            <img
+                class="hero-logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <h1>
+                Wiens AI
+            </h1>
+
+            <p>
+                Чем я могу помочь?
+                <br>
+                Задайте вопрос на русском,
+                немецком или английском.
+            </p>
+
+
+            <div class="features">
+
+                <div class="feature">
+                    🧠 AI
+                </div>
+
+                <div class="feature">
+                    🌐 Internet
+                </div>
+
+                <div class="feature">
+                    📷 Images
+                </div>
+
+                <div class="feature">
+                    🇷🇺 🇩🇪 🇬🇧
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- INPUT -->
+
+    <div class="input-area">
+
+        <div class="input-box">
+
+            <button
+                class="icon-button attach"
+                onclick="
+                    document
+                    .getElementById('fileInput')
+                    .click()
+                "
+                title="Добавить изображение"
+            >
+                ＋
+            </button>
+
+
+            <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+            >
+
+
+            <textarea
+                id="messageInput"
+                rows="1"
+                placeholder="Сообщение Wiens AI..."
+            ></textarea>
+
+
+            <button
+                class="icon-button send"
+                id="sendButton"
+                onclick="sendMessage()"
+            >
+                ➤
+            </button>
+
+        </div>
+
+
+        <div class="input-note">
+            Wiens AI может допускать ошибки
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const chat =
+        document.getElementById("chat");
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    const sendButton =
+        document.getElementById(
+            "sendButton"
+        );
+
+    let history = [];
+
+
+    function addMessage(
+        text,
+        role
+    ) {
+
+        const welcome =
+            document.getElementById(
+                "welcome"
+            );
+
+        if (welcome) {
+            welcome.remove();
+        }
+
+
+        const message =
+            document.createElement(
+                "div"
+            );
+
+        message.className =
+            "message " + role;
+
+        message.textContent =
+            text;
+
+        chat.appendChild(
+            message
+        );
+
+        chat.scrollTop =
+            chat.scrollHeight;
+
+        return message;
+    }
+
+
+    async function sendMessage() {
+
+        const text =
+            input.value.trim();
+
+
+        if (!text) {
+            return;
+        }
+
+
+        addMessage(
+            text,
+            "user"
+        );
+
+
+        input.value = "";
+
+        input.style.height =
+            "auto";
+
+
+        sendButton.disabled =
+            true;
+
+
+        const thinking =
+            addMessage(
+                "Wiens AI думает…",
+                "assistant thinking"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/chat",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                message:
+                                    text,
+
+                                history:
+                                    history
+                            })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            thinking.remove();
+
+
+            if (!response.ok) {
+
+                addMessage(
+                    data.error ||
+                    "Произошла ошибка.",
+                    "assistant"
+                );
+
+                return;
+            }
+
+
+            addMessage(
+                data.answer,
+                "assistant"
+            );
+
+
+            history.push({
+                role: "user",
+                content: text
+            });
+
+
+            history.push({
+                role: "assistant",
+                content: data.answer
+            });
+
+
+        } catch (error) {
+
+            thinking.remove();
+
+
+            addMessage(
+                "Не удалось связаться с Wiens AI.",
+                "assistant"
+            );
+
+        } finally {
+
+            sendButton.disabled =
+                false;
+
+            input.focus();
+        }
+    }
+
+
+    function newChat() {
+
+        history = [];
+
+
+        chat.innerHTML = `
+
+            <div
+                class="welcome"
+                id="welcome"
+            >
+
+                <img
+                    class="hero-logo"
+                    src="/static/logo.png.PNG"
+                    alt="Wiens AI"
+                >
+
+                <h1>
+                    Wiens AI
+                </h1>
+
+                <p>
+                    Чем я могу помочь?
+                    <br>
+                    Задайте вопрос на русском,
+                    немецком или английском.
+                </p>
+
+
+                <div class="features">
+
+                    <div class="feature">
+                        🧠 AI
+                    </div>
+
+                    <div class="feature">
+                        🌐 Internet
+                    </div>
+
+                    <div class="feature">
+                        📷 Images
+                    </div>
+
+                    <div class="feature">
+                        🇷🇺 🇩🇪 🇬🇧
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+    }
+
+
+    input.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+                &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                sendMessage();
+            }
+        }
+    );
+
+
+    input.addEventListener(
+        "input",
+        function() {
+
+            this.style.height =
+                "auto";
+
+            this.style.height =
+                Math.min(
+                    this.scrollHeight,
+                    130
+                )
+                + "px";
+        }
+    );
+
+</script>
+
+</body>
+</html>
