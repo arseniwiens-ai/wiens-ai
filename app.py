@@ -10,35 +10,48 @@ SYSTEM_PROMPT = """
 You are Wiens AI, a helpful multilingual AI assistant.
 
 Automatically detect the language of the user.
+
 If the user writes in Russian, answer in Russian.
 If the user writes in German, answer in German.
 If the user writes in English, answer in English.
-If the user uses another language, answer in that language when possible.
+If the user writes in another language, answer in that language when possible.
 
 Be helpful, clear, friendly, and concise.
+Explain difficult things in simple language.
 """
 
 def chat(message, history):
     try:
         messages = [
-            {"role": "system", "content": SYSTEM_PROMPT}
+            {
+                "role": "system",
+                "content": SYSTEM_PROMPT
+            }
         ]
 
         for item in history:
             if isinstance(item, dict):
-                messages.append({
-                    "role": item["role"],
-                    "content": item["content"]
-                })
+                role = item.get("role")
+                content = item.get("content")
+
+                if role in ["user", "assistant"] and isinstance(content, str):
+                    messages.append({
+                        "role": role,
+                        "content": content
+                    })
+
             elif isinstance(item, (list, tuple)) and len(item) == 2:
-                messages.append({
-                    "role": "user",
-                    "content": item[0]
-                })
-                messages.append({
-                    "role": "assistant",
-                    "content": item[1]
-                })
+                if item[0]:
+                    messages.append({
+                        "role": "user",
+                        "content": str(item[0])
+                    })
+
+                if item[1]:
+                    messages.append({
+                        "role": "assistant",
+                        "content": str(item[1])
+                    })
 
         messages.append({
             "role": "user",
@@ -46,10 +59,10 @@ def chat(message, history):
         })
 
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="openai/gpt-oss-120b",
             messages=messages,
             temperature=0.7,
-            max_tokens=1024
+            max_tokens=1500
         )
 
         return response.choices[0].message.content
@@ -73,15 +86,23 @@ h1 {
 .subtitle {
     text-align: center;
     opacity: 0.7;
+    font-size: 20px;
     margin-bottom: 25px;
 }
 """
 
-with gr.Blocks(css=css, title="Wiens AI") as demo:
+
+with gr.Blocks(
+    css=css,
+    title="Wiens AI"
+) as demo:
 
     gr.Markdown("# ✦ Wiens AI")
+
     gr.HTML(
-        '<div class="subtitle">Русский · Deutsch · English</div>'
+        '<div class="subtitle">'
+        'Русский · Deutsch · English'
+        '</div>'
     )
 
     gr.ChatInterface(
@@ -92,6 +113,7 @@ with gr.Blocks(css=css, title="Wiens AI") as demo:
             "Hello! What can you do?"
         ]
     )
+
 
 demo.launch(
     server_name="0.0.0.0",
