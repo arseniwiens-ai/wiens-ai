@@ -5,252 +5,343 @@ import gradio as gr
 from groq import Groq
 
 
-# -----------------------------
-# GROQ CONNECTION
-# -----------------------------
+# =========================================================
+# GROQ
+# =========================================================
 
 client = Groq(
     api_key=os.environ.get("GROQ_API_KEY")
 )
 
 
-# -----------------------------
-# WIENS AI
-# -----------------------------
+# =========================================================
+# SYSTEM PROMPT
+# =========================================================
 
 SYSTEM_PROMPT = """
 You are Wiens AI, a helpful multilingual AI assistant.
 
-Automatically detect the language of the user.
+LANGUAGE:
+- Automatically detect the user's language.
+- Answer in the same language as the user.
+- Russian, German and English are especially important.
+- Other languages are also allowed when possible.
 
-If the user writes in Russian, answer in Russian.
-If the user writes in German, answer in German.
-If the user writes in English, answer in English.
-If the user writes in another language, answer in that language when possible.
+BEHAVIOR:
+- Be helpful, clear and friendly.
+- Explain difficult topics simply.
+- Keep answers concise unless the user asks for detail.
+- Remember the context of the current conversation.
 
-You can also analyze images.
+INTERNET:
+- You have access to browser search when available.
+- Use web search when current or up-to-date information is useful.
+- Examples: news, weather, prices, current events,
+  companies, products, travel information and recent changes.
+- Do not pretend that old model knowledge is current.
+- When information comes from web research, make that clear.
 
-When the user sends an image:
-- Carefully inspect the image.
-- Read visible text when possible.
-- Explain documents in simple language.
-- Translate text if the user asks.
-- Answer questions about the image.
-- Do not invent details that are not visible.
+IMAGES:
+- When an image is provided, carefully inspect it.
+- Read visible text using your vision capabilities.
+- Explain documents simply.
+- Translate visible text when requested.
+- Answer questions about objects and information visible in images.
+- Never invent details that cannot be seen.
 
-Be helpful, clear, friendly, and concise.
-Explain difficult things simply.
+You are called Wiens AI.
 """
 
 
-# -----------------------------
-# IMAGE TO BASE64
-# -----------------------------
+# =========================================================
+# IMAGE -> BASE64
+# =========================================================
 
 def image_to_data_url(file_path):
+
     mime_type, _ = mimetypes.guess_type(file_path)
 
     if not mime_type:
         mime_type = "image/jpeg"
 
     with open(file_path, "rb") as image_file:
+
         encoded = base64.b64encode(
             image_file.read()
         ).decode("utf-8")
 
-    return f"data:{mime_type};base64,{encoded}"
+    return (
+        f"data:{mime_type};base64,{encoded}"
+    )
 
 
-# -----------------------------
-# HISTORY
-# -----------------------------
+# =========================================================
+# CHAT HISTORY
+# =========================================================
 
 def add_history(messages, history):
 
+    if not history:
+        return
+
     for item in history:
 
-        if not isinstance(item, dict):
-            continue
+        if isinstance(item, dict):
 
-        role = item.get("role")
-        content = item.get("content")
+            role = item.get("role")
+            content = item.get("content")
 
-        if role not in ["user", "assistant"]:
-            continue
+            if (
+                role in ["user", "assistant"]
+                and isinstance(content, str)
+            ):
 
-        # Keep only text from previous messages.
-        # This avoids repeatedly sending old images.
-        if isinstance(content, str):
-            messages.append({
-                "role": role,
-                "content": content
-            })
-
-        elif isinstance(content, list):
-
-            text_parts = []
-
-            for part in content:
-
-                if isinstance(part, str):
-                    text_parts.append(part)
-
-                elif isinstance(part, dict):
-
-                    if part.get("type") == "text":
-                        text = part.get("text")
-
-                        if text:
-                            text_parts.append(text)
-
-            if text_parts:
                 messages.append({
                     "role": role,
-                    "content": "\n".join(text_parts)
+                    "content": content
                 })
 
 
-# -----------------------------
-# CHAT
-# -----------------------------
+        elif (
+            isinstance(item, (list, tuple))
+            and len(item) == 2
+        ):
+
+            user_part = item[0]
+            assistant_part = item[1]
+
+            if isinstance(user_part, str):
+
+                messages.append({
+                    "role": "user",
+                    "content": user_part
+                })
+
+            if isinstance(assistant_part, str):
+
+                messages.append({
+                    "role": "assistant",
+                    "content": assistant_part
+                })
+
+
+# =========================================================
+# FILE PATH
+# =========================================================
+
+def get_file_path(file_item):
+
+    if isinstance(file_item, str):
+        return file_item
+
+    if isinstance(file_item, dict):
+
+        return (
+            file_item.get("path")
+            or file_item.get("name")
+        )
+
+    path = getattr(
+        file_item,
+        "path",
+        None
+    )
+
+    if path:
+        return path
+
+    return getattr(
+        file_item,
+        "name",
+        None
+    )
+
+
+# =========================================================
+# IMAGE CHAT
+# =========================================================
+
+def vision_chat(user_text, files, history):
+
+    messages = [
+        {
+            "role": "system",
+            "content": SYSTEM_PROMPT
+        }
+    ]
+
+    add_history(
+        messages,
+        history
+    )
+
+    content = []
+
+    if user_text.strip():
+
+        content.append({
+            "type": "text",
+            "text": user_text
+        })
+
+    else:
+
+        content.append({
+            "type": "text",
+            "text":
+                "Analyze this image carefully and "
+                "explain what you see."
+        })
+
+
+    # Maximum 3 images
+    for file_item in files[:3]:
+
+        file_path = get_file_path(
+            file_item
+        )
+
+        if not file_path:
+            continue
+
+        data_url = image_to_data_url(
+            file_path
+        )
+
+        content.append({
+            "type": "image_url",
+            "image_url": {
+                "url": data_url
+            }
+        })
+
+
+    messages.append({
+        "role": "user",
+        "content": content
+    })
+
+
+    response = client.chat.completions.create(
+
+        model="qwen/qwen3.8-27b",
+
+        messages=messages,
+
+        temperature=0.7,
+
+        max_completion_tokens=2000,
+
+        reasoning_effort="none"
+    )
+
+
+    return (
+        response
+        .choices[0]
+        .message
+        .content
+    )
+
+
+# =========================================================
+# TEXT + INTERNET CHAT
+# =========================================================
+
+def internet_chat(user_text, history):
+
+    messages = [
+        {
+            "role": "system",
+            "content": SYSTEM_PROMPT
+        }
+    ]
+
+    add_history(
+        messages,
+        history
+    )
+
+    messages.append({
+        "role": "user",
+        "content": user_text
+    })
+
+
+    response = client.chat.completions.create(
+
+        model="openai/gpt-oss-120b",
+
+        messages=messages,
+
+        tools=[
+            {
+                "type": "browser_search"
+            }
+        ],
+
+        reasoning_effort="medium",
+
+        max_completion_tokens=2000
+    )
+
+
+    return (
+        response
+        .choices[0]
+        .message
+        .content
+    )
+
+
+# =========================================================
+# MAIN CHAT FUNCTION
+# =========================================================
 
 def chat(message, history):
 
     try:
 
-        # Multimodal Gradio message
+        # MultimodalTextbox returns a dictionary
         if isinstance(message, dict):
 
-            user_text = message.get("text") or ""
-            files = message.get("files") or []
+            user_text = (
+                message.get("text")
+                or ""
+            )
+
+            files = (
+                message.get("files")
+                or []
+            )
 
         else:
 
             user_text = str(message)
+
             files = []
 
 
-        # -------------------------
-        # IMAGE MESSAGE
-        # -------------------------
-
+        # IMAGE MODE
         if files:
 
-            messages = [
-                {
-                    "role": "system",
-                    "content": SYSTEM_PROMPT
-                }
-            ]
-
-            add_history(messages, history)
-
-            content = []
-
-            if user_text.strip():
-
-                content.append({
-                    "type": "text",
-                    "text": user_text
-                })
-
-            else:
-
-                content.append({
-                    "type": "text",
-                    "text":
-                        "Please analyze this image and explain what you see."
-                })
-
-
-            # Groq Qwen supports up to 3 images
-            for file_item in files[:3]:
-
-                if isinstance(file_item, str):
-                    file_path = file_item
-
-                elif isinstance(file_item, dict):
-                    file_path = (
-                        file_item.get("path")
-                        or file_item.get("name")
-                    )
-
-                else:
-                    file_path = getattr(
-                        file_item,
-                        "path",
-                        None
-                    )
-
-                    if not file_path:
-                        file_path = getattr(
-                            file_item,
-                            "name",
-                            None
-                        )
-
-
-                if not file_path:
-                    continue
-
-
-                data_url = image_to_data_url(
-                    file_path
-                )
-
-
-                content.append({
-                    "type": "image_url",
-                    "image_url": {
-                        "url": data_url
-                    }
-                })
-
-
-            messages.append({
-                "role": "user",
-                "content": content
-            })
-
-
-            response = client.chat.completions.create(
-                model="qwen/qwen3.8-27b",
-                messages=messages,
-                temperature=0.7,
-                max_completion_tokens=1500
+            return vision_chat(
+                user_text,
+                files,
+                history
             )
 
 
-        # -------------------------
-        # TEXT MESSAGE
-        # -------------------------
+        # TEXT + INTERNET MODE
+        if user_text.strip():
 
-        else:
-
-            messages = [
-                {
-                    "role": "system",
-                    "content": SYSTEM_PROMPT
-                }
-            ]
-
-            add_history(messages, history)
-
-            messages.append({
-                "role": "user",
-                "content": user_text
-            })
-
-
-            response = client.chat.completions.create(
-                model="openai/gpt-oss-120b",
-                messages=messages,
-                temperature=0.7,
-                max_tokens=1500
+            return internet_chat(
+                user_text,
+                history
             )
 
 
-        return response.choices[0].message.content
+        return "Напишите сообщение или прикрепите изображение."
 
 
     except Exception as e:
@@ -261,9 +352,9 @@ def chat(message, history):
         )
 
 
-# -----------------------------
+# =========================================================
 # DESIGN
-# -----------------------------
+# =========================================================
 
 css = """
 body,
@@ -347,13 +438,27 @@ body,
 }
 
 
-/* STATUS */
+/* FEATURES */
+
+.features {
+
+    text-align: center;
+
+    color: #88889a;
+
+    font-size: 12px;
+
+    margin-top: 8px;
+}
+
+
+/* ONLINE */
 
 .status-wrap {
 
     text-align: center;
 
-    margin-top: 10px;
+    margin-top: 12px;
 
     margin-bottom: 24px;
 }
@@ -436,14 +541,18 @@ button {
 """
 
 
-# -----------------------------
+# =========================================================
 # APP
-# -----------------------------
+# =========================================================
 
 with gr.Blocks(
+
     css=css,
+
     title="Wiens AI",
+
     theme=gr.themes.Base()
+
 ) as demo:
 
 
@@ -465,6 +574,13 @@ with gr.Blocks(
     <div class="subtitle">
 
         Русский · Deutsch · English
+
+    </div>
+
+
+    <div class="features">
+
+        🌐 Internet · 📷 Vision · 🧠 AI
 
     </div>
 
@@ -497,8 +613,11 @@ with gr.Blocks(
             <div style="
                 font-size:32px;
             ">
+
                 ✦
+
             </div>
+
 
             <div style="
                 font-size:20px;
@@ -510,14 +629,15 @@ with gr.Blocks(
 
             </div>
 
+
             <div style="
                 font-size:13px;
-                margin-top:6px;
+                margin-top:7px;
                 opacity:.7;
             ">
 
-                Напишите сообщение
-                или прикрепите изображение
+                Спросите что-нибудь
+                или прикрепите фотографию
 
             </div>
 
@@ -529,13 +649,18 @@ with gr.Blocks(
 
     multimodal_input = gr.MultimodalTextbox(
 
-        placeholder="Сообщение или фото...",
+        placeholder=
+            "Напишите сообщение или добавьте фото...",
 
-        file_types=["image"],
+        file_types=[
+            "image"
+        ],
 
         file_count="multiple",
 
-        sources=["upload"],
+        sources=[
+            "upload"
+        ],
 
         submit_btn="➤",
 
@@ -559,16 +684,19 @@ with gr.Blocks(
 
     <div class="footer">
 
-        Wiens AI · Vision enabled · Powered by Groq
+        Wiens AI
+        · Internet
+        · Vision
+        · Powered by Groq
 
     </div>
 
     """)
 
 
-# -----------------------------
-# START
-# -----------------------------
+# =========================================================
+# START SERVER
+# =========================================================
 
 demo.launch(
 
