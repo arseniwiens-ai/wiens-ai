@@ -2,11 +2,51 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
     <title>Wiens AI</title>
 
+    <!-- PWA -->
+    <link
+        rel="manifest"
+        href="/static/manifest.json"
+    >
+
+    <meta
+        name="theme-color"
+        content="#07080d"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Wiens AI"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="/static/logo.png.PNG"
+    >
+
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
             --panel: rgba(20,20,30,.92);
@@ -19,22 +59,47 @@
             --danger: #ff4d67;
         }
 
-        html, body { height: 100%; }
+        html,
+        body {
+            height: 100%;
+        }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background: radial-gradient(circle at top, #25174c 0%, #10101b 32%, #07080d 70%);
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #25174c 0%,
+                    #10101b 32%,
+                    #07080d 70%
+                );
+
             color: var(--text);
             overflow: hidden;
         }
 
-        button, textarea { font: inherit; }
-        button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+        button,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         .app {
             height: 100dvh;
             max-width: 900px;
             margin: auto;
+
             display: flex;
             flex-direction: column;
         }
@@ -42,13 +107,23 @@
         header {
             min-height: 70px;
             flex-shrink: 0;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 8px;
-            padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(7,8,13,.60);
+
+            padding:
+                calc(8px + env(safe-area-inset-top))
+                12px
+                8px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            background:
+                rgba(7,8,13,.60);
+
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
@@ -62,10 +137,16 @@
 
         .menu-button,
         .header-button {
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,.06);
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,.06);
+
             color: white;
+
             border-radius: 12px;
+
             min-height: 40px;
         }
 
@@ -83,17 +164,25 @@
             display: flex;
             align-items: center;
             gap: 9px;
+
             font-size: 19px;
             font-weight: 750;
+
             min-width: 0;
         }
 
         .mini-logo {
             width: 38px;
             height: 38px;
+
             border-radius: 11px;
+
             object-fit: cover;
-            box-shadow: 0 0 20px rgba(117,92,255,.45);
+
+            box-shadow:
+                0 0 20px
+                rgba(117,92,255,.45);
+
             flex-shrink: 0;
         }
 
@@ -110,73 +199,104 @@
         }
 
         .speaker-on {
-            background: linear-gradient(
-                135deg,
-                rgba(117,92,255,.35),
-                rgba(162,108,255,.25)
-            );
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(117,92,255,.35),
+                    rgba(162,108,255,.25)
+                );
         }
 
         #chat {
             flex: 1;
+
             overflow-y: auto;
-            padding: 25px 16px 20px;
+
+            padding:
+                25px
+                16px
+                20px;
+
             display: flex;
             flex-direction: column;
+
             gap: 14px;
+
             scroll-behavior: smooth;
         }
 
         .welcome {
             margin: auto;
+
             text-align: center;
+
             max-width: 520px;
+
             padding: 20px;
         }
 
         .hero-logo {
             width: 115px;
             height: 115px;
+
             border-radius: 27px;
+
             object-fit: cover;
+
             box-shadow:
                 0 0 35px rgba(117,92,255,.38),
                 0 18px 50px rgba(0,0,0,.4);
+
             margin-bottom: 20px;
         }
 
         .welcome h1 {
             font-size: 34px;
             letter-spacing: -1px;
+
             margin-bottom: 8px;
         }
 
         .welcome p {
             color: var(--muted);
+
             line-height: 1.5;
+
             font-size: 15px;
         }
 
         .features {
             margin-top: 20px;
+
             display: flex;
+
             justify-content: center;
+
             flex-wrap: wrap;
+
             gap: 8px;
         }
 
         .feature {
-            background: rgba(255,255,255,.055);
-            border: 1px solid var(--border);
+            background:
+                rgba(255,255,255,.055);
+
+            border:
+                1px solid var(--border);
+
             border-radius: 20px;
+
             padding: 7px 11px;
+
             color: #b7b7c5;
+
             font-size: 12px;
         }
 
         .message-row {
             display: flex;
             flex-direction: column;
+
             max-width: 90%;
         }
 
@@ -192,25 +312,35 @@
 
         .message {
             padding: 12px 15px;
+
             border-radius: 19px;
+
             line-height: 1.45;
+
             font-size: 15px;
+
             white-space: pre-wrap;
+
             overflow-wrap: anywhere;
         }
 
         .user {
-            background: linear-gradient(
-                135deg,
-                var(--purple),
-                var(--purple2)
-            );
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+
             border-bottom-right-radius: 6px;
         }
 
         .assistant {
             background: var(--panel);
-            border: 1px solid var(--border);
+
+            border:
+                1px solid var(--border);
+
             border-bottom-left-radius: 6px;
         }
 
@@ -220,47 +350,76 @@
 
         .chat-image {
             display: block;
-            max-width: min(290px, 75vw);
+
+            max-width:
+                min(290px,75vw);
+
             max-height: 360px;
+
             object-fit: contain;
+
             border-radius: 17px;
+
             margin-bottom: 7px;
-            border: 1px solid var(--border);
+
+            border:
+                1px solid var(--border);
         }
 
         .image-placeholder {
             padding: 18px;
+
             border-radius: 16px;
-            background: rgba(255,255,255,.06);
-            border: 1px solid var(--border);
+
+            background:
+                rgba(255,255,255,.06);
+
+            border:
+                1px solid var(--border);
+
             margin-bottom: 7px;
+
             color: var(--muted);
         }
 
         .speak-message {
             margin-top: 5px;
+
             border: none;
+
             background: transparent;
+
             color: #9e9eae;
+
             font-size: 17px;
         }
 
         .recording-bar {
             display: none;
+
             align-items: center;
+
             justify-content: center;
+
             gap: 8px;
+
             padding: 8px;
+
             color: #ff8294;
+
             font-size: 13px;
         }
 
         .recording-dot {
             width: 9px;
             height: 9px;
+
             border-radius: 50%;
+
             background: var(--danger);
-            animation: pulse 1s infinite;
+
+            animation:
+                pulse 1s infinite;
         }
 
         @keyframes pulse {
@@ -272,67 +431,115 @@
 
         .image-preview-area {
             display: none;
-            padding: 8px 14px 0;
+
+            padding:
+                8px
+                14px
+                0;
+
             flex-shrink: 0;
         }
 
         .preview-card {
             position: relative;
+
             width: 90px;
         }
 
         #imagePreview {
             display: block;
+
             width: 90px;
             height: 90px;
+
             object-fit: cover;
+
             border-radius: 16px;
-            border: 1px solid var(--border);
+
+            border:
+                1px solid var(--border);
         }
 
         .remove-image {
             position: absolute;
+
             top: -7px;
             right: -7px;
+
             width: 25px;
             height: 25px;
+
             border: none;
+
             border-radius: 50%;
+
             background: #353542;
+
             color: white;
+
             font-size: 15px;
         }
 
         .input-area {
             flex-shrink: 0;
-            padding: 8px 12px calc(10px + env(safe-area-inset-bottom));
-            background: linear-gradient(
-                transparent,
-                rgba(7,8,13,.98) 25%
-            );
+
+            padding:
+                8px
+                12px
+                calc(
+                    10px
+                    +
+                    env(safe-area-inset-bottom)
+                );
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(7,8,13,.98) 25%
+                );
         }
 
         .input-box {
             display: flex;
+
             align-items: flex-end;
+
             gap: 6px;
+
             padding: 7px;
-            background: rgba(24,24,35,.97);
-            border: 1px solid rgba(255,255,255,.11);
+
+            background:
+                rgba(24,24,35,.97);
+
+            border:
+                1px solid
+                rgba(255,255,255,.11);
+
             border-radius: 22px;
-            box-shadow: 0 12px 40px rgba(0,0,0,.32);
+
+            box-shadow:
+                0 12px 40px
+                rgba(0,0,0,.32);
         }
 
         textarea {
             flex: 1;
+
             resize: none;
+
             max-height: 130px;
             min-height: 42px;
+
             padding: 11px 6px;
+
             background: transparent;
+
             border: none;
+
             outline: none;
+
             color: white;
+
             font-size: 16px;
         }
 
@@ -343,28 +550,37 @@
         .icon-button {
             width: 42px;
             height: 42px;
+
             flex-shrink: 0;
+
             border: none;
+
             border-radius: 14px;
+
             font-size: 19px;
         }
 
         .attach,
         .mic {
-            background: rgba(255,255,255,.06);
+            background:
+                rgba(255,255,255,.06);
+
             color: white;
         }
 
         .mic.recording {
-            background: var(--danger);
+            background:
+                var(--danger);
         }
 
         .send {
-            background: linear-gradient(
-                135deg,
-                var(--purple),
-                var(--purple2)
-            );
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+
             color: white;
         }
 
@@ -374,8 +590,11 @@
 
         .input-note {
             text-align: center;
+
             color: #5f5f6b;
+
             font-size: 10px;
+
             margin-top: 6px;
         }
 
@@ -387,56 +606,87 @@
 
         .overlay {
             position: fixed;
+
             inset: 0;
-            background: rgba(0,0,0,.55);
+
+            background:
+                rgba(0,0,0,.55);
+
             opacity: 0;
+
             pointer-events: none;
+
             transition: .2s;
+
             z-index: 90;
         }
 
         .overlay.open {
             opacity: 1;
+
             pointer-events: auto;
         }
 
         .drawer {
             position: fixed;
+
             top: 0;
             left: 0;
             bottom: 0;
-            width: min(86vw, 340px);
+
+            width:
+                min(86vw,340px);
 
             padding:
-                calc(14px + env(safe-area-inset-top))
+                calc(
+                    14px
+                    +
+                    env(safe-area-inset-top)
+                )
                 12px
-                calc(14px + env(safe-area-inset-bottom));
+                calc(
+                    14px
+                    +
+                    env(safe-area-inset-bottom)
+                );
 
-            background: var(--drawer);
-            border-right: 1px solid var(--border);
+            background:
+                var(--drawer);
 
-            transform: translateX(-105%);
-            transition: transform .22s ease;
+            border-right:
+                1px solid var(--border);
+
+            transform:
+                translateX(-105%);
+
+            transition:
+                transform .22s ease;
 
             z-index: 100;
 
             display: flex;
+
             flex-direction: column;
         }
 
         .drawer.open {
-            transform: translateX(0);
+            transform:
+                translateX(0);
         }
 
         .drawer-header {
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             margin-bottom: 12px;
         }
 
         .drawer-title {
             font-size: 22px;
+
             font-weight: 750;
         }
 
@@ -444,73 +694,100 @@
             width: 38px;
             height: 38px;
 
-            border: 1px solid var(--border);
+            border:
+                1px solid var(--border);
+
             border-radius: 12px;
 
-            background: rgba(255,255,255,.06);
+            background:
+                rgba(255,255,255,.06);
 
             color: white;
+
             font-size: 20px;
         }
 
         .drawer-new {
             width: 100%;
+
             padding: 12px;
+
             margin-bottom: 12px;
 
-            border: 1px solid rgba(162,108,255,.35);
+            border:
+                1px solid
+                rgba(162,108,255,.35);
+
             border-radius: 14px;
 
-            background: linear-gradient(
-                135deg,
-                rgba(117,92,255,.30),
-                rgba(162,108,255,.20)
-            );
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(117,92,255,.30),
+                    rgba(162,108,255,.20)
+                );
 
             color: white;
+
             font-weight: 650;
         }
 
         #chatList {
             flex: 1;
+
             overflow-y: auto;
 
             display: flex;
+
             flex-direction: column;
+
             gap: 7px;
         }
 
         .history-item {
             display: flex;
+
             align-items: center;
+
             gap: 4px;
+
             padding: 4px;
 
             border-radius: 13px;
-            border: 1px solid transparent;
+
+            border:
+                1px solid transparent;
         }
 
         .history-item.active {
-            background: rgba(117,92,255,.13);
-            border-color: rgba(162,108,255,.20);
+            background:
+                rgba(117,92,255,.13);
+
+            border-color:
+                rgba(162,108,255,.20);
         }
 
         .history-open {
             flex: 1;
+
             min-width: 0;
 
             padding: 8px;
 
             border: none;
+
             background: transparent;
 
             color: white;
+
             text-align: left;
         }
 
         .history-title {
             overflow: hidden;
+
             text-overflow: ellipsis;
+
             white-space: nowrap;
 
             font-size: 14px;
@@ -518,7 +795,9 @@
 
         .history-date {
             color: var(--muted);
+
             font-size: 10px;
+
             margin-top: 3px;
         }
 
@@ -527,13 +806,17 @@
             height: 34px;
 
             border: none;
+
             border-radius: 10px;
 
             background: transparent;
+
             color: #9999a8;
         }
 
-        @media (max-width: 600px) {
+        @media (
+            max-width: 600px
+        ) {
 
             .new-chat-text {
                 display: none;
@@ -550,6 +833,7 @@
 
             .brand-label {
                 max-width: 95px;
+
                 overflow: hidden;
             }
         }
@@ -594,7 +878,6 @@
 
         </div>
 
-
         <div class="header-actions">
 
             <button
@@ -614,7 +897,6 @@
                 <span class="new-chat-text">
                     Новый чат
                 </span>
-
             </button>
 
         </div>
@@ -630,7 +912,9 @@
         id="recordingBar"
     >
 
-        <div class="recording-dot"></div>
+        <div
+            class="recording-dot"
+        ></div>
 
         <span id="recordingText">
             Запись голоса…
@@ -885,17 +1169,13 @@ function saveChats() {
 
         localStorage.setItem(
             STORAGE_KEY,
-            JSON.stringify(
-                chats
-            )
+            JSON.stringify(chats)
         );
 
 
         localStorage.setItem(
             ACTIVE_CHAT_KEY,
-            activeChatId
-            ||
-            ""
+            activeChatId || ""
         );
 
 
@@ -909,14 +1189,10 @@ function saveChats() {
 }
 
 
-function makeChatTitle(
-    text
-) {
+function makeChatTitle(text) {
 
     let title =
-        String(
-            text || ""
-        )
+        String(text || "")
         .replace(
             "[Image]",
             ""
@@ -1009,9 +1285,7 @@ function loadChats() {
 
 
         chats =
-            Array.isArray(
-                saved
-            )
+            Array.isArray(saved)
             ?
             saved
             :
@@ -1060,9 +1334,7 @@ function loadChats() {
             createEmptyChat();
 
 
-        chats.push(
-            first
-        );
+        chats.push(first);
 
 
         activeChatId =
@@ -1154,8 +1426,7 @@ function welcomeHtml() {
 function removeWelcome() {
 
     const welcome =
-        document
-        .getElementById(
+        document.getElementById(
             "welcome"
         );
 
@@ -1176,8 +1447,7 @@ function addTextMessage(
 
 
     const row =
-        document
-        .createElement(
+        document.createElement(
             "div"
         );
 
@@ -1186,8 +1456,7 @@ function addTextMessage(
         "message-row "
         +
         (
-            role
-            === "user"
+            role === "user"
             ?
             "user-row"
             :
@@ -1196,8 +1465,7 @@ function addTextMessage(
 
 
     const message =
-        document
-        .createElement(
+        document.createElement(
             "div"
         );
 
@@ -1218,18 +1486,15 @@ function addTextMessage(
 
 
     if (
-        role
-        === "assistant"
+        role === "assistant"
         &&
-        !message.classList
-        .contains(
+        !message.classList.contains(
             "thinking"
         )
     ) {
 
         const speak =
-            document
-            .createElement(
+            document.createElement(
                 "button"
             );
 
@@ -1245,9 +1510,7 @@ function addTextMessage(
         speak.onclick =
             function() {
 
-                speakText(
-                    text
-                );
+                speakText(text);
             };
 
 
@@ -1257,9 +1520,7 @@ function addTextMessage(
     }
 
 
-    chat.appendChild(
-        row
-    );
+    chat.appendChild(row);
 
 
     chat.scrollTop =
@@ -1279,8 +1540,7 @@ function addImageMessage(
 
 
     const row =
-        document
-        .createElement(
+        document.createElement(
             "div"
         );
 
@@ -1292,8 +1552,7 @@ function addImageMessage(
     if (imageURL) {
 
         const image =
-            document
-            .createElement(
+            document.createElement(
                 "img"
             );
 
@@ -1306,16 +1565,13 @@ function addImageMessage(
             imageURL;
 
 
-        row.appendChild(
-            image
-        );
+        row.appendChild(image);
 
 
     } else {
 
         const placeholder =
-            document
-            .createElement(
+            document.createElement(
                 "div"
             );
 
@@ -1337,8 +1593,7 @@ function addImageMessage(
     if (text) {
 
         const message =
-            document
-            .createElement(
+            document.createElement(
                 "div"
             );
 
@@ -1351,15 +1606,11 @@ function addImageMessage(
             text;
 
 
-        row.appendChild(
-            message
-        );
+        row.appendChild(message);
     }
 
 
-    chat.appendChild(
-        row
-    );
+    chat.appendChild(row);
 
 
     chat.scrollTop =
@@ -1384,8 +1635,7 @@ function renderCurrentChat() {
             current.uiMessages
         )
         ||
-        current.uiMessages.length
-        === 0
+        current.uiMessages.length === 0
     ) {
 
         chat.innerHTML =
@@ -1401,27 +1651,21 @@ function renderCurrentChat() {
         item => {
 
             if (
-                item.type
-                === "image"
+                item.type === "image"
                 &&
-                item.role
-                === "user"
+                item.role === "user"
             ) {
 
                 addImageMessage(
                     null,
-                    item.text
-                    ||
-                    ""
+                    item.text || ""
                 );
 
 
             } else {
 
                 addTextMessage(
-                    item.text
-                    ||
-                    "",
+                    item.text || "",
                     item.role
                 );
             }
@@ -1478,15 +1722,11 @@ function rememberUiMessage(
 }
 
 
-function formatChatDate(
-    value
-) {
+function formatChatDate(value) {
 
     try {
 
-        return new Date(
-            value
-        )
+        return new Date(value)
         .toLocaleString(
             "ru-RU",
             {
@@ -1521,7 +1761,7 @@ function renderChatList() {
     const ordered =
         [...chats]
         .sort(
-            (a, b) =>
+            (a,b) =>
                 new Date(
                     b.updatedAt
                 )
@@ -1536,8 +1776,7 @@ function renderChatList() {
         item => {
 
             const wrapper =
-                document
-                .createElement(
+                document.createElement(
                     "div"
                 );
 
@@ -1547,20 +1786,17 @@ function renderChatList() {
 
 
             if (
-                item.id
-                === activeChatId
+                item.id === activeChatId
             ) {
 
-                wrapper.classList
-                .add(
+                wrapper.classList.add(
                     "active"
                 );
             }
 
 
             const openButton =
-                document
-                .createElement(
+                document.createElement(
                     "button"
                 );
 
@@ -1579,8 +1815,7 @@ function renderChatList() {
 
 
             const title =
-                document
-                .createElement(
+                document.createElement(
                     "div"
                 );
 
@@ -1596,8 +1831,7 @@ function renderChatList() {
 
 
             const date =
-                document
-                .createElement(
+                document.createElement(
                     "div"
                 );
 
@@ -1623,8 +1857,7 @@ function renderChatList() {
 
 
             const deleteButton =
-                document
-                .createElement(
+                document.createElement(
                     "button"
                 );
 
@@ -1638,12 +1871,9 @@ function renderChatList() {
 
 
             deleteButton.onclick =
-                function(
-                    event
-                ) {
+                function(event) {
 
-                    event
-                    .stopPropagation();
+                    event.stopPropagation();
 
 
                     deleteChat(
@@ -1672,14 +1902,12 @@ function renderChatList() {
 
 function openDrawer() {
 
-    drawer.classList
-    .add(
+    drawer.classList.add(
         "open"
     );
 
 
-    overlay.classList
-    .add(
+    overlay.classList.add(
         "open"
     );
 
@@ -1690,22 +1918,18 @@ function openDrawer() {
 
 function closeDrawer() {
 
-    drawer.classList
-    .remove(
+    drawer.classList.remove(
         "open"
     );
 
 
-    overlay.classList
-    .remove(
+    overlay.classList.remove(
         "open"
     );
 }
 
 
-function openChat(
-    id
-) {
+function openChat(id) {
 
     saveActiveChat();
 
@@ -1713,8 +1937,7 @@ function openChat(
     const target =
         chats.find(
             item =>
-                item.id
-                === id
+                item.id === id
         );
 
 
@@ -1781,8 +2004,7 @@ function newChat() {
             current.uiMessages
         )
         &&
-        current.uiMessages.length
-        === 0
+        current.uiMessages.length === 0
     ) {
 
         history =
@@ -1840,15 +2062,12 @@ function newChat() {
 }
 
 
-function deleteChat(
-    id
-) {
+function deleteChat(id) {
 
     const target =
         chats.find(
             item =>
-                item.id
-                === id
+                item.id === id
         );
 
 
@@ -1870,14 +2089,12 @@ function deleteChat(
     chats =
         chats.filter(
             item =>
-                item.id
-                !== id
+                item.id !== id
         );
 
 
     if (
-        chats.length
-        === 0
+        chats.length === 0
     ) {
 
         const fresh =
@@ -1898,12 +2115,11 @@ function deleteChat(
 
 
     } else if (
-        activeChatId
-        === id
+        activeChatId === id
     ) {
 
         chats.sort(
-            (a, b) =>
+            (a,b) =>
                 new Date(
                     b.updatedAt
                 )
@@ -1951,8 +2167,7 @@ fileInput.addEventListener(
 
 
         if (
-            !file.type
-            .startsWith(
+            !file.type.startsWith(
                 "image/"
             )
         ) {
@@ -2051,8 +2266,7 @@ async function sendMessage(
 
     const text =
         (
-            customText
-            !== null
+            customText !== null
             ?
             customText
             :
@@ -2231,9 +2445,7 @@ async function sendMessage(
 }
 
 
-async function sendImageMessage(
-    text
-) {
+async function sendImageMessage(text) {
 
     const imageFile =
         selectedImage;
@@ -2438,8 +2650,7 @@ async function toggleRecording() {
         if (
             mediaRecorder
             &&
-            mediaRecorder.state
-            !== "inactive"
+            mediaRecorder.state !== "inactive"
         ) {
 
             mediaRecorder.stop();
@@ -2505,15 +2716,12 @@ async function toggleRecording() {
 
         mediaRecorder
         .ondataavailable =
-            function(
-                event
-            ) {
+            function(event) {
 
                 if (
                     event.data
                     &&
-                    event.data.size
-                    > 0
+                    event.data.size > 0
                 ) {
 
                     audioChunks.push(
@@ -2642,8 +2850,7 @@ async function transcribeAudio(
 
 
         if (
-            mimeType
-            .includes(
+            mimeType.includes(
                 "mp4"
             )
         ) {
@@ -2727,9 +2934,7 @@ async function transcribeAudio(
 }
 
 
-function speakText(
-    text
-) {
+function speakText(text) {
 
     if (
         !(
@@ -2851,19 +3056,15 @@ function toggleSpeech() {
 
 input.addEventListener(
     "keydown",
-    function(
-        event
-    ) {
+    function(event) {
 
         if (
-            event.key
-            === "Enter"
+            event.key === "Enter"
             &&
             !event.shiftKey
         ) {
 
-            event
-            .preventDefault();
+            event.preventDefault();
 
 
             sendMessage();
@@ -2889,6 +3090,37 @@ input.addEventListener(
             "px";
     }
 );
+
+
+/* PWA SERVICE WORKER */
+
+if (
+    "serviceWorker"
+    in navigator
+) {
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            navigator
+            .serviceWorker
+            .register(
+                "/service-worker.js"
+            )
+            .catch(
+                function(error) {
+
+                    console.log(
+                        "Service worker error:",
+                        error
+                    );
+                }
+            );
+
+        }
+    );
+}
 
 
 loadChats();
