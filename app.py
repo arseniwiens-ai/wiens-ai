@@ -1,4 +1,6 @@
 import os
+import base64
+import mimetypes
 import gradio as gr
 from groq import Groq
 
@@ -13,7 +15,7 @@ client = Groq(
 
 
 # -----------------------------
-# WIENS AI SYSTEM PROMPT
+# WIENS AI
 # -----------------------------
 
 SYSTEM_PROMPT = """
@@ -26,65 +28,237 @@ If the user writes in German, answer in German.
 If the user writes in English, answer in English.
 If the user writes in another language, answer in that language when possible.
 
+You can also analyze images.
+
+When the user sends an image:
+- Carefully inspect the image.
+- Read visible text when possible.
+- Explain documents in simple language.
+- Translate text if the user asks.
+- Answer questions about the image.
+- Do not invent details that are not visible.
+
 Be helpful, clear, friendly, and concise.
-Explain difficult things in simple language.
-Remember the context of the current conversation.
+Explain difficult things simply.
 """
 
 
 # -----------------------------
-# CHAT FUNCTION
+# IMAGE TO BASE64
+# -----------------------------
+
+def image_to_data_url(file_path):
+    mime_type, _ = mimetypes.guess_type(file_path)
+
+    if not mime_type:
+        mime_type = "image/jpeg"
+
+    with open(file_path, "rb") as image_file:
+        encoded = base64.b64encode(
+            image_file.read()
+        ).decode("utf-8")
+
+    return f"data:{mime_type};base64,{encoded}"
+
+
+# -----------------------------
+# HISTORY
+# -----------------------------
+
+def add_history(messages, history):
+
+    for item in history:
+
+        if not isinstance(item, dict):
+            continue
+
+        role = item.get("role")
+        content = item.get("content")
+
+        if role not in ["user", "assistant"]:
+            continue
+
+        # Keep only text from previous messages.
+        # This avoids repeatedly sending old images.
+        if isinstance(content, str):
+            messages.append({
+                "role": role,
+                "content": content
+            })
+
+        elif isinstance(content, list):
+
+            text_parts = []
+
+            for part in content:
+
+                if isinstance(part, str):
+                    text_parts.append(part)
+
+                elif isinstance(part, dict):
+
+                    if part.get("type") == "text":
+                        text = part.get("text")
+
+                        if text:
+                            text_parts.append(text)
+
+            if text_parts:
+                messages.append({
+                    "role": role,
+                    "content": "\n".join(text_parts)
+                })
+
+
+# -----------------------------
+# CHAT
 # -----------------------------
 
 def chat(message, history):
+
     try:
-        messages = [
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT
-            }
-        ]
 
-        for item in history:
-            if isinstance(item, dict):
-                role = item.get("role")
-                content = item.get("content")
+        # Multimodal Gradio message
+        if isinstance(message, dict):
 
-                if role in ["user", "assistant"] and isinstance(content, str):
-                    messages.append({
-                        "role": role,
-                        "content": content
-                    })
+            user_text = message.get("text") or ""
+            files = message.get("files") or []
 
-            elif isinstance(item, (list, tuple)) and len(item) == 2:
-                if item[0]:
-                    messages.append({
-                        "role": "user",
-                        "content": str(item[0])
-                    })
+        else:
 
-                if item[1]:
-                    messages.append({
-                        "role": "assistant",
-                        "content": str(item[1])
-                    })
+            user_text = str(message)
+            files = []
 
-        messages.append({
-            "role": "user",
-            "content": message
-        })
 
-        response = client.chat.completions.create(
-            model="openai/gpt-oss-120b",
-            messages=messages,
-            temperature=0.7,
-            max_tokens=1500
-        )
+        # -------------------------
+        # IMAGE MESSAGE
+        # -------------------------
+
+        if files:
+
+            messages = [
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT
+                }
+            ]
+
+            add_history(messages, history)
+
+            content = []
+
+            if user_text.strip():
+
+                content.append({
+                    "type": "text",
+                    "text": user_text
+                })
+
+            else:
+
+                content.append({
+                    "type": "text",
+                    "text":
+                        "Please analyze this image and explain what you see."
+                })
+
+
+            # Groq Qwen supports up to 3 images
+            for file_item in files[:3]:
+
+                if isinstance(file_item, str):
+                    file_path = file_item
+
+                elif isinstance(file_item, dict):
+                    file_path = (
+                        file_item.get("path")
+                        or file_item.get("name")
+                    )
+
+                else:
+                    file_path = getattr(
+                        file_item,
+                        "path",
+                        None
+                    )
+
+                    if not file_path:
+                        file_path = getattr(
+                            file_item,
+                            "name",
+                            None
+                        )
+
+
+                if not file_path:
+                    continue
+
+
+                data_url = image_to_data_url(
+                    file_path
+                )
+
+
+                content.append({
+                    "type": "image_url",
+                    "image_url": {
+                        "url": data_url
+                    }
+                })
+
+
+            messages.append({
+                "role": "user",
+                "content": content
+            })
+
+
+            response = client.chat.completions.create(
+                model="qwen/qwen3.8-27b",
+                messages=messages,
+                temperature=0.7,
+                max_completion_tokens=1500
+            )
+
+
+        # -------------------------
+        # TEXT MESSAGE
+        # -------------------------
+
+        else:
+
+            messages = [
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT
+                }
+            ]
+
+            add_history(messages, history)
+
+            messages.append({
+                "role": "user",
+                "content": user_text
+            })
+
+
+            response = client.chat.completions.create(
+                model="openai/gpt-oss-120b",
+                messages=messages,
+                temperature=0.7,
+                max_tokens=1500
+            )
+
 
         return response.choices[0].message.content
 
+
     except Exception as e:
-        return f"AI connection error: {str(e)}"
+
+        return (
+            "Wiens AI error: "
+            + str(e)
+        )
 
 
 # -----------------------------
@@ -94,20 +268,25 @@ def chat(message, history):
 css = """
 body,
 .gradio-container {
+
     background:
         radial-gradient(
             circle at top,
             #24164d 0%,
-            #10101b 35%,
-            #07080d 75%
+            #10101b 38%,
+            #07080d 100%
         ) !important;
 
-    color: #ffffff !important;
+    color: white !important;
 }
 
+
 .gradio-container {
+
     max-width: 850px !important;
+
     margin: 0 auto !important;
+
     min-height: 100vh !important;
 }
 
@@ -115,12 +294,17 @@ body,
 /* LOGO */
 
 .logo-wrap {
+
     text-align: center;
-    padding-top: 24px;
+
+    padding-top: 22px;
 }
 
+
 .logo-wrap img {
+
     width: 145px;
+
     height: 145px;
 
     object-fit: cover;
@@ -128,17 +312,19 @@ body,
     border-radius: 32px;
 
     box-shadow:
-        0 0 30px rgba(116, 80, 255, 0.35),
-        0 15px 55px rgba(0, 0, 0, 0.45);
+        0 0 30px rgba(116,80,255,.35),
+        0 15px 55px rgba(0,0,0,.45);
 }
 
 
 /* TITLE */
 
 .app-title {
+
     text-align: center;
 
     font-size: 40px;
+
     font-weight: 800;
 
     margin-top: 14px;
@@ -147,9 +333,10 @@ body,
 }
 
 
-/* LANGUAGES */
+/* SUBTITLE */
 
 .subtitle {
+
     text-align: center;
 
     color: #a6a6b5;
@@ -157,28 +344,34 @@ body,
     font-size: 15px;
 
     margin-top: 5px;
-    margin-bottom: 12px;
 }
 
 
-/* ONLINE STATUS */
+/* STATUS */
 
 .status-wrap {
+
     text-align: center;
+
+    margin-top: 10px;
+
     margin-bottom: 24px;
 }
 
+
 .status {
+
     display: inline-block;
 
     padding: 6px 13px;
 
     border-radius: 20px;
 
-    background: rgba(72, 255, 150, 0.07);
+    background:
+        rgba(72,255,150,.07);
 
     border:
-        1px solid rgba(72, 255, 150, 0.18);
+        1px solid rgba(72,255,150,.18);
 
     color: #77ffa9;
 
@@ -186,11 +379,12 @@ body,
 }
 
 
-/* CHAT WINDOW */
+/* CHAT */
 
 .chatbot {
+
     background:
-        rgba(17, 17, 25, 0.94) !important;
+        rgba(17,17,25,.94) !important;
 
     border:
         1px solid #2c2c39 !important;
@@ -198,25 +392,26 @@ body,
     border-radius:
         24px !important;
 
-    overflow:
-        hidden !important;
+    overflow: hidden !important;
 
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.35);
+        0 20px 60px rgba(0,0,0,.35);
 }
 
 
-/* TEXT INPUT */
+/* INPUT */
 
 textarea {
+
     border-radius:
         18px !important;
 }
 
 
-/* BUTTONS */
+/* BUTTON */
 
 button {
+
     border-radius:
         16px !important;
 
@@ -228,6 +423,7 @@ button {
 /* FOOTER */
 
 .footer {
+
     text-align: center;
 
     color: #686876;
@@ -250,31 +446,49 @@ with gr.Blocks(
     theme=gr.themes.Base()
 ) as demo:
 
+
     gr.HTML("""
     <div class="logo-wrap">
+
         <img src="/gradio_api/file=logo.png.PNG">
+
     </div>
+
 
     <div class="app-title">
+
         Wiens AI
+
     </div>
+
 
     <div class="subtitle">
+
         Русский · Deutsch · English
+
     </div>
 
+
     <div class="status-wrap">
+
         <span class="status">
+
             ● AI Online
+
         </span>
+
     </div>
     """)
 
+
     chatbot = gr.Chatbot(
+
         height=500,
+
         elem_classes=["chatbot"],
 
         placeholder="""
+
         <div style="
             text-align:center;
             opacity:.70;
@@ -291,7 +505,9 @@ with gr.Blocks(
                 font-weight:600;
                 margin-top:10px;
             ">
+
                 Чем я могу помочь?
+
             </div>
 
             <div style="
@@ -299,41 +515,73 @@ with gr.Blocks(
                 margin-top:6px;
                 opacity:.7;
             ">
-                Задайте вопрос Wiens AI
+
+                Напишите сообщение
+                или прикрепите изображение
+
             </div>
 
         </div>
+
         """
     )
 
+
+    multimodal_input = gr.MultimodalTextbox(
+
+        placeholder="Сообщение или фото...",
+
+        file_types=["image"],
+
+        file_count="multiple",
+
+        sources=["upload"],
+
+        submit_btn="➤",
+
+        show_label=False
+    )
+
+
     gr.ChatInterface(
+
         fn=chat,
 
         chatbot=chatbot,
 
-        textbox=gr.Textbox(
-            placeholder="Напишите сообщение...",
-            container=False
-        ),
+        textbox=multimodal_input,
 
-        submit_btn="➤"
+        multimodal=True
     )
 
+
     gr.HTML("""
+
     <div class="footer">
-        Wiens AI · Powered by Groq
+
+        Wiens AI · Vision enabled · Powered by Groq
+
     </div>
+
     """)
 
 
 # -----------------------------
-# START SERVER
+# START
 # -----------------------------
 
 demo.launch(
+
     server_name="0.0.0.0",
+
     server_port=int(
-        os.environ.get("PORT", 10000)
+        os.environ.get(
+            "PORT",
+            10000
+        )
     ),
-    allowed_paths=["logo.png.PNG"]
+
+    allowed_paths=[
+        "logo.png.PNG"
+    ]
 )
