@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
@@ -141,7 +142,7 @@ def chat():
     except Exception as e:
 
         print(
-            "Wiens AI error:",
+            "Wiens AI chat error:",
             e
         )
 
@@ -150,6 +151,101 @@ def chat():
                 "Wiens AI could not answer: "
                 + str(e)
         }), 500
+
+
+@app.route("/api/transcribe", methods=["POST"])
+def transcribe():
+
+    temp_path = None
+
+    try:
+
+        if "audio" not in request.files:
+
+            return jsonify({
+                "error": "Audio file is missing"
+            }), 400
+
+
+        audio = request.files["audio"]
+
+        if not audio.filename:
+
+            return jsonify({
+                "error": "Audio file is empty"
+            }), 400
+
+
+        suffix = ".webm"
+
+        if audio.filename.lower().endswith(".mp4"):
+            suffix = ".mp4"
+
+        elif audio.filename.lower().endswith(".m4a"):
+            suffix = ".m4a"
+
+        elif audio.filename.lower().endswith(".wav"):
+            suffix = ".wav"
+
+
+        with tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=suffix
+        ) as temp_file:
+
+            audio.save(temp_file.name)
+
+            temp_path = temp_file.name
+
+
+        with open(
+            temp_path,
+            "rb"
+        ) as audio_file:
+
+            transcription = (
+                client.audio.transcriptions.create(
+                    file=audio_file,
+                    model="whisper-large-v3-turbo",
+                    response_format="json"
+                )
+            )
+
+
+        text = transcription.text.strip()
+
+
+        return jsonify({
+            "text": text
+        })
+
+
+    except Exception as e:
+
+        print(
+            "Wiens AI transcription error:",
+            e
+        )
+
+        return jsonify({
+            "error":
+                "Voice recognition error: "
+                + str(e)
+        }), 500
+
+
+    finally:
+
+        if (
+            temp_path
+            and os.path.exists(temp_path)
+        ):
+
+            try:
+                os.remove(temp_path)
+
+            except Exception:
+                pass
 
 
 if __name__ == "__main__":
