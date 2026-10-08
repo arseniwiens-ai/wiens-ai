@@ -136,7 +136,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-
             min-width: 0;
         }
 
@@ -157,21 +156,17 @@
 
         .menu-button {
             width: 40px;
-
             font-size: 20px;
-
             flex-shrink: 0;
         }
 
         .header-button {
-            padding:
-                8px 11px;
+            padding: 8px 11px;
         }
 
         .brand {
             display: flex;
             align-items: center;
-
             gap: 9px;
 
             font-size: 19px;
@@ -201,17 +196,13 @@
 
         .online {
             margin-top: 2px;
-
             font-size: 11px;
-
             color: #79ffac;
         }
 
         .header-actions {
             display: flex;
-
             gap: 7px;
-
             flex-shrink: 0;
         }
 
@@ -226,7 +217,6 @@
 
         #chat {
             flex: 1;
-
             overflow-y: auto;
 
             padding:
@@ -236,7 +226,6 @@
 
             display: flex;
             flex-direction: column;
-
             gap: 14px;
 
             scroll-behavior: smooth;
@@ -266,7 +255,6 @@
 
         .assistant-character {
             position: relative;
-
             z-index: 3;
 
             display: block;
@@ -309,7 +297,6 @@
 
         .assistant-glow {
             position: absolute;
-
             z-index: 1;
 
             left: 50%;
@@ -338,7 +325,6 @@
 
         .character-bubble {
             position: absolute;
-
             z-index: 5;
 
             top: 5px;
@@ -384,13 +370,11 @@
         @keyframes characterFloat {
             0%,
             100% {
-                transform:
-                    translateY(0);
+                transform: translateY(0);
             }
 
             50% {
-                transform:
-                    translateY(-8px);
+                transform: translateY(-8px);
             }
         }
 
@@ -421,17 +405,13 @@
 
         .welcome h1 {
             margin-bottom: 8px;
-
             font-size: 34px;
-
             letter-spacing: -1px;
         }
 
         .welcome p {
             color: var(--muted);
-
             font-size: 15px;
-
             line-height: 1.5;
         }
 
@@ -440,15 +420,13 @@
 
             display: flex;
             justify-content: center;
-
             flex-wrap: wrap;
 
             gap: 8px;
         }
 
         .feature {
-            padding:
-                7px 11px;
+            padding: 7px 11px;
 
             border:
                 1px solid var(--border);
@@ -481,23 +459,19 @@
         }
 
         .message {
-            padding:
-                12px 15px;
+            padding: 12px 15px;
 
             border-radius: 19px;
 
             font-size: 15px;
-
             line-height: 1.48;
 
             white-space: pre-wrap;
-
             overflow-wrap: anywhere;
         }
 
         .message a {
             text-decoration: underline;
-
             text-underline-offset: 2px;
         }
 
@@ -513,8 +487,7 @@
         }
 
         .assistant {
-            background:
-                var(--panel);
+            background: var(--panel);
 
             border:
                 1px solid var(--border);
@@ -524,31 +497,6 @@
 
         .thinking {
             color: var(--muted);
-        }
-
-        .web-badge {
-            display: inline-flex;
-            align-items: center;
-
-            gap: 5px;
-
-            margin-bottom: 6px;
-
-            padding:
-                4px 8px;
-
-            border:
-                1px solid
-                rgba(117,92,255,.28);
-
-            border-radius: 20px;
-
-            background:
-                rgba(117,92,255,.10);
-
-            color: #b7aaff;
-
-            font-size: 10px;
         }
 
         .sources {
@@ -577,8 +525,7 @@
 
             width: 100%;
 
-            padding:
-                9px 11px;
+            padding: 9px 11px;
 
             border:
                 1px solid var(--border);
@@ -589,7 +536,6 @@
                 rgba(255,255,255,.045);
 
             color: white;
-
             text-decoration: none;
         }
 
@@ -618,7 +564,6 @@
             color: #ffffff;
 
             font-size: 12px;
-
             font-weight: 650;
 
             text-overflow: ellipsis;
@@ -646,8 +591,7 @@
 
             max-width: 290px;
 
-            padding:
-                12px 14px;
+            padding: 12px 14px;
 
             margin-bottom: 7px;
 
@@ -666,7 +610,6 @@
 
         .file-name {
             overflow-wrap: anywhere;
-
             font-size: 14px;
         }
 
@@ -675,8 +618,7 @@
 
             border: none;
 
-            background:
-                transparent;
+            background: transparent;
 
             color: #9e9eae;
 
@@ -704,8 +646,7 @@
 
             border-radius: 50%;
 
-            background:
-                var(--danger);
+            background: var(--danger);
 
             animation:
                 pulse 1s infinite;
@@ -732,7 +673,6 @@
             position: relative;
 
             width: fit-content;
-
             max-width: 90%;
         }
 
@@ -776,7 +716,6 @@
 
         #documentPreviewName {
             overflow-wrap: anywhere;
-
             font-size: 13px;
         }
 
@@ -793,8 +732,7 @@
 
             border-radius: 50%;
 
-            background:
-                #353542;
+            background: #353542;
 
             color: white;
         }
@@ -847,17 +785,14 @@
             min-height: 42px;
             max-height: 130px;
 
-            padding:
-                11px 6px;
+            padding: 11px 6px;
 
             border: none;
-
             outline: none;
 
             resize: none;
 
-            background:
-                transparent;
+            background: transparent;
 
             color: white;
 
@@ -890,8 +825,7 @@
         }
 
         .mic.recording {
-            background:
-                var(--danger);
+            background: var(--danger);
         }
 
         .send {
@@ -903,6 +837,10 @@
                 );
 
             color: white;
+        }
+
+        .send.stop {
+            background: var(--danger);
         }
 
         .send:disabled {
@@ -937,13 +875,11 @@
             background:
                 rgba(0,0,0,.55);
 
-            transition:
-                .2s;
+            transition: .2s;
         }
 
         .overlay.open {
             opacity: 1;
-
             pointer-events: auto;
         }
 
@@ -978,8 +914,7 @@
             border-right:
                 1px solid var(--border);
 
-            background:
-                var(--drawer);
+            background: var(--drawer);
 
             transform:
                 translateX(-105%);
@@ -1037,7 +972,6 @@
 
         #chatList {
             flex: 1;
-
             overflow-y: auto;
         }
 
@@ -1064,8 +998,7 @@
 
             border: none;
 
-            background:
-                transparent;
+            background: transparent;
 
             color: white;
 
@@ -1092,8 +1025,7 @@
 
             border: none;
 
-            background:
-                transparent;
+            background: transparent;
 
             color: white;
         }
@@ -1114,7 +1046,6 @@
 
             .brand-label {
                 max-width: 95px;
-
                 overflow: hidden;
             }
         }
@@ -1244,9 +1175,7 @@
                 class="icon-button attach"
                 onclick="
                     document
-                    .getElementById(
-                        'fileInput'
-                    )
+                    .getElementById('fileInput')
                     .click()
                 "
             >
@@ -1417,6 +1346,12 @@ let recording =
 let speechEnabled =
     true;
 
+let streamController =
+    null;
+
+let isStreaming =
+    false;
+
 
 function createId() {
 
@@ -1470,6 +1405,26 @@ function getActiveChat() {
 }
 
 
+function normalizeChat(
+    item
+) {
+
+    if (!item.history) {
+        item.history = [];
+    }
+
+    if (!item.uiMessages) {
+        item.uiMessages = [];
+    }
+
+    if (!item.title) {
+        item.title = "Новый чат";
+    }
+
+    return item;
+}
+
+
 function saveChats() {
 
     try {
@@ -1484,7 +1439,6 @@ function saveChats() {
             ACTIVE_CHAT_KEY,
             activeChatId || ""
         );
-
 
     } catch (error) {
 
@@ -1505,6 +1459,11 @@ function saveActiveChat() {
     if (!current) {
         return;
     }
+
+
+    normalizeChat(
+        current
+    );
 
 
     current.history =
@@ -1564,10 +1523,11 @@ function loadChats() {
         chats =
             Array.isArray(saved)
             ?
-            saved
+            saved.map(
+                normalizeChat
+            )
             :
             [];
-
 
     } catch (error) {
 
@@ -1596,14 +1556,12 @@ function loadChats() {
         activeChatId =
             savedId;
 
-
     } else if (
         chats.length
     ) {
 
         activeChatId =
             chats[0].id;
-
 
     } else {
 
@@ -1686,7 +1644,7 @@ function welcomeHtml() {
             <div class="features">
 
                 <div class="feature">
-                    🧠 AI
+                    ⚡ Streaming
                 </div>
 
                 <div class="feature">
@@ -1733,7 +1691,6 @@ function removeWelcome() {
 
 
     if (welcome) {
-
         welcome.remove();
     }
 }
@@ -1852,12 +1809,12 @@ function getHostname(
 
         return new URL(
             url
-        ).hostname
+        )
+        .hostname
         .replace(
             /^www\./,
             ""
         );
-
 
     } catch (error) {
 
@@ -1870,6 +1827,10 @@ function appendLinkedText(
     container,
     text
 ) {
+
+    container.innerHTML =
+        "";
+
 
     const value =
         String(text);
@@ -1996,6 +1957,17 @@ function addSources(
     row,
     text
 ) {
+
+    const oldSources =
+        row.querySelector(
+            ".sources"
+        );
+
+
+    if (oldSources) {
+        oldSources.remove();
+    }
+
 
     const urls =
         extractUrls(
@@ -2158,12 +2130,54 @@ function addSources(
 }
 
 
+function addSpeakButton(
+    row,
+    text
+) {
+
+    const speak =
+        document.createElement(
+            "button"
+        );
+
+
+    speak.className =
+        "speak-message";
+
+
+    speak.textContent =
+        "🔊";
+
+
+    speak.onclick =
+        () =>
+            speakText(
+                text
+            );
+
+
+    row.appendChild(
+        speak
+    );
+}
+
+
 function addTextMessage(
     text,
     role
 ) {
 
     removeWelcome();
+
+
+    const isUser =
+        role === "user";
+
+
+    const isThinking =
+        role.includes(
+            "thinking"
+        );
 
 
     const row =
@@ -2176,8 +2190,7 @@ function addTextMessage(
         "message-row "
         +
         (
-            role
-            === "user"
+            isUser
             ?
             "user-row"
             :
@@ -2194,24 +2207,33 @@ function addTextMessage(
     message.className =
         "message "
         +
-        role;
+        (
+            isUser
+            ?
+            "user"
+            :
+            "assistant"
+        );
 
 
-    if (
-        role
-        === "assistant"
-        &&
-        !String(text)
-        .includes(
-            "Wiens AI думает"
-        )
+    if (isThinking) {
+
+        message.classList.add(
+            "thinking"
+        );
+
+
+        message.textContent =
+            text;
+
+    } else if (
+        !isUser
     ) {
 
         appendLinkedText(
             message,
             text
         );
-
 
     } else {
 
@@ -2226,38 +2248,14 @@ function addTextMessage(
 
 
     if (
-        role
-        === "assistant"
+        !isUser
         &&
-        !message.classList
-        .contains(
-            "thinking"
-        )
+        !isThinking
     ) {
 
-        const speak =
-            document.createElement(
-                "button"
-            );
-
-
-        speak.className =
-            "speak-message";
-
-
-        speak.textContent =
-            "🔊";
-
-
-        speak.onclick =
-            () =>
-                speakText(
-                    text
-                );
-
-
-        row.appendChild(
-            speak
+        addSpeakButton(
+            row,
+            text
         );
 
 
@@ -2401,6 +2399,11 @@ function remember(
     }
 
 
+    normalizeChat(
+        current
+    );
+
+
     current.uiMessages.push({
         role,
         type,
@@ -2423,18 +2426,27 @@ function renderCurrentChat() {
         getActiveChat();
 
 
+    if (!current) {
+
+        chat.innerHTML =
+            welcomeHtml();
+
+        return;
+    }
+
+
+    normalizeChat(
+        current
+    );
+
+
     if (
-        !current
-        ||
-        !current.uiMessages
-        ||
         current.uiMessages.length
         === 0
     ) {
 
         chat.innerHTML =
             welcomeHtml();
-
 
         return;
     }
@@ -2457,7 +2469,6 @@ function renderCurrentChat() {
                     item.text
                 );
 
-
             } else if (
                 item.type
                 === "document"
@@ -2472,7 +2483,6 @@ function renderCurrentChat() {
                     "Документ",
                     item.text
                 );
-
 
             } else {
 
@@ -2506,6 +2516,11 @@ function renderChatList() {
     )
     .forEach(
         item => {
+
+            normalizeChat(
+                item
+            );
+
 
             const row =
                 document.createElement(
@@ -2667,6 +2682,14 @@ function openChat(
     id
 ) {
 
+    if (
+        isStreaming
+    ) {
+
+        stopGeneration();
+    }
+
+
     saveActiveChat();
 
 
@@ -2676,6 +2699,11 @@ function openChat(
 
     const current =
         getActiveChat();
+
+
+    normalizeChat(
+        current
+    );
 
 
     history =
@@ -2704,6 +2732,14 @@ function openChat(
 
 
 function newChat() {
+
+    if (
+        isStreaming
+    ) {
+
+        stopGeneration();
+    }
+
 
     saveActiveChat();
 
@@ -2776,6 +2812,16 @@ function deleteChat(
     }
 
 
+    if (
+        isStreaming
+        &&
+        id === activeChatId
+    ) {
+
+        stopGeneration();
+    }
+
+
     chats =
         chats.filter(
             item =>
@@ -2810,6 +2856,11 @@ function deleteChat(
 
     const current =
         getActiveChat();
+
+
+    normalizeChat(
+        current
+    );
 
 
     history =
@@ -2998,7 +3049,6 @@ fileInput.addEventListener(
             input.placeholder =
                 "Спросите что-нибудь о фото...";
 
-
         } else {
 
             imagePreview.style.display =
@@ -3088,9 +3138,137 @@ function removeSelectedAttachment(
 }
 
 
+function shouldUseWebSearch(
+    text
+) {
+
+    const value =
+        String(text)
+        .toLowerCase();
+
+
+    const webWords = [
+        "сегодня",
+        "сейчас",
+        "последние",
+        "последний",
+        "новости",
+        "погода",
+        "курс",
+        "цена",
+        "цены",
+        "сколько стоит",
+        "расписание",
+        "открыто",
+        "закрыто",
+        "найди",
+        "найти",
+        "поищи",
+        "интернет",
+        "сайт",
+        "ссылка",
+        "источник",
+        "актуальн",
+        "current",
+        "today",
+        "latest",
+        "news",
+        "weather",
+        "price",
+        "search",
+        "website",
+        "online",
+        "heute",
+        "aktuell",
+        "nachrichten",
+        "wetter",
+        "preis",
+        "suche",
+        "öffnungszeiten"
+    ];
+
+
+    return webWords.some(
+        word =>
+            value.includes(
+                word
+            )
+    );
+}
+
+
+function setGeneratingState(
+    state
+) {
+
+    isStreaming =
+        state;
+
+
+    if (state) {
+
+        sendButton.textContent =
+            "⏹";
+
+
+        sendButton.classList.add(
+            "stop"
+        );
+
+
+        sendButton.disabled =
+            false;
+
+    } else {
+
+        sendButton.textContent =
+            "➤";
+
+
+        sendButton.classList.remove(
+            "stop"
+        );
+
+
+        sendButton.disabled =
+            false;
+    }
+}
+
+
+function stopGeneration() {
+
+    if (
+        streamController
+    ) {
+
+        streamController.abort();
+
+
+        streamController =
+            null;
+    }
+
+
+    setGeneratingState(
+        false
+    );
+}
+
+
 async function sendMessage(
     customText = null
 ) {
+
+    if (
+        isStreaming
+    ) {
+
+        stopGeneration();
+
+        return;
+    }
+
 
     const text =
         (
@@ -3123,7 +3301,6 @@ async function sendMessage(
             text
         );
 
-
         return;
     }
 
@@ -3142,7 +3319,6 @@ async function sendMessage(
         await sendDocument(
             text
         );
-
 
         return;
     }
@@ -3169,22 +3345,202 @@ async function sendMessage(
         "auto";
 
 
-    const thinking =
-        addTextMessage(
-            "Wiens AI думает…",
-            "assistant thinking"
+    /*
+        Fresh information and web search.
+    */
+
+    if (
+        shouldUseWebSearch(
+            text
+        )
+    ) {
+
+        const thinking =
+            addTextMessage(
+                "🌐 Wiens AI ищет в интернете…",
+                "assistant thinking"
+            );
+
+
+        sendButton.disabled =
+            true;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/chat",
+                    {
+                        method:
+                            "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                message:
+                                    text,
+
+                                history:
+                                    history
+                            })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            thinking.remove();
+
+
+            if (
+                !response.ok
+            ) {
+
+                addTextMessage(
+                    data.error
+                    ||
+                    "Произошла ошибка.",
+                    "assistant"
+                );
+
+                return;
+            }
+
+
+            addTextMessage(
+                data.answer,
+                "assistant"
+            );
+
+
+            history.push({
+                role:
+                    "user",
+
+                content:
+                    text
+            });
+
+
+            history.push({
+                role:
+                    "assistant",
+
+                content:
+                    data.answer
+            });
+
+
+            remember(
+                "assistant",
+                "text",
+                data.answer
+            );
+
+
+            if (
+                speechEnabled
+            ) {
+
+                speakText(
+                    data.answer
+                );
+            }
+
+        } catch (error) {
+
+            thinking.remove();
+
+
+            addTextMessage(
+                "Ошибка соединения.",
+                "assistant"
+            );
+
+        } finally {
+
+            sendButton.disabled =
+                false;
+
+
+            input.focus();
+        }
+
+
+        return;
+    }
+
+
+    /*
+        Normal AI answer with streaming.
+    */
+
+    removeWelcome();
+
+
+    const row =
+        document.createElement(
+            "div"
         );
 
 
-    sendButton.disabled =
-        true;
+    row.className =
+        "message-row assistant-row";
+
+
+    const bubble =
+        document.createElement(
+            "div"
+        );
+
+
+    bubble.className =
+        "message assistant";
+
+
+    bubble.textContent =
+        "";
+
+
+    row.appendChild(
+        bubble
+    );
+
+
+    chat.appendChild(
+        row
+    );
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+
+    streamController =
+        new AbortController();
+
+
+    setGeneratingState(
+        true
+    );
+
+
+    let fullAnswer =
+        "";
 
 
     try {
 
         const response =
             await fetch(
-                "/api/chat",
+                "/api/chat-stream",
                 {
                     method:
                         "POST",
@@ -3201,90 +3557,228 @@ async function sendMessage(
 
                             history:
                                 history
-                        })
+                        }),
+
+                    signal:
+                        streamController
+                        .signal
                 }
             );
-
-
-        const data =
-            await response.json();
-
-
-        thinking.remove();
 
 
         if (
             !response.ok
         ) {
 
-            addTextMessage(
-                data.error
+            const errorText =
+                await response.text();
+
+
+            throw new Error(
+                errorText
                 ||
-                "Произошла ошибка.",
-                "assistant"
+                "Streaming request failed"
             );
-
-
-            return;
         }
-
-
-        addTextMessage(
-            data.answer,
-            "assistant"
-        );
-
-
-        history.push({
-            role:
-                "user",
-
-            content:
-                text
-        });
-
-
-        history.push({
-            role:
-                "assistant",
-
-            content:
-                data.answer
-        });
-
-
-        remember(
-            "assistant",
-            "text",
-            data.answer
-        );
 
 
         if (
-            speechEnabled
+            !response.body
         ) {
 
-            speakText(
-                data.answer
+            throw new Error(
+                "Streaming is not supported"
             );
         }
 
 
+        const reader =
+            response.body
+            .getReader();
+
+
+        const decoder =
+            new TextDecoder(
+                "utf-8"
+            );
+
+
+        while (true) {
+
+            const result =
+                await reader.read();
+
+
+            if (
+                result.done
+            ) {
+
+                break;
+            }
+
+
+            const chunk =
+                decoder.decode(
+                    result.value,
+                    {
+                        stream: true
+                    }
+                );
+
+
+            fullAnswer +=
+                chunk;
+
+
+            bubble.textContent =
+                fullAnswer;
+
+
+            chat.scrollTop =
+                chat.scrollHeight;
+        }
+
+
+        fullAnswer +=
+            decoder.decode();
+
+
+        if (
+            fullAnswer.trim()
+        ) {
+
+            appendLinkedText(
+                bubble,
+                fullAnswer
+            );
+
+
+            history.push({
+                role:
+                    "user",
+
+                content:
+                    text
+            });
+
+
+            history.push({
+                role:
+                    "assistant",
+
+                content:
+                    fullAnswer
+            });
+
+
+            remember(
+                "assistant",
+                "text",
+                fullAnswer
+            );
+
+
+            addSpeakButton(
+                row,
+                fullAnswer
+            );
+
+
+            addSources(
+                row,
+                fullAnswer
+            );
+
+
+            if (
+                speechEnabled
+            ) {
+
+                speakText(
+                    fullAnswer
+                );
+            }
+        }
+
     } catch (error) {
 
-        thinking.remove();
+        if (
+            error.name
+            === "AbortError"
+        ) {
+
+            if (
+                fullAnswer.trim()
+            ) {
+
+                const stoppedAnswer =
+                    fullAnswer
+                    +
+                    "\n\n⏹ Остановлено";
 
 
-        addTextMessage(
-            "Ошибка соединения.",
-            "assistant"
-        );
+                appendLinkedText(
+                    bubble,
+                    stoppedAnswer
+                );
 
+
+                history.push({
+                    role:
+                        "user",
+
+                    content:
+                        text
+                });
+
+
+                history.push({
+                    role:
+                        "assistant",
+
+                    content:
+                        fullAnswer
+                });
+
+
+                remember(
+                    "assistant",
+                    "text",
+                    fullAnswer
+                );
+
+
+                addSpeakButton(
+                    row,
+                    fullAnswer
+                );
+
+            } else {
+
+                row.remove();
+            }
+
+        } else {
+
+            console.log(
+                "Streaming error:",
+                error
+            );
+
+
+            bubble.textContent =
+                "Ошибка получения ответа.";
+        }
 
     } finally {
 
-        sendButton.disabled =
-            false;
+        streamController =
+            null;
+
+
+        setGeneratingState(
+            false
+        );
 
 
         input.focus();
@@ -3435,7 +3929,6 @@ async function sendImage(
             );
         }
 
-
     } catch (error) {
 
         thinking.remove();
@@ -3445,7 +3938,6 @@ async function sendImage(
             "Ошибка отправки изображения.",
             "assistant"
         );
-
 
     } finally {
 
@@ -3604,7 +4096,6 @@ async function sendDocument(
             );
         }
 
-
     } catch (error) {
 
         thinking.remove();
@@ -3614,7 +4105,6 @@ async function sendDocument(
             "Ошибка отправки документа.",
             "assistant"
         );
-
 
     } finally {
 
@@ -3651,8 +4141,7 @@ async function toggleRecording() {
             await navigator
             .mediaDevices
             .getUserMedia({
-                audio:
-                    true
+                audio: true
             });
 
 
@@ -3671,7 +4160,6 @@ async function toggleRecording() {
                 mimeType:
                     "audio/mp4"
             };
-
 
         } else if (
             MediaRecorder
@@ -3792,7 +4280,6 @@ async function toggleRecording() {
         recordingText.textContent =
             "Запись голоса… нажмите ⏹️";
 
-
     } catch (error) {
 
         alert(
@@ -3880,7 +4367,6 @@ async function transcribeAudio(
             );
         }
 
-
     } catch (error) {
 
         recordingBar.style.display =
@@ -3938,11 +4424,87 @@ function chooseVoice(
         );
 
 
+    const preferredWords = [
+        "premium",
+        "enhanced",
+        "siri",
+        "milena",
+        "katja",
+        "anna",
+        "daniel"
+    ];
+
+
+    for (
+        const word
+        of
+        preferredWords
+    ) {
+
+        const preferred =
+            matching.find(
+                voice =>
+                    voice.name
+                    .toLowerCase()
+                    .includes(
+                        word
+                    )
+            );
+
+
+        if (preferred) {
+            return preferred;
+        }
+    }
+
+
     return (
         matching[0]
         ||
         null
     );
+}
+
+
+function detectSpeechLanguage(
+    text
+) {
+
+    const clean =
+        String(text);
+
+
+    if (
+        /[А-Яа-яЁё]/
+        .test(
+            clean
+        )
+    ) {
+
+        return "ru-RU";
+    }
+
+
+    const germanWords =
+        /\b(ich|du|der|die|das|und|nicht|ist|sind|mit|für|auf|ein|eine|kann|können|wie|was|warum|bitte|heute|morgen|deutsch|arbeit|haben|habe|hat|werden|wird)\b/i;
+
+
+    if (
+        /[äöüßÄÖÜ]/
+        .test(
+            clean
+        )
+        ||
+        germanWords.test(
+            clean
+        )
+    ) {
+
+        return "de-DE";
+    }
+
+
+    return "en-US";
 }
 
 
@@ -3986,31 +4548,10 @@ function speakText(
         );
 
 
-    let language =
-        "en-US";
-
-
-    if (
-        /[А-Яа-яЁё]/
-        .test(
+    const language =
+        detectSpeechLanguage(
             clean
-        )
-    ) {
-
-        language =
-            "ru-RU";
-
-
-    } else if (
-        /[äöüßÄÖÜ]/
-        .test(
-            clean
-        )
-    ) {
-
-        language =
-            "de-DE";
-    }
+        );
 
 
     utterance.lang =
@@ -4024,9 +4565,7 @@ function speakText(
 
 
     if (voice) {
-
-        utterance.voice =
-            voice;
+        utterance.voice = voice;
     }
 
 
