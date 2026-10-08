@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -10,31 +9,11 @@
 
     <title>Wiens AI</title>
 
-    <!-- PWA -->
-    <link
-        rel="manifest"
-        href="/static/manifest.json"
-    >
-
-    <meta
-        name="theme-color"
-        content="#07080d"
-    >
-
-    <meta
-        name="apple-mobile-web-app-capable"
-        content="yes"
-    >
-
-    <meta
-        name="apple-mobile-web-app-status-bar-style"
-        content="black-translucent"
-    >
-
-    <meta
-        name="apple-mobile-web-app-title"
-        content="Wiens AI"
-    >
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#07080d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Wiens AI">
 
     <link
         rel="apple-touch-icon"
@@ -92,7 +71,6 @@
 
         button {
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .app {
@@ -106,12 +84,10 @@
 
         header {
             min-height: 70px;
-            flex-shrink: 0;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
 
             padding:
                 calc(8px + env(safe-area-inset-top))
@@ -132,7 +108,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            min-width: 0;
         }
 
         .menu-button,
@@ -153,7 +128,6 @@
         .menu-button {
             width: 40px;
             font-size: 20px;
-            flex-shrink: 0;
         }
 
         .header-button {
@@ -163,12 +137,11 @@
         .brand {
             display: flex;
             align-items: center;
+
             gap: 9px;
 
             font-size: 19px;
             font-weight: 750;
-
-            min-width: 0;
         }
 
         .mini-logo {
@@ -182,20 +155,16 @@
             box-shadow:
                 0 0 20px
                 rgba(117,92,255,.45);
-
-            flex-shrink: 0;
         }
 
         .online {
             font-size: 11px;
             color: #79ffac;
-            margin-top: 2px;
         }
 
         .header-actions {
             display: flex;
             gap: 7px;
-            flex-shrink: 0;
         }
 
         .speaker-on {
@@ -213,16 +182,12 @@
             overflow-y: auto;
 
             padding:
-                25px
-                16px
-                20px;
+                25px 16px 20px;
 
             display: flex;
             flex-direction: column;
 
             gap: 14px;
-
-            scroll-behavior: smooth;
         }
 
         .welcome {
@@ -236,23 +201,22 @@
         }
 
         .hero-logo {
-            width: 115px;
-            height: 115px;
+            width: 110px;
+            height: 110px;
 
             border-radius: 27px;
 
             object-fit: cover;
 
             box-shadow:
-                0 0 35px rgba(117,92,255,.38),
-                0 18px 50px rgba(0,0,0,.4);
+                0 0 35px
+                rgba(117,92,255,.38);
 
             margin-bottom: 20px;
         }
 
         .welcome h1 {
             font-size: 34px;
-            letter-spacing: -1px;
 
             margin-bottom: 8px;
         }
@@ -261,15 +225,12 @@
             color: var(--muted);
 
             line-height: 1.5;
-
-            font-size: 15px;
         }
 
         .features {
             margin-top: 20px;
 
             display: flex;
-
             justify-content: center;
 
             flex-wrap: wrap;
@@ -366,25 +327,38 @@
                 1px solid var(--border);
         }
 
-        .image-placeholder {
-            padding: 18px;
+        .file-card {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            max-width: 290px;
+
+            padding: 12px 14px;
+
+            margin-bottom: 7px;
 
             border-radius: 16px;
-
-            background:
-                rgba(255,255,255,.06);
 
             border:
                 1px solid var(--border);
 
-            margin-bottom: 7px;
+            background:
+                rgba(255,255,255,.06);
+        }
 
-            color: var(--muted);
+        .file-icon {
+            font-size: 26px;
+        }
+
+        .file-name {
+            font-size: 14px;
+
+            overflow-wrap: anywhere;
         }
 
         .speak-message {
-            margin-top: 5px;
-
             border: none;
 
             background: transparent;
@@ -392,13 +366,14 @@
             color: #9e9eae;
 
             font-size: 17px;
+
+            margin-top: 5px;
         }
 
         .recording-bar {
             display: none;
 
             align-items: center;
-
             justify-content: center;
 
             gap: 8px;
@@ -425,29 +400,28 @@
         @keyframes pulse {
             50% {
                 opacity: .3;
-                transform: scale(.8);
             }
         }
 
-        .image-preview-area {
+        .attachment-preview-area {
             display: none;
 
             padding:
                 8px
                 14px
                 0;
-
-            flex-shrink: 0;
         }
 
         .preview-card {
             position: relative;
 
-            width: 90px;
+            width: fit-content;
+
+            max-width: 90%;
         }
 
         #imagePreview {
-            display: block;
+            display: none;
 
             width: 90px;
             height: 90px;
@@ -460,7 +434,34 @@
                 1px solid var(--border);
         }
 
-        .remove-image {
+        #pdfPreview {
+            display: none;
+
+            align-items: center;
+
+            gap: 9px;
+
+            max-width: 280px;
+
+            padding:
+                11px 38px 11px 12px;
+
+            border-radius: 14px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        #pdfPreviewName {
+            font-size: 13px;
+
+            overflow-wrap: anywhere;
+        }
+
+        .remove-attachment {
             position: absolute;
 
             top: -7px;
@@ -476,13 +477,9 @@
             background: #353542;
 
             color: white;
-
-            font-size: 15px;
         }
 
         .input-area {
-            flex-shrink: 0;
-
             padding:
                 8px
                 12px
@@ -490,12 +487,6 @@
                     10px
                     +
                     env(safe-area-inset-bottom)
-                );
-
-            background:
-                linear-gradient(
-                    transparent,
-                    rgba(7,8,13,.98) 25%
                 );
         }
 
@@ -516,10 +507,6 @@
                 rgba(255,255,255,.11);
 
             border-radius: 22px;
-
-            box-shadow:
-                0 12px 40px
-                rgba(0,0,0,.32);
         }
 
         textarea {
@@ -535,7 +522,6 @@
             background: transparent;
 
             border: none;
-
             outline: none;
 
             color: white;
@@ -550,8 +536,6 @@
         .icon-button {
             width: 42px;
             height: 42px;
-
-            flex-shrink: 0;
 
             border: none;
 
@@ -601,8 +585,6 @@
         #fileInput {
             display: none;
         }
-
-        /* HISTORY */
 
         .overlay {
             position: fixed;
@@ -660,7 +642,7 @@
                 translateX(-105%);
 
             transition:
-                transform .22s ease;
+                .22s;
 
             z-index: 100;
 
@@ -677,39 +659,15 @@
         .drawer-header {
             display: flex;
 
-            align-items: center;
+            justify-content:
+                space-between;
 
-            justify-content: space-between;
+            align-items: center;
 
             margin-bottom: 12px;
         }
 
-        .drawer-title {
-            font-size: 22px;
-
-            font-weight: 750;
-        }
-
-        .drawer-close {
-            width: 38px;
-            height: 38px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.06);
-
-            color: white;
-
-            font-size: 20px;
-        }
-
         .drawer-new {
-            width: 100%;
-
             padding: 12px;
 
             margin-bottom: 12px;
@@ -721,27 +679,13 @@
             border-radius: 14px;
 
             background:
-                linear-gradient(
-                    135deg,
-                    rgba(117,92,255,.30),
-                    rgba(162,108,255,.20)
-                );
+                rgba(117,92,255,.20);
 
             color: white;
-
-            font-weight: 650;
         }
 
         #chatList {
-            flex: 1;
-
             overflow-y: auto;
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 7px;
         }
 
         .history-item {
@@ -749,30 +693,20 @@
 
             align-items: center;
 
-            gap: 4px;
+            margin-bottom: 6px;
 
-            padding: 4px;
-
-            border-radius: 13px;
-
-            border:
-                1px solid transparent;
+            border-radius: 12px;
         }
 
         .history-item.active {
             background:
                 rgba(117,92,255,.13);
-
-            border-color:
-                rgba(162,108,255,.20);
         }
 
         .history-open {
             flex: 1;
 
-            min-width: 0;
-
-            padding: 8px;
+            padding: 9px;
 
             border: none;
 
@@ -789,53 +723,39 @@
             text-overflow: ellipsis;
 
             white-space: nowrap;
-
-            font-size: 14px;
         }
 
         .history-date {
-            color: var(--muted);
-
             font-size: 10px;
+
+            color: var(--muted);
 
             margin-top: 3px;
         }
 
         .history-delete {
-            width: 34px;
-            height: 34px;
+            width: 36px;
 
             border: none;
 
-            border-radius: 10px;
-
             background: transparent;
 
-            color: #9999a8;
+            color: white;
         }
 
-        @media (
-            max-width: 600px
-        ) {
+        .drawer-close {
+            width: 38px;
+            height: 38px;
 
-            .new-chat-text {
-                display: none;
-            }
+            border:
+                1px solid var(--border);
 
-            .welcome h1 {
-                font-size: 31px;
-            }
+            border-radius: 12px;
 
-            .hero-logo {
-                width: 105px;
-                height: 105px;
-            }
+            background:
+                rgba(255,255,255,.06);
 
-            .brand-label {
-                max-width: 95px;
-
-                overflow: hidden;
-            }
+            color: white;
         }
     </style>
 </head>
@@ -851,7 +771,6 @@
             <button
                 class="menu-button"
                 onclick="openDrawer()"
-                title="История чатов"
             >
                 ☰
             </button>
@@ -861,11 +780,9 @@
                 <img
                     class="mini-logo"
                     src="/static/logo.png.PNG"
-                    alt="Wiens AI"
                 >
 
-                <div class="brand-label">
-
+                <div>
                     Wiens AI
 
                     <div class="online">
@@ -877,6 +794,7 @@
             </div>
 
         </div>
+
 
         <div class="header-actions">
 
@@ -892,11 +810,7 @@
                 class="header-button"
                 onclick="newChat()"
             >
-                ＋
-
-                <span class="new-chat-text">
-                    Новый чат
-                </span>
+                ＋ Новый чат
             </button>
 
         </div>
@@ -917,27 +831,36 @@
         ></div>
 
         <span id="recordingText">
-            Запись голоса…
+            Запись…
         </span>
 
     </div>
 
 
     <div
-        class="image-preview-area"
-        id="imagePreviewArea"
+        class="attachment-preview-area"
+        id="attachmentPreviewArea"
     >
 
         <div class="preview-card">
 
             <img
                 id="imagePreview"
-                alt="Selected image"
             >
 
+            <div id="pdfPreview">
+
+                <span>
+                    📄
+                </span>
+
+                <span id="pdfPreviewName"></span>
+
+            </div>
+
             <button
-                class="remove-image"
-                onclick="removeSelectedImage()"
+                class="remove-attachment"
+                onclick="removeSelectedAttachment()"
             >
                 ×
             </button>
@@ -955,10 +878,11 @@
                 class="icon-button attach"
                 onclick="
                     document
-                    .getElementById('fileInput')
+                    .getElementById(
+                        'fileInput'
+                    )
                     .click()
                 "
-                title="Добавить фото"
             >
                 ＋
             </button>
@@ -966,12 +890,11 @@
             <input
                 id="fileInput"
                 type="file"
-                accept="image/*"
+                accept="image/*,.pdf,application/pdf"
             >
 
             <textarea
                 id="messageInput"
-                rows="1"
                 placeholder="Сообщение Wiens AI..."
             ></textarea>
 
@@ -1016,9 +939,9 @@
 
     <div class="drawer-header">
 
-        <div class="drawer-title">
+        <h2>
             Чаты
-        </div>
+        </h2>
 
         <button
             class="drawer-close"
@@ -1051,62 +974,108 @@ const ACTIVE_CHAT_KEY =
 
 
 const chat =
-    document.getElementById("chat");
+    document.getElementById(
+        "chat"
+    );
 
 const input =
-    document.getElementById("messageInput");
+    document.getElementById(
+        "messageInput"
+    );
 
 const sendButton =
-    document.getElementById("sendButton");
+    document.getElementById(
+        "sendButton"
+    );
 
 const micButton =
-    document.getElementById("micButton");
+    document.getElementById(
+        "micButton"
+    );
 
 const recordingBar =
-    document.getElementById("recordingBar");
+    document.getElementById(
+        "recordingBar"
+    );
 
 const recordingText =
-    document.getElementById("recordingText");
+    document.getElementById(
+        "recordingText"
+    );
 
 const speakerButton =
-    document.getElementById("speakerButton");
+    document.getElementById(
+        "speakerButton"
+    );
 
 const fileInput =
-    document.getElementById("fileInput");
+    document.getElementById(
+        "fileInput"
+    );
 
-const imagePreviewArea =
-    document.getElementById("imagePreviewArea");
+const attachmentPreviewArea =
+    document.getElementById(
+        "attachmentPreviewArea"
+    );
 
 const imagePreview =
-    document.getElementById("imagePreview");
+    document.getElementById(
+        "imagePreview"
+    );
+
+const pdfPreview =
+    document.getElementById(
+        "pdfPreview"
+    );
+
+const pdfPreviewName =
+    document.getElementById(
+        "pdfPreviewName"
+    );
 
 const drawer =
-    document.getElementById("drawer");
+    document.getElementById(
+        "drawer"
+    );
 
 const overlay =
-    document.getElementById("overlay");
+    document.getElementById(
+        "overlay"
+    );
 
 const chatList =
-    document.getElementById("chatList");
+    document.getElementById(
+        "chatList"
+    );
 
 
 let chats = [];
 
-let activeChatId = null;
+let activeChatId =
+    null;
 
 let history = [];
 
-let mediaRecorder = null;
+let selectedFile =
+    null;
 
-let audioChunks = [];
+let selectedFileType =
+    null;
 
-let recording = false;
+let selectedImageURL =
+    null;
 
-let speechEnabled = true;
+let mediaRecorder =
+    null;
 
-let selectedImage = null;
+let audioChunks =
+    [];
 
-let selectedImageURL = null;
+let recording =
+    false;
+
+let speechEnabled =
+    true;
 
 
 function createId() {
@@ -1130,7 +1099,6 @@ function createEmptyChat() {
 
 
     return {
-
         id:
             createId(),
 
@@ -1148,7 +1116,6 @@ function createEmptyChat() {
 
         uiMessages:
             []
-
     };
 }
 
@@ -1165,63 +1132,20 @@ function getActiveChat() {
 
 function saveChats() {
 
-    try {
-
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(chats)
-        );
-
-
-        localStorage.setItem(
-            ACTIVE_CHAT_KEY,
-            activeChatId || ""
-        );
-
-
-    } catch (error) {
-
-        console.log(
-            "Could not save chat history",
-            error
-        );
-    }
-}
-
-
-function makeChatTitle(text) {
-
-    let title =
-        String(text || "")
-        .replace(
-            "[Image]",
-            ""
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(
+            chats
         )
-        .trim();
+    );
 
 
-    if (!title) {
-
-        title =
-            "Фото";
-    }
-
-
-    if (
-        title.length > 34
-    ) {
-
-        title =
-            title.slice(
-                0,
-                34
-            )
-            +
-            "…";
-    }
-
-
-    return title;
+    localStorage.setItem(
+        ACTIVE_CHAT_KEY,
+        activeChatId
+        ||
+        ""
+    );
 }
 
 
@@ -1245,7 +1169,7 @@ function saveActiveChat() {
         .toISOString();
 
 
-    const firstUser =
+    const first =
         current.uiMessages
         .find(
             item =>
@@ -1254,11 +1178,17 @@ function saveActiveChat() {
         );
 
 
-    if (firstUser) {
+    if (
+        first
+        &&
+        first.text
+    ) {
 
         current.title =
-            makeChatTitle(
-                firstUser.text
+            first.text
+            .slice(
+                0,
+                35
             );
     }
 
@@ -1273,7 +1203,7 @@ function loadChats() {
 
     try {
 
-        const saved =
+        chats =
             JSON.parse(
                 localStorage
                 .getItem(
@@ -1284,22 +1214,14 @@ function loadChats() {
             );
 
 
-        chats =
-            Array.isArray(saved)
-            ?
-            saved
-            :
-            [];
-
-
-    } catch (error) {
+    } catch {
 
         chats =
             [];
     }
 
 
-    const savedActiveId =
+    const saved =
         localStorage
         .getItem(
             ACTIVE_CHAT_KEY
@@ -1307,21 +1229,21 @@ function loadChats() {
 
 
     if (
-        savedActiveId
+        saved
         &&
         chats.some(
             item =>
                 item.id
-                === savedActiveId
+                === saved
         )
     ) {
 
         activeChatId =
-            savedActiveId;
+            saved;
 
 
     } else if (
-        chats.length > 0
+        chats.length
     ) {
 
         activeChatId =
@@ -1330,15 +1252,17 @@ function loadChats() {
 
     } else {
 
-        const first =
+        const fresh =
             createEmptyChat();
 
 
-        chats.push(first);
+        chats.push(
+            fresh
+        );
 
 
         activeChatId =
-            first.id;
+            fresh.id;
     }
 
 
@@ -1348,17 +1272,15 @@ function loadChats() {
 
     history =
         current
-        &&
-        Array.isArray(
-            current.history
-        )
         ?
-        current.history.slice()
+        (
+            current.history
+            ||
+            []
+        )
         :
         [];
 
-
-    saveChats();
 
     renderCurrentChat();
 
@@ -1370,15 +1292,11 @@ function welcomeHtml() {
 
     return `
 
-        <div
-            class="welcome"
-            id="welcome"
-        >
+        <div class="welcome">
 
             <img
                 class="hero-logo"
                 src="/static/logo.png.PNG"
-                alt="Wiens AI"
             >
 
             <h1>
@@ -1387,7 +1305,7 @@ function welcomeHtml() {
 
             <p>
                 Напишите, скажите голосом
-                или отправьте фотографию.
+                или отправьте фото / PDF.
             </p>
 
             <div class="features">
@@ -1405,11 +1323,11 @@ function welcomeHtml() {
                 </div>
 
                 <div class="feature">
-                    🎙️ Voice
+                    📄 PDF
                 </div>
 
                 <div class="feature">
-                    🔊 Speech
+                    🎙️ Voice
                 </div>
 
                 <div class="feature">
@@ -1426,8 +1344,9 @@ function welcomeHtml() {
 function removeWelcome() {
 
     const welcome =
-        document.getElementById(
-            "welcome"
+        document
+        .querySelector(
+            ".welcome"
         );
 
 
@@ -1456,7 +1375,8 @@ function addTextMessage(
         "message-row "
         +
         (
-            role === "user"
+            role
+            === "user"
             ?
             "user-row"
             :
@@ -1464,63 +1384,67 @@ function addTextMessage(
         );
 
 
-    const message =
+    const bubble =
         document.createElement(
             "div"
         );
 
 
-    message.className =
+    bubble.className =
         "message "
         +
         role;
 
 
-    message.textContent =
+    bubble.textContent =
         text;
 
 
     row.appendChild(
-        message
+        bubble
     );
 
 
     if (
-        role === "assistant"
+        role
+        === "assistant"
         &&
-        !message.classList.contains(
+        !bubble.classList
+        .contains(
             "thinking"
         )
     ) {
 
-        const speak =
+        const button =
             document.createElement(
                 "button"
             );
 
 
-        speak.className =
+        button.className =
             "speak-message";
 
 
-        speak.textContent =
+        button.textContent =
             "🔊";
 
 
-        speak.onclick =
-            function() {
-
-                speakText(text);
-            };
+        button.onclick =
+            () =>
+                speakText(
+                    text
+                );
 
 
         row.appendChild(
-            speak
+            button
         );
     }
 
 
-    chat.appendChild(row);
+    chat.appendChild(
+        row
+    );
 
 
     chat.scrollTop =
@@ -1531,8 +1455,9 @@ function addTextMessage(
 }
 
 
-function addImageMessage(
-    imageURL,
+function addFileCard(
+    icon,
+    filename,
     text
 ) {
 
@@ -1549,72 +1474,111 @@ function addImageMessage(
         "message-row user-row";
 
 
-    if (imageURL) {
-
-        const image =
-            document.createElement(
-                "img"
-            );
-
-
-        image.className =
-            "chat-image";
-
-
-        image.src =
-            imageURL;
-
-
-        row.appendChild(image);
-
-
-    } else {
-
-        const placeholder =
-            document.createElement(
-                "div"
-            );
-
-
-        placeholder.className =
-            "image-placeholder";
-
-
-        placeholder.textContent =
-            "📷 Отправленное изображение";
-
-
-        row.appendChild(
-            placeholder
+    const card =
+        document.createElement(
+            "div"
         );
-    }
+
+
+    card.className =
+        "file-card";
+
+
+    const iconBox =
+        document.createElement(
+            "div"
+        );
+
+
+    iconBox.className =
+        "file-icon";
+
+
+    iconBox.textContent =
+        icon;
+
+
+    const name =
+        document.createElement(
+            "div"
+        );
+
+
+    name.className =
+        "file-name";
+
+
+    name.textContent =
+        filename;
+
+
+    card.appendChild(
+        iconBox
+    );
+
+
+    card.appendChild(
+        name
+    );
+
+
+    row.appendChild(
+        card
+    );
 
 
     if (text) {
 
-        const message =
+        const bubble =
             document.createElement(
                 "div"
             );
 
 
-        message.className =
+        bubble.className =
             "message user";
 
 
-        message.textContent =
+        bubble.textContent =
             text;
 
 
-        row.appendChild(message);
+        row.appendChild(
+            bubble
+        );
     }
 
 
-    chat.appendChild(row);
+    chat.appendChild(
+        row
+    );
 
 
     chat.scrollTop =
         chat.scrollHeight;
+}
+
+
+function remember(
+    role,
+    type,
+    text,
+    filename = ""
+) {
+
+    const current =
+        getActiveChat();
+
+
+    current.uiMessages.push({
+        role,
+        type,
+        text,
+        filename
+    });
+
+
+    saveActiveChat();
 }
 
 
@@ -1631,11 +1595,10 @@ function renderCurrentChat() {
     if (
         !current
         ||
-        !Array.isArray(
-            current.uiMessages
-        )
+        !current.uiMessages
         ||
-        current.uiMessages.length === 0
+        current.uiMessages.length
+        === 0
     ) {
 
         chat.innerHTML =
@@ -1651,104 +1614,40 @@ function renderCurrentChat() {
         item => {
 
             if (
-                item.type === "image"
-                &&
-                item.role === "user"
+                item.type
+                === "image"
             ) {
 
-                addImageMessage(
-                    null,
-                    item.text || ""
+                addFileCard(
+                    "📷",
+                    "Изображение",
+                    item.text
+                );
+
+
+            } else if (
+                item.type
+                === "document"
+            ) {
+
+                addFileCard(
+                    "📄",
+                    item.filename
+                    ||
+                    "PDF",
+                    item.text
                 );
 
 
             } else {
 
                 addTextMessage(
-                    item.text || "",
+                    item.text,
                     item.role
                 );
             }
         }
     );
-
-
-    chat.scrollTop =
-        chat.scrollHeight;
-}
-
-
-function rememberUiMessage(
-    role,
-    type,
-    text
-) {
-
-    const current =
-        getActiveChat();
-
-
-    if (!current) {
-        return;
-    }
-
-
-    if (
-        !Array.isArray(
-            current.uiMessages
-        )
-    ) {
-
-        current.uiMessages =
-            [];
-    }
-
-
-    current.uiMessages.push({
-
-        role:
-            role,
-
-        type:
-            type,
-
-        text:
-            text
-
-    });
-
-
-    saveActiveChat();
-}
-
-
-function formatChatDate(value) {
-
-    try {
-
-        return new Date(value)
-        .toLocaleString(
-            "ru-RU",
-            {
-                day:
-                    "2-digit",
-
-                month:
-                    "2-digit",
-
-                hour:
-                    "2-digit",
-
-                minute:
-                    "2-digit"
-            }
-        );
-
-
-    } catch (error) {
-
-        return "";
-    }
 }
 
 
@@ -1758,142 +1657,95 @@ function renderChatList() {
         "";
 
 
-    const ordered =
-        [...chats]
-        .sort(
-            (a,b) =>
-                new Date(
-                    b.updatedAt
-                )
-                -
-                new Date(
-                    a.updatedAt
-                )
-        );
-
-
-    ordered.forEach(
+    chats
+    .slice()
+    .reverse()
+    .forEach(
         item => {
 
-            const wrapper =
+            const row =
                 document.createElement(
                     "div"
                 );
 
 
-            wrapper.className =
+            row.className =
                 "history-item";
 
 
             if (
-                item.id === activeChatId
+                item.id
+                === activeChatId
             ) {
 
-                wrapper.classList.add(
+                row.classList
+                .add(
                     "active"
                 );
             }
 
 
-            const openButton =
+            const open =
                 document.createElement(
                     "button"
                 );
 
 
-            openButton.className =
+            open.className =
                 "history-open";
 
 
-            openButton.onclick =
-                function() {
+            open.innerHTML =
+                `
+                <div class="history-title">
+                    ${item.title || "Новый чат"}
+                </div>
+                <div class="history-date">
+                    ${new Date(item.updatedAt).toLocaleString("ru-RU")}
+                </div>
+                `;
 
+
+            open.onclick =
+                () =>
                     openChat(
                         item.id
                     );
-                };
 
 
-            const title =
-                document.createElement(
-                    "div"
-                );
-
-
-            title.className =
-                "history-title";
-
-
-            title.textContent =
-                item.title
-                ||
-                "Новый чат";
-
-
-            const date =
-                document.createElement(
-                    "div"
-                );
-
-
-            date.className =
-                "history-date";
-
-
-            date.textContent =
-                formatChatDate(
-                    item.updatedAt
-                );
-
-
-            openButton.appendChild(
-                title
-            );
-
-
-            openButton.appendChild(
-                date
-            );
-
-
-            const deleteButton =
+            const del =
                 document.createElement(
                     "button"
                 );
 
 
-            deleteButton.className =
+            del.className =
                 "history-delete";
 
 
-            deleteButton.textContent =
+            del.textContent =
                 "🗑️";
 
 
-            deleteButton.onclick =
-                function(event) {
-
-                    event.stopPropagation();
-
-
+            del.onclick =
+                () =>
                     deleteChat(
                         item.id
                     );
-                };
 
 
-            wrapper.appendChild(
-                openButton
+            row.appendChild(
+                open
             );
 
 
-            wrapper.appendChild(
-                deleteButton
+            row.appendChild(
+                del
             );
 
 
             chatList.appendChild(
-                wrapper
+                row
             );
         }
     );
@@ -1910,9 +1762,6 @@ function openDrawer() {
     overlay.classList.add(
         "open"
     );
-
-
-    renderChatList();
 }
 
 
@@ -1934,55 +1783,23 @@ function openChat(id) {
     saveActiveChat();
 
 
-    const target =
-        chats.find(
-            item =>
-                item.id === id
-        );
-
-
-    if (!target) {
-        return;
-    }
-
-
     activeChatId =
         id;
 
 
+    const current =
+        getActiveChat();
+
+
     history =
-        Array.isArray(
-            target.history
-        )
-        ?
-        target.history.slice()
-        :
+        current.history
+        ||
         [];
 
 
-    localStorage.setItem(
-        ACTIVE_CHAT_KEY,
-        activeChatId
-    );
-
-
-    removeSelectedImage();
-
-
-    if (
-        "speechSynthesis"
-        in window
-    ) {
-
-        window
-        .speechSynthesis
-        .cancel();
-    }
-
+    saveChats();
 
     renderCurrentChat();
-
-    renderChatList();
 
     closeDrawer();
 }
@@ -1993,37 +1810,11 @@ function newChat() {
     saveActiveChat();
 
 
-    const current =
-        getActiveChat();
-
-
-    if (
-        current
-        &&
-        Array.isArray(
-            current.uiMessages
-        )
-        &&
-        current.uiMessages.length === 0
-    ) {
-
-        history =
-            [];
-
-
-        renderCurrentChat();
-
-        closeDrawer();
-
-        return;
-    }
-
-
     const fresh =
         createEmptyChat();
 
 
-    chats.unshift(
+    chats.push(
         fresh
     );
 
@@ -2036,52 +1827,21 @@ function newChat() {
         [];
 
 
-    removeSelectedImage();
-
-
-    if (
-        "speechSynthesis"
-        in window
-    ) {
-
-        window
-        .speechSynthesis
-        .cancel();
-    }
-
-
     saveChats();
 
     renderCurrentChat();
 
-    renderChatList();
-
     closeDrawer();
-
-    input.focus();
 }
 
 
 function deleteChat(id) {
 
-    const target =
-        chats.find(
-            item =>
-                item.id === id
-        );
-
-
-    if (!target) {
-        return;
-    }
-
-
     if (
         !confirm(
-            "Удалить этот чат?"
+            "Удалить чат?"
         )
     ) {
-
         return;
     }
 
@@ -2089,60 +1849,32 @@ function deleteChat(id) {
     chats =
         chats.filter(
             item =>
-                item.id !== id
+                item.id
+                !== id
         );
 
 
     if (
-        chats.length === 0
+        !chats.length
     ) {
-
-        const fresh =
-            createEmptyChat();
-
 
         chats.push(
-            fresh
+            createEmptyChat()
         );
-
-
-        activeChatId =
-            fresh.id;
-
-
-        history =
-            [];
-
-
-    } else if (
-        activeChatId === id
-    ) {
-
-        chats.sort(
-            (a,b) =>
-                new Date(
-                    b.updatedAt
-                )
-                -
-                new Date(
-                    a.updatedAt
-                )
-        );
-
-
-        activeChatId =
-            chats[0].id;
-
-
-        history =
-            Array.isArray(
-                chats[0].history
-            )
-            ?
-            chats[0].history.slice()
-            :
-            [];
     }
+
+
+    activeChatId =
+        chats[
+            chats.length - 1
+        ].id;
+
+
+    history =
+        getActiveChat()
+        .history
+        ||
+        [];
 
 
     saveChats();
@@ -2166,69 +1898,108 @@ fileInput.addEventListener(
         }
 
 
+        removeSelectedAttachment(
+            false
+        );
+
+
+        selectedFile =
+            file;
+
+
         if (
-            !file.type.startsWith(
+            file.type
+            .startsWith(
                 "image/"
             )
         ) {
 
+            selectedFileType =
+                "image";
+
+
+            selectedImageURL =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            imagePreview.src =
+                selectedImageURL;
+
+
+            imagePreview.style.display =
+                "block";
+
+
+            pdfPreview.style.display =
+                "none";
+
+
+            input.placeholder =
+                "Спросите что-нибудь о фото...";
+
+
+        } else if (
+            file.type
+            === "application/pdf"
+            ||
+            file.name
+            .toLowerCase()
+            .endsWith(
+                ".pdf"
+            )
+        ) {
+
+            selectedFileType =
+                "pdf";
+
+
+            imagePreview.style.display =
+                "none";
+
+
+            pdfPreview.style.display =
+                "flex";
+
+
+            pdfPreviewName.textContent =
+                file.name;
+
+
+            input.placeholder =
+                "Спросите что-нибудь о PDF...";
+
+
+        } else {
+
             alert(
-                "Пожалуйста, выберите изображение."
+                "Поддерживаются фото и PDF."
             );
-
-
-            fileInput.value =
-                "";
 
 
             return;
         }
 
 
-        selectedImage =
-            file;
-
-
-        if (
-            selectedImageURL
-        ) {
-
-            URL.revokeObjectURL(
-                selectedImageURL
-            );
-        }
-
-
-        selectedImageURL =
-            URL.createObjectURL(
-                file
-            );
-
-
-        imagePreview.src =
-            selectedImageURL;
-
-
-        imagePreviewArea
+        attachmentPreviewArea
         .style
         .display =
             "block";
-
-
-        input.placeholder =
-            "Спросите что-нибудь о фото...";
     }
 );
 
 
-function removeSelectedImage() {
+function removeSelectedAttachment(
+    clearInput = true
+) {
 
-    selectedImage =
+    selectedFile =
         null;
 
 
-    fileInput.value =
-        "";
+    selectedFileType =
+        null;
 
 
     if (
@@ -2249,7 +2020,15 @@ function removeSelectedImage() {
         "";
 
 
-    imagePreviewArea
+    imagePreview.style.display =
+        "none";
+
+
+    pdfPreview.style.display =
+        "none";
+
+
+    attachmentPreviewArea
     .style
     .display =
         "none";
@@ -2257,39 +2036,54 @@ function removeSelectedImage() {
 
     input.placeholder =
         "Сообщение Wiens AI...";
+
+
+    if (
+        clearInput
+    ) {
+
+        fileInput.value =
+            "";
+    }
 }
 
 
-async function sendMessage(
-    customText = null
-) {
+async function sendMessage() {
 
     const text =
-        (
-            customText !== null
-            ?
-            customText
-            :
-            input.value
-        )
+        input.value
         .trim();
 
 
     if (
         !text
         &&
-        !selectedImage
+        !selectedFile
     ) {
+        return;
+    }
+
+
+    if (
+        selectedFileType
+        === "image"
+    ) {
+
+        await sendImage(
+            text
+        );
+
 
         return;
     }
 
 
     if (
-        selectedImage
+        selectedFileType
+        === "pdf"
     ) {
 
-        await sendImageMessage(
+        await sendPdf(
             text
         );
 
@@ -2304,7 +2098,7 @@ async function sendMessage(
     );
 
 
-    rememberUiMessage(
+    remember(
         "user",
         "text",
         text
@@ -2315,19 +2109,15 @@ async function sendMessage(
         "";
 
 
-    input.style.height =
-        "auto";
-
-
-    sendButton.disabled =
-        true;
-
-
     const thinking =
         addTextMessage(
             "Wiens AI думает…",
             "assistant thinking"
         );
+
+
+    sendButton.disabled =
+        true;
 
 
     try {
@@ -2368,9 +2158,7 @@ async function sendMessage(
         ) {
 
             addTextMessage(
-                data.error
-                ||
-                "Произошла ошибка.",
+                data.error,
                 "assistant"
             );
 
@@ -2403,14 +2191,11 @@ async function sendMessage(
         });
 
 
-        rememberUiMessage(
+        remember(
             "assistant",
             "text",
             data.answer
         );
-
-
-        saveActiveChat();
 
 
         if (
@@ -2423,13 +2208,13 @@ async function sendMessage(
         }
 
 
-    } catch (error) {
+    } catch {
 
         thinking.remove();
 
 
         addTextMessage(
-            "Не удалось связаться с Wiens AI.",
+            "Ошибка соединения.",
             "assistant"
         );
 
@@ -2438,21 +2223,14 @@ async function sendMessage(
 
         sendButton.disabled =
             false;
-
-
-        input.focus();
     }
 }
 
 
-async function sendImageMessage(text) {
+async function sendImage(text) {
 
-    const imageFile =
-        selectedImage;
-
-
-    const imageURL =
-        selectedImageURL;
+    const file =
+        selectedFile;
 
 
     const question =
@@ -2461,16 +2239,18 @@ async function sendImageMessage(text) {
         "Что изображено на этой фотографии?";
 
 
-    addImageMessage(
-        imageURL,
+    addFileCard(
+        "📷",
+        file.name,
         text
     );
 
 
-    rememberUiMessage(
+    remember(
         "user",
         "image",
-        question
+        question,
+        file.name
     );
 
 
@@ -2478,38 +2258,7 @@ async function sendImageMessage(text) {
         "";
 
 
-    input.style.height =
-        "auto";
-
-
-    selectedImage =
-        null;
-
-
-    fileInput.value =
-        "";
-
-
-    imagePreviewArea
-    .style
-    .display =
-        "none";
-
-
-    imagePreview.src =
-        "";
-
-
-    selectedImageURL =
-        null;
-
-
-    input.placeholder =
-        "Сообщение Wiens AI...";
-
-
-    sendButton.disabled =
-        true;
+    removeSelectedAttachment();
 
 
     const thinking =
@@ -2519,19 +2268,23 @@ async function sendImageMessage(text) {
         );
 
 
+    sendButton.disabled =
+        true;
+
+
     try {
 
-        const formData =
+        const form =
             new FormData();
 
 
-        formData.append(
+        form.append(
             "image",
-            imageFile
+            file
         );
 
 
-        formData.append(
+        form.append(
             "message",
             question
         );
@@ -2545,7 +2298,138 @@ async function sendImageMessage(text) {
                         "POST",
 
                     body:
-                        formData
+                        form
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        thinking.remove();
+
+
+        addTextMessage(
+            data.answer
+            ||
+            data.error,
+            "assistant"
+        );
+
+
+        if (
+            response.ok
+        ) {
+
+            history.push({
+                role:
+                    "user",
+
+                content:
+                    "[Image] "
+                    +
+                    question
+            });
+
+
+            history.push({
+                role:
+                    "assistant",
+
+                content:
+                    data.answer
+            });
+
+
+            remember(
+                "assistant",
+                "text",
+                data.answer
+            );
+        }
+
+
+    } finally {
+
+        sendButton.disabled =
+            false;
+    }
+}
+
+
+async function sendPdf(text) {
+
+    const file =
+        selectedFile;
+
+
+    const question =
+        text
+        ||
+        "Кратко объясни этот PDF и выдели самое важное.";
+
+
+    addFileCard(
+        "📄",
+        file.name,
+        text
+    );
+
+
+    remember(
+        "user",
+        "document",
+        question,
+        file.name
+    );
+
+
+    input.value =
+        "";
+
+
+    removeSelectedAttachment();
+
+
+    const thinking =
+        addTextMessage(
+            "Wiens AI читает PDF…",
+            "assistant thinking"
+        );
+
+
+    sendButton.disabled =
+        true;
+
+
+    try {
+
+        const form =
+            new FormData();
+
+
+        form.append(
+            "document",
+            file
+        );
+
+
+        form.append(
+            "message",
+            question
+        );
+
+
+        const response =
+            await fetch(
+                "/api/document",
+                {
+                    method:
+                        "POST",
+
+                    body:
+                        form
                 }
             );
 
@@ -2564,7 +2448,7 @@ async function sendImageMessage(text) {
             addTextMessage(
                 data.error
                 ||
-                "Не удалось проанализировать изображение.",
+                "Не удалось прочитать PDF.",
                 "assistant"
             );
 
@@ -2584,7 +2468,11 @@ async function sendImageMessage(text) {
                 "user",
 
             content:
-                "[Image] "
+                "[PDF] "
+                +
+                file.name
+                +
+                ": "
                 +
                 question
         });
@@ -2599,14 +2487,11 @@ async function sendImageMessage(text) {
         });
 
 
-        rememberUiMessage(
+        remember(
             "assistant",
             "text",
             data.answer
         );
-
-
-        saveActiveChat();
 
 
         if (
@@ -2619,24 +2504,10 @@ async function sendImageMessage(text) {
         }
 
 
-    } catch (error) {
-
-        thinking.remove();
-
-
-        addTextMessage(
-            "Ошибка отправки изображения.",
-            "assistant"
-        );
-
-
     } finally {
 
         sendButton.disabled =
             false;
-
-
-        input.focus();
     }
 }
 
@@ -2647,15 +2518,7 @@ async function toggleRecording() {
         recording
     ) {
 
-        if (
-            mediaRecorder
-            &&
-            mediaRecorder.state !== "inactive"
-        ) {
-
-            mediaRecorder.stop();
-        }
-
+        mediaRecorder.stop();
 
         return;
     }
@@ -2687,19 +2550,6 @@ async function toggleRecording() {
                 mimeType:
                     "audio/mp4"
             };
-
-
-        } else if (
-            MediaRecorder
-            .isTypeSupported(
-                "audio/webm"
-            )
-        ) {
-
-            options = {
-                mimeType:
-                    "audio/webm"
-            };
         }
 
 
@@ -2716,12 +2566,12 @@ async function toggleRecording() {
 
         mediaRecorder
         .ondataavailable =
-            function(event) {
+            event => {
 
                 if (
-                    event.data
-                    &&
-                    event.data.size > 0
+                    event.data.size
+                    >
+                    0
                 ) {
 
                     audioChunks.push(
@@ -2733,27 +2583,20 @@ async function toggleRecording() {
 
         mediaRecorder
         .onstop =
-            async function() {
+            async () => {
 
                 recording =
                     false;
-
-
-                micButton
-                .classList
-                .remove(
-                    "recording"
-                );
 
 
                 micButton.textContent =
                     "🎙️";
 
 
-                recordingBar
-                .style
-                .display =
-                    "none";
+                micButton.classList
+                .remove(
+                    "recording"
+                );
 
 
                 stream
@@ -2764,25 +2607,19 @@ async function toggleRecording() {
                 );
 
 
-                const mimeType =
-                    mediaRecorder.mimeType
-                    ||
-                    "audio/webm";
-
-
                 const blob =
                     new Blob(
                         audioChunks,
                         {
                             type:
-                                mimeType
+                                mediaRecorder.mimeType
                         }
                     );
 
 
                 await transcribeAudio(
                     blob,
-                    mimeType
+                    mediaRecorder.mimeType
                 );
             };
 
@@ -2794,31 +2631,20 @@ async function toggleRecording() {
             true;
 
 
-        micButton
-        .classList
+        micButton.textContent =
+            "⏹️";
+
+
+        micButton.classList
         .add(
             "recording"
         );
 
 
-        micButton.textContent =
-            "⏹️";
-
-
-        recordingBar
-        .style
-        .display =
-            "flex";
-
-
-        recordingText.textContent =
-            "Запись голоса… нажмите ⏹️ для отправки";
-
-
-    } catch (error) {
+    } catch {
 
         alert(
-            "Разрешите Safari использовать микрофон."
+            "Разрешите доступ к микрофону."
         );
     }
 }
@@ -2826,110 +2652,52 @@ async function toggleRecording() {
 
 async function transcribeAudio(
     blob,
-    mimeType
+    mime
 ) {
 
-    recordingBar
-    .style
-    .display =
-        "flex";
+    const form =
+        new FormData();
 
 
-    recordingText.textContent =
-        "Распознаю голос…";
+    form.append(
+        "audio",
+        blob,
+        mime.includes(
+            "mp4"
+        )
+        ?
+        "voice.mp4"
+        :
+        "voice.webm"
+    );
 
 
-    try {
+    const response =
+        await fetch(
+            "/api/transcribe",
+            {
+                method:
+                    "POST",
 
-        const formData =
-            new FormData();
-
-
-        let extension =
-            "webm";
-
-
-        if (
-            mimeType.includes(
-                "mp4"
-            )
-        ) {
-
-            extension =
-                "mp4";
-        }
-
-
-        formData.append(
-            "audio",
-            blob,
-            "voice."
-            +
-            extension
+                body:
+                    form
+            }
         );
 
 
-        const response =
-            await fetch(
-                "/api/transcribe",
-                {
-                    method:
-                        "POST",
-
-                    body:
-                        formData
-                }
-            );
+    const data =
+        await response.json();
 
 
-        const data =
-            await response.json();
+    if (
+        data.text
+    ) {
+
+        input.value =
+            data.text;
 
 
-        recordingBar
-        .style
-        .display =
-            "none";
-
-
-        if (
-            !response.ok
-        ) {
-
-            addTextMessage(
-                data.error
-                ||
-                "Не удалось распознать голос.",
-                "assistant"
-            );
-
-
-            return;
-        }
-
-
-        if (
-            data.text
-        ) {
-
-            await sendMessage(
-                data.text
-            );
-        }
-
-
-    } catch (error) {
-
-        recordingBar
-        .style
-        .display =
-            "none";
-
-
-        addTextMessage(
-            "Ошибка отправки голосового сообщения.",
-            "assistant"
-        );
+        await sendMessage();
     }
 }
 
@@ -2942,38 +2710,23 @@ function speakText(text) {
             in window
         )
     ) {
-
         return;
     }
 
 
-    window
-    .speechSynthesis
-    .cancel();
-
-
-    const cleanText =
-        text
-        .replace(
-            /https?:\/\/\S+/g,
-            ""
-        )
-        .replace(
-            /[*#`]/g,
-            ""
-        );
+    speechSynthesis.cancel();
 
 
     const utterance =
         new SpeechSynthesisUtterance(
-            cleanText
+            text
         );
 
 
     if (
         /[А-Яа-яЁё]/
         .test(
-            cleanText
+            text
         )
     ) {
 
@@ -2981,31 +2734,14 @@ function speakText(text) {
             "ru-RU";
 
 
-    } else if (
-        /[äöüßÄÖÜ]/
-        .test(
-            cleanText
-        )
-    ) {
-
-        utterance.lang =
-            "de-DE";
-
-
     } else {
 
         utterance.lang =
-            "en-US";
+            "de-DE";
     }
 
 
-    utterance.rate =
-        1.0;
-
-
-    window
-    .speechSynthesis
-    .speak(
+    speechSynthesis.speak(
         utterance
     );
 }
@@ -3017,49 +2753,30 @@ function toggleSpeech() {
         !speechEnabled;
 
 
+    speakerButton.textContent =
+        speechEnabled
+        ?
+        "🔊"
+        :
+        "🔇";
+
+
     if (
         !speechEnabled
     ) {
 
-        window
-        .speechSynthesis
-        .cancel();
-
-
-        speakerButton
-        .textContent =
-            "🔇";
-
-
-        speakerButton
-        .classList
-        .remove(
-            "speaker-on"
-        );
-
-
-    } else {
-
-        speakerButton
-        .textContent =
-            "🔊";
-
-
-        speakerButton
-        .classList
-        .add(
-            "speaker-on"
-        );
+        speechSynthesis.cancel();
     }
 }
 
 
 input.addEventListener(
     "keydown",
-    function(event) {
+    event => {
 
         if (
-            event.key === "Enter"
+            event.key
+            === "Enter"
             &&
             !event.shiftKey
         ) {
@@ -3073,27 +2790,6 @@ input.addEventListener(
 );
 
 
-input.addEventListener(
-    "input",
-    function() {
-
-        this.style.height =
-            "auto";
-
-
-        this.style.height =
-            Math.min(
-                this.scrollHeight,
-                130
-            )
-            +
-            "px";
-    }
-);
-
-
-/* PWA SERVICE WORKER */
-
 if (
     "serviceWorker"
     in navigator
@@ -3101,23 +2797,13 @@ if (
 
     window.addEventListener(
         "load",
-        function() {
+        () => {
 
             navigator
             .serviceWorker
             .register(
                 "/service-worker.js"
-            )
-            .catch(
-                function(error) {
-
-                    console.log(
-                        "Service worker error:",
-                        error
-                    );
-                }
             );
-
         }
     );
 }
