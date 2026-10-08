@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -9,11 +10,30 @@
 
     <title>Wiens AI</title>
 
-    <link rel="manifest" href="/static/manifest.json">
-    <meta name="theme-color" content="#07080d">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Wiens AI">
+    <link
+        rel="manifest"
+        href="/static/manifest.json"
+    >
+
+    <meta
+        name="theme-color"
+        content="#07080d"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Wiens AI"
+    >
 
     <link
         rel="apple-touch-icon"
@@ -31,7 +51,7 @@
             --panel: rgba(20,20,30,.92);
             --drawer: #101019;
             --border: rgba(255,255,255,.10);
-            --text: #fff;
+            --text: #ffffff;
             --muted: #9696a5;
             --purple: #755cff;
             --purple2: #a26cff;
@@ -61,6 +81,7 @@
                 );
 
             color: var(--text);
+
             overflow: hidden;
         }
 
@@ -71,26 +92,41 @@
 
         button {
             cursor: pointer;
+
+            -webkit-tap-highlight-color:
+                transparent;
         }
 
         .app {
             height: 100dvh;
+
             max-width: 900px;
+
             margin: auto;
 
             display: flex;
+
             flex-direction: column;
         }
 
         header {
             min-height: 70px;
 
+            flex-shrink: 0;
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
+            gap: 8px;
+
             padding:
-                calc(8px + env(safe-area-inset-top))
+                calc(
+                    8px +
+                    env(safe-area-inset-top)
+                )
                 12px
                 8px;
 
@@ -100,14 +136,21 @@
             background:
                 rgba(7,8,13,.60);
 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter:
+                blur(20px);
+
+            -webkit-backdrop-filter:
+                blur(20px);
         }
 
         .header-left {
             display: flex;
+
             align-items: center;
+
             gap: 8px;
+
+            min-width: 0;
         }
 
         .menu-button,
@@ -127,21 +170,29 @@
 
         .menu-button {
             width: 40px;
+
             font-size: 20px;
+
+            flex-shrink: 0;
         }
 
         .header-button {
-            padding: 8px 11px;
+            padding:
+                8px 11px;
         }
 
         .brand {
             display: flex;
+
             align-items: center;
 
             gap: 9px;
 
             font-size: 19px;
+
             font-weight: 750;
+
+            min-width: 0;
         }
 
         .mini-logo {
@@ -155,16 +206,28 @@
             box-shadow:
                 0 0 20px
                 rgba(117,92,255,.45);
+
+            flex-shrink: 0;
+        }
+
+        .brand-label {
+            min-width: 0;
         }
 
         .online {
             font-size: 11px;
+
             color: #79ffac;
+
+            margin-top: 2px;
         }
 
         .header-actions {
             display: flex;
+
             gap: 7px;
+
+            flex-shrink: 0;
         }
 
         .speaker-on {
@@ -182,12 +245,18 @@
             overflow-y: auto;
 
             padding:
-                25px 16px 20px;
+                18px
+                16px
+                20px;
 
             display: flex;
+
             flex-direction: column;
 
             gap: 14px;
+
+            scroll-behavior:
+                smooth;
         }
 
         .welcome {
@@ -195,28 +264,213 @@
 
             text-align: center;
 
-            max-width: 520px;
+            width: 100%;
 
-            padding: 20px;
+            max-width: 540px;
+
+            padding:
+                10px 20px 20px;
         }
 
-        .hero-logo {
-            width: 110px;
-            height: 110px;
+        /* CHARACTER */
 
-            border-radius: 27px;
+        .assistant-character-wrap {
+            position: relative;
 
-            object-fit: cover;
+            width: 210px;
+            height: 245px;
+
+            margin:
+                0 auto 5px;
+        }
+
+        .assistant-character {
+            position: relative;
+
+            z-index: 3;
+
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            filter:
+                drop-shadow(
+                    0 0 17px
+                    rgba(117,92,255,.48)
+                )
+                drop-shadow(
+                    0 0 32px
+                    rgba(91,92,255,.20)
+                );
+
+            animation:
+                characterFloat
+                3.8s
+                ease-in-out
+                infinite;
+
+            user-select: none;
+
+            -webkit-user-select: none;
+        }
+
+        .assistant-character.speaking {
+            animation:
+                characterTalk
+                .30s
+                ease-in-out
+                infinite
+                alternate;
+
+            filter:
+                drop-shadow(
+                    0 0 24px
+                    rgba(162,108,255,.75)
+                )
+                drop-shadow(
+                    0 0 45px
+                    rgba(80,130,255,.38)
+                );
+        }
+
+        .assistant-glow {
+            position: absolute;
+
+            z-index: 1;
+
+            left: 50%;
+            bottom: 10px;
+
+            width: 145px;
+            height: 38px;
+
+            transform:
+                translateX(-50%);
+
+            border-radius: 50%;
+
+            background:
+                rgba(117,92,255,.30);
+
+            filter:
+                blur(18px);
+
+            animation:
+                glowPulse
+                2.2s
+                ease-in-out
+                infinite;
+        }
+
+        .character-bubble {
+            position: absolute;
+
+            z-index: 5;
+
+            top: 6px;
+            right: -38px;
+
+            max-width: 170px;
+
+            padding:
+                9px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                15px 15px 15px 4px;
+
+            background:
+                rgba(23,23,36,.90);
+
+            backdrop-filter:
+                blur(10px);
+
+            -webkit-backdrop-filter:
+                blur(10px);
+
+            font-size: 12px;
+
+            line-height: 1.35;
 
             box-shadow:
-                0 0 35px
-                rgba(117,92,255,.38);
+                0 12px 35px
+                rgba(0,0,0,.25);
 
-            margin-bottom: 20px;
+            opacity: 0;
+
+            transform:
+                translateY(5px)
+                scale(.96);
+
+            pointer-events: none;
+
+            transition:
+                .25s;
+        }
+
+        .character-bubble.show {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        @keyframes characterFloat {
+            0%,
+            100% {
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    translateY(-8px);
+            }
+        }
+
+        @keyframes characterTalk {
+            from {
+                transform:
+                    translateY(-2px)
+                    scale(1);
+            }
+
+            to {
+                transform:
+                    translateY(-7px)
+                    scale(1.025);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%,
+            100% {
+                opacity: .45;
+
+                transform:
+                    translateX(-50%)
+                    scale(.94);
+            }
+
+            50% {
+                opacity: .95;
+
+                transform:
+                    translateX(-50%)
+                    scale(1.10);
+            }
         }
 
         .welcome h1 {
             font-size: 34px;
+
+            letter-spacing: -1px;
 
             margin-bottom: 8px;
         }
@@ -225,12 +479,15 @@
             color: var(--muted);
 
             line-height: 1.5;
+
+            font-size: 15px;
         }
 
         .features {
-            margin-top: 20px;
+            margin-top: 18px;
 
             display: flex;
+
             justify-content: center;
 
             flex-wrap: wrap;
@@ -247,7 +504,8 @@
 
             border-radius: 20px;
 
-            padding: 7px 11px;
+            padding:
+                7px 11px;
 
             color: #b7b7c5;
 
@@ -256,6 +514,7 @@
 
         .message-row {
             display: flex;
+
             flex-direction: column;
 
             max-width: 90%;
@@ -263,16 +522,19 @@
 
         .user-row {
             align-self: flex-end;
+
             align-items: flex-end;
         }
 
         .assistant-row {
             align-self: flex-start;
+
             align-items: flex-start;
         }
 
         .message {
-            padding: 12px 15px;
+            padding:
+                12px 15px;
 
             border-radius: 19px;
 
@@ -293,20 +555,56 @@
                     var(--purple2)
                 );
 
-            border-bottom-right-radius: 6px;
+            border-bottom-right-radius:
+                6px;
         }
 
         .assistant {
-            background: var(--panel);
+            background:
+                var(--panel);
 
             border:
                 1px solid var(--border);
 
-            border-bottom-left-radius: 6px;
+            border-bottom-left-radius:
+                6px;
         }
 
         .thinking {
             color: var(--muted);
+        }
+
+        .file-card {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            max-width: 290px;
+
+            padding:
+                12px 14px;
+
+            margin-bottom: 7px;
+
+            border-radius: 16px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        .file-icon {
+            font-size: 27px;
+        }
+
+        .file-name {
+            font-size: 14px;
+
+            overflow-wrap: anywhere;
         }
 
         .chat-image {
@@ -327,38 +625,9 @@
                 1px solid var(--border);
         }
 
-        .file-card {
-            display: flex;
-            align-items: center;
-
-            gap: 10px;
-
-            max-width: 290px;
-
-            padding: 12px 14px;
-
-            margin-bottom: 7px;
-
-            border-radius: 16px;
-
-            border:
-                1px solid var(--border);
-
-            background:
-                rgba(255,255,255,.06);
-        }
-
-        .file-icon {
-            font-size: 26px;
-        }
-
-        .file-name {
-            font-size: 14px;
-
-            overflow-wrap: anywhere;
-        }
-
         .speak-message {
+            margin-top: 5px;
+
             border: none;
 
             background: transparent;
@@ -366,14 +635,13 @@
             color: #9e9eae;
 
             font-size: 17px;
-
-            margin-top: 5px;
         }
 
         .recording-bar {
             display: none;
 
             align-items: center;
+
             justify-content: center;
 
             gap: 8px;
@@ -391,7 +659,8 @@
 
             border-radius: 50%;
 
-            background: var(--danger);
+            background:
+                var(--danger);
 
             animation:
                 pulse 1s infinite;
@@ -400,6 +669,9 @@
         @keyframes pulse {
             50% {
                 opacity: .3;
+
+                transform:
+                    scale(.8);
             }
         }
 
@@ -410,6 +682,8 @@
                 8px
                 14px
                 0;
+
+            flex-shrink: 0;
         }
 
         .preview-card {
@@ -434,17 +708,20 @@
                 1px solid var(--border);
         }
 
-        #pdfPreview {
+        #documentPreview {
             display: none;
 
             align-items: center;
 
             gap: 9px;
 
-            max-width: 280px;
+            max-width: 300px;
 
             padding:
-                11px 38px 11px 12px;
+                11px
+                38px
+                11px
+                12px;
 
             border-radius: 14px;
 
@@ -455,7 +732,7 @@
                 rgba(255,255,255,.06);
         }
 
-        #pdfPreviewName {
+        #documentPreviewName {
             font-size: 13px;
 
             overflow-wrap: anywhere;
@@ -474,12 +751,15 @@
 
             border-radius: 50%;
 
-            background: #353542;
+            background:
+                #353542;
 
             color: white;
         }
 
         .input-area {
+            flex-shrink: 0;
+
             padding:
                 8px
                 12px
@@ -487,6 +767,13 @@
                     10px
                     +
                     env(safe-area-inset-bottom)
+                );
+
+            background:
+                linear-gradient(
+                    transparent,
+                    rgba(7,8,13,.98)
+                    25%
                 );
         }
 
@@ -507,6 +794,10 @@
                 rgba(255,255,255,.11);
 
             border-radius: 22px;
+
+            box-shadow:
+                0 12px 40px
+                rgba(0,0,0,.32);
         }
 
         textarea {
@@ -517,11 +808,14 @@
             max-height: 130px;
             min-height: 42px;
 
-            padding: 11px 6px;
+            padding:
+                11px 6px;
 
-            background: transparent;
+            background:
+                transparent;
 
             border: none;
+
             outline: none;
 
             color: white;
@@ -536,6 +830,8 @@
         .icon-button {
             width: 42px;
             height: 42px;
+
+            flex-shrink: 0;
 
             border: none;
 
@@ -586,6 +882,8 @@
             display: none;
         }
 
+        /* HISTORY */
+
         .overlay {
             position: fixed;
 
@@ -598,7 +896,8 @@
 
             pointer-events: none;
 
-            transition: .2s;
+            transition:
+                .2s;
 
             z-index: 90;
         }
@@ -642,7 +941,7 @@
                 translateX(-105%);
 
             transition:
-                .22s;
+                transform .22s ease;
 
             z-index: 100;
 
@@ -659,15 +958,16 @@
         .drawer-header {
             display: flex;
 
-            justify-content:
-                space-between;
-
             align-items: center;
+
+            justify-content: space-between;
 
             margin-bottom: 12px;
         }
 
         .drawer-new {
+            width: 100%;
+
             padding: 12px;
 
             margin-bottom: 12px;
@@ -684,7 +984,24 @@
             color: white;
         }
 
+        .drawer-close {
+            width: 38px;
+            height: 38px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.06);
+
+            color: white;
+        }
+
         #chatList {
+            flex: 1;
+
             overflow-y: auto;
         }
 
@@ -706,6 +1023,8 @@
         .history-open {
             flex: 1;
 
+            min-width: 0;
+
             padding: 9px;
 
             border: none;
@@ -726,9 +1045,9 @@
         }
 
         .history-date {
-            font-size: 10px;
-
             color: var(--muted);
+
+            font-size: 10px;
 
             margin-top: 3px;
         }
@@ -743,19 +1062,35 @@
             color: white;
         }
 
-        .drawer-close {
-            width: 38px;
-            height: 38px;
+        @media (
+            max-width: 600px
+        ) {
+            .new-chat-text {
+                display: none;
+            }
 
-            border:
-                1px solid var(--border);
+            .assistant-character-wrap {
+                width: 180px;
+                height: 210px;
+            }
 
-            border-radius: 12px;
+            .character-bubble {
+                right: -26px;
 
-            background:
-                rgba(255,255,255,.06);
+                max-width: 145px;
 
-            color: white;
+                font-size: 11px;
+            }
+
+            .welcome h1 {
+                font-size: 31px;
+            }
+
+            .brand-label {
+                max-width: 95px;
+
+                overflow: hidden;
+            }
         }
     </style>
 </head>
@@ -780,9 +1115,11 @@
                 <img
                     class="mini-logo"
                     src="/static/logo.png.PNG"
+                    alt="Wiens AI"
                 >
 
-                <div>
+                <div class="brand-label">
+
                     Wiens AI
 
                     <div class="online">
@@ -810,7 +1147,12 @@
                 class="header-button"
                 onclick="newChat()"
             >
-                ＋ Новый чат
+                ＋
+
+                <span class="new-chat-text">
+                    Новый чат
+                </span>
+
             </button>
 
         </div>
@@ -846,15 +1188,18 @@
 
             <img
                 id="imagePreview"
+                alt="Preview"
             >
 
-            <div id="pdfPreview">
+            <div
+                id="documentPreview"
+            >
 
-                <span>
+                <span id="documentPreviewIcon">
                     📄
                 </span>
 
-                <span id="pdfPreviewName"></span>
+                <span id="documentPreviewName"></span>
 
             </div>
 
@@ -890,11 +1235,12 @@
             <input
                 id="fileInput"
                 type="file"
-                accept="image/*,.pdf,application/pdf"
+                accept="image/*,.pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
             >
 
             <textarea
                 id="messageInput"
+                rows="1"
                 placeholder="Сообщение Wiens AI..."
             ></textarea>
 
@@ -972,6 +1318,9 @@ const STORAGE_KEY =
 const ACTIVE_CHAT_KEY =
     "wiens_ai_active_chat_v1";
 
+const GREETING_KEY =
+    "wiens_ai_greeting_seen";
+
 
 const chat =
     document.getElementById(
@@ -1023,14 +1372,19 @@ const imagePreview =
         "imagePreview"
     );
 
-const pdfPreview =
+const documentPreview =
     document.getElementById(
-        "pdfPreview"
+        "documentPreview"
     );
 
-const pdfPreviewName =
+const documentPreviewIcon =
     document.getElementById(
-        "pdfPreviewName"
+        "documentPreviewIcon"
+    );
+
+const documentPreviewName =
+    document.getElementById(
+        "documentPreviewName"
     );
 
 const drawer =
@@ -1132,20 +1486,28 @@ function getActiveChat() {
 
 function saveChats() {
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(
-            chats
-        )
-    );
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(
+                chats
+            )
+        );
 
 
-    localStorage.setItem(
-        ACTIVE_CHAT_KEY,
-        activeChatId
-        ||
-        ""
-    );
+        localStorage.setItem(
+            ACTIVE_CHAT_KEY,
+            activeChatId || ""
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Chat save error",
+            error
+        );
+    }
 }
 
 
@@ -1203,7 +1565,7 @@ function loadChats() {
 
     try {
 
-        chats =
+        const saved =
             JSON.parse(
                 localStorage
                 .getItem(
@@ -1214,14 +1576,22 @@ function loadChats() {
             );
 
 
-    } catch {
+        chats =
+            Array.isArray(saved)
+            ?
+            saved
+            :
+            [];
+
+
+    } catch (error) {
 
         chats =
             [];
     }
 
 
-    const saved =
+    const savedId =
         localStorage
         .getItem(
             ACTIVE_CHAT_KEY
@@ -1229,17 +1599,17 @@ function loadChats() {
 
 
     if (
-        saved
+        savedId
         &&
         chats.some(
             item =>
                 item.id
-                === saved
+                === savedId
         )
     ) {
 
         activeChatId =
-            saved;
+            savedId;
 
 
     } else if (
@@ -1285,6 +1655,12 @@ function loadChats() {
     renderCurrentChat();
 
     renderChatList();
+
+
+    setTimeout(
+        showInitialGreeting,
+        600
+    );
 }
 
 
@@ -1294,10 +1670,31 @@ function welcomeHtml() {
 
         <div class="welcome">
 
-            <img
-                class="hero-logo"
-                src="/static/logo.png.PNG"
+            <div
+                class="assistant-character-wrap"
             >
+
+                <div
+                    class="character-bubble"
+                    id="characterBubble"
+                >
+                    Привет! Я Wiens AI 👋
+                </div>
+
+                <img
+                    class="assistant-character"
+                    id="assistantCharacter"
+                    src="/static/assistant-boy.png.PNG"
+                    alt="Wiens AI Assistant"
+                    onclick="characterGreeting()"
+                >
+
+                <div
+                    class="assistant-glow"
+                ></div>
+
+            </div>
+
 
             <h1>
                 Wiens AI
@@ -1305,7 +1702,7 @@ function welcomeHtml() {
 
             <p>
                 Напишите, скажите голосом
-                или отправьте фото / PDF.
+                или отправьте файл.
             </p>
 
             <div class="features">
@@ -1327,6 +1724,14 @@ function welcomeHtml() {
                 </div>
 
                 <div class="feature">
+                    📝 DOCX
+                </div>
+
+                <div class="feature">
+                    📃 TXT
+                </div>
+
+                <div class="feature">
                     🎙️ Voice
                 </div>
 
@@ -1344,16 +1749,166 @@ function welcomeHtml() {
 function removeWelcome() {
 
     const welcome =
-        document
-        .querySelector(
+        document.querySelector(
             ".welcome"
         );
 
 
     if (welcome) {
-
         welcome.remove();
     }
+}
+
+
+function showCharacterBubble(
+    text,
+    duration = 3500
+) {
+
+    const bubble =
+        document.getElementById(
+            "characterBubble"
+        );
+
+
+    if (!bubble) {
+        return;
+    }
+
+
+    bubble.textContent =
+        text;
+
+
+    bubble.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            bubble.classList.remove(
+                "show"
+            );
+
+        },
+        duration
+    );
+}
+
+
+function setCharacterSpeaking(
+    state
+) {
+
+    const character =
+        document.getElementById(
+            "assistantCharacter"
+        );
+
+
+    if (!character) {
+        return;
+    }
+
+
+    if (state) {
+
+        character.classList.add(
+            "speaking"
+        );
+
+
+    } else {
+
+        character.classList.remove(
+            "speaking"
+        );
+    }
+}
+
+
+function characterGreeting() {
+
+    const text =
+        "Привет! Я Wiens AI. Чем могу помочь?";
+
+
+    showCharacterBubble(
+        text
+    );
+
+
+    speakText(
+        text
+    );
+}
+
+
+function showInitialGreeting() {
+
+    const current =
+        getActiveChat();
+
+
+    if (
+        !current
+        ||
+        current.uiMessages.length
+        !== 0
+    ) {
+        return;
+    }
+
+
+    showCharacterBubble(
+        "Привет! Я Wiens AI 👋 Чем могу помочь?"
+    );
+
+
+    /*
+      iPhone Safari may block automatic
+      speech before the first user action.
+      Tapping the character will always
+      try the greeting again.
+    */
+
+    if (
+        sessionStorage
+        .getItem(
+            GREETING_KEY
+        )
+    ) {
+        return;
+    }
+
+
+    sessionStorage.setItem(
+        GREETING_KEY,
+        "1"
+    );
+
+
+    setTimeout(
+        () => {
+
+            try {
+
+                speakText(
+                    "Привет! Я Wiens AI. Чем могу помочь?"
+                );
+
+            } catch (error) {
+
+                console.log(
+                    "Automatic greeting blocked"
+                );
+            }
+
+        },
+        500
+    );
 }
 
 
@@ -1570,6 +2125,11 @@ function remember(
         getActiveChat();
 
 
+    if (!current) {
+        return;
+    }
+
+
     current.uiMessages.push({
         role,
         type,
@@ -1620,6 +2180,8 @@ function renderCurrentChat() {
 
                 addFileCard(
                     "📷",
+                    item.filename
+                    ||
                     "Изображение",
                     item.text
                 );
@@ -1631,10 +2193,12 @@ function renderCurrentChat() {
             ) {
 
                 addFileCard(
-                    "📄",
+                    getDocumentIcon(
+                        item.filename
+                    ),
                     item.filename
                     ||
-                    "PDF",
+                    "Документ",
                     item.text
                 );
 
@@ -1659,7 +2223,16 @@ function renderChatList() {
 
     chats
     .slice()
-    .reverse()
+    .sort(
+        (a,b) =>
+            new Date(
+                b.updatedAt
+            )
+            -
+            new Date(
+                a.updatedAt
+            )
+    )
     .forEach(
         item => {
 
@@ -1678,8 +2251,7 @@ function renderChatList() {
                 === activeChatId
             ) {
 
-                row.classList
-                .add(
+                row.classList.add(
                     "active"
                 );
             }
@@ -1695,15 +2267,49 @@ function renderChatList() {
                 "history-open";
 
 
-            open.innerHTML =
-                `
-                <div class="history-title">
-                    ${item.title || "Новый чат"}
-                </div>
-                <div class="history-date">
-                    ${new Date(item.updatedAt).toLocaleString("ru-RU")}
-                </div>
-                `;
+            const title =
+                document.createElement(
+                    "div"
+                );
+
+
+            title.className =
+                "history-title";
+
+
+            title.textContent =
+                item.title
+                ||
+                "Новый чат";
+
+
+            const date =
+                document.createElement(
+                    "div"
+                );
+
+
+            date.className =
+                "history-date";
+
+
+            date.textContent =
+                new Date(
+                    item.updatedAt
+                )
+                .toLocaleString(
+                    "ru-RU"
+                );
+
+
+            open.appendChild(
+                title
+            );
+
+
+            open.appendChild(
+                date
+            );
 
 
             open.onclick =
@@ -1728,10 +2334,15 @@ function renderChatList() {
 
 
             del.onclick =
-                () =>
+                event => {
+
+                    event.stopPropagation();
+
+
                     deleteChat(
                         item.id
                     );
+                };
 
 
             row.appendChild(
@@ -1762,6 +2373,9 @@ function openDrawer() {
     overlay.classList.add(
         "open"
     );
+
+
+    renderChatList();
 }
 
 
@@ -1778,7 +2392,9 @@ function closeDrawer() {
 }
 
 
-function openChat(id) {
+function openChat(
+    id
+) {
 
     saveActiveChat();
 
@@ -1792,14 +2408,25 @@ function openChat(id) {
 
 
     history =
-        current.history
-        ||
+        current
+        ?
+        (
+            current.history
+            ||
+            []
+        )
+        :
         [];
 
 
     saveChats();
 
+
+    removeSelectedAttachment();
+
+
     renderCurrentChat();
+
 
     closeDrawer();
 }
@@ -1810,11 +2437,37 @@ function newChat() {
     saveActiveChat();
 
 
+    const current =
+        getActiveChat();
+
+
+    if (
+        current
+        &&
+        current.uiMessages
+        &&
+        current.uiMessages.length
+        === 0
+    ) {
+
+        closeDrawer();
+
+        renderCurrentChat();
+
+        setTimeout(
+            showInitialGreeting,
+            100
+        );
+
+        return;
+    }
+
+
     const fresh =
         createEmptyChat();
 
 
-    chats.push(
+    chats.unshift(
         fresh
     );
 
@@ -1827,15 +2480,31 @@ function newChat() {
         [];
 
 
+    removeSelectedAttachment();
+
+
     saveChats();
+
 
     renderCurrentChat();
 
+
+    renderChatList();
+
+
     closeDrawer();
+
+
+    setTimeout(
+        showInitialGreeting,
+        150
+    );
 }
 
 
-function deleteChat(id) {
+function deleteChat(
+    id
+) {
 
     if (
         !confirm(
@@ -1855,7 +2524,8 @@ function deleteChat(id) {
 
 
     if (
-        !chats.length
+        chats.length
+        === 0
     ) {
 
         chats.push(
@@ -1864,24 +2534,133 @@ function deleteChat(id) {
     }
 
 
-    activeChatId =
-        chats[
-            chats.length - 1
-        ].id;
+    if (
+        !chats.some(
+            item =>
+                item.id
+                === activeChatId
+        )
+    ) {
+
+        activeChatId =
+            chats[0].id;
+    }
+
+
+    const current =
+        getActiveChat();
 
 
     history =
-        getActiveChat()
-        .history
-        ||
+        current
+        ?
+        (
+            current.history
+            ||
+            []
+        )
+        :
         [];
 
 
     saveChats();
 
+
     renderCurrentChat();
 
+
     renderChatList();
+}
+
+
+function getDocumentType(
+    file
+) {
+
+    const name =
+        file.name
+        .toLowerCase();
+
+
+    if (
+        file.type
+        .startsWith(
+            "image/"
+        )
+    ) {
+
+        return "image";
+    }
+
+
+    if (
+        name.endsWith(
+            ".pdf"
+        )
+    ) {
+
+        return "pdf";
+    }
+
+
+    if (
+        name.endsWith(
+            ".docx"
+        )
+    ) {
+
+        return "docx";
+    }
+
+
+    if (
+        name.endsWith(
+            ".txt"
+        )
+    ) {
+
+        return "txt";
+    }
+
+
+    return null;
+}
+
+
+function getDocumentIcon(
+    filename
+) {
+
+    const name =
+        String(
+            filename
+            ||
+            ""
+        )
+        .toLowerCase();
+
+
+    if (
+        name.endsWith(
+            ".docx"
+        )
+    ) {
+
+        return "📝";
+    }
+
+
+    if (
+        name.endsWith(
+            ".txt"
+        )
+    ) {
+
+        return "📃";
+    }
+
+
+    return "📄";
 }
 
 
@@ -1903,20 +2682,38 @@ fileInput.addEventListener(
         );
 
 
+        const type =
+            getDocumentType(
+                file
+            );
+
+
+        if (!type) {
+
+            alert(
+                "Поддерживаются фото, PDF, DOCX и TXT."
+            );
+
+
+            fileInput.value =
+                "";
+
+
+            return;
+        }
+
+
         selectedFile =
             file;
 
 
+        selectedFileType =
+            type;
+
+
         if (
-            file.type
-            .startsWith(
-                "image/"
-            )
+            type === "image"
         ) {
-
-            selectedFileType =
-                "image";
-
 
             selectedImageURL =
                 URL.createObjectURL(
@@ -1932,7 +2729,7 @@ fileInput.addEventListener(
                 "block";
 
 
-            pdfPreview.style.display =
+            documentPreview.style.display =
                 "none";
 
 
@@ -1940,45 +2737,28 @@ fileInput.addEventListener(
                 "Спросите что-нибудь о фото...";
 
 
-        } else if (
-            file.type
-            === "application/pdf"
-            ||
-            file.name
-            .toLowerCase()
-            .endsWith(
-                ".pdf"
-            )
-        ) {
-
-            selectedFileType =
-                "pdf";
-
+        } else {
 
             imagePreview.style.display =
                 "none";
 
 
-            pdfPreview.style.display =
+            documentPreview.style.display =
                 "flex";
 
 
-            pdfPreviewName.textContent =
+            documentPreviewIcon.textContent =
+                getDocumentIcon(
+                    file.name
+                );
+
+
+            documentPreviewName.textContent =
                 file.name;
 
 
             input.placeholder =
-                "Спросите что-нибудь о PDF...";
-
-
-        } else {
-
-            alert(
-                "Поддерживаются фото и PDF."
-            );
-
-
-            return;
+                "Спросите что-нибудь о документе...";
         }
 
 
@@ -2024,7 +2804,7 @@ function removeSelectedAttachment(
         "none";
 
 
-    pdfPreview.style.display =
+    documentPreview.style.display =
         "none";
 
 
@@ -2048,10 +2828,18 @@ function removeSelectedAttachment(
 }
 
 
-async function sendMessage() {
+async function sendMessage(
+    customText = null
+) {
 
     const text =
-        input.value
+        (
+            customText !== null
+            ?
+            customText
+            :
+            input.value
+        )
         .trim();
 
 
@@ -2060,6 +2848,7 @@ async function sendMessage() {
         &&
         !selectedFile
     ) {
+
         return;
     }
 
@@ -2081,9 +2870,15 @@ async function sendMessage() {
     if (
         selectedFileType
         === "pdf"
+        ||
+        selectedFileType
+        === "docx"
+        ||
+        selectedFileType
+        === "txt"
     ) {
 
-        await sendPdf(
+        await sendDocument(
             text
         );
 
@@ -2107,6 +2902,10 @@ async function sendMessage() {
 
     input.value =
         "";
+
+
+    input.style.height =
+        "auto";
 
 
     const thinking =
@@ -2158,7 +2957,9 @@ async function sendMessage() {
         ) {
 
             addTextMessage(
-                data.error,
+                data.error
+                ||
+                "Произошла ошибка.",
                 "assistant"
             );
 
@@ -2208,7 +3009,7 @@ async function sendMessage() {
         }
 
 
-    } catch {
+    } catch (error) {
 
         thinking.remove();
 
@@ -2223,11 +3024,16 @@ async function sendMessage() {
 
         sendButton.disabled =
             false;
+
+
+        input.focus();
     }
 }
 
 
-async function sendImage(text) {
+async function sendImage(
+    text
+) {
 
     const file =
         selectedFile;
@@ -2310,44 +3116,74 @@ async function sendImage(text) {
         thinking.remove();
 
 
+        if (
+            !response.ok
+        ) {
+
+            addTextMessage(
+                data.error
+                ||
+                "Не удалось проанализировать фото.",
+                "assistant"
+            );
+
+
+            return;
+        }
+
+
         addTextMessage(
-            data.answer
-            ||
-            data.error,
+            data.answer,
             "assistant"
         );
 
 
+        history.push({
+            role:
+                "user",
+
+            content:
+                "[Image] "
+                +
+                question
+        });
+
+
+        history.push({
+            role:
+                "assistant",
+
+            content:
+                data.answer
+        });
+
+
+        remember(
+            "assistant",
+            "text",
+            data.answer
+        );
+
+
         if (
-            response.ok
+            speechEnabled
         ) {
 
-            history.push({
-                role:
-                    "user",
-
-                content:
-                    "[Image] "
-                    +
-                    question
-            });
-
-
-            history.push({
-                role:
-                    "assistant",
-
-                content:
-                    data.answer
-            });
-
-
-            remember(
-                "assistant",
-                "text",
+            speakText(
                 data.answer
             );
         }
+
+
+    } catch (error) {
+
+        thinking.remove();
+
+
+        addTextMessage(
+            "Ошибка отправки изображения.",
+            "assistant"
+        );
 
 
     } finally {
@@ -2358,7 +3194,9 @@ async function sendImage(text) {
 }
 
 
-async function sendPdf(text) {
+async function sendDocument(
+    text
+) {
 
     const file =
         selectedFile;
@@ -2367,11 +3205,13 @@ async function sendPdf(text) {
     const question =
         text
         ||
-        "Кратко объясни этот PDF и выдели самое важное.";
+        "Кратко объясни этот документ и выдели самое важное.";
 
 
     addFileCard(
-        "📄",
+        getDocumentIcon(
+            file.name
+        ),
         file.name,
         text
     );
@@ -2394,7 +3234,7 @@ async function sendPdf(text) {
 
     const thinking =
         addTextMessage(
-            "Wiens AI читает PDF…",
+            "Wiens AI читает документ…",
             "assistant thinking"
         );
 
@@ -2448,7 +3288,7 @@ async function sendPdf(text) {
             addTextMessage(
                 data.error
                 ||
-                "Не удалось прочитать PDF.",
+                "Не удалось прочитать документ.",
                 "assistant"
             );
 
@@ -2468,11 +3308,11 @@ async function sendPdf(text) {
                 "user",
 
             content:
-                "[PDF] "
+                "[Document: "
                 +
                 file.name
                 +
-                ": "
+                "] "
                 +
                 question
         });
@@ -2504,6 +3344,17 @@ async function sendPdf(text) {
         }
 
 
+    } catch (error) {
+
+        thinking.remove();
+
+
+        addTextMessage(
+            "Ошибка отправки документа.",
+            "assistant"
+        );
+
+
     } finally {
 
         sendButton.disabled =
@@ -2518,7 +3369,16 @@ async function toggleRecording() {
         recording
     ) {
 
-        mediaRecorder.stop();
+        if (
+            mediaRecorder
+            &&
+            mediaRecorder.state
+            !== "inactive"
+        ) {
+
+            mediaRecorder.stop();
+        }
+
 
         return;
     }
@@ -2550,6 +3410,19 @@ async function toggleRecording() {
                 mimeType:
                     "audio/mp4"
             };
+
+
+        } else if (
+            MediaRecorder
+            .isTypeSupported(
+                "audio/webm"
+            )
+        ) {
+
+            options = {
+                mimeType:
+                    "audio/webm"
+            };
         }
 
 
@@ -2569,6 +3442,8 @@ async function toggleRecording() {
             event => {
 
                 if (
+                    event.data
+                    &&
                     event.data.size
                     >
                     0
@@ -2593,10 +3468,13 @@ async function toggleRecording() {
                     "🎙️";
 
 
-                micButton.classList
-                .remove(
+                micButton.classList.remove(
                     "recording"
                 );
+
+
+                recordingBar.style.display =
+                    "none";
 
 
                 stream
@@ -2607,19 +3485,25 @@ async function toggleRecording() {
                 );
 
 
+                const mime =
+                    mediaRecorder.mimeType
+                    ||
+                    "audio/webm";
+
+
                 const blob =
                     new Blob(
                         audioChunks,
                         {
                             type:
-                                mediaRecorder.mimeType
+                                mime
                         }
                     );
 
 
                 await transcribeAudio(
                     blob,
-                    mediaRecorder.mimeType
+                    mime
                 );
             };
 
@@ -2635,13 +3519,20 @@ async function toggleRecording() {
             "⏹️";
 
 
-        micButton.classList
-        .add(
+        micButton.classList.add(
             "recording"
         );
 
 
-    } catch {
+        recordingBar.style.display =
+            "flex";
+
+
+        recordingText.textContent =
+            "Запись голоса… нажмите ⏹️ для отправки";
+
+
+    } catch (error) {
 
         alert(
             "Разрешите доступ к микрофону."
@@ -2655,54 +3546,186 @@ async function transcribeAudio(
     mime
 ) {
 
-    const form =
-        new FormData();
+    recordingBar.style.display =
+        "flex";
 
 
-    form.append(
-        "audio",
-        blob,
-        mime.includes(
-            "mp4"
-        )
-        ?
-        "voice.mp4"
-        :
-        "voice.webm"
-    );
+    recordingText.textContent =
+        "Распознаю голос…";
 
 
-    const response =
-        await fetch(
-            "/api/transcribe",
-            {
-                method:
-                    "POST",
+    try {
 
-                body:
-                    form
-            }
+        const form =
+            new FormData();
+
+
+        form.append(
+            "audio",
+            blob,
+            mime.includes(
+                "mp4"
+            )
+            ?
+            "voice.mp4"
+            :
+            "voice.webm"
         );
 
 
-    const data =
-        await response.json();
+        const response =
+            await fetch(
+                "/api/transcribe",
+                {
+                    method:
+                        "POST",
+
+                    body:
+                        form
+                }
+            );
 
 
-    if (
-        data.text
-    ) {
-
-        input.value =
-            data.text;
+        const data =
+            await response.json();
 
 
-        await sendMessage();
+        recordingBar.style.display =
+            "none";
+
+
+        if (
+            !response.ok
+        ) {
+
+            addTextMessage(
+                data.error
+                ||
+                "Не удалось распознать голос.",
+                "assistant"
+            );
+
+
+            return;
+        }
+
+
+        if (
+            data.text
+        ) {
+
+            await sendMessage(
+                data.text
+            );
+        }
+
+
+    } catch (error) {
+
+        recordingBar.style.display =
+            "none";
+
+
+        addTextMessage(
+            "Ошибка отправки голосового сообщения.",
+            "assistant"
+        );
     }
 }
 
 
-function speakText(text) {
+function chooseVoice(
+    language
+) {
+
+    const voices =
+        window
+        .speechSynthesis
+        .getVoices();
+
+
+    if (
+        !voices
+        ||
+        voices.length
+        === 0
+    ) {
+
+        return null;
+    }
+
+
+    const prefix =
+        language
+        .slice(
+            0,
+            2
+        )
+        .toLowerCase();
+
+
+    const matching =
+        voices.filter(
+            voice =>
+                voice.lang
+                &&
+                voice.lang
+                .toLowerCase()
+                .startsWith(
+                    prefix
+                )
+        );
+
+
+    if (
+        matching.length
+        === 0
+    ) {
+
+        return null;
+    }
+
+
+    const preferredWords = [
+        "premium",
+        "enhanced",
+        "siri",
+        "milena",
+        "katja",
+        "anna",
+        "daniel"
+    ];
+
+
+    for (
+        const keyword
+        of preferredWords
+    ) {
+
+        const found =
+            matching.find(
+                voice =>
+                    voice.name
+                    .toLowerCase()
+                    .includes(
+                        keyword
+                    )
+            );
+
+
+        if (found) {
+            return found;
+        }
+    }
+
+
+    return matching[0];
+}
+
+
+function speakText(
+    text
+) {
 
     if (
         !(
@@ -2710,38 +3733,118 @@ function speakText(text) {
             in window
         )
     ) {
+
         return;
     }
 
 
-    speechSynthesis.cancel();
+    window
+    .speechSynthesis
+    .cancel();
+
+
+    const clean =
+        String(
+            text
+        )
+        .replace(
+            /https?:\/\/\S+/g,
+            ""
+        )
+        .replace(
+            /[*#`]/g,
+            ""
+        );
 
 
     const utterance =
         new SpeechSynthesisUtterance(
-            text
+            clean
         );
+
+
+    let language =
+        "en-US";
 
 
     if (
         /[А-Яа-яЁё]/
         .test(
-            text
+            clean
         )
     ) {
 
-        utterance.lang =
+        language =
             "ru-RU";
 
 
-    } else {
+    } else if (
+        /[äöüßÄÖÜ]/
+        .test(
+            clean
+        )
+    ) {
 
-        utterance.lang =
+        language =
             "de-DE";
     }
 
 
-    speechSynthesis.speak(
+    utterance.lang =
+        language;
+
+
+    const voice =
+        chooseVoice(
+            language
+        );
+
+
+    if (voice) {
+
+        utterance.voice =
+            voice;
+    }
+
+
+    utterance.rate =
+        0.96;
+
+
+    utterance.pitch =
+        0.95;
+
+
+    utterance.onstart =
+        function() {
+
+            setCharacterSpeaking(
+                true
+            );
+        };
+
+
+    utterance.onend =
+        function() {
+
+            setCharacterSpeaking(
+                false
+            );
+        };
+
+
+    utterance.onerror =
+        function() {
+
+            setCharacterSpeaking(
+                false
+            );
+        };
+
+
+    window
+    .speechSynthesis
+    .speak(
         utterance
     );
 }
@@ -2762,10 +3865,29 @@ function toggleSpeech() {
 
 
     if (
-        !speechEnabled
+        speechEnabled
     ) {
 
-        speechSynthesis.cancel();
+        speakerButton.classList.add(
+            "speaker-on"
+        );
+
+
+    } else {
+
+        speakerButton.classList.remove(
+            "speaker-on"
+        );
+
+
+        window
+        .speechSynthesis
+        .cancel();
+
+
+        setCharacterSpeaking(
+            false
+        );
     }
 }
 
@@ -2790,6 +3912,25 @@ input.addEventListener(
 );
 
 
+input.addEventListener(
+    "input",
+    function() {
+
+        this.style.height =
+            "auto";
+
+
+        this.style.height =
+            Math.min(
+                this.scrollHeight,
+                130
+            )
+            +
+            "px";
+    }
+);
+
+
 if (
     "serviceWorker"
     in navigator
@@ -2803,9 +3944,44 @@ if (
             .serviceWorker
             .register(
                 "/service-worker.js"
+            )
+            .catch(
+                error => {
+
+                    console.log(
+                        "Service worker error:",
+                        error
+                    );
+                }
             );
         }
     );
+}
+
+
+/*
+Wait for iPhone voices to load.
+*/
+
+if (
+    "speechSynthesis"
+    in window
+) {
+
+    window
+    .speechSynthesis
+    .getVoices();
+
+
+    window
+    .speechSynthesis
+    .onvoiceschanged =
+        function() {
+
+            window
+            .speechSynthesis
+            .getVoices();
+        };
 }
 
 
