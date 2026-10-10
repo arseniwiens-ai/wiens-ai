@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>Free Fire Calibrator — Wiens AI</title>
+
+    <meta
+        name="theme-color"
+        content="#090b12"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #090b12;
+            --panel: rgba(22,24,36,.94);
+            --panel2: rgba(255,255,255,.055);
+            --border: rgba(255,255,255,.10);
+            --text: #ffffff;
+            --muted: #9b9baa;
+            --purple: #745cff;
+            --purple2: #a768ff;
+            --green: #43e58b;
+            --red: #ff586f;
+            --yellow: #ffcb5b;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #24154a 0%,
+                    #10121c 30%,
+                    #090b12 70%
+                );
+
+            color: var(--text);
+
+            padding:
+                calc(12px + env(safe-area-inset-top))
+                14px
+                calc(28px + env(safe-area-inset-bottom));
+        }
+
+        .app {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+
+            border-radius: 13px;
+
+            object-fit: cover;
+
+            box-shadow:
+                0 0 25px
+                rgba(117,92,255,.45);
+        }
+
+        .brand-title {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            margin-top: 2px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .back {
+            padding: 10px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.06);
+
+            color: white;
+
+            text-decoration: none;
+        }
+
+        .hero {
+            margin-bottom: 18px;
+
+            padding: 22px 18px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(117,92,255,.20),
+                    rgba(167,104,255,.07)
+                );
+        }
+
+        .hero-badge {
+            display: inline-block;
+
+            margin-bottom: 10px;
+
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(67,229,139,.10);
+
+            color: var(--green);
+
+            font-size: 11px;
+        }
+
+        .hero h1 {
+            margin-bottom: 8px;
+
+            font-size: 30px;
+
+            letter-spacing: -.8px;
+        }
+
+        .hero p {
+            color: var(--muted);
+
+            line-height: 1.5;
+
+            font-size: 14px;
+        }
+
+        .card {
+            margin-bottom: 14px;
+
+            padding: 17px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background: var(--panel);
+        }
+
+        .card h2 {
+            margin-bottom: 14px;
+
+            font-size: 17px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #d8d8e1;
+
+            font-size: 13px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 13px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            outline: none;
+
+            background:
+                rgba(255,255,255,.055);
+
+            color: white;
+
+            font-size: 16px;
+        }
+
+        select option {
+            color: black;
+        }
+
+        .grid-2 {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+        }
+
+        .sens-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 10px;
+        }
+
+        .sens-box {
+            padding: 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 15px;
+
+            background:
+                var(--panel2);
+        }
+
+        .sens-box span {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .sens-box strong {
+            font-size: 22px;
+        }
+
+        .primary {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .secondary {
+            width: 100%;
+
+            padding: 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,.06);
+
+            color: white;
+
+            font-size: 15px;
+        }
+
+        .test-card {
+            display: none;
+        }
+
+        .test-card.active {
+            display: block;
+        }
+
+        .progress {
+            width: 100%;
+            height: 8px;
+
+            margin-bottom: 14px;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,.07);
+        }
+
+        .progress-bar {
+            height: 100%;
+
+            width: 0%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+
+            transition: width .3s ease;
+        }
+
+        .test-number {
+            margin-bottom: 7px;
+
+            color: var(--purple2);
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .test-title {
+            margin-bottom: 8px;
+
+            font-size: 22px;
+        }
+
+        .test-description {
+            margin-bottom: 14px;
+
+            color: var(--muted);
+
+            line-height: 1.5;
+
+            font-size: 14px;
+        }
+
+        .answers {
+            display: grid;
+
+            gap: 9px;
+        }
+
+        .answer {
+            padding: 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        .answer.high {
+            border-color:
+                rgba(255,88,111,.35);
+        }
+
+        .answer.good {
+            border-color:
+                rgba(67,229,139,.35);
+        }
+
+        .answer.low {
+            border-color:
+                rgba(255,203,91,.35);
+        }
+
+        .result-card {
+            display: none;
+        }
+
+        .result-card.active {
+            display: block;
+        }
+
+        .status {
+            margin-bottom: 14px;
+
+            padding: 10px 12px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(67,229,139,.09);
+
+            color: var(--green);
+
+            font-size: 13px;
+        }
+
+        .tip {
+            margin-top: 13px;
+
+            padding: 12px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.04);
+
+            color: var(--muted);
+
+            font-size: 12px;
+
+            line-height: 1.45;
+        }
+
+        .button-row {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 9px;
+
+            margin-top: 14px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 520px) {
+            .grid-2,
+            .sens-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="topbar">
+
+        <div class="brand">
+
+            <img
+                class="logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <div>
+                <div class="brand-title">
+                    Wiens AI
+                </div>
+
+                <div class="brand-subtitle">
+                    Free Fire Calibrator
+                </div>
+            </div>
+
+        </div>
+
+        <a
+            class="back"
+            href="/"
+        >
+            ← AI
+        </a>
+
+    </div>
+
+
+    <section class="hero">
+
+        <div class="hero-badge">
+            🎯 Персональная калибровка
+        </div>
+
+        <h1>
+            Free Fire Sensitivity
+        </h1>
+
+        <p>
+            Подберём стартовые настройки,
+            а затем откалибруем их
+            под твою реальную оттяжку.
+        </p>
+
+    </section>
+
+
+    <section
+        class="card"
+        id="setupCard"
+    >
+
+        <h2>
+            1. Твоё устройство
+        </h2>
+
+
+        <div class="field">
+
+            <label>
+                Модель телефона
+            </label>
+
+            <input
+                id="device"
+                type="text"
+                placeholder="Например: iPhone 17 Pro"
+            >
+
+        </div>
+
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Частота экрана
+                </label>
+
+                <select id="hz">
+
+                    <option value="60">
+                        60 Hz
+                    </option>
+
+                    <option value="90">
+                        90 Hz
+                    </option>
+
+                    <option value="120">
+                        120 Hz
+                    </option>
+
+                    <option value="144">
+                        144 Hz
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    FPS
+                </label>
+
+                <select id="fps">
+
+                    <option value="30">
+                        30 FPS
+                    </option>
+
+                    <option value="60" selected>
+                        60 FPS
+                    </option>
+
+                    <option value="90">
+                        90 FPS
+                    </option>
+
+                    <option value="120">
+                        120 FPS
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Размер кнопки огня
+                </label>
+
+                <input
+                    id="fireSize"
+                    type="number"
+                    value="50"
+                    min="20"
+                    max="100"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Стиль
+                </label>
+
+                <select id="style">
+
+                    <option value="balanced">
+                        Сбалансированный
+                    </option>
+
+                    <option value="drag">
+                        Максимум оттяжки
+                    </option>
+
+                    <option value="control">
+                        Больше контроля
+                    </option>
+
+                    <option value="fast">
+                        Очень быстрый
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Как ты обычно тянешь палец?
+            </label>
+
+            <select id="dragLength">
+
+                <option value="short">
+                    Короткая оттяжка
+                </option>
+
+                <option value="medium" selected>
+                    Средняя
+                </option>
+
+                <option value="long">
+                    Длинная оттяжка
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            class="primary"
+            onclick="generateProfile()"
+        >
+            🎯 Подобрать стартовые настройки
+        </button>
+
+    </section>
+
+
+    <section
+        class="card hidden"
+        id="profileCard"
+    >
+
+        <h2>
+            Стартовый профиль
+        </h2>
+
+        <div
+            class="sens-grid"
+            id="profileGrid"
+        ></div>
+
+        <div class="tip">
+            Это стартовая точка.
+            Дальше проведём несколько тестов,
+            чтобы приблизить настройки
+            именно к твоей руке.
+        </div>
+
+        <div class="button-row">
+
+            <button
+                class="secondary"
+                onclick="resetSetup()"
+            >
+                Изменить
+            </button>
+
+            <button
+                class="primary"
+                onclick="startCalibration()"
+            >
+                Начать тест
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="card test-card"
+        id="testCard"
+    >
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="progressBar"
+            ></div>
+
+        </div>
+
+
+        <div
+            class="test-number"
+            id="testNumber"
+        ></div>
+
+
+        <div
+            class="test-title"
+            id="testTitle"
+        ></div>
+
+
+        <div
+            class="test-description"
+            id="testDescription"
+        ></div>
+
+
+        <div class="answers">
+
+            <button
+                class="answer high"
+                onclick="answerTest('high')"
+            >
+                ⬆️ Прицел перелетает выше головы
+            </button>
+
+
+            <button
+                class="answer good"
+                onclick="answerTest('good')"
+            >
+                ✅ Попадает как надо
+            </button>
+
+
+            <button
+                class="answer low"
+                onclick="answerTest('low')"
+            >
+                ⬇️ Не дотягивает до головы
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="card result-card"
+        id="resultCard"
+    >
+
+        <div class="status">
+            ✅ Калибровка завершена
+        </div>
+
+        <h2>
+            Твой профиль
+        </h2>
+
+        <div
+            class="sens-grid"
+            id="resultGrid"
+        ></div>
+
+        <div
+            class="tip"
+            id="resultTip"
+        ></div>
+
+        <div class="button-row">
+
+            <button
+                class="secondary"
+                onclick="restartCalibration()"
+            >
+                Ещё тест
+            </button>
+
+            <button
+                class="primary"
+                onclick="saveProfile()"
+            >
+                💾 Сохранить
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+const STORAGE_KEY =
+    "wiens_ff_profile_v1";
+
+
+let sensitivity = {
+    general: 100,
+    redDot: 95,
+    scope2x: 90,
+    scope4x: 80,
+    sniper: 55,
+    freeLook: 90
+};
+
+
+let testIndex =
+    0;
+
+
+const tests = [
+
+    {
+        key:
+            "general",
+
+        title:
+            "Тест 1 — быстрая оттяжка",
+
+        description:
+            "Зайди в тренировку. "
+            +
+            "Поставь прицел примерно на грудь противника "
+            +
+            "и сделай привычную резкую оттяжку вверх."
+    },
+
+    {
+        key:
+            "redDot",
+
+        title:
+            "Тест 2 — Red Dot",
+
+        description:
+            "Возьми оружие с Red Dot. "
+            +
+            "На средней дистанции сделай несколько "
+            +
+            "одинаковых оттяжек к голове."
+    },
+
+    {
+        key:
+            "scope2x",
+
+        title:
+            "Тест 3 — прицел 2x",
+
+        description:
+            "Проверь оттяжку с 2x. "
+            +
+            "Старайся каждый раз начинать движение "
+            +
+            "примерно с одной точки."
+    },
+
+    {
+        key:
+            "scope4x",
+
+        title:
+            "Тест 4 — прицел 4x",
+
+        description:
+            "Используй 4x на средней или дальней дистанции "
+            +
+            "и проверь, насколько легко удержать голову."
+    },
+
+    {
+        key:
+            "general",
+
+        title:
+            "Тест 5 — повтор General",
+
+        description:
+            "Снова сделай несколько быстрых оттяжек "
+            +
+            "без сильного прицела. "
+            +
+            "Этот тест уточнит General."
+    }
+
+];
+
+
+function clamp(
+    value,
+    min = 0,
+    max = 200
+) {
+
+    return Math.max(
+        min,
+        Math.min(
+            max,
+            Math.round(value)
+        )
+    );
+}
+
+
+function generateProfile() {
+
+    const hz =
+        Number(
+            document
+            .getElementById("hz")
+            .value
+        );
+
+
+    const fps =
+        Number(
+            document
+            .getElementById("fps")
+            .value
+        );
+
+
+    const fireSize =
+        Number(
+            document
+            .getElementById("fireSize")
+            .value
+        );
+
+
+    const style =
+        document
+        .getElementById("style")
+        .value;
+
+
+    const dragLength =
+        document
+        .getElementById("dragLength")
+        .value;
+
+
+    let general =
+        105;
+
+
+    /*
+        Faster display / FPS:
+        slightly less sensitivity needed
+        for the same perceived movement.
+    */
+
+    if (
+        hz >= 120
+    ) {
+        general -= 5;
+    }
+
+    if (
+        fps >= 90
+    ) {
+        general -= 4;
+    }
+
+
+    /*
+        Fire button size.
+    */
+
+    if (
+        fireSize < 40
+    ) {
+        general += 7;
+    }
+
+    if (
+        fireSize > 65
+    ) {
+        general -= 6;
+    }
+
+
+    /*
+        Drag length.
+    */
+
+    if (
+        dragLength === "short"
+    ) {
+        general += 12;
+    }
+
+    if (
+        dragLength === "long"
+    ) {
+        general -= 10;
+    }
+
+
+    /*
+        Play style.
+    */
+
+    if (
+        style === "drag"
+    ) {
+        general += 12;
+    }
+
+    if (
+        style === "control"
+    ) {
+        general -= 12;
+    }
+
+    if (
+        style === "fast"
+    ) {
+        general += 7;
+    }
+
+
+    general =
+        clamp(
+            general
+        );
+
+
+    sensitivity = {
+
+        general:
+            general,
+
+        redDot:
+            clamp(
+                general - 5
+            ),
+
+        scope2x:
+            clamp(
+                general - 14
+            ),
+
+        scope4x:
+            clamp(
+                general - 27
+            ),
+
+        sniper:
+            clamp(
+                general - 50
+            ),
+
+        freeLook:
+            clamp(
+                general - 8
+            )
+    };
+
+
+    renderProfile(
+        "profileGrid"
+    );
+
+
+    document
+    .getElementById("setupCard")
+    .classList.add(
+        "hidden"
+    );
+
+
+    document
+    .getElementById("profileCard")
+    .classList.remove(
+        "hidden"
+    );
+}
+
+
+function renderProfile(
+    elementId
+) {
+
+    const box =
+        document
+        .getElementById(
+            elementId
+        );
+
+
+    const items = [
+
+        [
+            "General",
+            sensitivity.general
+        ],
+
+        [
+            "Red Dot",
+            sensitivity.redDot
+        ],
+
+        [
+            "2x Scope",
+            sensitivity.scope2x
+        ],
+
+        [
+            "4x Scope",
+            sensitivity.scope4x
+        ],
+
+        [
+            "Sniper",
+            sensitivity.sniper
+        ],
+
+        [
+            "Free Look",
+            sensitivity.freeLook
+        ]
+
+    ];
+
+
+    box.innerHTML =
+        "";
+
+
+    items.forEach(
+        item => {
+
+            const div =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "sens-box";
+
+
+            div.innerHTML =
+                `
+                    <span>
+                        ${item[0]}
+                    </span>
+
+                    <strong>
+                        ${item[1]}
+                    </strong>
+                `;
+
+
+            box.appendChild(
+                div
+            );
+        }
+    );
+}
+
+
+function resetSetup() {
+
+    document
+    .getElementById("profileCard")
+    .classList.add(
+        "hidden"
+    );
+
+
+    document
+    .getElementById("setupCard")
+    .classList.remove(
+        "hidden"
+    );
+}
+
+
+function startCalibration() {
+
+    testIndex =
+        0;
+
+
+    document
+    .getElementById("profileCard")
+    .classList.add(
+        "hidden"
+    );
+
+
+    document
+    .getElementById("resultCard")
+    .classList.remove(
+        "active"
+    );
+
+
+    document
+    .getElementById("testCard")
+    .classList.add(
+        "active"
+    );
+
+
+    showCurrentTest();
+}
+
+
+function showCurrentTest() {
+
+    const test =
+        tests[
+            testIndex
+        ];
+
+
+    const percent =
+        (
+            testIndex
+            /
+            tests.length
+        )
+        *
+        100;
+
+
+    document
+    .getElementById("progressBar")
+    .style
+    .width =
+        percent
+        +
+        "%";
+
+
+    document
+    .getElementById("testNumber")
+    .textContent =
+        `Шаг ${testIndex + 1} из ${tests.length}`;
+
+
+    document
+    .getElementById("testTitle")
+    .textContent =
+        test.title;
+
+
+    document
+    .getElementById("testDescription")
+    .textContent =
+        test.description;
+}
+
+
+function answerTest(
+    answer
+) {
+
+    const test =
+        tests[
+            testIndex
+        ];
+
+
+    const key =
+        test.key;
+
+
+    let step =
+        5;
+
+
+    /*
+        General changes a little more.
+    */
+
+    if (
+        key === "general"
+    ) {
+        step = 6;
+    }
+
+
+    if (
+        answer === "high"
+    ) {
+
+        sensitivity[
+            key
+        ] =
+            clamp(
+                sensitivity[key]
+                -
+                step
+            );
+    }
+
+
+    if (
+        answer === "low"
+    ) {
+
+        sensitivity[
+            key
+        ] =
+            clamp(
+                sensitivity[key]
+                +
+                step
+            );
+    }
+
+
+    /*
+        Good result:
+        no change.
+    */
+
+
+    testIndex++;
+
+
+    if (
+        testIndex
+        >=
+        tests.length
+    ) {
+
+        finishCalibration();
+
+        return;
+    }
+
+
+    showCurrentTest();
+}
+
+
+function finishCalibration() {
+
+    document
+    .getElementById("progressBar")
+    .style
+    .width =
+        "100%";
+
+
+    document
+    .getElementById("testCard")
+    .classList.remove(
+        "active"
+    );
+
+
+    renderProfile(
+        "resultGrid"
+    );
+
+
+    document
+    .getElementById("resultTip")
+    .textContent =
+        "Сделай 10–20 одинаковых оттяжек. "
+        +
+        "Если результат всё ещё нестабилный, "
+        +
+        "нажми «Ещё тест». "
+        +
+        "Лучше менять настройки небольшими шагами.";
+
+
+    document
+    .getElementById("resultCard")
+    .classList.add(
+        "active"
+    );
+}
+
+
+function restartCalibration() {
+
+    document
+    .getElementById("resultCard")
+    .classList.remove(
+        "active"
+    );
+
+
+    startCalibration();
+}
+
+
+function saveProfile() {
+
+    const device =
+        document
+        .getElementById("device")
+        .value
+        .trim();
+
+
+    const data = {
+
+        device:
+            device,
+
+        hz:
+            document
+            .getElementById("hz")
+            .value,
+
+        fps:
+            document
+            .getElementById("fps")
+            .value,
+
+        fireSize:
+            document
+            .getElementById("fireSize")
+            .value,
+
+        style:
+            document
+            .getElementById("style")
+            .value,
+
+        dragLength:
+            document
+            .getElementById("dragLength")
+            .value,
+
+        sensitivity:
+            sensitivity,
+
+        savedAt:
+            new Date()
+            .toISOString()
+
+    };
+
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(
+            data
+        )
+    );
+
+
+    alert(
+        "Профиль сохранён на этом устройстве ✅"
+    );
+}
+
+
+function loadSavedProfile() {
+
+    try {
+
+        const saved =
+            JSON.parse(
+                localStorage
+                .getItem(
+                    STORAGE_KEY
+                )
+            );
+
+
+        if (
+            !saved
+            ||
+            !saved.sensitivity
+        ) {
+
+            return;
+        }
+
+
+        sensitivity =
+            saved.sensitivity;
+
+
+        if (
+            saved.device
+        ) {
+
+            document
+            .getElementById("device")
+            .value =
+                saved.device;
+        }
+
+
+        if (
+            saved.hz
+        ) {
+
+            document
+            .getElementById("hz")
+            .value =
+                saved.hz;
+        }
+
+
+        if (
+            saved.fps
+        ) {
+
+            document
+            .getElementById("fps")
+            .value =
+                saved.fps;
+        }
+
+
+        if (
+            saved.fireSize
+        ) {
+
+            document
+            .getElementById("fireSize")
+            .value =
+                saved.fireSize;
+        }
+
+
+        if (
+            saved.style
+        ) {
+
+            document
+            .getElementById("style")
+            .value =
+                saved.style;
+        }
+
+
+        if (
+            saved.dragLength
+        ) {
+
+            document
+            .getElementById("dragLength")
+            .value =
+                saved.dragLength;
+        }
+
+    } catch (error) {
+
+        console.log(
+            "Saved Free Fire profile error:",
+            error
+        );
+    }
+}
+
+
+loadSavedProfile();
+
+</script>
+
+</body>
+</html>
