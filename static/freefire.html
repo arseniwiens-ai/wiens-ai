@@ -8,11 +8,11 @@
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
-    <title>Free Fire Calibrator — Wiens AI</title>
+    <title>Free Fire Calibrator v2 — Wiens AI</title>
 
     <meta
         name="theme-color"
-        content="#090b12"
+        content="#080a10"
     >
 
     <style>
@@ -23,17 +23,18 @@
         }
 
         :root {
-            --bg: #090b12;
-            --panel: rgba(22,24,36,.94);
-            --panel2: rgba(255,255,255,.055);
-            --border: rgba(255,255,255,.10);
-            --text: #ffffff;
-            --muted: #9b9baa;
-            --purple: #745cff;
-            --purple2: #a768ff;
-            --green: #43e58b;
-            --red: #ff586f;
-            --yellow: #ffcb5b;
+            --bg: #080a10;
+            --panel: rgba(21, 23, 34, .95);
+            --panel2: rgba(255, 255, 255, .055);
+            --border: rgba(255, 255, 255, .10);
+            --text: #fff;
+            --muted: #9696a7;
+            --purple: #725cff;
+            --purple2: #a967ff;
+            --green: #47e49a;
+            --yellow: #ffc95c;
+            --red: #ff5f78;
+            --blue: #62b5ff;
         }
 
         html,
@@ -53,9 +54,9 @@
             background:
                 radial-gradient(
                     circle at top,
-                    #24154a 0%,
-                    #10121c 30%,
-                    #090b12 70%
+                    #24164d 0%,
+                    #11131d 30%,
+                    #080a10 72%
                 );
 
             color: var(--text);
@@ -66,8 +67,19 @@
                 calc(28px + env(safe-area-inset-bottom));
         }
 
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         .app {
-            max-width: 720px;
+            max-width: 760px;
             margin: 0 auto;
         }
 
@@ -78,7 +90,7 @@
 
             gap: 10px;
 
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .brand {
@@ -89,16 +101,15 @@
         }
 
         .logo {
-            width: 44px;
-            height: 44px;
+            width: 46px;
+            height: 46px;
 
-            border-radius: 13px;
-
+            border-radius: 14px;
             object-fit: cover;
 
             box-shadow:
                 0 0 25px
-                rgba(117,92,255,.45);
+                rgba(114,92,255,.45);
         }
 
         .brand-title {
@@ -131,9 +142,9 @@
         }
 
         .hero {
-            margin-bottom: 18px;
+            margin-bottom: 14px;
 
-            padding: 22px 18px;
+            padding: 21px 18px;
 
             border:
                 1px solid var(--border);
@@ -143,22 +154,25 @@
             background:
                 linear-gradient(
                     135deg,
-                    rgba(117,92,255,.20),
-                    rgba(167,104,255,.07)
+                    rgba(114,92,255,.23),
+                    rgba(169,103,255,.07)
                 );
         }
 
-        .hero-badge {
-            display: inline-block;
+        .badge {
+            display: inline-flex;
+            align-items: center;
+
+            gap: 5px;
 
             margin-bottom: 10px;
 
             padding: 6px 10px;
 
-            border-radius: 20px;
+            border-radius: 30px;
 
             background:
-                rgba(67,229,139,.10);
+                rgba(71,228,154,.10);
 
             color: var(--green);
 
@@ -168,17 +182,16 @@
         .hero h1 {
             margin-bottom: 8px;
 
-            font-size: 30px;
+            font-size: 29px;
 
-            letter-spacing: -.8px;
+            letter-spacing: -.6px;
         }
 
         .hero p {
             color: var(--muted);
 
-            line-height: 1.5;
-
             font-size: 14px;
+            line-height: 1.5;
         }
 
         .card {
@@ -195,13 +208,23 @@
         }
 
         .card h2 {
-            margin-bottom: 14px;
+            margin-bottom: 13px;
 
             font-size: 17px;
         }
 
+        .section-note {
+            margin-top: -5px;
+            margin-bottom: 14px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
         .field {
-            margin-bottom: 15px;
+            margin-bottom: 14px;
         }
 
         .field:last-child {
@@ -213,7 +236,7 @@
 
             margin-bottom: 7px;
 
-            color: #d8d8e1;
+            color: #dbdbe3;
 
             font-size: 13px;
         }
@@ -252,13 +275,90 @@
             gap: 10px;
         }
 
+        .grid-3 {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 9px;
+        }
+
+        .primary,
+        .secondary {
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 15px;
+
+            color: white;
+
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .primary {
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+        }
+
+        .secondary {
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        .detect {
+            margin-bottom: 14px;
+
+            border-color:
+                rgba(98,181,255,.28);
+
+            color: #bfe0ff;
+        }
+
+        .device-info {
+            display: none;
+
+            margin-bottom: 15px;
+
+            padding: 12px;
+
+            border:
+                1px solid
+                rgba(98,181,255,.20);
+
+            border-radius: 14px;
+
+            background:
+                rgba(98,181,255,.06);
+
+            color: #c9e6ff;
+
+            font-size: 12px;
+            line-height: 1.55;
+        }
+
+        .device-info.show {
+            display: block;
+        }
+
         .sens-grid {
             display: grid;
 
             grid-template-columns:
                 repeat(2, 1fr);
 
-            gap: 10px;
+            gap: 9px;
         }
 
         .sens-box {
@@ -273,58 +373,77 @@
                 var(--panel2);
         }
 
-        .sens-box span {
-            display: block;
-
-            margin-bottom: 7px;
+        .sens-label {
+            margin-bottom: 6px;
 
             color: var(--muted);
 
             font-size: 11px;
         }
 
-        .sens-box strong {
-            font-size: 22px;
+        .sens-value {
+            font-size: 25px;
+            font-weight: 800;
         }
 
-        .primary {
-            width: 100%;
+        .sens-delta {
+            margin-top: 4px;
 
-            padding: 14px;
+            color: var(--green);
 
-            border: none;
-
-            border-radius: 15px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--purple),
-                    var(--purple2)
-                );
-
-            color: white;
-
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 10px;
         }
 
-        .secondary {
-            width: 100%;
+        .summary-grid {
+            display: grid;
 
-            padding: 13px;
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 9px;
+
+            margin-top: 12px;
+        }
+
+        .summary-box {
+            padding: 11px;
 
             border:
                 1px solid var(--border);
 
-            border-radius: 15px;
+            border-radius: 14px;
 
             background:
-                rgba(255,255,255,.06);
+                rgba(255,255,255,.04);
+        }
 
-            color: white;
+        .summary-box span {
+            display: block;
 
-            font-size: 15px;
+            margin-bottom: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .summary-box strong {
+            font-size: 14px;
+        }
+
+        .buttons {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 9px;
+
+            margin-top: 14px;
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         .test-card {
@@ -336,10 +455,9 @@
         }
 
         .progress {
-            width: 100%;
             height: 8px;
 
-            margin-bottom: 14px;
+            margin-bottom: 15px;
 
             overflow: hidden;
 
@@ -363,13 +481,13 @@
                     var(--purple2)
                 );
 
-            transition: width .3s ease;
+            transition: width .25s ease;
         }
 
         .test-number {
-            margin-bottom: 7px;
+            margin-bottom: 6px;
 
-            color: var(--purple2);
+            color: #ad9eff;
 
             font-size: 12px;
             font-weight: 700;
@@ -378,32 +496,121 @@
         .test-title {
             margin-bottom: 8px;
 
-            font-size: 22px;
+            font-size: 21px;
+            font-weight: 800;
         }
 
         .test-description {
-            margin-bottom: 14px;
+            margin-bottom: 15px;
 
             color: var(--muted);
 
+            font-size: 13px;
             line-height: 1.5;
-
-            font-size: 14px;
         }
 
-        .answers {
+        .current-value {
+            display: inline-flex;
+
+            margin-bottom: 15px;
+
+            padding: 7px 10px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(114,92,255,.13);
+
+            color: #c9c1ff;
+
+            font-size: 12px;
+        }
+
+        .direction-grid {
             display: grid;
 
-            gap: 9px;
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 8px;
+
+            margin-bottom: 14px;
         }
 
-        .answer {
-            padding: 13px;
+        .direction {
+            padding: 12px 7px;
 
             border:
                 1px solid var(--border);
 
-            border-radius: 14px;
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.045);
+
+            color: white;
+
+            font-size: 12px;
+        }
+
+        .direction.selected-high {
+            border-color:
+                rgba(255,95,120,.55);
+
+            background:
+                rgba(255,95,120,.10);
+        }
+
+        .direction.selected-good {
+            border-color:
+                rgba(71,228,154,.55);
+
+            background:
+                rgba(71,228,154,.10);
+        }
+
+        .direction.selected-low {
+            border-color:
+                rgba(255,201,92,.55);
+
+            background:
+                rgba(255,201,92,.10);
+        }
+
+        .severity-wrap {
+            display: none;
+
+            margin-bottom: 14px;
+        }
+
+        .severity-wrap.show {
+            display: block;
+        }
+
+        .severity-title {
+            margin-bottom: 8px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+        }
+
+        .severity {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 6px;
+        }
+
+        .severity button {
+            padding: 10px 5px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 11px;
 
             background:
                 rgba(255,255,255,.05);
@@ -411,19 +618,22 @@
             color: white;
         }
 
-        .answer.high {
+        .severity button.active {
+            background:
+                rgba(114,92,255,.25);
+
             border-color:
-                rgba(255,88,111,.35);
+                rgba(169,103,255,.55);
         }
 
-        .answer.good {
-            border-color:
-                rgba(67,229,139,.35);
+        .next-test {
+            opacity: .45;
+            pointer-events: none;
         }
 
-        .answer.low {
-            border-color:
-                rgba(255,203,91,.35);
+        .next-test.ready {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .result-card {
@@ -434,19 +644,65 @@
             display: block;
         }
 
-        .status {
+        .confidence {
             margin-bottom: 14px;
 
-            padding: 10px 12px;
+            padding: 14px;
 
-            border-radius: 13px;
+            border:
+                1px solid
+                rgba(71,228,154,.20);
+
+            border-radius: 15px;
 
             background:
-                rgba(67,229,139,.09);
+                rgba(71,228,154,.07);
+        }
 
+        .confidence-top {
+            display: flex;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 9px;
+        }
+
+        .confidence-label {
+            color: #b9f7d7;
+
+            font-size: 12px;
+        }
+
+        .confidence-value {
             color: var(--green);
 
-            font-size: 13px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .confidence-bar {
+            height: 8px;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,.07);
+        }
+
+        .confidence-fill {
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #52dd91,
+                    #74f2b0
+                );
         }
 
         .tip {
@@ -462,33 +718,88 @@
             color: var(--muted);
 
             font-size: 12px;
-
-            line-height: 1.45;
+            line-height: 1.5;
         }
 
-        .button-row {
-            display: grid;
+        .warning {
+            margin-top: 10px;
 
-            grid-template-columns:
-                1fr 1fr;
+            color: #d0d0db;
 
-            gap: 9px;
-
-            margin-top: 14px;
+            font-size: 11px;
+            line-height: 1.5;
         }
 
-        .hidden {
-            display: none;
+        .profile-list {
+            margin-top: 12px;
         }
 
-        @media (max-width: 520px) {
+        .profile-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 8px;
+
+            margin-bottom: 7px;
+
+            padding: 10px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.04);
+        }
+
+        .profile-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .profile-meta {
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .mini {
+            padding: 7px 9px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        @media (max-width: 560px) {
             .grid-2,
-            .sens-grid {
+            .grid-3,
+            .sens-grid,
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .direction-grid {
                 grid-template-columns: 1fr;
             }
 
             .hero h1 {
-                font-size: 27px;
+                font-size: 26px;
             }
         }
     </style>
@@ -509,13 +820,15 @@
             >
 
             <div>
+
                 <div class="brand-title">
                     Wiens AI
                 </div>
 
                 <div class="brand-subtitle">
-                    Free Fire Calibrator
+                    Free Fire Calibrator v2
                 </div>
+
             </div>
 
         </div>
@@ -532,18 +845,19 @@
 
     <section class="hero">
 
-        <div class="hero-badge">
-            🎯 Персональная калибровка
+        <div class="badge">
+            🎯 Adaptive Calibration
         </div>
 
         <h1>
-            Free Fire Sensitivity
+            Free Fire Sensitivity v2
         </h1>
 
         <p>
-            Подберём стартовые настройки,
-            а затем откалибруем их
-            под твою реальную оттяжку.
+            Не просто готовые цифры.
+            Сначала создаём профиль телефона,
+            затем постепенно подстраиваем
+            чувствительность под твою оттяжку.
         </p>
 
     </section>
@@ -555,19 +869,30 @@
     >
 
         <h2>
-            1. Твоё устройство
+            📱 Телефон и стиль игры
         </h2>
+
+        <button
+            class="secondary detect"
+            onclick="detectDevice()"
+        >
+            📱 Определить параметры телефона
+        </button>
+
+        <div
+            class="device-info"
+            id="deviceInfo"
+        ></div>
 
 
         <div class="field">
 
             <label>
-                Модель телефона
+                Название телефона
             </label>
 
             <input
                 id="device"
-                type="text"
                 placeholder="Например: iPhone 17 Pro"
             >
 
@@ -608,7 +933,7 @@
             <div class="field">
 
                 <label>
-                    FPS
+                    FPS в Free Fire
                 </label>
 
                 <select id="fps">
@@ -641,7 +966,7 @@
             <div class="field">
 
                 <label>
-                    Размер кнопки огня
+                    Размер кнопки огня %
                 </label>
 
                 <input
@@ -658,25 +983,25 @@
             <div class="field">
 
                 <label>
-                    Стиль
+                    Сколько пальцев?
                 </label>
 
-                <select id="style">
+                <select id="fingers">
 
-                    <option value="balanced">
-                        Сбалансированный
+                    <option value="2">
+                        2 пальца
                     </option>
 
-                    <option value="drag">
-                        Максимум оттяжки
+                    <option value="3">
+                        3 пальца
                     </option>
 
-                    <option value="control">
-                        Больше контроля
+                    <option value="4">
+                        4 пальца
                     </option>
 
-                    <option value="fast">
-                        Очень быстрый
+                    <option value="5">
+                        5+
                     </option>
 
                 </select>
@@ -686,27 +1011,130 @@
         </div>
 
 
-        <div class="field">
+        <div class="grid-2">
 
-            <label>
-                Как ты обычно тянешь палец?
-            </label>
+            <div class="field">
 
-            <select id="dragLength">
+                <label>
+                    Основной стиль
+                </label>
 
-                <option value="short">
-                    Короткая оттяжка
-                </option>
+                <select id="style">
 
-                <option value="medium" selected>
-                    Средняя
-                </option>
+                    <option value="balanced">
+                        Сбалансированный
+                    </option>
 
-                <option value="long">
-                    Длинная оттяжка
-                </option>
+                    <option value="drag">
+                        Headshot / Drag
+                    </option>
 
-            </select>
+                    <option value="fast">
+                        Очень быстрый
+                    </option>
+
+                    <option value="control">
+                        Максимум контроля
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Длина оттяжки
+                </label>
+
+                <select id="dragLength">
+
+                    <option value="short">
+                        Короткая
+                    </option>
+
+                    <option value="medium" selected>
+                        Средняя
+                    </option>
+
+                    <option value="long">
+                        Длинная
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Основное оружие
+                </label>
+
+                <select id="weapon">
+
+                    <option value="all">
+                        Универсально
+                    </option>
+
+                    <option value="smg">
+                        SMG
+                    </option>
+
+                    <option value="ar">
+                        AR
+                    </option>
+
+                    <option value="deagle">
+                        Desert Eagle
+                    </option>
+
+                    <option value="shotgun">
+                        Shotgun
+                    </option>
+
+                    <option value="sniper">
+                        Sniper
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Графика
+                </label>
+
+                <select id="graphics">
+
+                    <option value="smooth">
+                        Smooth
+                    </option>
+
+                    <option value="standard">
+                        Standard
+                    </option>
+
+                    <option value="high">
+                        High
+                    </option>
+
+                    <option value="ultra">
+                        Ultra
+                    </option>
+
+                </select>
+
+            </div>
 
         </div>
 
@@ -715,7 +1143,7 @@
             class="primary"
             onclick="generateProfile()"
         >
-            🎯 Подобрать стартовые настройки
+            🧠 Рассчитать стартовый профиль
         </button>
 
     </section>
@@ -727,7 +1155,7 @@
     >
 
         <h2>
-            Стартовый профиль
+            ⚙️ Стартовый профиль
         </h2>
 
         <div
@@ -735,27 +1163,34 @@
             id="profileGrid"
         ></div>
 
+
+        <div
+            class="summary-grid"
+            id="phoneRecommendations"
+        ></div>
+
+
         <div class="tip">
-            Это стартовая точка.
-            Дальше проведём несколько тестов,
-            чтобы приблизить настройки
-            именно к твоей руке.
+            Сейчас это только стартовая точка.
+            Не меняй сразу значения вручную:
+            дальше калибратор уточнит их по твоим реальным оттяжкам.
         </div>
 
-        <div class="button-row">
+
+        <div class="buttons">
 
             <button
                 class="secondary"
-                onclick="resetSetup()"
+                onclick="backToSetup()"
             >
-                Изменить
+                ← Изменить
             </button>
 
             <button
                 class="primary"
                 onclick="startCalibration()"
             >
-                Начать тест
+                🎯 Начать калибровку
             </button>
 
         </div>
@@ -796,32 +1231,86 @@
         ></div>
 
 
-        <div class="answers">
+        <div
+            class="current-value"
+            id="currentValue"
+        ></div>
+
+
+        <div class="direction-grid">
 
             <button
-                class="answer high"
-                onclick="answerTest('high')"
+                class="direction"
+                id="highButton"
+                onclick="selectDirection('high')"
             >
-                ⬆️ Прицел перелетает выше головы
+                ⬆️ Перелетает выше головы
             </button>
 
 
             <button
-                class="answer good"
-                onclick="answerTest('good')"
+                class="direction"
+                id="goodButton"
+                onclick="selectDirection('good')"
             >
-                ✅ Попадает как надо
+                ✅ Попадает нормально
             </button>
 
 
             <button
-                class="answer low"
-                onclick="answerTest('low')"
+                class="direction"
+                id="lowButton"
+                onclick="selectDirection('low')"
             >
-                ⬇️ Не дотягивает до головы
+                ⬇️ Не дотягивает
             </button>
 
         </div>
+
+
+        <div
+            class="severity-wrap"
+            id="severityWrap"
+        >
+
+            <div class="severity-title">
+                Насколько сильно? 1 = чуть-чуть, 5 = очень сильно
+            </div>
+
+            <div class="severity">
+
+                <button onclick="selectSeverity(1)">
+                    1
+                </button>
+
+                <button onclick="selectSeverity(2)">
+                    2
+                </button>
+
+                <button onclick="selectSeverity(3)">
+                    3
+                </button>
+
+                <button onclick="selectSeverity(4)">
+                    4
+                </button>
+
+                <button onclick="selectSeverity(5)">
+                    5
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary next-test"
+            id="nextTestButton"
+            onclick="applyTestResult()"
+        >
+            Продолжить →
+        </button>
 
     </section>
 
@@ -831,36 +1320,78 @@
         id="resultCard"
     >
 
-        <div class="status">
-            ✅ Калибровка завершена
+        <div class="confidence">
+
+            <div class="confidence-top">
+
+                <div class="confidence-label">
+                    Точность калибровки
+                </div>
+
+                <div
+                    class="confidence-value"
+                    id="confidenceValue"
+                >
+                    0%
+                </div>
+
+            </div>
+
+            <div class="confidence-bar">
+
+                <div
+                    class="confidence-fill"
+                    id="confidenceFill"
+                    style="width:0%"
+                ></div>
+
+            </div>
+
         </div>
 
+
         <h2>
-            Твой профиль
+            🎯 Итоговый профиль
         </h2>
+
 
         <div
             class="sens-grid"
             id="resultGrid"
         ></div>
 
+
+        <div
+            class="summary-grid"
+            id="resultSummary"
+        ></div>
+
+
         <div
             class="tip"
             id="resultTip"
         ></div>
 
-        <div class="button-row">
+
+        <div class="warning">
+            Значения являются результатом калибровки,
+            а не гарантией автоматических headshot.
+            Меняй настройки только через обычное меню Free Fire.
+        </div>
+
+
+        <div class="buttons">
 
             <button
                 class="secondary"
-                onclick="restartCalibration()"
+                onclick="startFineCalibration()"
             >
-                Ещё тест
+                🎯 Точная доводка
             </button>
 
             <button
                 class="primary"
-                onclick="saveProfile()"
+                onclick="saveCurrentProfile()"
             >
                 💾 Сохранить
             </button>
@@ -869,102 +1400,157 @@
 
     </section>
 
+
+    <section class="card">
+
+        <h2>
+            💾 Сохранённые профили
+        </h2>
+
+        <div
+            class="section-note"
+        >
+            Можно сохранить несколько вариантов
+            для разных телефонов или стилей игры.
+        </div>
+
+        <div
+            class="profile-list"
+            id="savedProfiles"
+        ></div>
+
+    </section>
+
 </div>
 
 
 <script>
 
-const STORAGE_KEY =
-    "wiens_ff_profile_v1";
+const PROFILE_STORAGE =
+    "wiens_ff_profiles_v2";
 
 
 let sensitivity = {
-    general: 100,
-    redDot: 95,
-    scope2x: 90,
-    scope4x: 80,
-    sniper: 55,
-    freeLook: 90
+    general: 110,
+    redDot: 105,
+    scope2x: 95,
+    scope4x: 82,
+    sniper: 58,
+    freeLook: 100
 };
 
 
-let testIndex =
-    0;
+let initialSensitivity = {};
+
+let calibrationRound = 0;
+
+let testIndex = 0;
+
+let selectedDirection = null;
+
+let selectedSeverity = null;
+
+let goodResults = 0;
+
+let totalTests = 0;
+
+let measuredHz = null;
 
 
 const tests = [
 
     {
-        key:
-            "general",
+        key: "general",
 
         title:
-            "Тест 1 — быстрая оттяжка",
+            "General — быстрая оттяжка",
 
         description:
-            "Зайди в тренировку. "
+            "В тренировке поставь прицел примерно на грудь. "
             +
-            "Поставь прицел примерно на грудь противника "
+            "Сделай 5 одинаковых быстрых свайпов вверх. "
             +
-            "и сделай привычную резкую оттяжку вверх."
+            "Оцени средний результат."
     },
 
     {
-        key:
-            "redDot",
+        key: "redDot",
 
         title:
-            "Тест 2 — Red Dot",
+            "Red Dot — средняя дистанция",
 
         description:
-            "Возьми оружие с Red Dot. "
+            "С Red Dot сделай несколько одинаковых оттяжек "
             +
-            "На средней дистанции сделай несколько "
-            +
-            "одинаковых оттяжек к голове."
+            "на средней дистанции."
     },
 
     {
-        key:
-            "scope2x",
+        key: "general",
 
         title:
-            "Тест 3 — прицел 2x",
+            "General — короткая оттяжка",
 
         description:
-            "Проверь оттяжку с 2x. "
+            "Теперь сделай более короткое движение пальцем. "
             +
-            "Старайся каждый раз начинать движение "
-            +
-            "примерно с одной точки."
+            "Проверь, выходит ли прицел на голову."
     },
 
     {
-        key:
-            "scope4x",
+        key: "scope2x",
 
         title:
-            "Тест 4 — прицел 4x",
+            "2x Scope",
 
         description:
-            "Используй 4x на средней или дальней дистанции "
+            "Проверь 2x на средней дистанции. "
             +
-            "и проверь, насколько легко удержать голову."
+            "Не меняй положение пальца между попытками."
     },
 
     {
-        key:
-            "general",
+        key: "scope4x",
 
         title:
-            "Тест 5 — повтор General",
+            "4x Scope",
 
         description:
-            "Снова сделай несколько быстрых оттяжек "
+            "Сделай несколько контролируемых свайпов "
             +
-            "без сильного прицела. "
+            "с 4x."
+    },
+
+    {
+        key: "redDot",
+
+        title:
+            "Red Dot — повтор",
+
+        description:
+            "Повтори Red Dot после предыдущей корректировки."
+    },
+
+    {
+        key: "general",
+
+        title:
+            "General — финальный тест",
+
+        description:
+            "Сделай 5–10 обычных оттяжек в своём привычном темпе."
+    },
+
+    {
+        key: "sniper",
+
+        title:
+            "Sniper / точное движение",
+
+        description:
+            "Проверь насколько удобно точно довести прицел "
             +
-            "Этот тест уточнит General."
+            "при небольшом движении пальца."
     }
 
 ];
@@ -983,6 +1569,258 @@ function clamp(
             Math.round(value)
         )
     );
+}
+
+
+function detectOS() {
+
+    const ua =
+        navigator.userAgent;
+
+
+    if (
+        /iPhone|iPad|iPod/i
+        .test(ua)
+    ) {
+
+        return "iOS";
+    }
+
+
+    if (
+        /Android/i
+        .test(ua)
+    ) {
+
+        return "Android";
+    }
+
+
+    return "Не определено";
+}
+
+
+async function estimateRefreshRate() {
+
+    return new Promise(
+        resolve => {
+
+            const samples = [];
+
+            let previous =
+                performance.now();
+
+
+            function frame(
+                now
+            ) {
+
+                const delta =
+                    now - previous;
+
+                previous =
+                    now;
+
+
+                if (
+                    delta > 0
+                    &&
+                    delta < 40
+                ) {
+
+                    samples.push(
+                        delta
+                    );
+                }
+
+
+                if (
+                    samples.length
+                    < 90
+                ) {
+
+                    requestAnimationFrame(
+                        frame
+                    );
+
+                    return;
+                }
+
+
+                const average =
+                    samples.reduce(
+                        (a,b) => a+b,
+                        0
+                    )
+                    /
+                    samples.length;
+
+
+                const raw =
+                    1000
+                    /
+                    average;
+
+
+                const common = [
+                    60,
+                    90,
+                    120,
+                    144
+                ];
+
+
+                const closest =
+                    common.reduce(
+                        (best,current) =>
+                            Math.abs(
+                                current - raw
+                            )
+                            <
+                            Math.abs(
+                                best - raw
+                            )
+                            ?
+                            current
+                            :
+                            best
+                    );
+
+
+                resolve(
+                    closest
+                );
+            }
+
+
+            requestAnimationFrame(
+                frame
+            );
+        }
+    );
+}
+
+
+async function detectDevice() {
+
+    const box =
+        document
+        .getElementById(
+            "deviceInfo"
+        );
+
+
+    box.classList.add(
+        "show"
+    );
+
+
+    box.textContent =
+        "Определяю параметры…";
+
+
+    const os =
+        detectOS();
+
+
+    const width =
+        Math.round(
+            screen.width
+            *
+            window.devicePixelRatio
+        );
+
+
+    const height =
+        Math.round(
+            screen.height
+            *
+            window.devicePixelRatio
+        );
+
+
+    const dpr =
+        window.devicePixelRatio
+        ||
+        1;
+
+
+    const cores =
+        navigator.hardwareConcurrency
+        ||
+        "неизвестно";
+
+
+    const memory =
+        navigator.deviceMemory
+        ?
+        navigator.deviceMemory
+        + " GB"
+        :
+        "недоступно";
+
+
+    try {
+
+        measuredHz =
+            await estimateRefreshRate();
+
+
+        document
+        .getElementById(
+            "hz"
+        )
+        .value =
+            String(
+                measuredHz
+            );
+
+    } catch {
+
+        measuredHz =
+            null;
+    }
+
+
+    box.innerHTML =
+        `
+        Система: <b>${os}</b><br>
+        Экран браузера: <b>${width} × ${height}</b><br>
+        Pixel Ratio: <b>${dpr.toFixed(2)}</b><br>
+        Логических ядер: <b>${cores}</b><br>
+        Память браузера: <b>${memory}</b><br>
+        Оценка экрана: <b>${measuredHz || "не удалось"} Hz</b>
+        `;
+
+
+    /*
+        Browser cannot reliably reveal
+        exact iPhone model.
+    */
+
+    if (
+        !document
+        .getElementById(
+            "device"
+        )
+        .value
+    ) {
+
+        document
+        .getElementById(
+            "device"
+        )
+        .value =
+            os === "iOS"
+            ?
+            "iPhone"
+            :
+            os === "Android"
+            ?
+            "Android"
+            :
+            "";
+    }
 }
 
 
@@ -1005,62 +1843,93 @@ function generateProfile() {
 
 
     const fireSize =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "fireSize"
+                )
+                .value
+            ),
+            20,
+            100
+        );
+
+
+    const fingers =
         Number(
             document
-            .getElementById("fireSize")
+            .getElementById(
+                "fingers"
+            )
             .value
         );
 
 
     const style =
         document
-        .getElementById("style")
+        .getElementById(
+            "style"
+        )
         .value;
 
 
     const dragLength =
         document
-        .getElementById("dragLength")
+        .getElementById(
+            "dragLength"
+        )
         .value;
 
 
-    let general =
-        105;
+    const weapon =
+        document
+        .getElementById(
+            "weapon"
+        )
+        .value;
+
+
+    let general = 118;
 
 
     /*
-        Faster display / FPS:
-        slightly less sensitivity needed
-        for the same perceived movement.
+        Higher refresh and FPS normally
+        feel more responsive, so we start
+        a little lower.
     */
 
-    if (
-        hz >= 120
-    ) {
-        general -= 5;
+    if (hz >= 120) {
+        general -= 7;
     }
-
-    if (
-        fps >= 90
-    ) {
+    else if (hz >= 90) {
         general -= 4;
     }
 
 
-    /*
-        Fire button size.
-    */
-
-    if (
-        fireSize < 40
-    ) {
+    if (fps >= 120) {
+        general -= 6;
+    }
+    else if (fps >= 90) {
+        general -= 4;
+    }
+    else if (fps <= 30) {
         general += 7;
     }
 
-    if (
-        fireSize > 65
-    ) {
-        general -= 6;
+
+    /*
+        Fire button.
+    */
+
+    if (fireSize <= 35) {
+        general += 10;
+    }
+    else if (fireSize <= 45) {
+        general += 5;
+    }
+    else if (fireSize >= 70) {
+        general -= 8;
     }
 
 
@@ -1069,38 +1938,94 @@ function generateProfile() {
     */
 
     if (
-        dragLength === "short"
+        dragLength
+        === "short"
     ) {
-        general += 12;
+
+        general += 14;
     }
 
+
     if (
-        dragLength === "long"
+        dragLength
+        === "long"
     ) {
-        general -= 10;
+
+        general -= 12;
     }
 
 
     /*
-        Play style.
+        Style.
     */
 
     if (
-        style === "drag"
+        style
+        === "drag"
     ) {
+
         general += 12;
     }
 
-    if (
-        style === "control"
-    ) {
-        general -= 12;
-    }
 
     if (
-        style === "fast"
+        style
+        === "fast"
     ) {
+
         general += 7;
+    }
+
+
+    if (
+        style
+        === "control"
+    ) {
+
+        general -= 13;
+    }
+
+
+    /*
+        Finger layout.
+    */
+
+    if (
+        fingers >= 4
+    ) {
+
+        general -= 3;
+    }
+
+
+    /*
+        Weapon preference.
+    */
+
+    if (
+        weapon
+        === "deagle"
+    ) {
+
+        general += 8;
+    }
+
+
+    if (
+        weapon
+        === "shotgun"
+    ) {
+
+        general += 6;
+    }
+
+
+    if (
+        weapon
+        === "sniper"
+    ) {
+
+        general -= 8;
     }
 
 
@@ -1122,87 +2047,127 @@ function generateProfile() {
 
         scope2x:
             clamp(
-                general - 14
+                general - 17
             ),
 
         scope4x:
             clamp(
-                general - 27
+                general - 32
             ),
 
         sniper:
             clamp(
-                general - 50
+                general - 57
             ),
 
         freeLook:
             clamp(
-                general - 8
+                general - 10
             )
+
     };
 
 
-    renderProfile(
+    if (
+        weapon
+        === "sniper"
+    ) {
+
+        sensitivity.sniper =
+            clamp(
+                sensitivity.sniper
+                -
+                8
+            );
+    }
+
+
+    if (
+        weapon
+        === "deagle"
+    ) {
+
+        sensitivity.redDot =
+            clamp(
+                sensitivity.redDot
+                +
+                5
+            );
+    }
+
+
+    initialSensitivity =
+        {
+            ...sensitivity
+        };
+
+
+    renderSensitivity(
         "profileGrid"
     );
 
 
+    renderPhoneRecommendations();
+
+
     document
-    .getElementById("setupCard")
+    .getElementById(
+        "setupCard"
+    )
     .classList.add(
         "hidden"
     );
 
 
     document
-    .getElementById("profileCard")
+    .getElementById(
+        "profileCard"
+    )
     .classList.remove(
         "hidden"
     );
 }
 
 
-function renderProfile(
-    elementId
+function renderSensitivity(
+    id
 ) {
 
     const box =
         document
-        .getElementById(
-            elementId
-        );
+        .getElementById(id);
 
 
     const items = [
 
         [
             "General",
-            sensitivity.general
+            "general"
         ],
 
         [
             "Red Dot",
-            sensitivity.redDot
+            "redDot"
         ],
 
         [
             "2x Scope",
-            sensitivity.scope2x
+            "scope2x"
         ],
 
         [
             "4x Scope",
-            sensitivity.scope4x
+            "scope4x"
         ],
 
         [
             "Sniper",
-            sensitivity.sniper
+            "sniper"
         ],
 
         [
             "Free Look",
-            sensitivity.freeLook
+            "freeLook"
         ]
 
     ];
@@ -1213,11 +2178,21 @@ function renderProfile(
 
 
     items.forEach(
-        item => {
+        ([label,key]) => {
+
+            const delta =
+                initialSensitivity[key]
+                !== undefined
+                ?
+                sensitivity[key]
+                -
+                initialSensitivity[key]
+                :
+                0;
+
 
             const div =
-                document
-                .createElement(
+                document.createElement(
                     "div"
                 );
 
@@ -1226,15 +2201,35 @@ function renderProfile(
                 "sens-box";
 
 
+            let deltaText =
+                "";
+
+
+            if (
+                delta !== 0
+            ) {
+
+                deltaText =
+                    `
+                    <div class="sens-delta">
+                        ${delta > 0 ? "+" : ""}${delta}
+                        после калибровки
+                    </div>
+                    `;
+            }
+
+
             div.innerHTML =
                 `
-                    <span>
-                        ${item[0]}
-                    </span>
+                <div class="sens-label">
+                    ${label}
+                </div>
 
-                    <strong>
-                        ${item[1]}
-                    </strong>
+                <div class="sens-value">
+                    ${sensitivity[key]}
+                </div>
+
+                ${deltaText}
                 `;
 
 
@@ -1246,17 +2241,137 @@ function renderProfile(
 }
 
 
-function resetSetup() {
+function getRecommendedGraphics() {
+
+    const fps =
+        Number(
+            document
+            .getElementById("fps")
+            .value
+        );
+
+
+    const hz =
+        Number(
+            document
+            .getElementById("hz")
+            .value
+        );
+
+
+    if (
+        fps >= 90
+        ||
+        hz >= 120
+    ) {
+
+        return "Smooth + максимальный доступный FPS";
+    }
+
+
+    if (
+        fps >= 60
+    ) {
+
+        return "Smooth или Standard + High FPS";
+    }
+
+
+    return "Smooth + стабильный FPS";
+}
+
+
+function getFireRecommendation() {
+
+    const current =
+        Number(
+            document
+            .getElementById(
+                "fireSize"
+            )
+            .value
+        );
+
+
+    const style =
+        document
+        .getElementById(
+            "style"
+        )
+        .value;
+
+
+    let result =
+        current;
+
+
+    if (
+        style === "drag"
+    ) {
+
+        result -= 3;
+    }
+
+
+    if (
+        style === "control"
+    ) {
+
+        result += 3;
+    }
+
+
+    return clamp(
+        result,
+        30,
+        75
+    );
+}
+
+
+function renderPhoneRecommendations() {
+
+    const box =
+        document
+        .getElementById(
+            "phoneRecommendations"
+        );
+
+
+    box.innerHTML =
+        `
+        <div class="summary-box">
+            <span>Кнопка огня</span>
+            <strong>
+                ${getFireRecommendation()}%
+            </strong>
+        </div>
+
+        <div class="summary-box">
+            <span>Графика</span>
+            <strong>
+                ${getRecommendedGraphics()}
+            </strong>
+        </div>
+        `;
+}
+
+
+function backToSetup() {
 
     document
-    .getElementById("profileCard")
+    .getElementById(
+        "profileCard"
+    )
     .classList.add(
         "hidden"
     );
 
 
     document
-    .getElementById("setupCard")
+    .getElementById(
+        "setupCard"
+    )
     .classList.remove(
         "hidden"
     );
@@ -1265,26 +2380,70 @@ function resetSetup() {
 
 function startCalibration() {
 
-    testIndex =
-        0;
+    calibrationRound = 0;
+
+    testIndex = 0;
+
+    goodResults = 0;
+
+    totalTests = 0;
 
 
     document
-    .getElementById("profileCard")
+    .getElementById(
+        "profileCard"
+    )
     .classList.add(
         "hidden"
     );
 
 
     document
-    .getElementById("resultCard")
+    .getElementById(
+        "resultCard"
+    )
     .classList.remove(
         "active"
     );
 
 
     document
-    .getElementById("testCard")
+    .getElementById(
+        "testCard"
+    )
+    .classList.add(
+        "active"
+    );
+
+
+    showCurrentTest();
+}
+
+
+function startFineCalibration() {
+
+    calibrationRound += 1;
+
+    testIndex = 0;
+
+    goodResults = 0;
+
+    totalTests = 0;
+
+
+    document
+    .getElementById(
+        "resultCard"
+    )
+    .classList.remove(
+        "active"
+    );
+
+
+    document
+    .getElementById(
+        "testCard"
+    )
     .classList.add(
         "active"
     );
@@ -1296,10 +2455,11 @@ function startCalibration() {
 
 function showCurrentTest() {
 
+    resetTestSelection();
+
+
     const test =
-        tests[
-            testIndex
-        ];
+        tests[testIndex];
 
 
     const percent =
@@ -1313,7 +2473,9 @@ function showCurrentTest() {
 
 
     document
-    .getElementById("progressBar")
+    .getElementById(
+        "progressBar"
+    )
     .style
     .width =
         percent
@@ -1322,87 +2484,367 @@ function showCurrentTest() {
 
 
     document
-    .getElementById("testNumber")
+    .getElementById(
+        "testNumber"
+    )
     .textContent =
         `Шаг ${testIndex + 1} из ${tests.length}`;
 
 
     document
-    .getElementById("testTitle")
+    .getElementById(
+        "testTitle"
+    )
     .textContent =
         test.title;
 
 
     document
-    .getElementById("testDescription")
+    .getElementById(
+        "testDescription"
+    )
     .textContent =
         test.description;
+
+
+    document
+    .getElementById(
+        "currentValue"
+    )
+    .textContent =
+        `Текущее значение: ${sensitivity[test.key]}`;
 }
 
 
-function answerTest(
-    answer
+function resetTestSelection() {
+
+    selectedDirection =
+        null;
+
+
+    selectedSeverity =
+        null;
+
+
+    [
+        "highButton",
+        "goodButton",
+        "lowButton"
+    ]
+    .forEach(
+        id => {
+
+            document
+            .getElementById(id)
+            .className =
+                "direction";
+        }
+    );
+
+
+    document
+    .getElementById(
+        "severityWrap"
+    )
+    .classList.remove(
+        "show"
+    );
+
+
+    document
+    .querySelectorAll(
+        ".severity button"
+    )
+    .forEach(
+        button => {
+
+            button.classList.remove(
+                "active"
+            );
+        }
+    );
+
+
+    document
+    .getElementById(
+        "nextTestButton"
+    )
+    .classList.remove(
+        "ready"
+    );
+}
+
+
+function selectDirection(
+    direction
 ) {
 
-    const test =
-        tests[
-            testIndex
+    selectedDirection =
+        direction;
+
+
+    document
+    .getElementById(
+        "highButton"
+    )
+    .className =
+        "direction";
+
+
+    document
+    .getElementById(
+        "goodButton"
+    )
+    .className =
+        "direction";
+
+
+    document
+    .getElementById(
+        "lowButton"
+    )
+    .className =
+        "direction";
+
+
+    const id =
+        direction
+        === "high"
+        ?
+        "highButton"
+        :
+        direction
+        === "low"
+        ?
+        "lowButton"
+        :
+        "goodButton";
+
+
+    document
+    .getElementById(id)
+    .classList.add(
+        direction
+        === "high"
+        ?
+        "selected-high"
+        :
+        direction
+        === "low"
+        ?
+        "selected-low"
+        :
+        "selected-good"
+    );
+
+
+    if (
+        direction === "good"
+    ) {
+
+        selectedSeverity = 0;
+
+
+        document
+        .getElementById(
+            "severityWrap"
+        )
+        .classList.remove(
+            "show"
+        );
+
+
+        document
+        .getElementById(
+            "nextTestButton"
+        )
+        .classList.add(
+            "ready"
+        );
+
+    } else {
+
+        selectedSeverity =
+            null;
+
+
+        document
+        .getElementById(
+            "severityWrap"
+        )
+        .classList.add(
+            "show"
+        );
+
+
+        document
+        .getElementById(
+            "nextTestButton"
+        )
+        .classList.remove(
+            "ready"
+        );
+    }
+}
+
+
+function selectSeverity(
+    value
+) {
+
+    selectedSeverity =
+        value;
+
+
+    const buttons =
+        document
+        .querySelectorAll(
+            ".severity button"
+        );
+
+
+    buttons.forEach(
+        (
+            button,
+            index
+        ) => {
+
+            button.classList.toggle(
+                "active",
+                index + 1 === value
+            );
+        }
+    );
+
+
+    document
+    .getElementById(
+        "nextTestButton"
+    )
+    .classList.add(
+        "ready"
+    );
+}
+
+
+function getAdaptiveStep(
+    severity
+) {
+
+    /*
+        First calibration:
+        larger corrections.
+
+        Fine calibration:
+        smaller corrections.
+    */
+
+    const baseSteps =
+        calibrationRound === 0
+        ?
+        [
+            0,
+            2,
+            4,
+            6,
+            9,
+            12
+        ]
+        :
+        calibrationRound === 1
+        ?
+        [
+            0,
+            1,
+            2,
+            3,
+            5,
+            7
+        ]
+        :
+        [
+            0,
+            1,
+            1,
+            2,
+            3,
+            4
         ];
+
+
+    return baseSteps[
+        severity
+    ]
+    ||
+    0;
+}
+
+
+function applyTestResult() {
+
+    if (
+        selectedDirection === null
+        ||
+        selectedSeverity === null
+    ) {
+
+        return;
+    }
+
+
+    const test =
+        tests[testIndex];
 
 
     const key =
         test.key;
 
 
-    let step =
-        5;
-
-
-    /*
-        General changes a little more.
-    */
-
-    if (
-        key === "general"
-    ) {
-        step = 6;
-    }
+    totalTests++;
 
 
     if (
-        answer === "high"
+        selectedDirection
+        === "good"
     ) {
 
-        sensitivity[
-            key
-        ] =
-            clamp(
-                sensitivity[key]
-                -
-                step
+        goodResults++;
+
+    } else {
+
+        const step =
+            getAdaptiveStep(
+                selectedSeverity
             );
+
+
+        if (
+            selectedDirection
+            === "high"
+        ) {
+
+            sensitivity[key] =
+                clamp(
+                    sensitivity[key]
+                    -
+                    step
+                );
+        }
+
+
+        if (
+            selectedDirection
+            === "low"
+        ) {
+
+            sensitivity[key] =
+                clamp(
+                    sensitivity[key]
+                    +
+                    step
+                );
+        }
     }
-
-
-    if (
-        answer === "low"
-    ) {
-
-        sensitivity[
-            key
-        ] =
-            clamp(
-                sensitivity[key]
-                +
-                step
-            );
-    }
-
-
-    /*
-        Good result:
-        no change.
-    */
 
 
     testIndex++;
@@ -1424,226 +2866,602 @@ function answerTest(
 }
 
 
+function calculateConfidence() {
+
+    const goodRatio =
+        totalTests
+        ?
+        goodResults
+        /
+        totalTests
+        :
+        0;
+
+
+    let base =
+        60
+        +
+        (
+            calibrationRound
+            *
+            9
+        );
+
+
+    base +=
+        goodRatio
+        *
+        25;
+
+
+    return clamp(
+        base,
+        55,
+        98
+    );
+}
+
+
 function finishCalibration() {
 
     document
-    .getElementById("progressBar")
-    .style
-    .width =
-        "100%";
-
-
-    document
-    .getElementById("testCard")
+    .getElementById(
+        "testCard"
+    )
     .classList.remove(
         "active"
     );
 
 
-    renderProfile(
+    renderSensitivity(
         "resultGrid"
     );
 
 
+    const confidence =
+        calculateConfidence();
+
+
     document
-    .getElementById("resultTip")
+    .getElementById(
+        "confidenceValue"
+    )
     .textContent =
-        "Сделай 10–20 одинаковых оттяжек. "
+        confidence
         +
-        "Если результат всё ещё нестабилный, "
-        +
-        "нажми «Ещё тест». "
-        +
-        "Лучше менять настройки небольшими шагами.";
+        "%";
 
 
     document
-    .getElementById("resultCard")
+    .getElementById(
+        "confidenceFill"
+    )
+    .style
+    .width =
+        confidence
+        +
+        "%";
+
+
+    renderResultSummary();
+
+
+    let message =
+        "";
+
+
+    if (
+        confidence < 75
+    ) {
+
+        message =
+            "Профиль уже настроен, но лучше пройти ещё одну точную доводку.";
+
+    } else if (
+        confidence < 90
+    ) {
+
+        message =
+            "Профиль близок к стабильному. "
+            +
+            "Ещё одна доводка позволит перейти к изменениям по 1–3 пункта.";
+
+    } else {
+
+        message =
+            "Настройки уже достаточно хорошо сходятся. "
+            +
+            "Не меняй сразу большие значения: проверяй их сериями по 10–20 оттяжек.";
+    }
+
+
+    document
+    .getElementById(
+        "resultTip"
+    )
+    .textContent =
+        message;
+
+
+    document
+    .getElementById(
+        "resultCard"
+    )
     .classList.add(
         "active"
     );
 }
 
 
-function restartCalibration() {
+function renderResultSummary() {
 
-    document
-    .getElementById("resultCard")
-    .classList.remove(
-        "active"
-    );
-
-
-    startCalibration();
-}
-
-
-function saveProfile() {
-
-    const device =
+    const style =
         document
-        .getElementById("device")
-        .value
+        .getElementById(
+            "style"
+        )
+        .selectedOptions[0]
+        .textContent
         .trim();
 
 
-    const data = {
+    const weapon =
+        document
+        .getElementById(
+            "weapon"
+        )
+        .selectedOptions[0]
+        .textContent
+        .trim();
+
+
+    const box =
+        document
+        .getElementById(
+            "resultSummary"
+        );
+
+
+    box.innerHTML =
+        `
+        <div class="summary-box">
+            <span>Кнопка огня</span>
+            <strong>
+                ${getFireRecommendation()}%
+            </strong>
+        </div>
+
+        <div class="summary-box">
+            <span>Графика</span>
+            <strong>
+                ${getRecommendedGraphics()}
+            </strong>
+        </div>
+
+        <div class="summary-box">
+            <span>Стиль</span>
+            <strong>
+                ${style}
+            </strong>
+        </div>
+
+        <div class="summary-box">
+            <span>Оружие</span>
+            <strong>
+                ${weapon}
+            </strong>
+        </div>
+        `;
+}
+
+
+function getProfiles() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage
+                .getItem(
+                    PROFILE_STORAGE
+                )
+                ||
+                "[]"
+            );
+
+
+        return Array.isArray(data)
+        ?
+        data
+        :
+        [];
+
+    } catch {
+
+        return [];
+    }
+}
+
+
+function saveCurrentProfile() {
+
+    const profiles =
+        getProfiles();
+
+
+    const device =
+        document
+        .getElementById(
+            "device"
+        )
+        .value
+        .trim()
+        ||
+        "Free Fire Profile";
+
+
+    const profile = {
+
+        id:
+            Date.now(),
 
         device:
             device,
 
         hz:
             document
-            .getElementById("hz")
+            .getElementById(
+                "hz"
+            )
             .value,
 
         fps:
             document
-            .getElementById("fps")
+            .getElementById(
+                "fps"
+            )
             .value,
 
         fireSize:
+            getFireRecommendation(),
+
+        fingers:
             document
-            .getElementById("fireSize")
+            .getElementById(
+                "fingers"
+            )
             .value,
 
         style:
             document
-            .getElementById("style")
+            .getElementById(
+                "style"
+            )
             .value,
 
         dragLength:
             document
-            .getElementById("dragLength")
+            .getElementById(
+                "dragLength"
+            )
+            .value,
+
+        weapon:
+            document
+            .getElementById(
+                "weapon"
+            )
+            .value,
+
+        graphics:
+            document
+            .getElementById(
+                "graphics"
+            )
             .value,
 
         sensitivity:
-            sensitivity,
+            {
+                ...sensitivity
+            },
+
+        confidence:
+            calculateConfidence(),
 
         savedAt:
             new Date()
             .toISOString()
-
     };
 
 
+    profiles.unshift(
+        profile
+    );
+
+
     localStorage.setItem(
-        STORAGE_KEY,
+        PROFILE_STORAGE,
         JSON.stringify(
-            data
+            profiles.slice(
+                0,
+                10
+            )
         )
     );
 
 
+    renderSavedProfiles();
+
+
     alert(
-        "Профиль сохранён на этом устройстве ✅"
+        "Профиль сохранён ✅"
     );
 }
 
 
-function loadSavedProfile() {
+function loadProfile(
+    id
+) {
 
-    try {
-
-        const saved =
-            JSON.parse(
-                localStorage
-                .getItem(
-                    STORAGE_KEY
-                )
-            );
-
-
-        if (
-            !saved
-            ||
-            !saved.sensitivity
-        ) {
-
-            return;
-        }
-
-
-        sensitivity =
-            saved.sensitivity;
-
-
-        if (
-            saved.device
-        ) {
-
-            document
-            .getElementById("device")
-            .value =
-                saved.device;
-        }
-
-
-        if (
-            saved.hz
-        ) {
-
-            document
-            .getElementById("hz")
-            .value =
-                saved.hz;
-        }
-
-
-        if (
-            saved.fps
-        ) {
-
-            document
-            .getElementById("fps")
-            .value =
-                saved.fps;
-        }
-
-
-        if (
-            saved.fireSize
-        ) {
-
-            document
-            .getElementById("fireSize")
-            .value =
-                saved.fireSize;
-        }
-
-
-        if (
-            saved.style
-        ) {
-
-            document
-            .getElementById("style")
-            .value =
-                saved.style;
-        }
-
-
-        if (
-            saved.dragLength
-        ) {
-
-            document
-            .getElementById("dragLength")
-            .value =
-                saved.dragLength;
-        }
-
-    } catch (error) {
-
-        console.log(
-            "Saved Free Fire profile error:",
-            error
+    const profile =
+        getProfiles()
+        .find(
+            item =>
+                item.id
+                === id
         );
+
+
+    if (!profile) {
+        return;
     }
+
+
+    sensitivity =
+        {
+            ...profile.sensitivity
+        };
+
+
+    initialSensitivity =
+        {
+            ...profile.sensitivity
+        };
+
+
+    document
+    .getElementById(
+        "device"
+    )
+    .value =
+        profile.device
+        ||
+        "";
+
+
+    [
+        "hz",
+        "fps",
+        "fingers",
+        "style",
+        "dragLength",
+        "weapon",
+        "graphics"
+    ]
+    .forEach(
+        key => {
+
+            if (
+                profile[key]
+                !== undefined
+            ) {
+
+                document
+                .getElementById(key)
+                .value =
+                    String(
+                        profile[key]
+                    );
+            }
+        }
+    );
+
+
+    document
+    .getElementById(
+        "fireSize"
+    )
+    .value =
+        profile.fireSize
+        ||
+        50;
+
+
+    document
+    .getElementById(
+        "setupCard"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "profileCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    renderSensitivity(
+        "profileGrid"
+    );
+
+
+    renderPhoneRecommendations();
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
-loadSavedProfile();
+function deleteProfile(
+    id
+) {
+
+    const profiles =
+        getProfiles()
+        .filter(
+            item =>
+                item.id
+                !== id
+        );
+
+
+    localStorage.setItem(
+        PROFILE_STORAGE,
+        JSON.stringify(
+            profiles
+        )
+    );
+
+
+    renderSavedProfiles();
+}
+
+
+function renderSavedProfiles() {
+
+    const box =
+        document
+        .getElementById(
+            "savedProfiles"
+        );
+
+
+    const profiles =
+        getProfiles();
+
+
+    box.innerHTML =
+        "";
+
+
+    if (
+        profiles.length
+        === 0
+    ) {
+
+        box.innerHTML =
+            `
+            <div class="section-note">
+                Пока нет сохранённых профилей.
+            </div>
+            `;
+
+        return;
+    }
+
+
+    profiles.forEach(
+        profile => {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "profile-item";
+
+
+            const date =
+                new Date(
+                    profile.savedAt
+                )
+                .toLocaleDateString(
+                    "ru-RU"
+                );
+
+
+            div.innerHTML =
+                `
+                <div>
+                    <div class="profile-name">
+                        ${escapeHtml(profile.device)}
+                    </div>
+
+                    <div class="profile-meta">
+                        ${profile.hz} Hz •
+                        ${profile.fps} FPS •
+                        ${profile.confidence || "—"}%
+                        • ${date}
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+
+                    <button
+                        class="mini"
+                        onclick="loadProfile(${profile.id})"
+                    >
+                        Открыть
+                    </button>
+
+                    <button
+                        class="mini"
+                        onclick="deleteProfile(${profile.id})"
+                    >
+                        🗑️
+                    </button>
+
+                </div>
+                `;
+
+
+            box.appendChild(
+                div
+            );
+        }
+    );
+}
+
+
+function escapeHtml(
+    value
+) {
+
+    return String(value)
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+}
+
+
+renderSavedProfiles();
 
 </script>
 
