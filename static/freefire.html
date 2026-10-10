@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
-    <title>Free Fire Calibrator v3 — Wiens AI</title>
+    <title>Free Fire Calibrator v4 — Wiens AI</title>
 
     <meta
         name="theme-color"
@@ -24,17 +24,20 @@
 
         :root {
             --bg: #080a10;
-            --panel: rgba(21,23,34,.96);
+            --panel: rgba(20,22,34,.96);
             --panel2: rgba(255,255,255,.055);
             --border: rgba(255,255,255,.10);
-            --text: #fff;
-            --muted: #9898a8;
+
+            --text: #ffffff;
+            --muted: #9898aa;
+
             --purple: #725cff;
-            --purple2: #a967ff;
-            --green: #45e49a;
-            --yellow: #ffc75c;
+            --purple2: #a866ff;
+
+            --green: #46e49b;
+            --yellow: #ffc65c;
             --red: #ff6079;
-            --blue: #63b8ff;
+            --blue: #61b7ff;
         }
 
         html,
@@ -54,9 +57,9 @@
             background:
                 radial-gradient(
                     circle at top,
-                    #24164d 0%,
-                    #10131d 31%,
-                    #080a10 74%
+                    #25164e 0%,
+                    #11131d 30%,
+                    #080a10 72%
                 );
 
             color: var(--text);
@@ -64,7 +67,7 @@
             padding:
                 calc(12px + env(safe-area-inset-top))
                 14px
-                calc(28px + env(safe-area-inset-bottom));
+                calc(30px + env(safe-area-inset-bottom));
         }
 
         button,
@@ -79,7 +82,7 @@
         }
 
         .app {
-            max-width: 760px;
+            max-width: 780px;
             margin: 0 auto;
         }
 
@@ -109,8 +112,8 @@
             object-fit: cover;
 
             box-shadow:
-                0 0 25px
-                rgba(114,92,255,.45);
+                0 0 26px
+                rgba(114,92,255,.46);
         }
 
         .brand-title {
@@ -156,7 +159,7 @@
                 linear-gradient(
                     135deg,
                     rgba(114,92,255,.24),
-                    rgba(169,103,255,.07)
+                    rgba(168,102,255,.07)
                 );
         }
 
@@ -170,7 +173,7 @@
             border-radius: 30px;
 
             background:
-                rgba(69,228,154,.10);
+                rgba(70,228,155,.10);
 
             color: var(--green);
 
@@ -210,7 +213,7 @@
         }
 
         .note {
-            margin-bottom: 14px;
+            margin-bottom: 13px;
 
             color: var(--muted);
 
@@ -227,7 +230,7 @@
 
             margin-bottom: 7px;
 
-            color: #dedee6;
+            color: #dedee7;
 
             font-size: 13px;
         }
@@ -267,7 +270,8 @@
         }
 
         .primary,
-        .secondary {
+        .secondary,
+        .danger {
             width: 100%;
 
             padding: 14px;
@@ -299,8 +303,27 @@
                 rgba(255,255,255,.06);
         }
 
+        .danger {
+            border:
+                1px solid rgba(255,96,121,.30);
+
+            background:
+                rgba(255,96,121,.10);
+        }
+
         .hidden {
             display: none !important;
+        }
+
+        .buttons {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 9px;
+
+            margin-top: 14px;
         }
 
         .sens-grid {
@@ -339,20 +362,47 @@
         .sens-range {
             margin-top: 4px;
 
-            color: #bcb5ff;
+            color: #beb7ff;
 
             font-size: 10px;
         }
 
-        .buttons {
-            display: grid;
+        .weapon-tabs {
+            display: flex;
 
-            grid-template-columns:
-                1fr 1fr;
+            gap: 7px;
 
-            gap: 9px;
+            overflow-x: auto;
 
-            margin-top: 14px;
+            padding-bottom: 6px;
+
+            margin-bottom: 14px;
+        }
+
+        .weapon-tab {
+            flex-shrink: 0;
+
+            padding: 9px 11px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+
+            font-size: 12px;
+        }
+
+        .weapon-tab.active {
+            background:
+                rgba(114,92,255,.22);
+
+            border-color:
+                rgba(168,102,255,.55);
         }
 
         .progress {
@@ -381,21 +431,19 @@
                     var(--purple),
                     var(--purple2)
                 );
-
-            transition: width .25s ease;
         }
 
         .test-label {
             margin-bottom: 6px;
 
-            color: #aea2ff;
+            color: #afa4ff;
 
             font-size: 12px;
             font-weight: 700;
         }
 
         .test-title {
-            margin-bottom: 8px;
+            margin-bottom: 7px;
 
             font-size: 22px;
             font-weight: 800;
@@ -426,14 +474,14 @@
         }
 
         .current-big {
-            font-size: 29px;
+            font-size: 31px;
             font-weight: 850;
         }
 
         .current-range {
             margin-top: 3px;
 
-            color: #bbb3ff;
+            color: #bcb4ff;
 
             font-size: 11px;
         }
@@ -460,28 +508,28 @@
             color: white;
         }
 
-        .direction button.active-high {
+        .direction button.high {
             border-color:
-                rgba(255,96,121,.65);
+                rgba(255,96,121,.60);
 
             background:
                 rgba(255,96,121,.10);
         }
 
-        .direction button.active-good {
+        .direction button.good {
             border-color:
-                rgba(69,228,154,.65);
+                rgba(70,228,155,.60);
 
             background:
-                rgba(69,228,154,.10);
+                rgba(70,228,155,.10);
         }
 
-        .direction button.active-low {
+        .direction button.low {
             border-color:
-                rgba(255,199,92,.65);
+                rgba(255,198,92,.60);
 
             background:
-                rgba(255,199,92,.10);
+                rgba(255,198,92,.10);
         }
 
         .hits-grid {
@@ -510,26 +558,152 @@
         }
 
         .hits-grid button.active {
+            border-color:
+                rgba(168,102,255,.65);
+
             background:
                 rgba(114,92,255,.28);
-
-            border-color:
-                rgba(169,103,255,.65);
         }
 
-        .confidence {
-            padding: 14px;
+        .chart-wrap {
+            width: 100%;
 
-            margin-bottom: 14px;
+            overflow: hidden;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            padding: 9px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 230px;
+
+            display: block;
+        }
+
+        .chart-controls {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 8px;
+
+            margin-bottom: 10px;
+        }
+
+        .best-card {
+            margin-top: 12px;
+
+            padding: 14px;
 
             border:
                 1px solid
-                rgba(69,228,154,.22);
+                rgba(70,228,155,.24);
 
             border-radius: 15px;
 
             background:
-                rgba(69,228,154,.07);
+                rgba(70,228,155,.07);
+        }
+
+        .best-title {
+            margin-bottom: 8px;
+
+            color: #bdf7d9;
+
+            font-size: 12px;
+        }
+
+        .best-value {
+            font-size: 28px;
+            font-weight: 850;
+        }
+
+        .best-meta {
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 8px;
+        }
+
+        .stat {
+            padding: 11px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.04);
+        }
+
+        .stat span {
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .stat strong {
+            display: block;
+
+            margin-top: 4px;
+
+            font-size: 15px;
+        }
+
+        .history-row {
+            margin-top: 8px;
+
+            padding: 10px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            color: #ccccd7;
+
+            font-size: 11px;
+        }
+
+        .confidence {
+            margin-bottom: 14px;
+
+            padding: 14px;
+
+            border:
+                1px solid
+                rgba(70,228,155,.22);
+
+            border-radius: 15px;
+
+            background:
+                rgba(70,228,155,.07);
         }
 
         .confidence-top {
@@ -564,71 +738,14 @@
                 linear-gradient(
                     90deg,
                     #4ddd91,
-                    #77f4b3
+                    #76f3b1
                 );
-        }
-
-        .stats {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2,1fr);
-
-            gap: 8px;
-
-            margin-top: 12px;
-        }
-
-        .stat {
-            padding: 11px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 13px;
-
-            background:
-                rgba(255,255,255,.04);
-        }
-
-        .stat span {
-            display: block;
-
-            color: var(--muted);
-
-            font-size: 10px;
-        }
-
-        .stat strong {
-            display: block;
-
-            margin-top: 4px;
-
-            font-size: 14px;
-        }
-
-        .history-row {
-            margin-top: 8px;
-
-            padding: 10px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.035);
-
-            font-size: 11px;
-
-            color: #cacad4;
         }
 
         .profile-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
 
             gap: 8px;
 
@@ -643,6 +760,19 @@
 
             background:
                 rgba(255,255,255,.04);
+        }
+
+        .profile-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .profile-meta {
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
         }
 
         .mini {
@@ -669,10 +799,10 @@
         }
 
         @media(max-width:560px) {
-
             .grid-2,
             .sens-grid,
-            .stats {
+            .stats,
+            .chart-controls {
                 grid-template-columns: 1fr;
             }
 
@@ -695,6 +825,7 @@
             <img
                 class="logo"
                 src="/static/logo.png.PNG"
+                alt="Wiens AI"
             >
 
             <div>
@@ -704,7 +835,7 @@
                 </div>
 
                 <div class="brand-subtitle">
-                    Free Fire Calibrator v3
+                    Free Fire Calibrator v4
                 </div>
 
             </div>
@@ -725,17 +856,17 @@
     <section class="hero">
 
         <div class="badge">
-            🧠 Adaptive Search v3
+            🧠 Learning Calibration v4
         </div>
 
         <h1>
-            Точная калибровка
+            Free Fire Lab
         </h1>
 
         <p>
-            Wiens AI постепенно сужает диапазон чувствительности,
-            сравнивает серии из 10 попыток и ищет наиболее
-            стабильную рабочую зону.
+            Теперь калибратор запоминает результаты
+            тренировок, разделяет оружие и ищет значения,
+            которые дают лучший средний результат.
         </p>
 
     </section>
@@ -747,7 +878,7 @@
     >
 
         <h2>
-            📱 Исходные данные
+            📱 Профиль игрока
         </h2>
 
 
@@ -770,7 +901,7 @@
             <div class="field">
 
                 <label>
-                    Экран
+                    Частота экрана
                 </label>
 
                 <select id="hz">
@@ -832,7 +963,7 @@
             <div class="field">
 
                 <label>
-                    Кнопка огня %
+                    Размер кнопки огня %
                 </label>
 
                 <input
@@ -849,7 +980,7 @@
             <div class="field">
 
                 <label>
-                    Количество пальцев
+                    Пальцы
                 </label>
 
                 <select id="fingers">
@@ -938,11 +1069,48 @@
         </div>
 
 
+        <div class="field">
+
+            <label>
+                Что сейчас настраиваем?
+            </label>
+
+            <select id="weapon">
+
+                <option value="deagle">
+                    Desert Eagle
+                </option>
+
+                <option value="smg">
+                    SMG
+                </option>
+
+                <option value="ar">
+                    AR
+                </option>
+
+                <option value="shotgun">
+                    Shotgun
+                </option>
+
+                <option value="sniper">
+                    Sniper
+                </option>
+
+                <option value="all">
+                    Универсальный профиль
+                </option>
+
+            </select>
+
+        </div>
+
+
         <button
             class="primary"
             onclick="createStartProfile()"
         >
-            🎯 Создать стартовый профиль
+            🎯 Создать профиль
         </button>
 
     </section>
@@ -954,8 +1122,9 @@
     >
 
         <h2>
-            Стартовые значения
+            Стартовые настройки
         </h2>
+
 
         <div
             class="sens-grid"
@@ -976,7 +1145,7 @@
                 class="primary"
                 onclick="startCalibration()"
             >
-                Начать тест →
+                Начать тренировку
             </button>
 
         </div>
@@ -1013,8 +1182,11 @@
 
         <div
             class="test-text"
-            id="testText"
-        ></div>
+        >
+            Выставь показанное значение в игре.
+            Сделай 10 максимально одинаковых оттяжек
+            и запиши средний результат.
+        </div>
 
 
         <div class="current-box">
@@ -1038,29 +1210,28 @@
                 id="highBtn"
                 onclick="chooseDirection('high')"
             >
-                ⬆️ Перелетает выше головы
+                ⬆️ Перелетает
             </button>
 
             <button
                 id="goodBtn"
                 onclick="chooseDirection('good')"
             >
-                ✅ По высоте нормально
+                ✅ По высоте хорошо
             </button>
 
             <button
                 id="lowBtn"
                 onclick="chooseDirection('low')"
             >
-                ⬇️ Не дотягивает до головы
+                ⬇️ Не дотягивает
             </button>
 
         </div>
 
 
         <div class="note">
-            Сколько из 10 одинаковых попыток
-            получилось хорошо?
+            Сколько хороших оттяжек получилось из 10?
         </div>
 
 
@@ -1074,7 +1245,7 @@
             class="primary"
             onclick="submitTest()"
         >
-            Сохранить результат →
+            Сохранить серию →
         </button>
 
 
@@ -1095,7 +1266,7 @@
             <div class="confidence-top">
 
                 <span>
-                    Стабильность профиля
+                    Стабильность
                 </span>
 
                 <span
@@ -1106,6 +1277,7 @@
                 </span>
 
             </div>
+
 
             <div class="confidence-bar">
 
@@ -1121,7 +1293,7 @@
 
 
         <h2>
-            🎯 Текущий профиль
+            🎯 Текущие настройки
         </h2>
 
 
@@ -1131,36 +1303,167 @@
         ></div>
 
 
-        <div
-            class="stats"
-            id="resultStats"
-        ></div>
-
-
         <div class="buttons">
 
             <button
                 class="secondary"
-                onclick="continueFineTune()"
+                onclick="continueCalibration()"
             >
-                🔬 Довести точнее
+                🔬 Ещё серия
             </button>
 
             <button
                 class="primary"
                 onclick="saveProfile()"
             >
-                💾 Сохранить
+                💾 Сохранить профиль
             </button>
 
         </div>
 
+    </section>
 
-        <div class="warning">
-            Процент означает стабильность результатов
-            твоих тестов, а не гарантированный процент headshot.
-            Настройки меняются только через обычное меню игры.
+
+    <section class="card">
+
+        <h2>
+            📊 Статистика тренировок
+        </h2>
+
+
+        <div class="chart-controls">
+
+            <select
+                id="statsWeapon"
+                onchange="refreshAnalytics()"
+            >
+
+                <option value="deagle">
+                    Desert Eagle
+                </option>
+
+                <option value="smg">
+                    SMG
+                </option>
+
+                <option value="ar">
+                    AR
+                </option>
+
+                <option value="shotgun">
+                    Shotgun
+                </option>
+
+                <option value="sniper">
+                    Sniper
+                </option>
+
+                <option value="all">
+                    Универсальный
+                </option>
+
+            </select>
+
+
+            <select
+                id="statsSetting"
+                onchange="refreshAnalytics()"
+            >
+
+                <option value="general">
+                    General
+                </option>
+
+                <option value="redDot">
+                    Red Dot
+                </option>
+
+                <option value="scope2x">
+                    2x Scope
+                </option>
+
+                <option value="scope4x">
+                    4x Scope
+                </option>
+
+                <option value="sniper">
+                    Sniper
+                </option>
+
+            </select>
+
         </div>
+
+
+        <div class="chart-wrap">
+
+            <canvas
+                id="chart"
+                width="700"
+                height="230"
+            ></canvas>
+
+        </div>
+
+
+        <div
+            class="best-card"
+            id="bestCard"
+        >
+
+            <div class="best-title">
+                🏆 Лучшее значение
+            </div>
+
+            <div
+                class="best-value"
+                id="bestValue"
+            >
+                —
+            </div>
+
+            <div
+                class="best-meta"
+                id="bestMeta"
+            >
+                Нужно провести несколько серий.
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary"
+            style="margin-top:12px"
+            onclick="findBestProfile()"
+        >
+            🏆 Найти лучший профиль
+        </button>
+
+    </section>
+
+
+    <section
+        class="card hidden"
+        id="bestProfileCard"
+    >
+
+        <h2>
+            🏆 Лучший профиль по статистике
+        </h2>
+
+
+        <div
+            class="sens-grid"
+            id="bestProfileGrid"
+        ></div>
+
+
+        <div
+            class="note"
+            id="bestProfileNote"
+            style="margin-top:12px"
+        ></div>
 
     </section>
 
@@ -1177,25 +1480,48 @@
 
     </section>
 
+
+    <section class="card">
+
+        <h2>
+            🗂 Данные тренировок
+        </h2>
+
+        <div class="note">
+            Эти результаты хранятся только
+            в браузере на этом устройстве.
+        </div>
+
+        <button
+            class="danger"
+            onclick="clearTrainingData()"
+        >
+            🗑 Очистить статистику
+        </button>
+
+        <div class="warning">
+            Калибратор не изменяет файлы игры
+            и не вмешивается в Free Fire.
+            Он только помогает подобрать обычные
+            настройки чувствительности.
+        </div>
+
+    </section>
+
 </div>
 
 
 <script>
 
-const STORAGE_KEY =
-    "wiens_ff_v3_profiles";
+const DATA_KEY =
+    "wiens_ff_v4_training";
 
-
-const settingsOrder = [
-    "general",
-    "redDot",
-    "scope2x",
-    "scope4x",
-    "sniper"
-];
+const PROFILE_KEY =
+    "wiens_ff_v4_profiles";
 
 
 const labels = {
+
     general:
         "General",
 
@@ -1216,19 +1542,91 @@ const labels = {
 };
 
 
+const weaponLabels = {
+
+    deagle:
+        "Desert Eagle",
+
+    smg:
+        "SMG",
+
+    ar:
+        "AR",
+
+    shotgun:
+        "Shotgun",
+
+    sniper:
+        "Sniper",
+
+    all:
+        "Universal"
+};
+
+
+const weaponSettings = {
+
+    deagle: [
+        "general",
+        "redDot"
+    ],
+
+    smg: [
+        "general",
+        "redDot",
+        "scope2x"
+    ],
+
+    ar: [
+        "general",
+        "redDot",
+        "scope2x",
+        "scope4x"
+    ],
+
+    shotgun: [
+        "general"
+    ],
+
+    sniper: [
+        "general",
+        "scope4x",
+        "sniper"
+    ],
+
+    all: [
+        "general",
+        "redDot",
+        "scope2x",
+        "scope4x",
+        "sniper"
+    ]
+};
+
+
 let values = {};
 
 let ranges = {};
 
-let testIndex = 0;
+let currentSettings = [];
 
-let round = 0;
+let activeWeapon =
+    "deagle";
 
-let selectedDirection = null;
+let testIndex =
+    0;
 
-let selectedHits = null;
+let round =
+    0;
 
-let testHistory = [];
+let selectedDirection =
+    null;
+
+let selectedHits =
+    null;
+
+let sessionHistory =
+    [];
 
 
 function clamp(
@@ -1244,6 +1642,73 @@ function clamp(
             Math.round(value)
         )
     );
+}
+
+
+function getTrainingData() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage
+                .getItem(
+                    DATA_KEY
+                )
+                ||
+                "[]"
+            );
+
+
+        return Array.isArray(data)
+            ?
+            data
+            :
+            [];
+
+    } catch {
+
+        return [];
+    }
+}
+
+
+function saveTrainingData(
+    data
+) {
+
+    localStorage.setItem(
+        DATA_KEY,
+        JSON.stringify(data)
+    );
+}
+
+
+function getProfiles() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage
+                .getItem(
+                    PROFILE_KEY
+                )
+                ||
+                "[]"
+            );
+
+
+        return Array.isArray(data)
+            ?
+            data
+            :
+            [];
+
+    } catch {
+
+        return [];
+    }
 }
 
 
@@ -1291,6 +1756,18 @@ function createStartProfile() {
         document
         .getElementById("drag")
         .value;
+
+
+    activeWeapon =
+        document
+        .getElementById("weapon")
+        .value;
+
+
+    currentSettings =
+        weaponSettings[
+            activeWeapon
+        ];
 
 
     let general =
@@ -1379,6 +1856,27 @@ function createStartProfile() {
     }
 
 
+    if (
+        activeWeapon === "deagle"
+    ) {
+        general += 5;
+    }
+
+
+    if (
+        activeWeapon === "shotgun"
+    ) {
+        general += 6;
+    }
+
+
+    if (
+        activeWeapon === "sniper"
+    ) {
+        general -= 7;
+    }
+
+
     general =
         clamp(general);
 
@@ -1412,31 +1910,26 @@ function createStartProfile() {
             clamp(
                 general - 10
             )
-
     };
 
 
-    /*
-        Each setting starts with
-        a search window around
-        the first estimate.
-    */
-
-    ranges = {};
+    ranges =
+        {};
 
 
-    settingsOrder.forEach(
+    currentSettings.forEach(
         key => {
 
             const radius =
                 key === "sniper"
                 ?
-                22
+                20
                 :
-                28;
+                26;
 
 
             ranges[key] = {
+
                 min:
                     clamp(
                         values[key]
@@ -1451,6 +1944,48 @@ function createStartProfile() {
                         radius
                     )
             };
+        }
+    );
+
+
+    /*
+        If previous data exists,
+        use it to improve starting point.
+    */
+
+    currentSettings.forEach(
+        key => {
+
+            const best =
+                calculateBestValue(
+                    activeWeapon,
+                    key
+                );
+
+
+            if (
+                best
+                &&
+                best.samples >= 2
+            ) {
+
+                values[key] =
+                    best.value;
+
+
+                ranges[key] = {
+
+                    min:
+                        clamp(
+                            best.value - 12
+                        ),
+
+                    max:
+                        clamp(
+                            best.value + 12
+                        )
+                };
+            }
         }
     );
 
@@ -1480,13 +2015,13 @@ function createStartProfile() {
 
 
 function renderSettings(
-    elementId
+    targetId
 ) {
 
     const box =
         document
         .getElementById(
-            elementId
+            targetId
         );
 
 
@@ -1500,6 +2035,18 @@ function renderSettings(
     .forEach(
         key => {
 
+            if (
+                key !== "freeLook"
+                &&
+                !currentSettings.includes(
+                    key
+                )
+            ) {
+
+                return;
+            }
+
+
             const div =
                 document.createElement(
                     "div"
@@ -1510,7 +2057,7 @@ function renderSettings(
                 "sens-box";
 
 
-            let rangeText =
+            let range =
                 "";
 
 
@@ -1518,10 +2065,10 @@ function renderSettings(
                 ranges[key]
             ) {
 
-                rangeText =
+                range =
                     `
                     <div class="sens-range">
-                        Диапазон:
+                        Поиск:
                         ${ranges[key].min}
                         –
                         ${ranges[key].max}
@@ -1540,7 +2087,7 @@ function renderSettings(
                     ${values[key]}
                 </div>
 
-                ${rangeText}
+                ${range}
                 `;
 
 
@@ -1575,11 +2122,14 @@ function editSetup() {
 
 function startCalibration() {
 
-    testIndex = 0;
+    testIndex =
+        0;
 
-    round = 0;
+    round =
+        0;
 
-    testHistory = [];
+    sessionHistory =
+        [];
 
 
     document
@@ -1615,10 +2165,10 @@ function startCalibration() {
 
 function currentKey() {
 
-    return settingsOrder[
+    return currentSettings[
         testIndex
         %
-        settingsOrder.length
+        currentSettings.length
     ];
 }
 
@@ -1636,11 +2186,6 @@ function showTest() {
         currentKey();
 
 
-    /*
-        Always test the midpoint of
-        remaining search interval.
-    */
-
     const midpoint =
         Math.round(
             (
@@ -1657,14 +2202,10 @@ function showTest() {
         midpoint;
 
 
-    const totalSteps =
-        settingsOrder.length;
-
-
-    const localIndex =
+    const indexInRound =
         testIndex
         %
-        totalSteps;
+        currentSettings.length;
 
 
     document
@@ -1674,11 +2215,9 @@ function showTest() {
     .style
     .width =
         (
-            (
-                localIndex
-                /
-                totalSteps
-            )
+            indexInRound
+            /
+            currentSettings.length
             *
             100
         )
@@ -1691,7 +2230,7 @@ function showTest() {
         "testLabel"
     )
     .textContent =
-        `Раунд ${round + 1} • ${localIndex + 1}/${totalSteps}`;
+        `${weaponLabels[activeWeapon]} • Раунд ${round + 1}`;
 
 
     document
@@ -1700,20 +2239,6 @@ function showTest() {
     )
     .textContent =
         labels[key];
-
-
-    document
-    .getElementById(
-        "testText"
-    )
-    .textContent =
-        "Выставь это значение в Free Fire. "
-        +
-        "Сделай 10 максимально одинаковых оттяжек. "
-        +
-        "После этого укажи направление ошибки "
-        +
-        "и количество хороших попыток.";
 
 
     document
@@ -1729,10 +2254,10 @@ function showTest() {
         "currentRange"
     )
     .textContent =
-        `Поиск сейчас: ${ranges[key].min} – ${ranges[key].max}`;
+        `Диапазон поиска: ${ranges[key].min}–${ranges[key].max}`;
 
 
-    resetDirectionButtons();
+    resetDirection();
 
     createHitsButtons();
 
@@ -1740,7 +2265,11 @@ function showTest() {
 }
 
 
-function resetDirectionButtons() {
+function resetDirection() {
+
+    selectedDirection =
+        null;
+
 
     [
         "highBtn",
@@ -1760,47 +2289,39 @@ function resetDirectionButtons() {
 
 
 function chooseDirection(
-    value
+    direction
 ) {
 
+    resetDirection();
+
+
     selectedDirection =
-        value;
-
-
-    resetDirectionButtons();
+        direction;
 
 
     const button =
-        value === "high"
+        direction === "high"
         ?
         document
         .getElementById(
             "highBtn"
         )
         :
-        value === "good"
+        direction === "low"
         ?
         document
         .getElementById(
-            "goodBtn"
+            "lowBtn"
         )
         :
         document
         .getElementById(
-            "lowBtn"
+            "goodBtn"
         );
 
 
     button.classList.add(
-        value === "high"
-        ?
-        "active-high"
-        :
-        value === "good"
-        ?
-        "active-good"
-        :
-        "active-low"
+        direction
     );
 }
 
@@ -1847,20 +2368,15 @@ function createHitsButtons() {
                     "button"
                 )
                 .forEach(
-                    element => {
-
-                        element
-                        .classList
-                        .remove(
+                    item =>
+                        item.classList.remove(
                             "active"
-                        );
-                    }
+                        )
                 );
 
 
                 button
-                .classList
-                .add(
+                .classList.add(
                     "active"
                 );
             };
@@ -1876,15 +2392,13 @@ function createHitsButtons() {
 function submitTest() {
 
     if (
-        selectedDirection
-        === null
+        selectedDirection === null
         ||
-        selectedHits
-        === null
+        selectedHits === null
     ) {
 
         alert(
-            "Выбери направление ошибки и результат из 10 попыток."
+            "Выбери направление и результат из 10."
         );
 
         return;
@@ -1899,14 +2413,55 @@ function submitTest() {
         values[key];
 
 
+    const record = {
+
+        id:
+            Date.now()
+            +
+            Math.random(),
+
+        weapon:
+            activeWeapon,
+
+        setting:
+            key,
+
+        value:
+            value,
+
+        hits:
+            selectedHits,
+
+        direction:
+            selectedDirection,
+
+        date:
+            new Date()
+            .toISOString()
+    };
+
+
+    const allData =
+        getTrainingData();
+
+
+    allData.push(
+        record
+    );
+
+
+    saveTrainingData(
+        allData
+    );
+
+
+    sessionHistory.push(
+        record
+    );
+
+
     /*
-        Range narrowing.
-
-        Too high:
-        correct point should be lower.
-
-        Too low:
-        correct point should be higher.
+        Adaptive search interval
     */
 
     if (
@@ -1933,25 +2488,25 @@ function submitTest() {
 
     } else {
 
-        /*
-            Good height:
-            keep a smaller zone around
-            the current value.
-
-            Better hit rate =
-            tighter interval.
-        */
-
-        const radius =
-            selectedHits >= 8
-            ?
-            2
-            :
-            selectedHits >= 6
-            ?
-            4
-            :
+        let radius =
             6;
+
+
+        if (
+            selectedHits >= 9
+        ) {
+            radius = 2;
+        }
+        else if (
+            selectedHits >= 7
+        ) {
+            radius = 3;
+        }
+        else if (
+            selectedHits >= 5
+        ) {
+            radius = 5;
+        }
 
 
         ranges[key].min =
@@ -1969,10 +2524,6 @@ function submitTest() {
     }
 
 
-    /*
-        Defensive correction.
-    */
-
     if (
         ranges[key].min
         >
@@ -1987,42 +2538,13 @@ function submitTest() {
     }
 
 
-    testHistory.push({
-
-        key:
-            key,
-
-        value:
-            value,
-
-        direction:
-            selectedDirection,
-
-        hits:
-            selectedHits,
-
-        range:
-            {
-                min:
-                    ranges[key].min,
-
-                max:
-                    ranges[key].max
-            }
-    });
-
-
     testIndex++;
 
-
-    /*
-        One full round completed.
-    */
 
     if (
         testIndex
         %
-        settingsOrder.length
+        currentSettings.length
         === 0
     ) {
 
@@ -2031,15 +2553,7 @@ function submitTest() {
 
         if (
             shouldFinish()
-        ) {
-
-            finishCalibration();
-
-            return;
-        }
-
-
-        if (
+            ||
             round >= 5
         ) {
 
@@ -2051,18 +2565,14 @@ function submitTest() {
 
 
     showTest();
+
+    refreshAnalytics();
 }
 
 
 function shouldFinish() {
 
-    /*
-        Finished when every important
-        setting is narrowed to a small
-        interval.
-    */
-
-    return settingsOrder.every(
+    return currentSettings.every(
         key =>
             (
                 ranges[key].max
@@ -2077,7 +2587,7 @@ function shouldFinish() {
 
 function finishCalibration() {
 
-    settingsOrder.forEach(
+    currentSettings.forEach(
         key => {
 
             values[key] =
@@ -2118,7 +2628,7 @@ function finishCalibration() {
 
 
     const confidence =
-        calculateConfidence();
+        calculateSessionConfidence();
 
 
     document
@@ -2142,172 +2652,14 @@ function finishCalibration() {
         "%";
 
 
-    renderStats();
+    refreshAnalytics();
 }
 
 
-function averageHits() {
-
-    if (
-        !testHistory.length
-    ) {
-
-        return 0;
-    }
-
-
-    return (
-        testHistory.reduce(
-            (
-                sum,
-                item
-            ) =>
-                sum
-                +
-                item.hits,
-            0
-        )
-        /
-        testHistory.length
-    );
-}
-
-
-function averageRangeWidth() {
-
-    const widths =
-        settingsOrder.map(
-            key =>
-                ranges[key].max
-                -
-                ranges[key].min
-        );
-
-
-    return (
-        widths.reduce(
-            (
-                a,
-                b
-            ) =>
-                a + b,
-            0
-        )
-        /
-        widths.length
-    );
-}
-
-
-function calculateConfidence() {
-
-    const hits =
-        averageHits();
-
-
-    const width =
-        averageRangeWidth();
-
-
-    const hitScore =
-        hits
-        *
-        4;
-
-
-    const rangeScore =
-        Math.max(
-            0,
-            40
-            -
-            width * 3
-        );
-
-
-    const sampleScore =
-        Math.min(
-            20,
-            testHistory.length
-        );
-
-
-    return clamp(
-        35
-        +
-        hitScore
-        +
-        rangeScore
-        +
-        sampleScore,
-        45,
-        98
-    );
-}
-
-
-function renderStats() {
-
-    const box =
-        document
-        .getElementById(
-            "resultStats"
-        );
-
-
-    box.innerHTML =
-        `
-        <div class="stat">
-            <span>
-                Средний результат
-            </span>
-
-            <strong>
-                ${averageHits().toFixed(1)} / 10
-            </strong>
-        </div>
-
-        <div class="stat">
-            <span>
-                Средняя ширина диапазона
-            </span>
-
-            <strong>
-                ${averageRangeWidth().toFixed(1)}
-                пункта
-            </strong>
-        </div>
-
-        <div class="stat">
-            <span>
-                Проведено тестов
-            </span>
-
-            <strong>
-                ${testHistory.length}
-            </strong>
-        </div>
-
-        <div class="stat">
-            <span>
-                Раундов
-            </span>
-
-            <strong>
-                ${round}
-            </strong>
-        </div>
-        `;
-}
-
-
-function continueFineTune() {
+function continueCalibration() {
 
     round =
-        Math.max(
-            round,
-            1
-        );
-
+        0;
 
     testIndex =
         0;
@@ -2335,6 +2687,77 @@ function continueFineTune() {
 }
 
 
+function calculateSessionConfidence() {
+
+    if (
+        sessionHistory.length
+        === 0
+    ) {
+
+        return 45;
+    }
+
+
+    const averageHits =
+        sessionHistory.reduce(
+            (
+                sum,
+                item
+            ) =>
+                sum
+                +
+                item.hits,
+            0
+        )
+        /
+        sessionHistory.length;
+
+
+    const widths =
+        currentSettings.map(
+            key =>
+                ranges[key].max
+                -
+                ranges[key].min
+        );
+
+
+    const averageWidth =
+        widths.reduce(
+            (
+                a,
+                b
+            ) =>
+                a + b,
+            0
+        )
+        /
+        widths.length;
+
+
+    const score =
+        45
+        +
+        averageHits
+        *
+        3
+        +
+        Math.max(
+            0,
+            22
+            -
+            averageWidth * 2
+        );
+
+
+    return clamp(
+        score,
+        45,
+        98
+    );
+}
+
+
 function renderRecentHistory() {
 
     const box =
@@ -2348,84 +2771,814 @@ function renderRecentHistory() {
         "";
 
 
-    testHistory
+    sessionHistory
     .slice(-3)
     .reverse()
     .forEach(
         item => {
 
-            const direction =
-                item.direction
-                === "high"
-                ?
-                "перелёт"
-                :
-                item.direction
-                === "low"
-                ?
-                "не дотягивает"
-                :
-                "нормально";
-
-
-            const div =
+            const row =
                 document
                 .createElement(
                     "div"
                 );
 
 
-            div.className =
+            row.className =
                 "history-row";
 
 
-            div.textContent =
-                `${labels[item.key]} ${item.value} • `
-                +
-                `${direction} • `
+            row.textContent =
+                `${labels[item.setting]} ${item.value} • `
                 +
                 `${item.hits}/10 • `
                 +
-                `новый диапазон `
-                +
-                `${item.range.min}–${item.range.max}`;
+                (
+                    item.direction
+                    === "high"
+                    ?
+                    "перелёт"
+                    :
+                    item.direction
+                    === "low"
+                    ?
+                    "не дотягивает"
+                    :
+                    "нормально"
+                );
 
 
             box.appendChild(
-                div
+                row
             );
         }
     );
 }
 
 
-function getProfiles() {
+function calculateBestValue(
+    weapon,
+    setting
+) {
 
-    try {
+    const data =
+        getTrainingData()
+        .filter(
+            item =>
+                item.weapon === weapon
+                &&
+                item.setting === setting
+        );
 
-        const data =
-            JSON.parse(
-                localStorage
-                .getItem(
-                    STORAGE_KEY
+
+    if (
+        data.length === 0
+    ) {
+
+        return null;
+    }
+
+
+    const groups =
+        {};
+
+
+    data.forEach(
+        item => {
+
+            const key =
+                String(
+                    item.value
+                );
+
+
+            if (
+                !groups[key]
+            ) {
+
+                groups[key] =
+                    [];
+            }
+
+
+            groups[key].push(
+                item.hits
+            );
+        }
+    );
+
+
+    let best =
+        null;
+
+
+    Object.keys(
+        groups
+    )
+    .forEach(
+        valueKey => {
+
+            const scores =
+                groups[valueKey];
+
+
+            const average =
+                scores.reduce(
+                    (
+                        a,
+                        b
+                    ) =>
+                        a + b,
+                    0
                 )
+                /
+                scores.length;
+
+
+            const variance =
+                scores.reduce(
+                    (
+                        sum,
+                        score
+                    ) =>
+                        sum
+                        +
+                        Math.pow(
+                            score - average,
+                            2
+                        ),
+                    0
+                )
+                /
+                scores.length;
+
+
+            const stability =
+                Math.sqrt(
+                    variance
+                );
+
+
+            /*
+                Repeated tests are preferred.
+                High variance is penalized.
+            */
+
+            const repeatBonus =
+                Math.min(
+                    .8,
+                    (
+                        scores.length - 1
+                    )
+                    *
+                    .25
+                );
+
+
+            const score =
+                average
+                -
+                stability * .35
+                +
+                repeatBonus;
+
+
+            const candidate = {
+
+                value:
+                    Number(
+                        valueKey
+                    ),
+
+                average:
+                    average,
+
+                deviation:
+                    stability,
+
+                samples:
+                    scores.length,
+
+                score:
+                    score
+            };
+
+
+            if (
+                !best
                 ||
-                "[]"
+                candidate.score
+                >
+                best.score
+            ) {
+
+                best =
+                    candidate;
+            }
+        }
+    );
+
+
+    return best;
+}
+
+
+function refreshAnalytics() {
+
+    const weapon =
+        document
+        .getElementById(
+            "statsWeapon"
+        )
+        .value;
+
+
+    const setting =
+        document
+        .getElementById(
+            "statsSetting"
+        )
+        .value;
+
+
+    drawChart(
+        weapon,
+        setting
+    );
+
+
+    const best =
+        calculateBestValue(
+            weapon,
+            setting
+        );
+
+
+    const valueBox =
+        document
+        .getElementById(
+            "bestValue"
+        );
+
+
+    const meta =
+        document
+        .getElementById(
+            "bestMeta"
+        );
+
+
+    if (!best) {
+
+        valueBox.textContent =
+            "—";
+
+
+        meta.textContent =
+            "Пока нет результатов для этого режима.";
+
+        return;
+    }
+
+
+    valueBox.textContent =
+        best.value;
+
+
+    meta.textContent =
+        `Средний результат: ${best.average.toFixed(1)}/10 • `
+        +
+        `серий: ${best.samples} • `
+        +
+        `разброс: ${best.deviation.toFixed(1)}`;
+
+
+    if (
+        best.samples < 2
+    ) {
+
+        meta.textContent +=
+            " • нужно повторить это значение ещё раз";
+    }
+}
+
+
+function drawChart(
+    weapon,
+    setting
+) {
+
+    const canvas =
+        document
+        .getElementById(
+            "chart"
+        );
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    const data =
+        getTrainingData()
+        .filter(
+            item =>
+                item.weapon === weapon
+                &&
+                item.setting === setting
+        );
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    ctx.font =
+        "13px -apple-system, sans-serif";
+
+
+    if (
+        data.length === 0
+    ) {
+
+        ctx.fillText(
+            "Пока нет данных.",
+            20,
+            40
+        );
+
+        return;
+    }
+
+
+    const grouped =
+        {};
+
+
+    data.forEach(
+        item => {
+
+            if (
+                !grouped[
+                    item.value
+                ]
+            ) {
+
+                grouped[
+                    item.value
+                ] =
+                    [];
+            }
+
+
+            grouped[
+                item.value
+            ]
+            .push(
+                item.hits
+            );
+        }
+    );
+
+
+    const points =
+        Object.keys(
+            grouped
+        )
+        .map(
+            key => {
+
+                const list =
+                    grouped[key];
+
+
+                const avg =
+                    list.reduce(
+                        (
+                            a,
+                            b
+                        ) =>
+                            a + b,
+                        0
+                    )
+                    /
+                    list.length;
+
+
+                return {
+
+                    value:
+                        Number(key),
+
+                    average:
+                        avg,
+
+                    samples:
+                        list.length
+                };
+            }
+        )
+        .sort(
+            (
+                a,
+                b
+            ) =>
+                a.value
+                -
+                b.value
+        );
+
+
+    const padding =
+        40;
+
+
+    const width =
+        canvas.width
+        -
+        padding * 2;
+
+
+    const height =
+        canvas.height
+        -
+        padding * 2;
+
+
+    const minX =
+        Math.min(
+            ...points.map(
+                p => p.value
+            )
+        );
+
+
+    const maxX =
+        Math.max(
+            ...points.map(
+                p => p.value
+            )
+        );
+
+
+    function xFor(
+        value
+    ) {
+
+        if (
+            maxX === minX
+        ) {
+
+            return canvas.width / 2;
+        }
+
+
+        return padding
+        +
+        (
+            (
+                value - minX
+            )
+            /
+            (
+                maxX - minX
+            )
+        )
+        *
+        width;
+    }
+
+
+    function yFor(
+        score
+    ) {
+
+        return padding
+        +
+        height
+        -
+        (
+            score / 10
+        )
+        *
+        height;
+    }
+
+
+    /*
+        Axes
+    */
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        padding,
+        padding
+    );
+
+    ctx.lineTo(
+        padding,
+        canvas.height - padding
+    );
+
+    ctx.lineTo(
+        canvas.width - padding,
+        canvas.height - padding
+    );
+
+    ctx.stroke();
+
+
+    for (
+        let hit = 0;
+        hit <= 10;
+        hit += 2
+    ) {
+
+        const y =
+            yFor(hit);
+
+
+        ctx.fillText(
+            String(hit),
+            10,
+            y + 4
+        );
+    }
+
+
+    /*
+        Line
+    */
+
+    if (
+        points.length >= 2
+    ) {
+
+        ctx.beginPath();
+
+
+        points.forEach(
+            (
+                point,
+                index
+            ) => {
+
+                const x =
+                    xFor(
+                        point.value
+                    );
+
+
+                const y =
+                    yFor(
+                        point.average
+                    );
+
+
+                if (
+                    index === 0
+                ) {
+
+                    ctx.moveTo(
+                        x,
+                        y
+                    );
+
+                } else {
+
+                    ctx.lineTo(
+                        x,
+                        y
+                    );
+                }
+            }
+        );
+
+
+        ctx.stroke();
+    }
+
+
+    /*
+        Points
+    */
+
+    points.forEach(
+        point => {
+
+            const x =
+                xFor(
+                    point.value
+                );
+
+
+            const y =
+                yFor(
+                    point.average
+                );
+
+
+            ctx.beginPath();
+
+            ctx.arc(
+                x,
+                y,
+                5,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fill();
+
+
+            ctx.fillText(
+                `${point.value}`,
+                x - 10,
+                canvas.height - 12
             );
 
 
-        return Array.isArray(
-            data
+            ctx.fillText(
+                `${point.average.toFixed(1)}`,
+                x - 10,
+                y - 10
+            );
+        }
+    );
+}
+
+
+function findBestProfile() {
+
+    const weapon =
+        document
+        .getElementById(
+            "statsWeapon"
         )
-        ?
-        data
-        :
-        [];
+        .value;
 
-    } catch {
 
-        return [];
+    const settings =
+        weaponSettings[
+            weapon
+        ];
+
+
+    const result =
+        {};
+
+
+    let reliableCount =
+        0;
+
+
+    settings.forEach(
+        setting => {
+
+            const best =
+                calculateBestValue(
+                    weapon,
+                    setting
+                );
+
+
+            if (best) {
+
+                result[
+                    setting
+                ] =
+                    best;
+
+
+                if (
+                    best.samples >= 2
+                ) {
+
+                    reliableCount++;
+                }
+            }
+        }
+    );
+
+
+    const card =
+        document
+        .getElementById(
+            "bestProfileCard"
+        );
+
+
+    const grid =
+        document
+        .getElementById(
+            "bestProfileGrid"
+        );
+
+
+    const note =
+        document
+        .getElementById(
+            "bestProfileNote"
+        );
+
+
+    grid.innerHTML =
+        "";
+
+
+    Object.keys(
+        result
+    )
+    .forEach(
+        setting => {
+
+            const best =
+                result[
+                    setting
+                ];
+
+
+            const box =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "sens-box";
+
+
+            box.innerHTML =
+                `
+                <div class="sens-label">
+                    ${labels[setting]}
+                </div>
+
+                <div class="sens-value">
+                    ${best.value}
+                </div>
+
+                <div class="sens-range">
+                    ${best.average.toFixed(1)}/10 •
+                    ${best.samples} сер.
+                </div>
+                `;
+
+
+            grid.appendChild(
+                box
+            );
+        }
+    );
+
+
+    if (
+        Object.keys(
+            result
+        )
+        .length === 0
+    ) {
+
+        note.textContent =
+            "Сначала проведи тренировочные серии.";
+
+    } else if (
+        reliableCount
+        <
+        settings.length
+    ) {
+
+        note.textContent =
+            "Профиль предварительный. "
+            +
+            "Для надёжного результата протестируй лучшие значения минимум по 2–3 серии.";
+
+    } else {
+
+        note.textContent =
+            "Все основные параметры имеют повторные серии. "
+            +
+            "Это уже значительно надёжнее результата одной тренировки.";
     }
+
+
+    card.classList.remove(
+        "hidden"
+    );
+
+
+    card.scrollIntoView({
+        behavior:
+            "smooth"
+    });
 }
 
 
@@ -2435,101 +3588,44 @@ function saveProfile() {
         getProfiles();
 
 
-    const device =
-        document
-        .getElementById(
-            "device"
-        )
-        .value
-        .trim()
-        ||
-        "Free Fire Profile";
-
-
     profiles.unshift({
 
         id:
             Date.now(),
 
         device:
-            device,
-
-        hz:
             document
             .getElementById(
-                "hz"
+                "device"
             )
-            .value,
+            .value
+            .trim()
+            ||
+            "Free Fire",
 
-        fps:
-            document
-            .getElementById(
-                "fps"
-            )
-            .value,
-
-        fireSize:
-            document
-            .getElementById(
-                "fireSize"
-            )
-            .value,
-
-        fingers:
-            document
-            .getElementById(
-                "fingers"
-            )
-            .value,
-
-        style:
-            document
-            .getElementById(
-                "style"
-            )
-            .value,
-
-        drag:
-            document
-            .getElementById(
-                "drag"
-            )
-            .value,
+        weapon:
+            activeWeapon,
 
         values:
             {
                 ...values
             },
 
-        ranges:
-            JSON.parse(
-                JSON.stringify(
-                    ranges
-                )
-            ),
-
         confidence:
-            calculateConfidence(),
-
-        averageHits:
-            averageHits(),
-
-        tests:
-            testHistory.length,
+            calculateSessionConfidence(),
 
         savedAt:
             new Date()
             .toISOString()
-
     });
 
 
     localStorage.setItem(
-        STORAGE_KEY,
+        PROFILE_KEY,
         JSON.stringify(
             profiles.slice(
                 0,
-                12
+                15
             )
         )
     );
@@ -2541,169 +3637,6 @@ function saveProfile() {
     alert(
         "Профиль сохранён ✅"
     );
-}
-
-
-function loadProfile(
-    id
-) {
-
-    const profile =
-        getProfiles()
-        .find(
-            item =>
-                item.id
-                === id
-        );
-
-
-    if (!profile) {
-        return;
-    }
-
-
-    values =
-        {
-            ...profile.values
-        };
-
-
-    ranges =
-        JSON.parse(
-            JSON.stringify(
-                profile.ranges
-            )
-        );
-
-
-    document
-    .getElementById(
-        "device"
-    )
-    .value =
-        profile.device
-        ||
-        "";
-
-
-    document
-    .getElementById(
-        "hz"
-    )
-    .value =
-        profile.hz;
-
-
-    document
-    .getElementById(
-        "fps"
-    )
-    .value =
-        profile.fps;
-
-
-    document
-    .getElementById(
-        "fireSize"
-    )
-    .value =
-        profile.fireSize;
-
-
-    document
-    .getElementById(
-        "fingers"
-    )
-    .value =
-        profile.fingers;
-
-
-    document
-    .getElementById(
-        "style"
-    )
-    .value =
-        profile.style;
-
-
-    document
-    .getElementById(
-        "drag"
-    )
-    .value =
-        profile.drag;
-
-
-    document
-    .getElementById(
-        "setupCard"
-    )
-    .classList.add(
-        "hidden"
-    );
-
-
-    document
-    .getElementById(
-        "startCard"
-    )
-    .classList.remove(
-        "hidden"
-    );
-
-
-    document
-    .getElementById(
-        "calibrationCard"
-    )
-    .classList.add(
-        "hidden"
-    );
-
-
-    document
-    .getElementById(
-        "resultCard"
-    )
-    .classList.add(
-        "hidden"
-    );
-
-
-    renderSettings(
-        "startGrid"
-    );
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-function deleteProfile(
-    id
-) {
-
-    const profiles =
-        getProfiles()
-        .filter(
-            item =>
-                item.id
-                !== id
-        );
-
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(
-            profiles
-        )
-    );
-
-
-    renderProfiles();
 }
 
 
@@ -2725,7 +3658,7 @@ function renderProfiles() {
 
 
     if (
-        !profiles.length
+        profiles.length === 0
     ) {
 
         box.innerHTML =
@@ -2742,61 +3675,105 @@ function renderProfiles() {
     profiles.forEach(
         profile => {
 
-            const div =
+            const row =
                 document
                 .createElement(
                     "div"
                 );
 
 
-            div.className =
+            row.className =
                 "profile-item";
 
 
-            div.innerHTML =
+            row.innerHTML =
                 `
                 <div>
 
-                    <strong>
+                    <div class="profile-name">
                         ${escapeHtml(profile.device)}
-                    </strong>
+                    </div>
 
-                    <div class="note"
-                         style="margin:4px 0 0">
-
-                        ${profile.hz} Hz •
-                        ${profile.fps} FPS •
-                        ${profile.confidence}% •
-                        ${Number(profile.averageHits || 0).toFixed(1)}/10
-
+                    <div class="profile-meta">
+                        ${weaponLabels[profile.weapon] || profile.weapon}
+                        • ${profile.confidence}%
                     </div>
 
                 </div>
 
-                <div>
-
-                    <button
-                        class="mini"
-                        onclick="loadProfile(${profile.id})"
-                    >
-                        Открыть
-                    </button>
-
-                    <button
-                        class="mini"
-                        onclick="deleteProfile(${profile.id})"
-                    >
-                        🗑️
-                    </button>
-
-                </div>
+                <button
+                    class="mini"
+                    onclick="deleteProfile(${profile.id})"
+                >
+                    🗑
+                </button>
                 `;
 
 
             box.appendChild(
-                div
+                row
             );
         }
+    );
+}
+
+
+function deleteProfile(
+    id
+) {
+
+    const profiles =
+        getProfiles()
+        .filter(
+            profile =>
+                profile.id
+                !== id
+        );
+
+
+    localStorage.setItem(
+        PROFILE_KEY,
+        JSON.stringify(
+            profiles
+        )
+    );
+
+
+    renderProfiles();
+}
+
+
+function clearTrainingData() {
+
+    if (
+        !confirm(
+            "Удалить всю статистику тренировок?"
+        )
+    ) {
+
+        return;
+    }
+
+
+    localStorage.removeItem(
+        DATA_KEY
+    );
+
+
+    refreshAnalytics();
+
+
+    document
+    .getElementById(
+        "bestProfileCard"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+
+    alert(
+        "Статистика очищена."
     );
 }
 
@@ -2830,6 +3807,8 @@ function escapeHtml(
 
 
 renderProfiles();
+
+refreshAnalytics();
 
 </script>
 
