@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>Free Fire Calibrator v5 — Wiens AI</title>
+
+    <meta
+        name="theme-color"
+        content="#080a10"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --panel: rgba(20,22,34,.96);
+            --panel2: rgba(255,255,255,.055);
+            --border: rgba(255,255,255,.10);
+
+            --text: #ffffff;
+            --muted: #9898aa;
+
+            --purple: #725cff;
+            --purple2: #a866ff;
+
+            --green: #46e49b;
+            --yellow: #ffc65c;
+            --red: #ff6079;
+            --blue: #61b7ff;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #25164e 0%,
+                    #11131d 30%,
+                    #080a10 72%
+                );
+
+            color: var(--text);
+
+            padding:
+                calc(12px + env(safe-area-inset-top))
+                14px
+                calc(30px + env(safe-area-inset-bottom));
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+
+            border-radius: 14px;
+
+            object-fit: cover;
+
+            box-shadow:
+                0 0 26px
+                rgba(114,92,255,.46);
+        }
+
+        .brand-title {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            margin-top: 2px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .back {
+            padding: 10px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.06);
+
+            color: white;
+
+            text-decoration: none;
+        }
+
+        .hero {
+            margin-bottom: 14px;
+
+            padding: 21px 18px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(114,92,255,.24),
+                    rgba(168,102,255,.07)
+                );
+        }
+
+        .badge {
+            display: inline-flex;
+
+            margin-bottom: 10px;
+
+            padding: 6px 10px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(70,228,155,.10);
+
+            color: var(--green);
+
+            font-size: 11px;
+        }
+
+        .hero h1 {
+            margin-bottom: 8px;
+
+            font-size: 29px;
+        }
+
+        .hero p {
+            color: var(--muted);
+
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .card {
+            margin-bottom: 14px;
+
+            padding: 17px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background: var(--panel);
+        }
+
+        .card h2 {
+            margin-bottom: 13px;
+
+            font-size: 17px;
+        }
+
+        .note {
+            margin-bottom: 13px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #dedee7;
+
+            font-size: 13px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 13px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            outline: none;
+
+            background:
+                rgba(255,255,255,.055);
+
+            color: white;
+
+            font-size: 16px;
+        }
+
+        select option {
+            color: black;
+        }
+
+        .grid-2 {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+        }
+
+        .primary,
+        .secondary {
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 15px;
+
+            color: white;
+
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .primary {
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+        }
+
+        .secondary {
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .ab-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+
+            margin-bottom: 14px;
+        }
+
+        .candidate {
+            padding: 18px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,.04);
+
+            text-align: center;
+        }
+
+        .candidate-title {
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .candidate-value {
+            margin-top: 5px;
+
+            font-size: 40px;
+            font-weight: 900;
+        }
+
+        .candidate-hits {
+            margin-top: 12px;
+        }
+
+        .candidate-hits label {
+            text-align: left;
+        }
+
+        .round-info {
+            margin-bottom: 14px;
+
+            padding: 12px;
+
+            border:
+                1px solid rgba(114,92,255,.25);
+
+            border-radius: 14px;
+
+            background:
+                rgba(114,92,255,.08);
+
+            color: #c7c0ff;
+
+            font-size: 12px;
+        }
+
+        .result-box {
+            margin-top: 12px;
+
+            padding: 14px;
+
+            border:
+                1px solid rgba(70,228,155,.24);
+
+            border-radius: 15px;
+
+            background:
+                rgba(70,228,155,.07);
+        }
+
+        .result-title {
+            color: #bdf7d9;
+
+            font-size: 12px;
+        }
+
+        .result-value {
+            margin-top: 4px;
+
+            font-size: 32px;
+            font-weight: 900;
+        }
+
+        .result-meta {
+            margin-top: 5px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .history-row {
+            margin-top: 8px;
+
+            padding: 10px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            color: #d0d0da;
+
+            font-size: 11px;
+        }
+
+        .settings-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 9px;
+        }
+
+        .setting-box {
+            padding: 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,.045);
+        }
+
+        .setting-label {
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .setting-value {
+            margin-top: 5px;
+
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .range {
+            margin-top: 3px;
+
+            color: #bcb5ff;
+
+            font-size: 10px;
+        }
+
+        .profile-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 8px;
+
+            margin-top: 8px;
+
+            padding: 11px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.04);
+        }
+
+        .mini {
+            padding: 7px 9px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        @media(max-width:560px) {
+            .grid-2,
+            .ab-grid,
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="topbar">
+
+        <div class="brand">
+
+            <img
+                class="logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <div>
+
+                <div class="brand-title">
+                    Wiens AI
+                </div>
+
+                <div class="brand-subtitle">
+                    Free Fire Calibrator v5
+                </div>
+
+            </div>
+
+        </div>
+
+        <a
+            class="back"
+            href="/"
+        >
+            ← AI
+        </a>
+
+    </div>
+
+
+    <section class="hero">
+
+        <div class="badge">
+            🧪 A/B Calibration
+        </div>
+
+        <h1>
+            Free Fire A/B Lab
+        </h1>
+
+        <p>
+            Теперь Wiens AI сравнивает две близкие настройки
+            в одинаковых условиях и шаг за шагом сужает поиск
+            до одного-двух пунктов.
+        </p>
+
+    </section>
+
+
+    <section
+        class="card"
+        id="setupCard"
+    >
+
+        <h2>
+            ⚙️ Настройка теста
+        </h2>
+
+
+        <div class="field">
+
+            <label>
+                Телефон
+            </label>
+
+            <input
+                id="device"
+                placeholder="Например iPhone 17 Pro"
+            >
+
+        </div>
+
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Оружие
+                </label>
+
+                <select id="weapon">
+
+                    <option value="deagle">
+                        Desert Eagle
+                    </option>
+
+                    <option value="smg">
+                        SMG
+                    </option>
+
+                    <option value="ar">
+                        AR
+                    </option>
+
+                    <option value="shotgun">
+                        Shotgun
+                    </option>
+
+                    <option value="sniper">
+                        Sniper
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Что тестируем?
+                </label>
+
+                <select id="setting">
+
+                    <option value="general">
+                        General
+                    </option>
+
+                    <option value="redDot">
+                        Red Dot
+                    </option>
+
+                    <option value="scope2x">
+                        2x Scope
+                    </option>
+
+                    <option value="scope4x">
+                        4x Scope
+                    </option>
+
+                    <option value="sniper">
+                        Sniper
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Нижняя граница
+                </label>
+
+                <input
+                    id="minValue"
+                    type="number"
+                    value="110"
+                    min="0"
+                    max="200"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Верхняя граница
+                </label>
+
+                <input
+                    id="maxValue"
+                    type="number"
+                    value="150"
+                    min="0"
+                    max="200"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Серий на одно значение
+            </label>
+
+            <select id="seriesCount">
+
+                <option value="1">
+                    1 серия
+                </option>
+
+                <option value="2" selected>
+                    2 серии
+                </option>
+
+                <option value="3">
+                    3 серии
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            class="primary"
+            onclick="startABTest()"
+        >
+            🧪 Начать A/B-тест
+        </button>
+
+    </section>
+
+
+    <section
+        class="card hidden"
+        id="testCard"
+    >
+
+        <div
+            class="round-info"
+            id="roundInfo"
+        ></div>
+
+
+        <div class="note">
+            Выставь значение A, сделай 10 одинаковых оттяжек.
+            Потом выставь B и повтори в тех же условиях.
+        </div>
+
+
+        <div class="ab-grid">
+
+            <div class="candidate">
+
+                <div class="candidate-title">
+                    Вариант A
+                </div>
+
+                <div
+                    class="candidate-value"
+                    id="valueA"
+                >
+                    —
+                </div>
+
+                <div class="candidate-hits">
+
+                    <label>
+                        Попаданий из 10
+                    </label>
+
+                    <input
+                        id="hitsA"
+                        type="number"
+                        min="0"
+                        max="10"
+                        value="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="candidate">
+
+                <div class="candidate-title">
+                    Вариант B
+                </div>
+
+                <div
+                    class="candidate-value"
+                    id="valueB"
+                >
+                    —
+                </div>
+
+                <div class="candidate-hits">
+
+                    <label>
+                        Попаданий из 10
+                    </label>
+
+                    <input
+                        id="hitsB"
+                        type="number"
+                        min="0"
+                        max="10"
+                        value="0"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary"
+            onclick="submitABRound()"
+        >
+            Сравнить →
+        </button>
+
+
+        <div id="roundHistory"></div>
+
+    </section>
+
+
+    <section
+        class="card hidden"
+        id="resultCard"
+    >
+
+        <h2>
+            🏆 Результат A/B-теста
+        </h2>
+
+
+        <div class="result-box">
+
+            <div class="result-title">
+                Лучшее значение
+            </div>
+
+            <div
+                class="result-value"
+                id="bestValue"
+            >
+                —
+            </div>
+
+            <div
+                class="result-meta"
+                id="bestMeta"
+            ></div>
+
+        </div>
+
+
+        <div
+            class="settings-grid"
+            id="finalGrid"
+            style="margin-top:14px"
+        ></div>
+
+
+        <div class="grid-2"
+             style="margin-top:14px">
+
+            <button
+                class="secondary"
+                onclick="continueABTest()"
+            >
+                🔬 Продолжить доводку
+            </button>
+
+            <button
+                class="primary"
+                onclick="saveABProfile()"
+            >
+                💾 Сохранить
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="card">
+
+        <h2>
+            💾 Сохранённые A/B-профили
+        </h2>
+
+        <div id="savedProfiles"></div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+const PROFILE_KEY =
+    "wiens_ff_v5_ab_profiles";
+
+
+let minValue =
+    110;
+
+let maxValue =
+    150;
+
+let candidateA =
+    0;
+
+let candidateB =
+    0;
+
+let round =
+    0;
+
+let maxRounds =
+    8;
+
+let seriesCount =
+    2;
+
+let currentSeries =
+    1;
+
+let scoresA =
+    [];
+
+let scoresB =
+    [];
+
+let history =
+    [];
+
+
+function clamp(
+    value,
+    min = 0,
+    max = 200
+) {
+
+    return Math.max(
+        min,
+        Math.min(
+            max,
+            Math.round(value)
+        )
+    );
+}
+
+
+function startABTest() {
+
+    minValue =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "minValue"
+                )
+                .value
+            )
+        );
+
+
+    maxValue =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "maxValue"
+                )
+                .value
+            )
+        );
+
+
+    if (
+        minValue
+        >=
+        maxValue
+    ) {
+
+        alert(
+            "Верхняя граница должна быть больше нижней."
+        );
+
+        return;
+    }
+
+
+    seriesCount =
+        Number(
+            document
+            .getElementById(
+                "seriesCount"
+            )
+            .value
+        );
+
+
+    round =
+        0;
+
+    currentSeries =
+        1;
+
+    scoresA =
+        [];
+
+    scoresB =
+        [];
+
+    history =
+        [];
+
+
+    document
+    .getElementById(
+        "setupCard"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "resultCard"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "testCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    createCandidates();
+}
+
+
+function createCandidates() {
+
+    const width =
+        maxValue
+        -
+        minValue;
+
+
+    /*
+        Two points around the middle.
+    */
+
+    candidateA =
+        clamp(
+            minValue
+            +
+            Math.round(
+                width / 3
+            )
+        );
+
+
+    candidateB =
+        clamp(
+            maxValue
+            -
+            Math.round(
+                width / 3
+            )
+        );
+
+
+    if (
+        candidateA
+        === candidateB
+    ) {
+
+        candidateB =
+            clamp(
+                candidateA + 1
+            );
+    }
+
+
+    document
+    .getElementById(
+        "valueA"
+    )
+    .textContent =
+        candidateA;
+
+
+    document
+    .getElementById(
+        "valueB"
+    )
+    .textContent =
+        candidateB;
+
+
+    document
+    .getElementById(
+        "hitsA"
+    )
+    .value =
+        0;
+
+
+    document
+    .getElementById(
+        "hitsB"
+    )
+    .value =
+        0;
+
+
+    document
+    .getElementById(
+        "roundInfo"
+    )
+    .textContent =
+        `Раунд ${round + 1} • Серия ${currentSeries}/${seriesCount} • `
+        +
+        `Диапазон ${minValue}–${maxValue}`;
+}
+
+
+function submitABRound() {
+
+    const hitsA =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "hitsA"
+                )
+                .value
+            ),
+            0,
+            10
+        );
+
+
+    const hitsB =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "hitsB"
+                )
+                .value
+            ),
+            0,
+            10
+        );
+
+
+    scoresA.push(
+        hitsA
+    );
+
+
+    scoresB.push(
+        hitsB
+    );
+
+
+    history.push({
+
+        round:
+            round + 1,
+
+        series:
+            currentSeries,
+
+        a:
+            candidateA,
+
+        b:
+            candidateB,
+
+        hitsA:
+            hitsA,
+
+        hitsB:
+            hitsB
+    });
+
+
+    renderHistory();
+
+
+    if (
+        currentSeries
+        <
+        seriesCount
+    ) {
+
+        currentSeries++;
+
+        createCandidates();
+
+        return;
+    }
+
+
+    const averageA =
+        average(
+            scoresA
+        );
+
+
+    const averageB =
+        average(
+            scoresB
+        );
+
+
+    const deviationA =
+        deviation(
+            scoresA
+        );
+
+
+    const deviationB =
+        deviation(
+            scoresB
+        );
+
+
+    /*
+        Penalize unstable result.
+    */
+
+    const scoreA =
+        averageA
+        -
+        deviationA * .35;
+
+
+    const scoreB =
+        averageB
+        -
+        deviationB * .35;
+
+
+    if (
+        scoreA
+        >
+        scoreB
+    ) {
+
+        maxValue =
+            Math.max(
+                candidateB - 1,
+                candidateA
+            );
+
+    } else if (
+        scoreB
+        >
+        scoreA
+    ) {
+
+        minValue =
+            Math.min(
+                candidateA + 1,
+                candidateB
+            );
+
+    } else {
+
+        /*
+            Tie:
+            keep the central zone.
+        */
+
+        minValue =
+            Math.min(
+                candidateA,
+                candidateB
+            );
+
+
+        maxValue =
+            Math.max(
+                candidateA,
+                candidateB
+            );
+    }
+
+
+    round++;
+
+
+    if (
+        maxValue
+        -
+        minValue
+        <=
+        2
+        ||
+        round
+        >=
+        maxRounds
+    ) {
+
+        finishABTest();
+
+        return;
+    }
+
+
+    currentSeries =
+        1;
+
+    scoresA =
+        [];
+
+    scoresB =
+        [];
+
+
+    createCandidates();
+}
+
+
+function average(
+    list
+) {
+
+    if (
+        !list.length
+    ) {
+        return 0;
+    }
+
+
+    return list.reduce(
+        (
+            a,
+            b
+        ) =>
+            a + b,
+        0
+    )
+    /
+    list.length;
+}
+
+
+function deviation(
+    list
+) {
+
+    if (
+        list.length
+        <=
+        1
+    ) {
+
+        return 0;
+    }
+
+
+    const avg =
+        average(
+            list
+        );
+
+
+    const variance =
+        list.reduce(
+            (
+                sum,
+                item
+            ) =>
+                sum
+                +
+                Math.pow(
+                    item - avg,
+                    2
+                ),
+            0
+        )
+        /
+        list.length;
+
+
+    return Math.sqrt(
+        variance
+    );
+}
+
+
+function finishABTest() {
+
+    const best =
+        Math.round(
+            (
+                minValue
+                +
+                maxValue
+            )
+            /
+            2
+        );
+
+
+    document
+    .getElementById(
+        "testCard"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "resultCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "bestValue"
+    )
+    .textContent =
+        best;
+
+
+    document
+    .getElementById(
+        "bestMeta"
+    )
+    .textContent =
+        `Итоговая рабочая зона: ${minValue}–${maxValue}. `
+        +
+        `Проведено раундов: ${round}.`;
+
+
+    const weapon =
+        document
+        .getElementById(
+            "weapon"
+        )
+        .selectedOptions[0]
+        .textContent
+        .trim();
+
+
+    const setting =
+        document
+        .getElementById(
+            "setting"
+        )
+        .selectedOptions[0]
+        .textContent
+        .trim();
+
+
+    const grid =
+        document
+        .getElementById(
+            "finalGrid"
+        );
+
+
+    grid.innerHTML =
+        `
+        <div class="setting-box">
+
+            <div class="setting-label">
+                Оружие
+            </div>
+
+            <div class="setting-value"
+                 style="font-size:17px">
+                ${weapon}
+            </div>
+
+        </div>
+
+        <div class="setting-box">
+
+            <div class="setting-label">
+                Настройка
+            </div>
+
+            <div class="setting-value"
+                 style="font-size:17px">
+                ${setting}
+            </div>
+
+        </div>
+
+        <div class="setting-box">
+
+            <div class="setting-label">
+                Лучшее значение
+            </div>
+
+            <div class="setting-value">
+                ${best}
+            </div>
+
+        </div>
+
+        <div class="setting-box">
+
+            <div class="setting-label">
+                Рабочая зона
+            </div>
+
+            <div class="setting-value"
+                 style="font-size:18px">
+                ${minValue}–${maxValue}
+            </div>
+
+        </div>
+        `;
+}
+
+
+function continueABTest() {
+
+    const best =
+        Math.round(
+            (
+                minValue
+                +
+                maxValue
+            )
+            /
+            2
+        );
+
+
+    minValue =
+        clamp(
+            best - 3
+        );
+
+
+    maxValue =
+        clamp(
+            best + 3
+        );
+
+
+    round =
+        0;
+
+    currentSeries =
+        1;
+
+    scoresA =
+        [];
+
+    scoresB =
+        [];
+
+
+    document
+    .getElementById(
+        "resultCard"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "testCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    createCandidates();
+}
+
+
+function renderHistory() {
+
+    const box =
+        document
+        .getElementById(
+            "roundHistory"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    history
+    .slice(-5)
+    .reverse()
+    .forEach(
+        item => {
+
+            const row =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "history-row";
+
+
+            row.textContent =
+                `Раунд ${item.round}, серия ${item.series}: `
+                +
+                `A ${item.a} → ${item.hitsA}/10 • `
+                +
+                `B ${item.b} → ${item.hitsB}/10`;
+
+
+            box.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+function saveABProfile() {
+
+    const profiles =
+        getProfiles();
+
+
+    const best =
+        Math.round(
+            (
+                minValue
+                +
+                maxValue
+            )
+            /
+            2
+        );
+
+
+    profiles.unshift({
+
+        id:
+            Date.now(),
+
+        device:
+            document
+            .getElementById(
+                "device"
+            )
+            .value
+            .trim()
+            ||
+            "Free Fire",
+
+        weapon:
+            document
+            .getElementById(
+                "weapon"
+            )
+            .value,
+
+        setting:
+            document
+            .getElementById(
+                "setting"
+            )
+            .value,
+
+        best:
+            best,
+
+        min:
+            minValue,
+
+        max:
+            maxValue,
+
+        rounds:
+            round,
+
+        savedAt:
+            new Date()
+            .toISOString()
+
+    });
+
+
+    localStorage.setItem(
+        PROFILE_KEY,
+        JSON.stringify(
+            profiles.slice(
+                0,
+                20
+            )
+        )
+    );
+
+
+    renderProfiles();
+
+
+    alert(
+        "A/B-профиль сохранён ✅"
+    );
+}
+
+
+function getProfiles() {
+
+    try {
+
+        const profiles =
+            JSON.parse(
+                localStorage
+                .getItem(
+                    PROFILE_KEY
+                )
+                ||
+                "[]"
+            );
+
+
+        return Array.isArray(
+            profiles
+        )
+        ?
+        profiles
+        :
+        [];
+
+    } catch {
+
+        return [];
+    }
+}
+
+
+function renderProfiles() {
+
+    const box =
+        document
+        .getElementById(
+            "savedProfiles"
+        );
+
+
+    const profiles =
+        getProfiles();
+
+
+    box.innerHTML =
+        "";
+
+
+    if (
+        !profiles.length
+    ) {
+
+        box.innerHTML =
+            `
+            <div class="note">
+                Пока нет сохранённых A/B-профилей.
+            </div>
+            `;
+
+        return;
+    }
+
+
+    profiles.forEach(
+        profile => {
+
+            const row =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "profile-row";
+
+
+            row.innerHTML =
+                `
+                <div>
+
+                    <strong>
+                        ${escapeHtml(profile.device)}
+                    </strong>
+
+                    <div class="note"
+                         style="margin:4px 0 0">
+
+                        ${escapeHtml(profile.weapon)}
+                        •
+                        ${escapeHtml(profile.setting)}
+                        •
+                        ${profile.best}
+                        • зона ${profile.min}–${profile.max}
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="mini"
+                    onclick="deleteProfile(${profile.id})"
+                >
+                    🗑
+                </button>
+                `;
+
+
+            box.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+function deleteProfile(
+    id
+) {
+
+    const profiles =
+        getProfiles()
+        .filter(
+            item =>
+                item.id
+                !== id
+        );
+
+
+    localStorage.setItem(
+        PROFILE_KEY,
+        JSON.stringify(
+            profiles
+        )
+    );
+
+
+    renderProfiles();
+}
+
+
+function escapeHtml(
+    value
+) {
+
+    return String(value)
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+}
+
+
+renderProfiles();
+
+</script>
+
+</body>
+</html>
