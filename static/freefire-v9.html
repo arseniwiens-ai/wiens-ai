@@ -1,0 +1,2769 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>Free Fire v9 — Wiens AI</title>
+
+    <meta
+        name="theme-color"
+        content="#07080d"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #07080d;
+            --panel: rgba(19,21,32,.96);
+            --border: rgba(255,255,255,.10);
+            --text: #fff;
+            --muted: #9696a8;
+            --purple: #765cff;
+            --purple2: #a56cff;
+            --green: #46e49b;
+            --yellow: #ffc75c;
+            --red: #ff6079;
+            --blue: #62b6ff;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #25174d 0%,
+                    #10121b 31%,
+                    #07080d 74%
+                );
+
+            color: var(--text);
+
+            padding:
+                calc(12px + env(safe-area-inset-top))
+                14px
+                calc(30px + env(safe-area-inset-bottom));
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            object-fit: cover;
+
+            box-shadow:
+                0 0 25px
+                rgba(118,92,255,.45);
+        }
+
+        .brand-title {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .back {
+            padding: 10px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.06);
+
+            color: white;
+            text-decoration: none;
+        }
+
+        .hero {
+            margin-bottom: 14px;
+            padding: 20px 18px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(118,92,255,.25),
+                    rgba(165,108,255,.07)
+                );
+        }
+
+        .badge {
+            display: inline-flex;
+            margin-bottom: 9px;
+
+            padding: 6px 10px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(70,228,155,.10);
+
+            color: var(--green);
+
+            font-size: 11px;
+        }
+
+        .hero h1 {
+            margin-bottom: 8px;
+            font-size: 29px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .card {
+            margin-bottom: 14px;
+            padding: 17px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background: var(--panel);
+        }
+
+        .card h2 {
+            margin-bottom: 13px;
+            font-size: 17px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .note {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 13px;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+
+            color: #dedee8;
+
+            font-size: 13px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 13px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            outline: none;
+
+            background:
+                rgba(255,255,255,.055);
+
+            color: white;
+
+            font-size: 16px;
+        }
+
+        select option {
+            color: black;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .primary,
+        .secondary,
+        .danger {
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 15px;
+
+            color: white;
+
+            font-weight: 700;
+        }
+
+        .primary {
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+        }
+
+        .secondary {
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        .danger {
+            border:
+                1px solid rgba(255,96,121,.25);
+
+            background:
+                rgba(255,96,121,.08);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+            margin-top: 12px;
+        }
+
+        .resume-box {
+            padding: 14px;
+            margin-bottom: 14px;
+
+            border:
+                1px solid rgba(98,182,255,.25);
+
+            border-radius: 16px;
+
+            background:
+                rgba(98,182,255,.07);
+        }
+
+        .resume-title {
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .resume-meta {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .step-progress {
+            margin-bottom: 14px;
+        }
+
+        .step-progress-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 7px;
+        }
+
+        .step-label {
+            color: #cfc9ff;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .step-number {
+            color: var(--green);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .progress {
+            height: 8px;
+            overflow: hidden;
+            border-radius: 30px;
+
+            background:
+                rgba(255,255,255,.07);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--purple),
+                    var(--green)
+                );
+
+            transition: width .25s;
+        }
+
+        .wizard-panel {
+            padding: 17px;
+
+            border:
+                1px solid rgba(118,92,255,.30);
+
+            border-radius: 19px;
+
+            background:
+                rgba(118,92,255,.08);
+
+            text-align: center;
+        }
+
+        .wizard-eyebrow {
+            color: #c4bbff;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .wizard-setting {
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .wizard-value {
+            margin-top: 8px;
+
+            font-size: 48px;
+            font-weight: 950;
+        }
+
+        .wizard-range {
+            margin-top: 5px;
+
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .instruction {
+            margin-top: 13px;
+
+            padding: 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.04);
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .direction {
+            display: grid;
+            gap: 8px;
+
+            margin-top: 14px;
+        }
+
+        .direction button {
+            padding: 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        .direction button.high {
+            border-color:
+                rgba(255,96,121,.60);
+
+            background:
+                rgba(255,96,121,.10);
+        }
+
+        .direction button.good {
+            border-color:
+                rgba(70,228,155,.60);
+
+            background:
+                rgba(70,228,155,.10);
+        }
+
+        .direction button.low {
+            border-color:
+                rgba(255,199,92,.60);
+
+            background:
+                rgba(255,199,92,.10);
+        }
+
+        .hits-grid {
+            display: grid;
+            grid-template-columns: repeat(6,1fr);
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .hits-grid button {
+            padding: 9px 4px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        .hits-grid button.active {
+            background:
+                rgba(118,92,255,.28);
+
+            border-color:
+                rgba(165,108,255,.65);
+        }
+
+        .status-grid {
+            display: grid;
+            gap: 8px;
+        }
+
+        .status-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: center;
+
+            padding: 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.04);
+        }
+
+        .status-name {
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .status-meta {
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .pill {
+            padding: 6px 9px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        .pill-none {
+            color: #aaaabb;
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        .pill-working {
+            color: var(--yellow);
+
+            background:
+                rgba(255,199,92,.10);
+        }
+
+        .pill-ready {
+            color: var(--green);
+
+            background:
+                rgba(70,228,155,.10);
+        }
+
+        .finish {
+            padding: 17px;
+
+            border:
+                1px solid rgba(70,228,155,.25);
+
+            border-radius: 19px;
+
+            background:
+                rgba(70,228,155,.07);
+        }
+
+        .finish-title {
+            font-size: 21px;
+            font-weight: 900;
+
+            margin-bottom: 5px;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .profile-box {
+            padding: 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,.045);
+        }
+
+        .profile-label {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .profile-value {
+            margin-top: 5px;
+
+            font-size: 27px;
+            font-weight: 900;
+        }
+
+        .profile-meta {
+            margin-top: 4px;
+
+            color: #bdb6ff;
+
+            font-size: 10px;
+        }
+
+        .export {
+            margin-top: 13px;
+
+            padding: 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.04);
+
+            white-space: pre-wrap;
+
+            font-family:
+                ui-monospace,
+                SFMono-Regular,
+                Menlo,
+                monospace;
+
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .saved-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+
+            padding: 11px;
+            margin-top: 8px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.04);
+        }
+
+        .saved-title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .saved-meta {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .mini {
+            padding: 7px 9px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        @media(max-width:560px) {
+            .grid-2,
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hits-grid {
+                grid-template-columns:
+                    repeat(4,1fr);
+            }
+
+            .status-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="topbar">
+
+        <div class="brand">
+
+            <img
+                class="logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <div>
+
+                <div class="brand-title">
+                    Wiens AI
+                </div>
+
+                <div class="brand-subtitle">
+                    Free Fire Guided Setup v9
+                </div>
+
+            </div>
+
+        </div>
+
+        <a
+            class="back"
+            href="/"
+        >
+            ← AI
+        </a>
+
+    </div>
+
+
+    <section class="hero">
+
+        <div class="badge">
+            🧭 Guided Calibration
+        </div>
+
+        <h1>
+            Free Fire v9
+        </h1>
+
+        <p>
+            Пошаговая настройка чувствительности.
+            Wiens AI сам выбирает следующее значение,
+            а тебе остаётся только проверить его в игре.
+        </p>
+
+    </section>
+
+
+    <!-- SETUP -->
+
+    <section
+        class="card"
+        id="setupCard"
+    >
+
+        <div
+            class="resume-box hidden"
+            id="resumeBox"
+        >
+
+            <div class="resume-title">
+                🔄 Есть незаконченная настройка
+            </div>
+
+            <div
+                class="resume-meta"
+                id="resumeMeta"
+            ></div>
+
+            <div class="buttons">
+
+                <button
+                    class="secondary"
+                    onclick="resetSession()"
+                >
+                    Начать заново
+                </button>
+
+                <button
+                    class="primary"
+                    onclick="resumeSession()"
+                >
+                    Продолжить
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <h2>
+            🎮 Новая настройка
+        </h2>
+
+
+        <div class="field">
+
+            <label>
+                Телефон
+            </label>
+
+            <input
+                id="device"
+                placeholder="Например iPhone 17 Pro"
+            >
+
+        </div>
+
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Оружие
+                </label>
+
+                <select id="weapon">
+
+                    <option value="deagle">
+                        Desert Eagle
+                    </option>
+
+                    <option value="smg">
+                        SMG
+                    </option>
+
+                    <option value="ar">
+                        AR
+                    </option>
+
+                    <option value="shotgun">
+                        Shotgun
+                    </option>
+
+                    <option value="sniper">
+                        Sniper
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Насколько точно уже настроено?
+                </label>
+
+                <select id="rangePreset">
+
+                    <option value="wide">
+                        Почти не знаю
+                    </option>
+
+                    <option
+                        value="normal"
+                        selected
+                    >
+                        Примерно знаю
+                    </option>
+
+                    <option value="fine">
+                        Уже близко
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary"
+            onclick="startSession()"
+        >
+            🧭 Запустить мастер настройки
+        </button>
+
+    </section>
+
+
+    <!-- WIZARD -->
+
+    <section
+        class="card hidden"
+        id="wizardCard"
+    >
+
+        <div class="step-progress">
+
+            <div class="step-progress-top">
+
+                <div
+                    class="step-label"
+                    id="stepLabel"
+                >
+                    Шаг
+                </div>
+
+                <div
+                    class="step-number"
+                    id="stepNumber"
+                >
+                    1
+                </div>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    class="progress-fill"
+                    id="stepFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="wizard-panel">
+
+            <div class="wizard-eyebrow">
+                Wiens AI рекомендует проверить
+            </div>
+
+            <div
+                class="wizard-setting"
+                id="wizardSetting"
+            >
+                General
+            </div>
+
+            <div
+                class="wizard-value"
+                id="wizardValue"
+            >
+                130
+            </div>
+
+            <div
+                class="wizard-range"
+                id="wizardRange"
+            ></div>
+
+        </div>
+
+
+        <div
+            class="instruction"
+            id="wizardInstruction"
+        >
+            Открой Free Fire → Настройки → Чувствительность.
+        </div>
+
+
+        <button
+            class="primary"
+            style="margin-top:14px"
+            id="readyButton"
+            onclick="confirmValueSet()"
+        >
+            ✅ Я выставил это значение
+        </button>
+
+
+        <div
+            class="hidden"
+            id="testControls"
+        >
+
+            <div class="note"
+                 style="margin-top:15px">
+                Сделай 10 одинаковых оттяжек.
+                Как ведёт себя прицел?
+            </div>
+
+
+            <div class="direction">
+
+                <button
+                    id="dirHigh"
+                    onclick="selectDirection('high')"
+                >
+                    ⬆️ Перелетает выше
+                </button>
+
+                <button
+                    id="dirGood"
+                    onclick="selectDirection('good')"
+                >
+                    ✅ По высоте нормально
+                </button>
+
+                <button
+                    id="dirLow"
+                    onclick="selectDirection('low')"
+                >
+                    ⬇️ Не дотягивает
+                </button>
+
+            </div>
+
+
+            <div class="note"
+                 style="margin-top:14px">
+                Сколько из 10 попыток получились хорошо?
+            </div>
+
+
+            <div
+                class="hits-grid"
+                id="hitsGrid"
+            ></div>
+
+
+            <button
+                class="primary"
+                onclick="submitWizardTest()"
+            >
+                Сохранить результат →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+
+    <section
+        class="card hidden"
+        id="dashboardCard"
+    >
+
+        <h2>
+            📊 Прогресс настройки
+        </h2>
+
+        <div
+            class="status-grid"
+            id="statusGrid"
+        ></div>
+
+        <button
+            class="primary"
+            style="margin-top:14px"
+            onclick="continueWizard()"
+        >
+            ▶ Продолжить мастер
+        </button>
+
+        <button
+            class="secondary"
+            style="margin-top:9px"
+            onclick="showFinalProfile()"
+        >
+            🏆 Посмотреть профиль
+        </button>
+
+    </section>
+
+
+    <!-- FINAL -->
+
+    <section
+        class="card hidden"
+        id="finalCard"
+    >
+
+        <div class="finish">
+
+            <div class="finish-title">
+                🏆 Профиль настройки
+            </div>
+
+            <div
+                class="note"
+                id="finishText"
+            ></div>
+
+        </div>
+
+
+        <div
+            class="profile-grid"
+            id="profileGrid"
+        ></div>
+
+
+        <div
+            class="export"
+            id="exportBox"
+        ></div>
+
+
+        <div class="buttons">
+
+            <button
+                class="secondary"
+                onclick="copyProfile()"
+            >
+                📋 Копировать
+            </button>
+
+            <button
+                class="primary"
+                onclick="saveProfile()"
+            >
+                💾 Сохранить
+            </button>
+
+        </div>
+
+
+        <button
+            class="secondary"
+            style="margin-top:9px"
+            onclick="returnToDashboard()"
+        >
+            ← Продолжить калибровку
+        </button>
+
+    </section>
+
+
+    <!-- SAVED -->
+
+    <section class="card">
+
+        <h2>
+            💾 Сохранённые профили
+        </h2>
+
+        <div id="savedProfiles"></div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+const SESSION_KEY =
+    "wiens_ff_v9_session";
+
+const PROFILE_KEY =
+    "wiens_ff_v9_profiles";
+
+const V8_SESSION_KEY =
+    "wiens_ff_v8_current_session";
+
+
+const settingNames = {
+    general:
+        "General",
+
+    redDot:
+        "Red Dot",
+
+    scope2x:
+        "2x Scope",
+
+    scope4x:
+        "4x Scope",
+
+    sniper:
+        "Sniper"
+};
+
+
+const weaponNames = {
+    deagle:
+        "Desert Eagle",
+
+    smg:
+        "SMG",
+
+    ar:
+        "AR",
+
+    shotgun:
+        "Shotgun",
+
+    sniper:
+        "Sniper"
+};
+
+
+const weaponSettings = {
+    deagle: [
+        "general",
+        "redDot"
+    ],
+
+    smg: [
+        "general",
+        "redDot",
+        "scope2x"
+    ],
+
+    ar: [
+        "general",
+        "redDot",
+        "scope2x",
+        "scope4x"
+    ],
+
+    shotgun: [
+        "general"
+    ],
+
+    sniper: [
+        "general",
+        "scope4x",
+        "sniper"
+    ]
+};
+
+
+const baseValues = {
+    general:
+        130,
+
+    redDot:
+        125,
+
+    scope2x:
+        115,
+
+    scope4x:
+        100,
+
+    sniper:
+        70
+};
+
+
+let session = null;
+
+let currentSetting = null;
+
+let selectedDirection = null;
+
+let selectedHits = null;
+
+let valueConfirmed = false;
+
+
+function clamp(
+    value,
+    min = 0,
+    max = 200
+) {
+
+    return Math.max(
+        min,
+        Math.min(
+            max,
+            Math.round(value)
+        )
+    );
+}
+
+
+function loadJSON(
+    key,
+    fallback
+) {
+
+    try {
+
+        const raw =
+            localStorage.getItem(key);
+
+        if (!raw) {
+            return fallback;
+        }
+
+        return JSON.parse(raw);
+
+    } catch {
+
+        return fallback;
+    }
+}
+
+
+function hideMainCards() {
+
+    [
+        "setupCard",
+        "wizardCard",
+        "dashboardCard",
+        "finalCard"
+    ]
+    .forEach(
+        id => {
+
+            document
+            .getElementById(id)
+            .classList.add(
+                "hidden"
+            );
+        }
+    );
+}
+
+
+function getRadius() {
+
+    const preset =
+        document
+        .getElementById(
+            "rangePreset"
+        )
+        .value;
+
+    if (
+        preset === "wide"
+    ) {
+        return 30;
+    }
+
+    if (
+        preset === "fine"
+    ) {
+        return 10;
+    }
+
+    return 20;
+}
+
+
+function makeSetting(
+    setting,
+    radius
+) {
+
+    const center =
+        baseValues[
+            setting
+        ];
+
+    return {
+        best:
+            center,
+
+        min:
+            clamp(
+                center - radius
+            ),
+
+        max:
+            clamp(
+                center + radius
+            ),
+
+        tests:
+            [],
+
+        confidence:
+            0,
+
+        completed:
+            false
+    };
+}
+
+
+function startSession() {
+
+    const weapon =
+        document
+        .getElementById(
+            "weapon"
+        )
+        .value;
+
+    const device =
+        document
+        .getElementById(
+            "device"
+        )
+        .value
+        .trim()
+        ||
+        "Free Fire";
+
+    const radius =
+        getRadius();
+
+    const state =
+        {};
+
+    weaponSettings[
+        weapon
+    ]
+    .forEach(
+        setting => {
+
+            state[
+                setting
+            ] =
+                makeSetting(
+                    setting,
+                    radius
+                );
+        }
+    );
+
+    session = {
+        id:
+            Date.now(),
+
+        device:
+            device,
+
+        weapon:
+            weapon,
+
+        state:
+            state,
+
+        step:
+            0,
+
+        createdAt:
+            new Date()
+            .toISOString(),
+
+        updatedAt:
+            new Date()
+            .toISOString()
+    };
+
+    importV8Session();
+
+    saveSession();
+
+    continueWizard();
+}
+
+
+function importV8Session() {
+
+    const old =
+        loadJSON(
+            V8_SESSION_KEY,
+            null
+        );
+
+    if (
+        !old
+        ||
+        old.weapon
+        !==
+        session.weapon
+        ||
+        !old.state
+    ) {
+        return;
+    }
+
+    Object.keys(
+        session.state
+    )
+    .forEach(
+        setting => {
+
+            const previous =
+                old.state[
+                    setting
+                ];
+
+            if (!previous) {
+                return;
+            }
+
+            session.state[
+                setting
+            ]
+            .best =
+                previous.best
+                ??
+                session.state[
+                    setting
+                ]
+                .best;
+
+            session.state[
+                setting
+            ]
+            .min =
+                previous.min
+                ??
+                session.state[
+                    setting
+                ]
+                .min;
+
+            session.state[
+                setting
+            ]
+            .max =
+                previous.max
+                ??
+                session.state[
+                    setting
+                ]
+                .max;
+
+            session.state[
+                setting
+            ]
+            .confidence =
+                Math.min(
+                    previous.confidence
+                    ||
+                    0,
+                    70
+                );
+        }
+    );
+}
+
+
+function saveSession() {
+
+    if (!session) {
+        return;
+    }
+
+    session.updatedAt =
+        new Date()
+        .toISOString();
+
+    localStorage.setItem(
+        SESSION_KEY,
+        JSON.stringify(
+            session
+        )
+    );
+}
+
+
+function resumeSession() {
+
+    const saved =
+        loadJSON(
+            SESSION_KEY,
+            null
+        );
+
+    if (!saved) {
+        return;
+    }
+
+    session =
+        saved;
+
+    continueWizard();
+}
+
+
+function resetSession() {
+
+    if (
+        !confirm(
+            "Удалить текущий прогресс и начать заново?"
+        )
+    ) {
+        return;
+    }
+
+    localStorage.removeItem(
+        SESSION_KEY
+    );
+
+    session =
+        null;
+
+    hideMainCards();
+
+    document
+    .getElementById(
+        "setupCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+    checkResume();
+}
+
+
+function checkResume() {
+
+    const saved =
+        loadJSON(
+            SESSION_KEY,
+            null
+        );
+
+    const box =
+        document
+        .getElementById(
+            "resumeBox"
+        );
+
+    if (!saved) {
+
+        box.classList.add(
+            "hidden"
+        );
+
+        return;
+    }
+
+    box.classList.remove(
+        "hidden"
+    );
+
+    const completed =
+        Object.values(
+            saved.state
+        )
+        .filter(
+            item =>
+                item.completed
+        )
+        .length;
+
+    const total =
+        Object.keys(
+            saved.state
+        )
+        .length;
+
+    document
+    .getElementById(
+        "resumeMeta"
+    )
+    .textContent =
+        `${saved.device} • `
+        +
+        `${weaponNames[saved.weapon]} • `
+        +
+        `${completed} из ${total} настроек готовы`;
+}
+
+
+function calculateConfidence(
+    item
+) {
+
+    const tests =
+        item.tests.length;
+
+    const width =
+        item.max
+        -
+        item.min;
+
+    let confidence =
+        tests * 18;
+
+    confidence +=
+        Math.max(
+            0,
+            45
+            -
+            width * 3
+        );
+
+    const goodTests =
+        item.tests.filter(
+            test =>
+                test.direction
+                ===
+                "good"
+        );
+
+    if (
+        goodTests.length
+        >=
+        1
+    ) {
+        confidence += 10;
+    }
+
+    if (
+        goodTests.some(
+            test =>
+                test.hits >= 8
+        )
+    ) {
+        confidence += 10;
+    }
+
+    item.confidence =
+        clamp(
+            confidence,
+            0,
+            98
+        );
+
+    if (
+        item.confidence >= 82
+        &&
+        width <= 5
+    ) {
+
+        item.completed =
+            true;
+    }
+}
+
+
+function chooseNextSetting() {
+
+    const settings =
+        Object.keys(
+            session.state
+        );
+
+    const unfinished =
+        settings.filter(
+            setting =>
+                !session.state[
+                    setting
+                ]
+                .completed
+        );
+
+    if (
+        !unfinished.length
+    ) {
+        return null;
+    }
+
+    unfinished.sort(
+        (
+            a,
+            b
+        ) => {
+
+            const A =
+                session.state[a];
+
+            const B =
+                session.state[b];
+
+            if (
+                A.confidence
+                !==
+                B.confidence
+            ) {
+
+                return A.confidence
+                    -
+                    B.confidence;
+            }
+
+            return (
+                B.max
+                -
+                B.min
+            )
+            -
+            (
+                A.max
+                -
+                A.min
+            );
+        }
+    );
+
+    return unfinished[0];
+}
+
+
+function continueWizard() {
+
+    currentSetting =
+        chooseNextSetting();
+
+    if (
+        currentSetting
+        === null
+    ) {
+
+        showFinalProfile();
+
+        return;
+    }
+
+    session.step += 1;
+
+    saveSession();
+
+    showWizard();
+}
+
+
+function showWizard() {
+
+    hideMainCards();
+
+    valueConfirmed =
+        false;
+
+    selectedDirection =
+        null;
+
+    selectedHits =
+        null;
+
+    const item =
+        session.state[
+            currentSetting
+        ];
+
+    item.currentValue =
+        Math.round(
+            (
+                item.min
+                +
+                item.max
+            )
+            /
+            2
+        );
+
+    document
+    .getElementById(
+        "wizardCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+    document
+    .getElementById(
+        "wizardSetting"
+    )
+    .textContent =
+        settingNames[
+            currentSetting
+        ];
+
+    document
+    .getElementById(
+        "wizardValue"
+    )
+    .textContent =
+        item.currentValue;
+
+    document
+    .getElementById(
+        "wizardRange"
+    )
+    .textContent =
+        `Текущая зона поиска: ${item.min}–${item.max}`;
+
+    const estimatedTotal =
+        Math.max(
+            6,
+            Object.keys(
+                session.state
+            )
+            .length
+            *
+            3
+        );
+
+    const currentStep =
+        Math.min(
+            session.step,
+            estimatedTotal
+        );
+
+    document
+    .getElementById(
+        "stepLabel"
+    )
+    .textContent =
+        `Шаг ${currentStep}`;
+
+    document
+    .getElementById(
+        "stepNumber"
+    )
+    .textContent =
+        `${currentStep} / ~${estimatedTotal}`;
+
+    document
+    .getElementById(
+        "stepFill"
+    )
+    .style
+    .width =
+        `${Math.min(
+            100,
+            currentStep
+            /
+            estimatedTotal
+            *
+            100
+        )}%`;
+
+    document
+    .getElementById(
+        "wizardInstruction"
+    )
+    .textContent =
+        buildInstruction(
+            currentSetting
+        );
+
+    document
+    .getElementById(
+        "readyButton"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+    document
+    .getElementById(
+        "testControls"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+    resetDirectionButtons();
+
+    createHitsButtons();
+
+    saveSession();
+}
+
+
+function buildInstruction(
+    setting
+) {
+
+    const base =
+        "Открой Free Fire → Настройки → Чувствительность. ";
+
+    const descriptions = {
+        general:
+            "Найди General и выставь указанное значение.",
+
+        redDot:
+            "Найди Red Dot и выставь указанное значение.",
+
+        scope2x:
+            "Найди 2x Scope и выставь указанное значение.",
+
+        scope4x:
+            "Найди 4x Scope и выставь указанное значение.",
+
+        sniper:
+            "Найди чувствительность снайперского прицела и выставь указанное значение."
+    };
+
+    return base
+        +
+        descriptions[
+            setting
+        ];
+}
+
+
+function confirmValueSet() {
+
+    valueConfirmed =
+        true;
+
+    document
+    .getElementById(
+        "readyButton"
+    )
+    .classList.add(
+        "hidden"
+    );
+
+    document
+    .getElementById(
+        "testControls"
+    )
+    .classList.remove(
+        "hidden"
+    );
+}
+
+
+function resetDirectionButtons() {
+
+    [
+        "dirHigh",
+        "dirGood",
+        "dirLow"
+    ]
+    .forEach(
+        id => {
+
+            document
+            .getElementById(id)
+            .className =
+                "";
+        }
+    );
+}
+
+
+function selectDirection(
+    direction
+) {
+
+    selectedDirection =
+        direction;
+
+    resetDirectionButtons();
+
+    const id =
+        direction
+        ===
+        "high"
+        ?
+        "dirHigh"
+        :
+        direction
+        ===
+        "low"
+        ?
+        "dirLow"
+        :
+        "dirGood";
+
+    document
+    .getElementById(id)
+    .classList.add(
+        direction
+    );
+}
+
+
+function createHitsButtons() {
+
+    const box =
+        document
+        .getElementById(
+            "hitsGrid"
+        );
+
+    box.innerHTML =
+        "";
+
+    for (
+        let i = 0;
+        i <= 10;
+        i++
+    ) {
+
+        const button =
+            document
+            .createElement(
+                "button"
+            );
+
+        button.textContent =
+            i;
+
+        button.onclick =
+            () => {
+
+                selectedHits =
+                    i;
+
+                box
+                .querySelectorAll(
+                    "button"
+                )
+                .forEach(
+                    el =>
+                        el.classList
+                        .remove(
+                            "active"
+                        )
+                );
+
+                button
+                .classList
+                .add(
+                    "active"
+                );
+            };
+
+        box.appendChild(
+            button
+        );
+    }
+}
+
+
+function submitWizardTest() {
+
+    if (
+        !valueConfirmed
+    ) {
+
+        alert(
+            "Сначала подтверди, что выставил значение."
+        );
+
+        return;
+    }
+
+    if (
+        selectedDirection
+        ===
+        null
+        ||
+        selectedHits
+        ===
+        null
+    ) {
+
+        alert(
+            "Выбери направление и количество удачных попыток."
+        );
+
+        return;
+    }
+
+    const item =
+        session.state[
+            currentSetting
+        ];
+
+    const value =
+        item.currentValue;
+
+    item.tests.push({
+        value:
+            value,
+
+        direction:
+            selectedDirection,
+
+        hits:
+            selectedHits,
+
+        date:
+            new Date()
+            .toISOString()
+    });
+
+
+    if (
+        selectedDirection
+        ===
+        "high"
+    ) {
+
+        item.max =
+            Math.max(
+                item.min,
+                value - 1
+            );
+
+    } else if (
+        selectedDirection
+        ===
+        "low"
+    ) {
+
+        item.min =
+            Math.min(
+                item.max,
+                value + 1
+            );
+
+    } else {
+
+        item.best =
+            value;
+
+        const radius =
+            selectedHits >= 9
+            ?
+            2
+            :
+            selectedHits >= 7
+            ?
+            4
+            :
+            6;
+
+        item.min =
+            Math.max(
+                item.min,
+                value - radius
+            );
+
+        item.max =
+            Math.min(
+                item.max,
+                value + radius
+            );
+    }
+
+
+    /*
+        Pick best measured value
+        using hit score.
+    */
+
+    const bestTest =
+        item.tests
+        .slice()
+        .sort(
+            (
+                a,
+                b
+            ) =>
+                b.hits
+                -
+                a.hits
+        )[0];
+
+    if (bestTest) {
+
+        item.best =
+            bestTest.value;
+    }
+
+
+    calculateConfidence(
+        item
+    );
+
+    saveSession();
+
+    showDashboard();
+}
+
+
+function showDashboard() {
+
+    hideMainCards();
+
+    Object.keys(
+        session.state
+    )
+    .forEach(
+        setting => {
+
+            calculateConfidence(
+                session.state[
+                    setting
+                ]
+            );
+        }
+    );
+
+    saveSession();
+
+    document
+    .getElementById(
+        "dashboardCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+    renderStatusGrid();
+}
+
+
+function renderStatusGrid() {
+
+    const box =
+        document
+        .getElementById(
+            "statusGrid"
+        );
+
+    box.innerHTML =
+        "";
+
+    Object.keys(
+        session.state
+    )
+    .forEach(
+        setting => {
+
+            const item =
+                session.state[
+                    setting
+                ];
+
+            let pill =
+                "Не проверено";
+
+            let css =
+                "pill-none";
+
+            if (
+                item.completed
+            ) {
+
+                pill =
+                    "Готово";
+
+                css =
+                    "pill-ready";
+
+            } else if (
+                item.tests.length
+            ) {
+
+                pill =
+                    "Калибруется";
+
+                css =
+                    "pill-working";
+            }
+
+            const row =
+                document
+                .createElement(
+                    "div"
+                );
+
+            row.className =
+                "status-row";
+
+            row.innerHTML =
+                `
+                <div>
+
+                    <div class="status-name">
+                        ${settingNames[setting]}
+                    </div>
+
+                    <div class="status-meta">
+                        лучшее ${item.best}
+                        • зона ${item.min}–${item.max}
+                        • калибровка ${item.confidence}%
+                    </div>
+
+                </div>
+
+                <div>
+                    <span class="pill ${css}">
+                        ${pill}
+                    </span>
+                </div>
+                `;
+
+            box.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+function showFinalProfile() {
+
+    hideMainCards();
+
+    document
+    .getElementById(
+        "finalCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+    const grid =
+        document
+        .getElementById(
+            "profileGrid"
+        );
+
+    grid.innerHTML =
+        "";
+
+    const states =
+        Object.keys(
+            session.state
+        );
+
+    states.forEach(
+        setting => {
+
+            const item =
+                session.state[
+                    setting
+                ];
+
+            const box =
+                document
+                .createElement(
+                    "div"
+                );
+
+            box.className =
+                "profile-box";
+
+            box.innerHTML =
+                `
+                <div class="profile-label">
+                    ${settingNames[setting]}
+                </div>
+
+                <div class="profile-value">
+                    ${item.best}
+                </div>
+
+                <div class="profile-meta">
+                    калибровка ${item.confidence}%
+                </div>
+                `;
+
+            grid.appendChild(
+                box
+            );
+        }
+    );
+
+    const completed =
+        Object.values(
+            session.state
+        )
+        .filter(
+            item =>
+                item.completed
+        )
+        .length;
+
+    const total =
+        states.length;
+
+    document
+    .getElementById(
+        "finishText"
+    )
+    .textContent =
+        completed
+        ===
+        total
+        ?
+        "Все настройки прошли калибровку."
+        :
+        `${completed} из ${total} настроек готовы. Можно продолжить тестирование для большей стабильности.`;
+
+    document
+    .getElementById(
+        "exportBox"
+    )
+    .textContent =
+        buildExportText();
+}
+
+
+function returnToDashboard() {
+
+    showDashboard();
+}
+
+
+function buildExportText() {
+
+    let text =
+        `Wiens AI Free Fire Profile\n`
+        +
+        `${session.device}\n`
+        +
+        `${weaponNames[session.weapon]}\n\n`;
+
+    Object.keys(
+        session.state
+    )
+    .forEach(
+        setting => {
+
+            text +=
+                `${settingNames[setting]}: `
+                +
+                `${session.state[setting].best}\n`;
+        }
+    );
+
+    return text.trim();
+}
+
+
+async function copyProfile() {
+
+    const text =
+        buildExportText();
+
+    try {
+
+        await navigator
+        .clipboard
+        .writeText(
+            text
+        );
+
+        alert(
+            "Профиль скопирован ✅"
+        );
+
+    } catch {
+
+        alert(
+            "Не удалось скопировать автоматически."
+        );
+    }
+}
+
+
+function saveProfile() {
+
+    const profiles =
+        loadJSON(
+            PROFILE_KEY,
+            []
+        );
+
+    const data =
+        {};
+
+    Object.keys(
+        session.state
+    )
+    .forEach(
+        setting => {
+
+            data[
+                setting
+            ] = {
+                best:
+                    session.state[
+                        setting
+                    ]
+                    .best,
+
+                confidence:
+                    session.state[
+                        setting
+                    ]
+                    .confidence,
+
+                completed:
+                    session.state[
+                        setting
+                    ]
+                    .completed
+            };
+        }
+    );
+
+    profiles.unshift({
+        id:
+            Date.now(),
+
+        device:
+            session.device,
+
+        weapon:
+            session.weapon,
+
+        settings:
+            data,
+
+        savedAt:
+            new Date()
+            .toISOString()
+    });
+
+    localStorage.setItem(
+        PROFILE_KEY,
+        JSON.stringify(
+            profiles.slice(
+                0,
+                30
+            )
+        )
+    );
+
+    renderSavedProfiles();
+
+    alert(
+        "Профиль сохранён ✅"
+    );
+}
+
+
+function renderSavedProfiles() {
+
+    const box =
+        document
+        .getElementById(
+            "savedProfiles"
+        );
+
+    const profiles =
+        loadJSON(
+            PROFILE_KEY,
+            []
+        );
+
+    box.innerHTML =
+        "";
+
+    if (
+        !Array.isArray(
+            profiles
+        )
+        ||
+        !profiles.length
+    ) {
+
+        box.innerHTML =
+            `
+            <div class="note">
+                Пока нет сохранённых профилей v9.
+            </div>
+            `;
+
+        return;
+    }
+
+    profiles.forEach(
+        profile => {
+
+            const row =
+                document
+                .createElement(
+                    "div"
+                );
+
+            row.className =
+                "saved-row";
+
+            row.innerHTML =
+                `
+                <div>
+
+                    <div class="saved-title">
+                        ${escapeHtml(profile.device)}
+                    </div>
+
+                    <div class="saved-meta">
+                        ${weaponNames[profile.weapon]}
+                    </div>
+
+                </div>
+
+                <button
+                    class="mini"
+                    onclick="deleteProfile(${profile.id})"
+                >
+                    🗑
+                </button>
+                `;
+
+            box.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+function deleteProfile(
+    id
+) {
+
+    const profiles =
+        loadJSON(
+            PROFILE_KEY,
+            []
+        )
+        .filter(
+            item =>
+                item.id
+                !==
+                id
+        );
+
+    localStorage.setItem(
+        PROFILE_KEY,
+        JSON.stringify(
+            profiles
+        )
+    );
+
+    renderSavedProfiles();
+}
+
+
+function escapeHtml(
+    value
+) {
+
+    return String(value)
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+}
+
+
+checkResume();
+
+renderSavedProfiles();
+
+</script>
+
+</body>
+</html>
