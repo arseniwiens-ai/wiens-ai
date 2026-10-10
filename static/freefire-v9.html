@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
-    <title>Free Fire v9 — Wiens AI</title>
+    <title>Free Fire Lab — Wiens AI</title>
 
     <meta
         name="theme-color"
@@ -24,16 +24,20 @@
 
         :root {
             --bg: #07080d;
-            --panel: rgba(19,21,32,.96);
+            --panel: rgba(18,20,31,.96);
+            --panel2: rgba(255,255,255,.05);
             --border: rgba(255,255,255,.10);
-            --text: #fff;
-            --muted: #9696a8;
+
+            --text: #ffffff;
+            --muted: #9898aa;
+
             --purple: #765cff;
             --purple2: #a56cff;
-            --green: #46e49b;
-            --yellow: #ffc75c;
-            --red: #ff6079;
-            --blue: #62b6ff;
+
+            --green: #4ae29b;
+            --yellow: #ffc760;
+            --red: #ff667d;
+            --blue: #66b8ff;
         }
 
         html,
@@ -53,9 +57,9 @@
             background:
                 radial-gradient(
                     circle at top,
-                    #25174d 0%,
-                    #10121b 31%,
-                    #07080d 74%
+                    #281853 0%,
+                    #11121d 32%,
+                    #07080d 72%
                 );
 
             color: var(--text);
@@ -63,7 +67,7 @@
             padding:
                 calc(12px + env(safe-area-inset-top))
                 14px
-                calc(30px + env(safe-area-inset-bottom));
+                calc(32px + env(safe-area-inset-bottom));
         }
 
         button,
@@ -78,16 +82,23 @@
         }
 
         .app {
-            max-width: 780px;
+            width: 100%;
+            max-width: 820px;
             margin: 0 auto;
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         .topbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             gap: 10px;
-            margin-bottom: 15px;
+
+            margin-bottom: 14px;
         }
 
         .brand {
@@ -97,9 +108,11 @@
         }
 
         .logo {
-            width: 46px;
-            height: 46px;
+            width: 47px;
+            height: 47px;
+
             border-radius: 14px;
+
             object-fit: cover;
 
             box-shadow:
@@ -109,12 +122,14 @@
 
         .brand-title {
             font-size: 19px;
-            font-weight: 800;
+            font-weight: 850;
         }
 
         .brand-subtitle {
             margin-top: 2px;
+
             color: var(--muted);
+
             font-size: 11px;
         }
 
@@ -127,14 +142,16 @@
             border-radius: 12px;
 
             background:
-                rgba(255,255,255,.06);
+                rgba(255,255,255,.055);
 
             color: white;
+
             text-decoration: none;
         }
 
         .hero {
             margin-bottom: 14px;
+
             padding: 20px 18px;
 
             border:
@@ -146,20 +163,20 @@
                 linear-gradient(
                     135deg,
                     rgba(118,92,255,.25),
-                    rgba(165,108,255,.07)
+                    rgba(165,108,255,.06)
                 );
         }
 
         .badge {
             display: inline-flex;
-            margin-bottom: 9px;
 
             padding: 6px 10px;
+            margin-bottom: 9px;
 
             border-radius: 30px;
 
             background:
-                rgba(70,228,155,.10);
+                rgba(74,226,155,.10);
 
             color: var(--green);
 
@@ -167,18 +184,20 @@
         }
 
         .hero h1 {
+            font-size: 30px;
             margin-bottom: 8px;
-            font-size: 29px;
         }
 
         .hero p {
             color: var(--muted);
+
             font-size: 14px;
             line-height: 1.5;
         }
 
         .card {
             margin-bottom: 14px;
+
             padding: 17px;
 
             border:
@@ -190,18 +209,16 @@
         }
 
         .card h2 {
-            margin-bottom: 13px;
             font-size: 17px;
-        }
-
-        .hidden {
-            display: none !important;
+            margin-bottom: 13px;
         }
 
         .note {
             color: var(--muted);
+
             font-size: 12px;
             line-height: 1.5;
+
             margin-bottom: 13px;
         }
 
@@ -211,6 +228,7 @@
 
         label {
             display: block;
+
             margin-bottom: 7px;
 
             color: #dedee8;
@@ -243,10 +261,26 @@
             color: black;
         }
 
+        input[type="range"] {
+            padding: 0;
+        }
+
         .grid-2 {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 10px;
+        }
+
+        .grid-3 {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 9px;
         }
 
         .primary,
@@ -260,7 +294,7 @@
 
             color: white;
 
-            font-weight: 700;
+            font-weight: 750;
         }
 
         .primary {
@@ -279,75 +313,163 @@
                 1px solid var(--border);
 
             background:
-                rgba(255,255,255,.06);
+                rgba(255,255,255,.055);
         }
 
         .danger {
             border:
-                1px solid rgba(255,96,121,.25);
+                1px solid rgba(255,102,125,.25);
 
             background:
-                rgba(255,96,121,.08);
+                rgba(255,102,125,.08);
         }
 
         .buttons {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 9px;
+
             margin-top: 12px;
         }
 
         .resume-box {
+            margin-bottom: 15px;
             padding: 14px;
-            margin-bottom: 14px;
 
             border:
-                1px solid rgba(98,182,255,.25);
+                1px solid rgba(102,184,255,.25);
 
             border-radius: 16px;
 
             background:
-                rgba(98,182,255,.07);
+                rgba(102,184,255,.07);
         }
 
         .resume-title {
-            margin-bottom: 5px;
             font-size: 14px;
             font-weight: 800;
+
+            margin-bottom: 5px;
         }
 
         .resume-meta {
             color: var(--muted);
+
             font-size: 11px;
             line-height: 1.5;
         }
 
-        .step-progress {
+        .section-title {
+            margin:
+                16px 0 10px;
+
+            color: #c9c5ff;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: .6px;
+        }
+
+        .range-row {
+            display: grid;
+
+            grid-template-columns:
+                1fr auto;
+
+            gap: 12px;
+
+            align-items: center;
+        }
+
+        .range-value {
+            min-width: 56px;
+
+            padding: 8px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 11px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            text-align: center;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 8px;
+        }
+
+        .summary-box {
+            padding: 11px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.04);
+        }
+
+        .summary-label {
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .summary-value {
+            margin-top: 4px;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .step-top {
             margin-bottom: 14px;
         }
 
-        .step-progress-top {
+        .step-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 7px;
+
+            margin-bottom: 8px;
         }
 
-        .step-label {
-            color: #cfc9ff;
+        .step-text {
+            color: #d0caff;
+
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 750;
         }
 
-        .step-number {
+        .step-count {
             color: var(--green);
+
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 850;
         }
 
         .progress {
             height: 8px;
+
             overflow: hidden;
+
             border-radius: 30px;
 
             background:
@@ -356,7 +478,7 @@
 
         .progress-fill {
             height: 100%;
-            width: 0%;
+            width: 0;
 
             border-radius: inherit;
 
@@ -371,7 +493,7 @@
         }
 
         .wizard-panel {
-            padding: 17px;
+            padding: 18px;
 
             border:
                 1px solid rgba(118,92,255,.30);
@@ -384,21 +506,23 @@
             text-align: center;
         }
 
-        .wizard-eyebrow {
-            color: #c4bbff;
+        .wizard-type {
+            color: #bdb5ff;
+
             font-size: 11px;
+
             margin-bottom: 6px;
         }
 
         .wizard-setting {
-            font-size: 25px;
+            font-size: 24px;
             font-weight: 900;
         }
 
         .wizard-value {
             margin-top: 8px;
 
-            font-size: 48px;
+            font-size: 49px;
             font-weight: 950;
         }
 
@@ -406,6 +530,7 @@
             margin-top: 5px;
 
             color: var(--muted);
+
             font-size: 11px;
         }
 
@@ -428,6 +553,7 @@
 
         .direction {
             display: grid;
+
             gap: 8px;
 
             margin-top: 14px;
@@ -449,33 +575,38 @@
 
         .direction button.high {
             border-color:
-                rgba(255,96,121,.60);
+                rgba(255,102,125,.60);
 
             background:
-                rgba(255,96,121,.10);
+                rgba(255,102,125,.10);
         }
 
         .direction button.good {
             border-color:
-                rgba(70,228,155,.60);
+                rgba(74,226,155,.60);
 
             background:
-                rgba(70,228,155,.10);
+                rgba(74,226,155,.10);
         }
 
         .direction button.low {
             border-color:
-                rgba(255,199,92,.60);
+                rgba(255,199,96,.60);
 
             background:
-                rgba(255,199,92,.10);
+                rgba(255,199,96,.10);
         }
 
         .hits-grid {
             display: grid;
-            grid-template-columns: repeat(6,1fr);
+
+            grid-template-columns:
+                repeat(6,1fr);
+
             gap: 6px;
+
             margin-top: 10px;
+            margin-bottom: 14px;
         }
 
         .hits-grid button {
@@ -502,14 +633,19 @@
 
         .status-grid {
             display: grid;
+
             gap: 8px;
         }
 
         .status-row {
             display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 10px;
+
+            grid-template-columns:
+                1fr auto;
+
             align-items: center;
+
+            gap: 10px;
 
             padding: 12px;
 
@@ -535,12 +671,21 @@
             font-size: 10px;
         }
 
+        .status-actions {
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+        }
+
         .pill {
             padding: 6px 9px;
 
             border-radius: 20px;
 
             font-size: 10px;
+
             white-space: nowrap;
         }
 
@@ -555,40 +700,79 @@
             color: var(--yellow);
 
             background:
-                rgba(255,199,92,.10);
+                rgba(255,199,96,.10);
         }
 
         .pill-ready {
             color: var(--green);
 
             background:
-                rgba(70,228,155,.10);
+                rgba(74,226,155,.10);
         }
 
-        .finish {
-            padding: 17px;
+        .mini {
+            padding: 7px 9px;
 
             border:
-                1px solid rgba(70,228,155,.25);
+                1px solid var(--border);
 
-            border-radius: 19px;
+            border-radius: 9px;
 
             background:
-                rgba(70,228,155,.07);
+                rgba(255,255,255,.05);
+
+            color: white;
         }
 
-        .finish-title {
-            font-size: 21px;
-            font-weight: 900;
+        .hud-card {
+            padding: 14px;
 
-            margin-bottom: 5px;
+            border:
+                1px solid rgba(102,184,255,.20);
+
+            border-radius: 16px;
+
+            background:
+                rgba(102,184,255,.06);
+
+            margin-bottom: 14px;
+        }
+
+        .hud-title {
+            font-size: 14px;
+            font-weight: 850;
+
+            margin-bottom: 10px;
+        }
+
+        .hud-row {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 12px;
+
+            margin-top: 8px;
+
+            font-size: 12px;
+        }
+
+        .hud-row span:first-child {
+            color: var(--muted);
+        }
+
+        .hud-row span:last-child {
+            font-weight: 800;
         }
 
         .profile-grid {
             display: grid;
-            grid-template-columns: repeat(2,1fr);
+
+            grid-template-columns:
+                repeat(2,1fr);
+
             gap: 9px;
-            margin-top: 14px;
         }
 
         .profile-box {
@@ -605,6 +789,7 @@
 
         .profile-label {
             color: var(--muted);
+
             font-size: 11px;
         }
 
@@ -621,6 +806,27 @@
             color: #bdb6ff;
 
             font-size: 10px;
+        }
+
+        .finish {
+            padding: 16px;
+
+            border:
+                1px solid rgba(74,226,155,.25);
+
+            border-radius: 18px;
+
+            background:
+                rgba(74,226,155,.07);
+
+            margin-bottom: 14px;
+        }
+
+        .finish-title {
+            font-size: 20px;
+            font-weight: 900;
+
+            margin-bottom: 5px;
         }
 
         .export {
@@ -645,16 +851,19 @@
                 monospace;
 
             font-size: 12px;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         .saved-row {
             display: flex;
+
             align-items: center;
             justify-content: space-between;
+
             gap: 10px;
 
             padding: 11px;
+
             margin-top: 8px;
 
             border:
@@ -668,32 +877,27 @@
 
         .saved-title {
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 750;
         }
 
         .saved-meta {
             margin-top: 4px;
+
             color: var(--muted);
+
             font-size: 10px;
         }
 
-        .mini {
-            padding: 7px 9px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 9px;
-
-            background:
-                rgba(255,255,255,.05);
-
-            color: white;
+        .saved-actions {
+            display: flex;
+            gap: 6px;
         }
 
-        @media(max-width:560px) {
+        @media(max-width:600px) {
             .grid-2,
-            .profile-grid {
+            .grid-3,
+            .profile-grid,
+            .summary-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -704,6 +908,10 @@
 
             .status-row {
                 grid-template-columns: 1fr;
+            }
+
+            .status-actions {
+                justify-content: space-between;
             }
         }
     </style>
@@ -724,15 +932,13 @@
             >
 
             <div>
-
                 <div class="brand-title">
                     Wiens AI
                 </div>
 
                 <div class="brand-subtitle">
-                    Free Fire Guided Setup v9
+                    Free Fire Lab
                 </div>
-
             </div>
 
         </div>
@@ -750,17 +956,17 @@
     <section class="hero">
 
         <div class="badge">
-            🧭 Guided Calibration
+            🎯 Full Calibration
         </div>
 
         <h1>
-            Free Fire v9
+            Free Fire Lab
         </h1>
 
         <p>
-            Пошаговая настройка чувствительности.
-            Wiens AI сам выбирает следующее значение,
-            а тебе остаётся только проверить его в игре.
+            Полная настройка под устройство,
+            оружие, FPS, частоту экрана,
+            HUD, кнопку огня и стиль оттяжки.
         </p>
 
     </section>
@@ -809,14 +1015,14 @@
 
 
         <h2>
-            🎮 Новая настройка
+            📱 Устройство и стиль
         </h2>
 
 
         <div class="field">
 
             <label>
-                Телефон
+                Модель телефона
             </label>
 
             <input
@@ -832,29 +1038,29 @@
             <div class="field">
 
                 <label>
-                    Оружие
+                    Частота экрана
                 </label>
 
-                <select id="weapon">
+                <select id="hz">
 
-                    <option value="deagle">
-                        Desert Eagle
+                    <option value="60">
+                        60 Hz
                     </option>
 
-                    <option value="smg">
-                        SMG
+                    <option value="90">
+                        90 Hz
                     </option>
 
-                    <option value="ar">
-                        AR
+                    <option value="120" selected>
+                        120 Hz
                     </option>
 
-                    <option value="shotgun">
-                        Shotgun
+                    <option value="144">
+                        144 Hz
                     </option>
 
-                    <option value="sniper">
-                        Sniper
+                    <option value="165">
+                        165 Hz
                     </option>
 
                 </select>
@@ -865,24 +1071,29 @@
             <div class="field">
 
                 <label>
-                    Насколько точно уже настроено?
+                    FPS в игре
                 </label>
 
-                <select id="rangePreset">
+                <select id="fps">
 
-                    <option value="wide">
-                        Почти не знаю
+                    <option value="30">
+                        30 FPS
                     </option>
 
-                    <option
-                        value="normal"
-                        selected
-                    >
-                        Примерно знаю
+                    <option value="45">
+                        45 FPS
                     </option>
 
-                    <option value="fine">
-                        Уже близко
+                    <option value="60" selected>
+                        60 FPS
+                    </option>
+
+                    <option value="90">
+                        90 FPS
+                    </option>
+
+                    <option value="120">
+                        120 FPS
                     </option>
 
                 </select>
@@ -892,11 +1103,343 @@
         </div>
 
 
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Сколько пальцев
+                </label>
+
+                <select id="fingers">
+
+                    <option value="2">
+                        2 пальца
+                    </option>
+
+                    <option value="3">
+                        3 пальца
+                    </option>
+
+                    <option value="4">
+                        4 пальца
+                    </option>
+
+                    <option value="5">
+                        5 пальцев
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Стиль оттяжки
+                </label>
+
+                <select id="dragStyle">
+
+                    <option value="short">
+                        Короткая
+                    </option>
+
+                    <option value="medium" selected>
+                        Средняя
+                    </option>
+
+                    <option value="long">
+                        Длинная
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-title">
+            🔫 Оружие
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Выбери конкретное оружие
+            </label>
+
+            <select id="weapon">
+
+                <optgroup label="Пистолеты">
+                    <option value="desert_eagle">
+                        Desert Eagle
+                    </option>
+
+                    <option value="m500">
+                        M500
+                    </option>
+
+                    <option value="usp">
+                        USP
+                    </option>
+                </optgroup>
+
+
+                <optgroup label="SMG">
+                    <option value="mp40">
+                        MP40
+                    </option>
+
+                    <option value="ump">
+                        UMP
+                    </option>
+
+                    <option value="mp5">
+                        MP5
+                    </option>
+
+                    <option value="vector">
+                        Vector
+                    </option>
+
+                    <option value="thompson">
+                        Thompson
+                    </option>
+                </optgroup>
+
+
+                <optgroup label="Дробовики">
+                    <option value="m1887">
+                        M1887
+                    </option>
+
+                    <option value="m1014">
+                        M1014
+                    </option>
+
+                    <option value="mag7">
+                        MAG-7
+                    </option>
+
+                    <option value="spas12">
+                        SPAS12
+                    </option>
+                </optgroup>
+
+
+                <optgroup label="AR">
+                    <option value="scar">
+                        SCAR
+                    </option>
+
+                    <option value="m4a1">
+                        M4A1
+                    </option>
+
+                    <option value="ak">
+                        AK
+                    </option>
+
+                    <option value="xm8">
+                        XM8
+                    </option>
+
+                    <option value="groza">
+                        GROZA
+                    </option>
+
+                    <option value="famas">
+                        FAMAS
+                    </option>
+                </optgroup>
+
+
+                <optgroup label="Снайперские">
+                    <option value="awm">
+                        AWM
+                    </option>
+
+                    <option value="kar98k">
+                        Kar98k
+                    </option>
+
+                    <option value="m82b">
+                        M82B
+                    </option>
+                </optgroup>
+
+            </select>
+
+        </div>
+
+
+        <div class="section-title">
+            🔘 Кнопка огня / HUD
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Размер кнопки огня
+            </label>
+
+            <div class="range-row">
+
+                <input
+                    id="fireButton"
+                    type="range"
+                    min="20"
+                    max="100"
+                    value="50"
+                    oninput="updateFireButtonValue()"
+                >
+
+                <div
+                    class="range-value"
+                    id="fireButtonValue"
+                >
+                    50%
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Положение кнопки
+                </label>
+
+                <select id="firePosition">
+
+                    <option value="low">
+                        Ниже
+                    </option>
+
+                    <option value="middle" selected>
+                        Средне
+                    </option>
+
+                    <option value="high">
+                        Выше
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Какая рука тянет
+                </label>
+
+                <select id="dragHand">
+
+                    <option value="right">
+                        Правая
+                    </option>
+
+                    <option value="left">
+                        Левая
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Насколько уже близки твои настройки?
+            </label>
+
+            <select id="rangePreset">
+
+                <option value="wide">
+                    Вообще не знаю
+                </option>
+
+                <option
+                    value="normal"
+                    selected
+                >
+                    Примерно настроено
+                </option>
+
+                <option value="fine">
+                    Уже почти хорошо
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="note">
+            Это легальная калибровка обычных настроек игры.
+            Приложение не меняет Free Fire автоматически —
+            оно помогает подобрать значения по твоим тестам.
+        </div>
+
+
         <button
             class="primary"
             onclick="startSession()"
         >
-            🧭 Запустить мастер настройки
+            🚀 Создать стартовый профиль
+        </button>
+
+    </section>
+
+
+    <!-- START PROFILE -->
+
+    <section
+        class="card hidden"
+        id="startProfileCard"
+    >
+
+        <h2>
+            ⚙️ Стартовые рекомендации
+        </h2>
+
+        <div
+            class="hud-card"
+            id="hudSummary"
+        ></div>
+
+        <div
+            class="profile-grid"
+            id="startProfileGrid"
+        ></div>
+
+
+        <div class="note"
+             style="margin-top:14px">
+            Это стартовые значения, а не гарантированно идеальные.
+            Дальше мастер будет уточнять их по твоим результатам.
+        </div>
+
+
+        <button
+            class="primary"
+            onclick="startCalibration()"
+        >
+            🎯 Начать калибровку
         </button>
 
     </section>
@@ -909,22 +1452,22 @@
         id="wizardCard"
     >
 
-        <div class="step-progress">
+        <div class="step-top">
 
-            <div class="step-progress-top">
+            <div class="step-top-row">
 
                 <div
-                    class="step-label"
-                    id="stepLabel"
+                    class="step-text"
+                    id="stepText"
                 >
-                    Шаг
+                    Калибровка
                 </div>
 
                 <div
-                    class="step-number"
-                    id="stepNumber"
+                    class="step-count"
+                    id="stepCount"
                 >
-                    1
+                    Шаг 1
                 </div>
 
             </div>
@@ -933,7 +1476,7 @@
 
                 <div
                     class="progress-fill"
-                    id="stepFill"
+                    id="progressFill"
                 ></div>
 
             </div>
@@ -943,8 +1486,11 @@
 
         <div class="wizard-panel">
 
-            <div class="wizard-eyebrow">
-                Wiens AI рекомендует проверить
+            <div
+                class="wizard-type"
+                id="wizardType"
+            >
+                Чувствительность
             </div>
 
             <div
@@ -972,15 +1518,13 @@
         <div
             class="instruction"
             id="wizardInstruction"
-        >
-            Открой Free Fire → Настройки → Чувствительность.
-        </div>
+        ></div>
 
 
         <button
             class="primary"
-            style="margin-top:14px"
             id="readyButton"
+            style="margin-top:14px"
             onclick="confirmValueSet()"
         >
             ✅ Я выставил это значение
@@ -988,14 +1532,14 @@
 
 
         <div
-            class="hidden"
             id="testControls"
+            class="hidden"
         >
 
             <div class="note"
                  style="margin-top:15px">
                 Сделай 10 одинаковых оттяжек.
-                Как ведёт себя прицел?
+                Оцени только результат, не меняя другие настройки.
             </div>
 
 
@@ -1005,14 +1549,14 @@
                     id="dirHigh"
                     onclick="selectDirection('high')"
                 >
-                    ⬆️ Перелетает выше
+                    ⬆️ Прицел перелетает выше
                 </button>
 
                 <button
                     id="dirGood"
                     onclick="selectDirection('good')"
                 >
-                    ✅ По высоте нормально
+                    ✅ Высота хорошая
                 </button>
 
                 <button
@@ -1027,7 +1571,7 @@
 
             <div class="note"
                  style="margin-top:14px">
-                Сколько из 10 попыток получились хорошо?
+                Сколько хороших попыток из 10?
             </div>
 
 
@@ -1039,7 +1583,7 @@
 
             <button
                 class="primary"
-                onclick="submitWizardTest()"
+                onclick="submitTest()"
             >
                 Сохранить результат →
             </button>
@@ -1057,29 +1601,48 @@
     >
 
         <h2>
-            📊 Прогресс настройки
+            📊 Текущая калибровка
         </h2>
+
+
+        <div
+            class="hud-card"
+            id="dashboardHud"
+        ></div>
+
 
         <div
             class="status-grid"
             id="statusGrid"
         ></div>
 
+
         <button
             class="primary"
             style="margin-top:14px"
-            onclick="continueWizard()"
+            onclick="continueCalibration()"
         >
-            ▶ Продолжить мастер
+            ▶ Продолжить автоматически
         </button>
 
-        <button
-            class="secondary"
-            style="margin-top:9px"
-            onclick="showFinalProfile()"
-        >
-            🏆 Посмотреть профиль
-        </button>
+
+        <div class="buttons">
+
+            <button
+                class="secondary"
+                onclick="showFinalProfile()"
+            >
+                🏆 Профиль
+            </button>
+
+            <button
+                class="danger"
+                onclick="resetSession()"
+            >
+                🗑 Сбросить
+            </button>
+
+        </div>
 
     </section>
 
@@ -1094,20 +1657,27 @@
         <div class="finish">
 
             <div class="finish-title">
-                🏆 Профиль настройки
+                🏆 Твой профиль Free Fire
             </div>
 
             <div
                 class="note"
-                id="finishText"
+                id="finishNote"
+                style="margin-bottom:0"
             ></div>
 
         </div>
 
 
         <div
+            class="hud-card"
+            id="finalHud"
+        ></div>
+
+
+        <div
             class="profile-grid"
-            id="profileGrid"
+            id="finalGrid"
         ></div>
 
 
@@ -1139,9 +1709,9 @@
         <button
             class="secondary"
             style="margin-top:9px"
-            onclick="returnToDashboard()"
+            onclick="backToDashboard()"
         >
-            ← Продолжить калибровку
+            ← Вернуться к калибровке
         </button>
 
     </section>
@@ -1152,7 +1722,7 @@
     <section class="card">
 
         <h2>
-            💾 Сохранённые профили
+            💾 Мои сохранённые профили
         </h2>
 
         <div id="savedProfiles"></div>
@@ -1165,13 +1735,10 @@
 <script>
 
 const SESSION_KEY =
-    "wiens_ff_v9_session";
+    "wiens_ff_final_session";
 
 const PROFILE_KEY =
-    "wiens_ff_v9_profiles";
-
-const V8_SESSION_KEY =
-    "wiens_ff_v8_current_session";
+    "wiens_ff_final_profiles";
 
 
 const settingNames = {
@@ -1193,25 +1760,141 @@ const settingNames = {
 
 
 const weaponNames = {
-    deagle:
+    desert_eagle:
         "Desert Eagle",
 
-    smg:
-        "SMG",
+    m500:
+        "M500",
 
-    ar:
-        "AR",
+    usp:
+        "USP",
 
-    shotgun:
-        "Shotgun",
+    mp40:
+        "MP40",
 
-    sniper:
-        "Sniper"
+    ump:
+        "UMP",
+
+    mp5:
+        "MP5",
+
+    vector:
+        "Vector",
+
+    thompson:
+        "Thompson",
+
+    m1887:
+        "M1887",
+
+    m1014:
+        "M1014",
+
+    mag7:
+        "MAG-7",
+
+    spas12:
+        "SPAS12",
+
+    scar:
+        "SCAR",
+
+    m4a1:
+        "M4A1",
+
+    ak:
+        "AK",
+
+    xm8:
+        "XM8",
+
+    groza:
+        "GROZA",
+
+    famas:
+        "FAMAS",
+
+    awm:
+        "AWM",
+
+    kar98k:
+        "Kar98k",
+
+    m82b:
+        "M82B"
 };
 
 
-const weaponSettings = {
-    deagle: [
+const weaponGroups = {
+
+    desert_eagle:
+        "pistol",
+
+    m500:
+        "pistol",
+
+    usp:
+        "pistol",
+
+    mp40:
+        "smg",
+
+    ump:
+        "smg",
+
+    mp5:
+        "smg",
+
+    vector:
+        "smg",
+
+    thompson:
+        "smg",
+
+    m1887:
+        "shotgun",
+
+    m1014:
+        "shotgun",
+
+    mag7:
+        "shotgun",
+
+    spas12:
+        "shotgun",
+
+    scar:
+        "ar",
+
+    m4a1:
+        "ar",
+
+    ak:
+        "ar",
+
+    xm8:
+        "ar",
+
+    groza:
+        "ar",
+
+    famas:
+        "ar",
+
+    awm:
+        "sniper",
+
+    kar98k:
+        "sniper",
+
+    m82b:
+        "sniper"
+};
+
+
+const groupSettings = {
+
+    pistol: [
         "general",
         "redDot"
     ],
@@ -1222,15 +1905,15 @@ const weaponSettings = {
         "scope2x"
     ],
 
+    shotgun: [
+        "general"
+    ],
+
     ar: [
         "general",
         "redDot",
         "scope2x",
         "scope4x"
-    ],
-
-    shotgun: [
-        "general"
     ],
 
     sniper: [
@@ -1241,7 +1924,7 @@ const weaponSettings = {
 };
 
 
-const baseValues = {
+const baseSensitivity = {
     general:
         130,
 
@@ -1259,15 +1942,20 @@ const baseValues = {
 };
 
 
-let session = null;
+let session =
+    null;
 
-let currentSetting = null;
+let currentSetting =
+    null;
 
-let selectedDirection = null;
+let selectedDirection =
+    null;
 
-let selectedHits = null;
+let selectedHits =
+    null;
 
-let valueConfirmed = false;
+let valueConfirmed =
+    false;
 
 
 function clamp(
@@ -1294,13 +1982,22 @@ function loadJSON(
     try {
 
         const raw =
-            localStorage.getItem(key);
+            localStorage
+            .getItem(
+                key
+            );
 
         if (!raw) {
             return fallback;
         }
 
-        return JSON.parse(raw);
+        const parsed =
+            JSON.parse(
+                raw
+            );
+
+        return parsed
+            ?? fallback;
 
     } catch {
 
@@ -1309,10 +2006,31 @@ function loadJSON(
 }
 
 
-function hideMainCards() {
+function updateFireButtonValue() {
+
+    const value =
+        document
+        .getElementById(
+            "fireButton"
+        )
+        .value;
+
+    document
+    .getElementById(
+        "fireButtonValue"
+    )
+    .textContent =
+        value
+        +
+        "%";
+}
+
+
+function hideCards() {
 
     [
         "setupCard",
+        "startProfileCard",
         "wizardCard",
         "dashboardCard",
         "finalCard"
@@ -1330,7 +2048,7 @@ function hideMainCards() {
 }
 
 
-function getRadius() {
+function getRangeRadius() {
 
     const preset =
         document
@@ -1340,32 +2058,279 @@ function getRadius() {
         .value;
 
     if (
-        preset === "wide"
+        preset ===
+        "wide"
     ) {
-        return 30;
+        return 28;
     }
 
     if (
-        preset === "fine"
+        preset ===
+        "fine"
     ) {
-        return 10;
+        return 9;
     }
 
-    return 20;
+    return 18;
+}
+
+
+function calculateDeviceAdjustment() {
+
+    const hz =
+        Number(
+            document
+            .getElementById(
+                "hz"
+            )
+            .value
+        );
+
+    const fps =
+        Number(
+            document
+            .getElementById(
+                "fps"
+            )
+            .value
+        );
+
+    const fingers =
+        Number(
+            document
+            .getElementById(
+                "fingers"
+            )
+            .value
+        );
+
+    const style =
+        document
+        .getElementById(
+            "dragStyle"
+        )
+        .value;
+
+    let adjustment =
+        0;
+
+
+    if (
+        hz >= 120
+    ) {
+        adjustment -= 3;
+    }
+
+
+    if (
+        fps >= 90
+    ) {
+        adjustment -= 2;
+    }
+
+
+    if (
+        fps <= 45
+    ) {
+        adjustment += 3;
+    }
+
+
+    if (
+        fingers >= 4
+    ) {
+        adjustment -= 2;
+    }
+
+
+    if (
+        style ===
+        "short"
+    ) {
+        adjustment += 6;
+    }
+
+
+    if (
+        style ===
+        "long"
+    ) {
+        adjustment -= 6;
+    }
+
+
+    return adjustment;
+}
+
+
+function calculateWeaponAdjustment(
+    weapon
+) {
+
+    const modifiers = {
+
+        desert_eagle:
+            8,
+
+        m500:
+            4,
+
+        usp:
+            2,
+
+        mp40:
+            6,
+
+        ump:
+            2,
+
+        mp5:
+            1,
+
+        vector:
+            4,
+
+        thompson:
+            1,
+
+        m1887:
+            10,
+
+        m1014:
+            7,
+
+        mag7:
+            5,
+
+        spas12:
+            6,
+
+        scar:
+            0,
+
+        m4a1:
+            -1,
+
+        ak:
+            2,
+
+        xm8:
+            -2,
+
+        groza:
+            -1,
+
+        famas:
+            1,
+
+        awm:
+            -5,
+
+        kar98k:
+            -3,
+
+        m82b:
+            -6
+    };
+
+    return modifiers[
+        weapon
+    ]
+    ||
+    0;
+}
+
+
+function calculateSuggestedFireButton() {
+
+    const fingers =
+        Number(
+            document
+            .getElementById(
+                "fingers"
+            )
+            .value
+        );
+
+    const style =
+        document
+        .getElementById(
+            "dragStyle"
+        )
+        .value;
+
+    const group =
+        weaponGroups[
+            document
+            .getElementById(
+                "weapon"
+            )
+            .value
+        ];
+
+    let size =
+        50;
+
+
+    if (
+        fingers === 2
+    ) {
+        size += 5;
+    }
+
+
+    if (
+        fingers >= 4
+    ) {
+        size -= 4;
+    }
+
+
+    if (
+        style ===
+        "short"
+    ) {
+        size += 5;
+    }
+
+
+    if (
+        style ===
+        "long"
+    ) {
+        size -= 4;
+    }
+
+
+    if (
+        group ===
+        "shotgun"
+        ||
+        group ===
+        "pistol"
+    ) {
+        size += 3;
+    }
+
+
+    return clamp(
+        size,
+        30,
+        75
+    );
 }
 
 
 function makeSetting(
-    setting,
+    key,
+    center,
     radius
 ) {
 
-    const center =
-        baseValues[
-            setting
-        ];
-
     return {
+        key:
+            key,
+
         best:
             center,
 
@@ -1393,13 +2358,6 @@ function makeSetting(
 
 function startSession() {
 
-    const weapon =
-        document
-        .getElementById(
-            "weapon"
-        )
-        .value;
-
     const device =
         document
         .getElementById(
@@ -1408,31 +2366,173 @@ function startSession() {
         .value
         .trim()
         ||
-        "Free Fire";
+        "Телефон";
+
+    const weapon =
+        document
+        .getElementById(
+            "weapon"
+        )
+        .value;
+
+    const hz =
+        Number(
+            document
+            .getElementById(
+                "hz"
+            )
+            .value
+        );
+
+    const fps =
+        Number(
+            document
+            .getElementById(
+                "fps"
+            )
+            .value
+        );
+
+    const fingers =
+        Number(
+            document
+            .getElementById(
+                "fingers"
+            )
+            .value
+        );
+
+    const dragStyle =
+        document
+        .getElementById(
+            "dragStyle"
+        )
+        .value;
+
+    const dragHand =
+        document
+        .getElementById(
+            "dragHand"
+        )
+        .value;
+
+    const firePosition =
+        document
+        .getElementById(
+            "firePosition"
+        )
+        .value;
+
+    const manualButton =
+        Number(
+            document
+            .getElementById(
+                "fireButton"
+            )
+            .value
+        );
+
+    const suggestedButton =
+        calculateSuggestedFireButton();
+
+    const fireButton =
+        Math.round(
+            (
+                manualButton
+                +
+                suggestedButton
+            )
+            /
+            2
+        );
+
+    const group =
+        weaponGroups[
+            weapon
+        ];
+
+    const settings =
+        groupSettings[
+            group
+        ];
 
     const radius =
-        getRadius();
+        getRangeRadius();
+
+    const deviceAdj =
+        calculateDeviceAdjustment();
+
+    const weaponAdj =
+        calculateWeaponAdjustment(
+            weapon
+        );
 
     const state =
         {};
 
-    weaponSettings[
-        weapon
-    ]
-    .forEach(
+
+    settings.forEach(
         setting => {
+
+            let multiplier =
+                1;
+
+
+            if (
+                setting ===
+                "scope2x"
+            ) {
+                multiplier =
+                    .7;
+            }
+
+
+            if (
+                setting ===
+                "scope4x"
+            ) {
+                multiplier =
+                    .45;
+            }
+
+
+            if (
+                setting ===
+                "sniper"
+            ) {
+                multiplier =
+                    .25;
+            }
+
+
+            const center =
+                clamp(
+                    baseSensitivity[
+                        setting
+                    ]
+                    +
+                    deviceAdj
+                    +
+                    weaponAdj
+                    *
+                    multiplier
+                );
+
 
             state[
                 setting
             ] =
                 makeSetting(
                     setting,
+                    center,
                     radius
                 );
         }
     );
 
+
     session = {
+
         id:
             Date.now(),
 
@@ -1441,6 +2541,30 @@ function startSession() {
 
         weapon:
             weapon,
+
+        group:
+            group,
+
+        hz:
+            hz,
+
+        fps:
+            fps,
+
+        fingers:
+            fingers,
+
+        dragStyle:
+            dragStyle,
+
+        dragHand:
+            dragHand,
+
+        fireButton:
+            fireButton,
+
+        firePosition:
+            firePosition,
 
         state:
             state,
@@ -1457,94 +2581,10 @@ function startSession() {
             .toISOString()
     };
 
-    importV8Session();
 
     saveSession();
 
-    continueWizard();
-}
-
-
-function importV8Session() {
-
-    const old =
-        loadJSON(
-            V8_SESSION_KEY,
-            null
-        );
-
-    if (
-        !old
-        ||
-        old.weapon
-        !==
-        session.weapon
-        ||
-        !old.state
-    ) {
-        return;
-    }
-
-    Object.keys(
-        session.state
-    )
-    .forEach(
-        setting => {
-
-            const previous =
-                old.state[
-                    setting
-                ];
-
-            if (!previous) {
-                return;
-            }
-
-            session.state[
-                setting
-            ]
-            .best =
-                previous.best
-                ??
-                session.state[
-                    setting
-                ]
-                .best;
-
-            session.state[
-                setting
-            ]
-            .min =
-                previous.min
-                ??
-                session.state[
-                    setting
-                ]
-                .min;
-
-            session.state[
-                setting
-            ]
-            .max =
-                previous.max
-                ??
-                session.state[
-                    setting
-                ]
-                .max;
-
-            session.state[
-                setting
-            ]
-            .confidence =
-                Math.min(
-                    previous.confidence
-                    ||
-                    0,
-                    70
-                );
-        }
-    );
+    showStartProfile();
 }
 
 
@@ -1554,9 +2594,11 @@ function saveSession() {
         return;
     }
 
+
     session.updatedAt =
         new Date()
         .toISOString();
+
 
     localStorage.setItem(
         SESSION_KEY,
@@ -1567,109 +2609,179 @@ function saveSession() {
 }
 
 
-function resumeSession() {
+function showStartProfile() {
 
-    const saved =
-        loadJSON(
-            SESSION_KEY,
-            null
-        );
+    hideCards();
 
-    if (!saved) {
-        return;
-    }
-
-    session =
-        saved;
-
-    continueWizard();
-}
-
-
-function resetSession() {
-
-    if (
-        !confirm(
-            "Удалить текущий прогресс и начать заново?"
-        )
-    ) {
-        return;
-    }
-
-    localStorage.removeItem(
-        SESSION_KEY
-    );
-
-    session =
-        null;
-
-    hideMainCards();
 
     document
     .getElementById(
-        "setupCard"
+        "startProfileCard"
     )
     .classList.remove(
         "hidden"
     );
 
-    checkResume();
+
+    renderHudSummary(
+        "hudSummary"
+    );
+
+
+    const grid =
+        document
+        .getElementById(
+            "startProfileGrid"
+        );
+
+
+    grid.innerHTML =
+        "";
+
+
+    Object.keys(
+        session.state
+    )
+    .forEach(
+        setting => {
+
+            const item =
+                session.state[
+                    setting
+                ];
+
+
+            const box =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "profile-box";
+
+
+            box.innerHTML =
+                `
+                <div class="profile-label">
+                    ${settingNames[setting]}
+                </div>
+
+                <div class="profile-value">
+                    ${item.best}
+                </div>
+
+                <div class="profile-meta">
+                    стартовая зона ${item.min}–${item.max}
+                </div>
+                `;
+
+
+            grid.appendChild(
+                box
+            );
+        }
+    );
 }
 
 
-function checkResume() {
-
-    const saved =
-        loadJSON(
-            SESSION_KEY,
-            null
-        );
+function renderHudSummary(
+    elementId
+) {
 
     const box =
         document
         .getElementById(
-            "resumeBox"
+            elementId
         );
 
-    if (!saved) {
 
-        box.classList.add(
-            "hidden"
-        );
+    const styleNames = {
+        short:
+            "Короткая",
 
-        return;
-    }
+        medium:
+            "Средняя",
 
-    box.classList.remove(
-        "hidden"
-    );
+        long:
+            "Длинная"
+    };
 
-    const completed =
-        Object.values(
-            saved.state
-        )
-        .filter(
-            item =>
-                item.completed
-        )
-        .length;
 
-    const total =
-        Object.keys(
-            saved.state
-        )
-        .length;
+    const positionNames = {
+        low:
+            "Ниже",
 
-    document
-    .getElementById(
-        "resumeMeta"
-    )
-    .textContent =
-        `${saved.device} • `
-        +
-        `${weaponNames[saved.weapon]} • `
-        +
-        `${completed} из ${total} настроек готовы`;
+        middle:
+            "Средне",
+
+        high:
+            "Выше"
+    };
+
+
+    const handNames = {
+        right:
+            "Правая",
+
+        left:
+            "Левая"
+    };
+
+
+    box.innerHTML =
+        `
+        <div class="hud-title">
+            🔘 HUD / управление
+        </div>
+
+        <div class="hud-row">
+            <span>Оружие</span>
+            <span>${weaponNames[session.weapon]}</span>
+        </div>
+
+        <div class="hud-row">
+            <span>Кнопка огня</span>
+            <span>${session.fireButton}%</span>
+        </div>
+
+        <div class="hud-row">
+            <span>Положение</span>
+            <span>${positionNames[session.firePosition]}</span>
+        </div>
+
+        <div class="hud-row">
+            <span>Пальцы</span>
+            <span>${session.fingers}</span>
+        </div>
+
+        <div class="hud-row">
+            <span>Оттяжка</span>
+            <span>${styleNames[session.dragStyle]}</span>
+        </div>
+
+        <div class="hud-row">
+            <span>Рука</span>
+            <span>${handNames[session.dragHand]}</span>
+        </div>
+
+        <div class="hud-row">
+            <span>Экран</span>
+            <span>${session.hz} Hz</span>
+        </div>
+
+        <div class="hud-row">
+            <span>FPS</span>
+            <span>${session.fps}</span>
+        </div>
+        `;
+}
+
+
+function startCalibration() {
+
+    continueCalibration();
 }
 
 
@@ -1685,16 +2797,23 @@ function calculateConfidence(
         -
         item.min;
 
+
     let confidence =
-        tests * 18;
+        tests
+        *
+        18;
+
 
     confidence +=
         Math.max(
             0,
-            45
+            46
             -
-            width * 3
+            width
+            *
+            3
         );
+
 
     const goodTests =
         item.tests.filter(
@@ -1704,6 +2823,7 @@ function calculateConfidence(
                 "good"
         );
 
+
     if (
         goodTests.length
         >=
@@ -1712,14 +2832,18 @@ function calculateConfidence(
         confidence += 10;
     }
 
+
     if (
         goodTests.some(
             test =>
-                test.hits >= 8
+                test.hits
+                >=
+                8
         )
     ) {
         confidence += 10;
     }
+
 
     item.confidence =
         clamp(
@@ -1728,15 +2852,17 @@ function calculateConfidence(
             98
         );
 
-    if (
-        item.confidence >= 82
-        &&
-        width <= 5
-    ) {
 
-        item.completed =
-            true;
-    }
+    item.completed =
+        (
+            item.confidence
+            >=
+            82
+            &&
+            width
+            <=
+            5
+        );
 }
 
 
@@ -1747,6 +2873,7 @@ function chooseNextSetting() {
             session.state
         );
 
+
     const unfinished =
         settings.filter(
             setting =>
@@ -1756,11 +2883,13 @@ function chooseNextSetting() {
                 .completed
         );
 
+
     if (
         !unfinished.length
     ) {
         return null;
     }
+
 
     unfinished.sort(
         (
@@ -1774,6 +2903,7 @@ function chooseNextSetting() {
             const B =
                 session.state[b];
 
+
             if (
                 A.confidence
                 !==
@@ -1784,6 +2914,7 @@ function chooseNextSetting() {
                     -
                     B.confidence;
             }
+
 
             return (
                 B.max
@@ -1799,24 +2930,43 @@ function chooseNextSetting() {
         }
     );
 
+
     return unfinished[0];
 }
 
 
-function continueWizard() {
+function continueCalibration() {
+
+    Object.keys(
+        session.state
+    )
+    .forEach(
+        setting => {
+
+            calculateConfidence(
+                session.state[
+                    setting
+                ]
+            );
+        }
+    );
+
 
     currentSetting =
         chooseNextSetting();
 
+
     if (
         currentSetting
-        === null
+        ===
+        null
     ) {
 
         showFinalProfile();
 
         return;
     }
+
 
     session.step += 1;
 
@@ -1828,10 +2978,8 @@ function continueWizard() {
 
 function showWizard() {
 
-    hideMainCards();
+    hideCards();
 
-    valueConfirmed =
-        false;
 
     selectedDirection =
         null;
@@ -1839,12 +2987,17 @@ function showWizard() {
     selectedHits =
         null;
 
+    valueConfirmed =
+        false;
+
+
     const item =
         session.state[
             currentSetting
         ];
 
-    item.currentValue =
+
+    let nextValue =
         Math.round(
             (
                 item.min
@@ -1855,6 +3008,47 @@ function showWizard() {
             2
         );
 
+
+    if (
+        item.tests.length
+    ) {
+
+        const best =
+            item.tests
+            .slice()
+            .sort(
+                (
+                    a,
+                    b
+                ) =>
+                    b.hits
+                    -
+                    a.hits
+            )[0];
+
+
+        if (
+            best
+            &&
+            item.max
+            -
+            item.min
+            <=
+            6
+        ) {
+
+            nextValue =
+                clamp(
+                    best.value
+                );
+        }
+    }
+
+
+    item.currentValue =
+        nextValue;
+
+
     document
     .getElementById(
         "wizardCard"
@@ -1862,6 +3056,15 @@ function showWizard() {
     .classList.remove(
         "hidden"
     );
+
+
+    document
+    .getElementById(
+        "wizardType"
+    )
+    .textContent =
+        `Чувствительность • ${weaponNames[session.weapon]}`;
+
 
     document
     .getElementById(
@@ -1872,6 +3075,7 @@ function showWizard() {
             currentSetting
         ];
 
+
     document
     .getElementById(
         "wizardValue"
@@ -1879,16 +3083,18 @@ function showWizard() {
     .textContent =
         item.currentValue;
 
+
     document
     .getElementById(
         "wizardRange"
     )
     .textContent =
-        `Текущая зона поиска: ${item.min}–${item.max}`;
+        `Текущая зона: ${item.min}–${item.max}`;
 
-    const estimatedTotal =
+
+    const totalEstimate =
         Math.max(
-            6,
+            5,
             Object.keys(
                 session.state
             )
@@ -1897,40 +3103,44 @@ function showWizard() {
             3
         );
 
-    const currentStep =
+
+    const percent =
         Math.min(
-            session.step,
-            estimatedTotal
+            100,
+            session.step
+            /
+            totalEstimate
+            *
+            100
         );
 
-    document
-    .getElementById(
-        "stepLabel"
-    )
-    .textContent =
-        `Шаг ${currentStep}`;
 
     document
     .getElementById(
-        "stepNumber"
+        "stepText"
     )
     .textContent =
-        `${currentStep} / ~${estimatedTotal}`;
+        `Калибровка ${settingNames[currentSetting]}`;
+
 
     document
     .getElementById(
-        "stepFill"
+        "stepCount"
+    )
+    .textContent =
+        `Шаг ${session.step}`;
+
+
+    document
+    .getElementById(
+        "progressFill"
     )
     .style
     .width =
-        `${Math.min(
-            100,
-            currentStep
-            /
-            estimatedTotal
-            *
-            100
-        )}%`;
+        percent
+        +
+        "%";
+
 
     document
     .getElementById(
@@ -1941,6 +3151,7 @@ function showWizard() {
             currentSetting
         );
 
+
     document
     .getElementById(
         "readyButton"
@@ -1949,6 +3160,7 @@ function showWizard() {
         "hidden"
     );
 
+
     document
     .getElementById(
         "testControls"
@@ -1956,6 +3168,7 @@ function showWizard() {
     .classList.add(
         "hidden"
     );
+
 
     resetDirectionButtons();
 
@@ -1969,31 +3182,22 @@ function buildInstruction(
     setting
 ) {
 
-    const base =
-        "Открой Free Fire → Настройки → Чувствительность. ";
-
-    const descriptions = {
-        general:
-            "Найди General и выставь указанное значение.",
-
-        redDot:
-            "Найди Red Dot и выставь указанное значение.",
-
-        scope2x:
-            "Найди 2x Scope и выставь указанное значение.",
-
-        scope4x:
-            "Найди 4x Scope и выставь указанное значение.",
-
-        sniper:
-            "Найди чувствительность снайперского прицела и выставь указанное значение."
-    };
-
-    return base
-        +
-        descriptions[
+    const value =
+        session.state[
             setting
-        ];
+        ]
+        .currentValue;
+
+
+    return (
+        `Открой Free Fire → Настройки → Чувствительность. `
+        +
+        `Для ${settingNames[setting]} выставь ${value}. `
+        +
+        `Кнопку огня пока оставь ${session.fireButton}%. `
+        +
+        `После этого сделай 10 одинаковых попыток с ${weaponNames[session.weapon]}.`
+    );
 }
 
 
@@ -2002,6 +3206,7 @@ function confirmValueSet() {
     valueConfirmed =
         true;
 
+
     document
     .getElementById(
         "readyButton"
@@ -2009,6 +3214,7 @@ function confirmValueSet() {
     .classList.add(
         "hidden"
     );
+
 
     document
     .getElementById(
@@ -2046,7 +3252,9 @@ function selectDirection(
     selectedDirection =
         direction;
 
+
     resetDirectionButtons();
+
 
     const id =
         direction
@@ -2062,6 +3270,7 @@ function selectDirection(
         "dirLow"
         :
         "dirGood";
+
 
     document
     .getElementById(id)
@@ -2079,8 +3288,10 @@ function createHitsButtons() {
             "hitsGrid"
         );
 
+
     box.innerHTML =
         "";
+
 
     for (
         let i = 0;
@@ -2094,8 +3305,10 @@ function createHitsButtons() {
                 "button"
             );
 
+
         button.textContent =
             i;
+
 
         button.onclick =
             () => {
@@ -2103,17 +3316,22 @@ function createHitsButtons() {
                 selectedHits =
                     i;
 
+
                 box
                 .querySelectorAll(
                     "button"
                 )
                 .forEach(
-                    el =>
-                        el.classList
+                    element => {
+
+                        element
+                        .classList
                         .remove(
                             "active"
-                        )
+                        );
+                    }
                 );
+
 
                 button
                 .classList
@@ -2122,6 +3340,7 @@ function createHitsButtons() {
                 );
             };
 
+
         box.appendChild(
             button
         );
@@ -2129,18 +3348,19 @@ function createHitsButtons() {
 }
 
 
-function submitWizardTest() {
+function submitTest() {
 
     if (
         !valueConfirmed
     ) {
 
         alert(
-            "Сначала подтверди, что выставил значение."
+            "Сначала нажми «Я выставил это значение»."
         );
 
         return;
     }
+
 
     if (
         selectedDirection
@@ -2153,21 +3373,25 @@ function submitWizardTest() {
     ) {
 
         alert(
-            "Выбери направление и количество удачных попыток."
+            "Выбери направление и количество хороших попыток."
         );
 
         return;
     }
+
 
     const item =
         session.state[
             currentSetting
         ];
 
+
     const value =
         item.currentValue;
 
+
     item.tests.push({
+
         value:
             value,
 
@@ -2209,9 +3433,6 @@ function submitWizardTest() {
 
     } else {
 
-        item.best =
-            value;
-
         const radius =
             selectedHits >= 9
             ?
@@ -2223,11 +3444,13 @@ function submitWizardTest() {
             :
             6;
 
+
         item.min =
             Math.max(
                 item.min,
                 value - radius
             );
+
 
         item.max =
             Math.min(
@@ -2237,34 +3460,114 @@ function submitWizardTest() {
     }
 
 
-    /*
-        Pick best measured value
-        using hit score.
-    */
+    const candidates =
+        {};
 
-    const bestTest =
-        item.tests
-        .slice()
-        .sort(
-            (
-                a,
-                b
-            ) =>
-                b.hits
-                -
-                a.hits
-        )[0];
 
-    if (bestTest) {
+    item.tests
+    .forEach(
+        test => {
+
+            const key =
+                String(
+                    test.value
+                );
+
+
+            if (
+                !candidates[key]
+            ) {
+
+                candidates[key] =
+                    [];
+            }
+
+
+            candidates[key]
+            .push(
+                test.hits
+            );
+        }
+    );
+
+
+    let best =
+        null;
+
+
+    Object.keys(
+        candidates
+    )
+    .forEach(
+        key => {
+
+            const values =
+                candidates[
+                    key
+                ];
+
+
+            const avg =
+                values.reduce(
+                    (
+                        a,
+                        b
+                    ) =>
+                        a + b,
+                    0
+                )
+                /
+                values.length;
+
+
+            const score =
+                avg
+                +
+                Math.min(
+                    .8,
+                    (
+                        values.length
+                        -
+                        1
+                    )
+                    *
+                    .2
+                );
+
+
+            if (
+                !best
+                ||
+                score
+                >
+                best.score
+            ) {
+
+                best = {
+                    value:
+                        Number(key),
+
+                    score:
+                        score
+                };
+            }
+        }
+    );
+
+
+    if (
+        best
+    ) {
 
         item.best =
-            bestTest.value;
+            best.value;
     }
 
 
     calculateConfidence(
         item
     );
+
 
     saveSession();
 
@@ -2274,7 +3577,8 @@ function submitWizardTest() {
 
 function showDashboard() {
 
-    hideMainCards();
+    hideCards();
+
 
     Object.keys(
         session.state
@@ -2290,7 +3594,9 @@ function showDashboard() {
         }
     );
 
+
     saveSession();
+
 
     document
     .getElementById(
@@ -2300,11 +3606,11 @@ function showDashboard() {
         "hidden"
     );
 
-    renderStatusGrid();
-}
 
+    renderHudSummary(
+        "dashboardHud"
+    );
 
-function renderStatusGrid() {
 
     const box =
         document
@@ -2312,8 +3618,10 @@ function renderStatusGrid() {
             "statusGrid"
         );
 
+
     box.innerHTML =
         "";
+
 
     Object.keys(
         session.state
@@ -2326,11 +3634,13 @@ function renderStatusGrid() {
                     setting
                 ];
 
+
             let pill =
                 "Не проверено";
 
-            let css =
+            let pillClass =
                 "pill-none";
+
 
             if (
                 item.completed
@@ -2339,7 +3649,7 @@ function renderStatusGrid() {
                 pill =
                     "Готово";
 
-                css =
+                pillClass =
                     "pill-ready";
 
             } else if (
@@ -2349,9 +3659,10 @@ function renderStatusGrid() {
                 pill =
                     "Калибруется";
 
-                css =
+                pillClass =
                     "pill-working";
             }
+
 
             const row =
                 document
@@ -2359,8 +3670,10 @@ function renderStatusGrid() {
                     "div"
                 );
 
+
             row.className =
                 "status-row";
+
 
             row.innerHTML =
                 `
@@ -2371,19 +3684,29 @@ function renderStatusGrid() {
                     </div>
 
                     <div class="status-meta">
-                        лучшее ${item.best}
+                        рекомендуемое ${item.best}
                         • зона ${item.min}–${item.max}
                         • калибровка ${item.confidence}%
                     </div>
 
                 </div>
 
-                <div>
-                    <span class="pill ${css}">
+                <div class="status-actions">
+
+                    <span class="pill ${pillClass}">
                         ${pill}
                     </span>
+
+                    <button
+                        class="mini"
+                        onclick="retestSetting('${setting}')"
+                    >
+                        Проверить
+                    </button>
+
                 </div>
                 `;
+
 
             box.appendChild(
                 row
@@ -2393,9 +3716,41 @@ function renderStatusGrid() {
 }
 
 
+function retestSetting(
+    setting
+) {
+
+    currentSetting =
+        setting;
+
+    session.step +=
+        1;
+
+    saveSession();
+
+    showWizard();
+}
+
+
 function showFinalProfile() {
 
-    hideMainCards();
+    hideCards();
+
+
+    Object.keys(
+        session.state
+    )
+    .forEach(
+        setting => {
+
+            calculateConfidence(
+                session.state[
+                    setting
+                ]
+            );
+        }
+    );
+
 
     document
     .getElementById(
@@ -2405,21 +3760,27 @@ function showFinalProfile() {
         "hidden"
     );
 
+
+    renderHudSummary(
+        "finalHud"
+    );
+
+
     const grid =
         document
         .getElementById(
-            "profileGrid"
+            "finalGrid"
         );
+
 
     grid.innerHTML =
         "";
 
-    const states =
-        Object.keys(
-            session.state
-        );
 
-    states.forEach(
+    Object.keys(
+        session.state
+    )
+    .forEach(
         setting => {
 
             const item =
@@ -2427,14 +3788,17 @@ function showFinalProfile() {
                     setting
                 ];
 
+
             const box =
                 document
                 .createElement(
                     "div"
                 );
 
+
             box.className =
                 "profile-box";
+
 
             box.innerHTML =
                 `
@@ -2447,9 +3811,11 @@ function showFinalProfile() {
                 </div>
 
                 <div class="profile-meta">
-                    калибровка ${item.confidence}%
+                    зона ${item.min}–${item.max}
+                    • калибровка ${item.confidence}%
                 </div>
                 `;
+
 
             grid.appendChild(
                 box
@@ -2457,31 +3823,34 @@ function showFinalProfile() {
         }
     );
 
-    const completed =
+
+    const items =
         Object.values(
             session.state
-        )
-        .filter(
+        );
+
+
+    const ready =
+        items.filter(
             item =>
                 item.completed
         )
         .length;
 
-    const total =
-        states.length;
 
     document
     .getElementById(
-        "finishText"
+        "finishNote"
     )
     .textContent =
-        completed
+        ready
         ===
-        total
+        items.length
         ?
-        "Все настройки прошли калибровку."
+        "Все необходимые параметры прошли калибровку."
         :
-        `${completed} из ${total} настроек готовы. Можно продолжить тестирование для большей стабильности.`;
+        `${ready} из ${items.length} параметров уже стабильны. Остальные можно продолжить проверять.`;
+
 
     document
     .getElementById(
@@ -2492,20 +3861,51 @@ function showFinalProfile() {
 }
 
 
-function returnToDashboard() {
-
-    showDashboard();
-}
-
-
 function buildExportText() {
 
+    const styleNames = {
+        short:
+            "Короткая",
+
+        medium:
+            "Средняя",
+
+        long:
+            "Длинная"
+    };
+
+
+    const positionNames = {
+        low:
+            "Ниже",
+
+        middle:
+            "Средне",
+
+        high:
+            "Выше"
+    };
+
+
     let text =
-        `Wiens AI Free Fire Profile\n`
+        `Wiens AI — Free Fire Profile\n\n`
         +
-        `${session.device}\n`
+        `Телефон: ${session.device}\n`
         +
-        `${weaponNames[session.weapon]}\n\n`;
+        `Оружие: ${weaponNames[session.weapon]}\n`
+        +
+        `Экран: ${session.hz} Hz\n`
+        +
+        `FPS: ${session.fps}\n`
+        +
+        `Пальцы: ${session.fingers}\n`
+        +
+        `Оттяжка: ${styleNames[session.dragStyle]}\n`
+        +
+        `Кнопка огня: ${session.fireButton}%\n`
+        +
+        `Положение кнопки: ${positionNames[session.firePosition]}\n\n`;
+
 
     Object.keys(
         session.state
@@ -2520,6 +3920,7 @@ function buildExportText() {
         }
     );
 
+
     return text.trim();
 }
 
@@ -2529,6 +3930,7 @@ async function copyProfile() {
     const text =
         buildExportText();
 
+
     try {
 
         await navigator
@@ -2536,6 +3938,7 @@ async function copyProfile() {
         .writeText(
             text
         );
+
 
         alert(
             "Профиль скопирован ✅"
@@ -2558,8 +3961,10 @@ function saveProfile() {
             []
         );
 
-    const data =
+
+    const settings =
         {};
+
 
     Object.keys(
         session.state
@@ -2567,9 +3972,10 @@ function saveProfile() {
     .forEach(
         setting => {
 
-            data[
+            settings[
                 setting
             ] = {
+
                 best:
                     session.state[
                         setting
@@ -2580,18 +3986,14 @@ function saveProfile() {
                     session.state[
                         setting
                     ]
-                    .confidence,
-
-                completed:
-                    session.state[
-                        setting
-                    ]
-                    .completed
+                    .confidence
             };
         }
     );
 
+
     profiles.unshift({
+
         id:
             Date.now(),
 
@@ -2601,29 +4003,174 @@ function saveProfile() {
         weapon:
             session.weapon,
 
+        fireButton:
+            session.fireButton,
+
+        hz:
+            session.hz,
+
+        fps:
+            session.fps,
+
+        fingers:
+            session.fingers,
+
         settings:
-            data,
+            settings,
 
         savedAt:
             new Date()
             .toISOString()
     });
 
+
     localStorage.setItem(
         PROFILE_KEY,
         JSON.stringify(
             profiles.slice(
                 0,
-                30
+                40
             )
         )
     );
 
+
     renderSavedProfiles();
+
 
     alert(
         "Профиль сохранён ✅"
     );
+}
+
+
+function backToDashboard() {
+
+    showDashboard();
+}
+
+
+function resumeSession() {
+
+    const saved =
+        loadJSON(
+            SESSION_KEY,
+            null
+        );
+
+
+    if (!saved) {
+        return;
+    }
+
+
+    session =
+        saved;
+
+
+    showDashboard();
+}
+
+
+function resetSession() {
+
+    if (
+        !confirm(
+            "Удалить текущую калибровку и начать заново?"
+        )
+    ) {
+        return;
+    }
+
+
+    localStorage.removeItem(
+        SESSION_KEY
+    );
+
+
+    session =
+        null;
+
+
+    hideCards();
+
+
+    document
+    .getElementById(
+        "setupCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    checkResume();
+}
+
+
+function checkResume() {
+
+    const saved =
+        loadJSON(
+            SESSION_KEY,
+            null
+        );
+
+
+    const box =
+        document
+        .getElementById(
+            "resumeBox"
+        );
+
+
+    if (!saved) {
+
+        box.classList.add(
+            "hidden"
+        );
+
+        return;
+    }
+
+
+    box.classList.remove(
+        "hidden"
+    );
+
+
+    const count =
+        Object.values(
+            saved.state
+            ||
+            {}
+        )
+        .filter(
+            item =>
+                item.completed
+        )
+        .length;
+
+
+    const total =
+        Object.keys(
+            saved.state
+            ||
+            {}
+        )
+        .length;
+
+
+    document
+    .getElementById(
+        "resumeMeta"
+    )
+    .textContent =
+        `${saved.device} • `
+        +
+        `${weaponNames[saved.weapon] || saved.weapon} • `
+        +
+        `${count} из ${total} параметров готовы`;
 }
 
 
@@ -2635,14 +4182,17 @@ function renderSavedProfiles() {
             "savedProfiles"
         );
 
+
     const profiles =
         loadJSON(
             PROFILE_KEY,
             []
         );
 
+
     box.innerHTML =
         "";
+
 
     if (
         !Array.isArray(
@@ -2655,12 +4205,13 @@ function renderSavedProfiles() {
         box.innerHTML =
             `
             <div class="note">
-                Пока нет сохранённых профилей v9.
+                Пока нет сохранённых профилей.
             </div>
             `;
 
         return;
     }
+
 
     profiles.forEach(
         profile => {
@@ -2671,8 +4222,10 @@ function renderSavedProfiles() {
                     "div"
                 );
 
+
             row.className =
                 "saved-row";
+
 
             row.innerHTML =
                 `
@@ -2680,21 +4233,41 @@ function renderSavedProfiles() {
 
                     <div class="saved-title">
                         ${escapeHtml(profile.device)}
+                        •
+                        ${escapeHtml(
+                            weaponNames[profile.weapon]
+                            ||
+                            profile.weapon
+                        )}
                     </div>
 
                     <div class="saved-meta">
-                        ${weaponNames[profile.weapon]}
+                        ${profile.hz} Hz
+                        • ${profile.fps} FPS
+                        • кнопка ${profile.fireButton}%
                     </div>
 
                 </div>
 
-                <button
-                    class="mini"
-                    onclick="deleteProfile(${profile.id})"
-                >
-                    🗑
-                </button>
+                <div class="saved-actions">
+
+                    <button
+                        class="mini"
+                        onclick="loadSavedProfile(${profile.id})"
+                    >
+                        Открыть
+                    </button>
+
+                    <button
+                        class="mini"
+                        onclick="deleteSavedProfile(${profile.id})"
+                    >
+                        🗑
+                    </button>
+
+                </div>
                 `;
+
 
             box.appendChild(
                 row
@@ -2704,7 +4277,64 @@ function renderSavedProfiles() {
 }
 
 
-function deleteProfile(
+function loadSavedProfile(
+    id
+) {
+
+    const profiles =
+        loadJSON(
+            PROFILE_KEY,
+            []
+        );
+
+
+    const profile =
+        profiles.find(
+            item =>
+                item.id
+                ===
+                id
+        );
+
+
+    if (!profile) {
+        return;
+    }
+
+
+    let text =
+        `Сохранённый профиль\n\n`
+        +
+        `${profile.device}\n`
+        +
+        `${weaponNames[profile.weapon] || profile.weapon}\n`
+        +
+        `Кнопка огня: ${profile.fireButton}%\n\n`;
+
+
+    Object.keys(
+        profile.settings
+        ||
+        {}
+    )
+    .forEach(
+        setting => {
+
+            text +=
+                `${settingNames[setting] || setting}: `
+                +
+                `${profile.settings[setting].best}\n`;
+        }
+    );
+
+
+    alert(
+        text
+    );
+}
+
+
+function deleteSavedProfile(
     id
 ) {
 
@@ -2720,12 +4350,14 @@ function deleteProfile(
                 id
         );
 
+
     localStorage.setItem(
         PROFILE_KEY,
         JSON.stringify(
             profiles
         )
     );
+
 
     renderSavedProfiles();
 }
@@ -2735,7 +4367,9 @@ function escapeHtml(
     value
 ) {
 
-    return String(value)
+    return String(
+        value
+    )
     .replaceAll(
         "&",
         "&amp;"
@@ -2758,6 +4392,8 @@ function escapeHtml(
     );
 }
 
+
+updateFireButtonValue();
 
 checkResume();
 
