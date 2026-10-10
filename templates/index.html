@@ -195,7 +195,9 @@
 
         .online {
             margin-top: 2px;
+
             font-size: 11px;
+
             color: #79ffac;
         }
 
@@ -216,6 +218,7 @@
 
         #chat {
             flex: 1;
+
             overflow-y: auto;
 
             padding:
@@ -225,6 +228,7 @@
 
             display: flex;
             flex-direction: column;
+
             gap: 14px;
 
             scroll-behavior: smooth;
@@ -365,11 +369,13 @@
 
         .welcome h1 {
             margin-bottom: 8px;
+
             font-size: 34px;
         }
 
         .welcome p {
             color: var(--muted);
+
             font-size: 15px;
             line-height: 1.5;
         }
@@ -403,6 +409,7 @@
         .message-row {
             display: flex;
             flex-direction: column;
+
             max-width: 90%;
         }
 
@@ -454,13 +461,16 @@
 
         .sources {
             width: 100%;
+
             margin-top: 9px;
         }
 
         .sources-title {
-            color: #a3a3b3;
-            font-size: 11px;
             margin-bottom: 7px;
+
+            color: #a3a3b3;
+
+            font-size: 11px;
         }
 
         .source-card {
@@ -543,6 +553,7 @@
             margin-top: 5px;
 
             border: none;
+
             background: transparent;
 
             color: #9e9eae;
@@ -552,7 +563,6 @@
 
         .recording-bar {
             display: none;
-
             justify-content: center;
 
             padding: 8px;
@@ -571,6 +581,7 @@
 
         .preview-card {
             position: relative;
+
             width: fit-content;
         }
 
@@ -611,6 +622,7 @@
             border-radius: 50%;
 
             color: white;
+
             background: #353542;
         }
 
@@ -658,6 +670,7 @@
             resize: none;
 
             background: transparent;
+
             color: white;
 
             font-size: 16px;
@@ -731,6 +744,7 @@
 
         .overlay.open {
             opacity: 1;
+
             pointer-events: auto;
         }
 
@@ -747,9 +761,17 @@
                 min(86vw,340px);
 
             padding:
-                calc(18px + env(safe-area-inset-top))
+                calc(
+                    18px
+                    +
+                    env(safe-area-inset-top)
+                )
                 12px
-                calc(18px + env(safe-area-inset-bottom));
+                calc(
+                    18px
+                    +
+                    env(safe-area-inset-bottom)
+                );
 
             display: flex;
             flex-direction: column;
@@ -867,14 +889,11 @@
 
             text-decoration: none;
 
-            transition:
-                transform .15s,
-                background .15s;
+            text-align: left;
         }
 
         .tool-button:active {
-            transform:
-                scale(.98);
+            transform: scale(.98);
         }
 
         .tool-icon {
@@ -895,6 +914,8 @@
         }
 
         .tool-title {
+            color: white;
+
             font-size: 14px;
             font-weight: 800;
         }
@@ -910,6 +931,7 @@
 
         #chatList {
             flex: 1;
+
             overflow-y: auto;
 
             padding-bottom: 20px;
@@ -926,7 +948,6 @@
 
         .history-open {
             flex: 1;
-
             min-width: 0;
 
             padding: 9px;
@@ -934,6 +955,7 @@
             border: none;
 
             background: transparent;
+
             color: white;
 
             text-align: left;
@@ -960,13 +982,123 @@
             flex-shrink: 0;
 
             border: none;
+            border-radius: 10px;
 
             background: transparent;
+        }
 
-            border-radius: 10px;
+
+        /* ВСТРОЕННЫЙ ИНСТРУМЕНТ */
+
+        .tool-view {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 80;
+
+            display: none;
+
+            flex-direction: column;
+
+            background: #07080d;
+        }
+
+        .tool-view.open {
+            display: flex;
+        }
+
+        .tool-view-header {
+            min-height: 64px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            padding:
+                calc(
+                    8px
+                    +
+                    env(safe-area-inset-top)
+                )
+                12px
+                8px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            background:
+                rgba(7,8,13,.96);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .tool-back {
+            padding: 10px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.06);
+
+            color: white;
+
+            font-weight: 700;
+        }
+
+        .tool-view-title {
+            flex: 1;
+
+            min-width: 0;
+        }
+
+        .tool-view-name {
+            font-size: 16px;
+            font-weight: 850;
+        }
+
+        .tool-view-description {
+            margin-top: 2px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .tool-view-icon {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 11px;
+
+            background:
+                rgba(117,92,255,.15);
+
+            font-size: 20px;
+        }
+
+        .tool-frame {
+            flex: 1;
+
+            width: 100%;
+            min-height: 0;
+
+            border: none;
+
+            background: #07080d;
         }
 
         @media (max-width: 600px) {
+
             .new-chat-text {
                 display: none;
             }
@@ -978,6 +1110,16 @@
 
             .welcome h1 {
                 font-size: 31px;
+            }
+
+            .tool-view-description {
+                max-width: 180px;
+
+                overflow: hidden;
+
+                white-space: nowrap;
+
+                text-overflow: ellipsis;
             }
         }
     </style>
@@ -997,6 +1139,7 @@
             >
                 ☰
             </button>
+
 
             <div class="brand">
 
@@ -1082,6 +1225,7 @@
 
             </div>
 
+
             <button
                 class="remove-attachment"
                 onclick="removeSelectedAttachment()"
@@ -1138,6 +1282,7 @@
 
         </div>
 
+
         <div class="input-note">
             Wiens AI может допускать ошибки
         </div>
@@ -1147,12 +1292,16 @@
 </div>
 
 
+<!-- ЗАТЕМНЕНИЕ МЕНЮ -->
+
 <div
     class="overlay"
     id="overlay"
     onclick="closeDrawer()"
 ></div>
 
+
+<!-- БОКОВОЕ МЕНЮ -->
 
 <aside
     class="drawer"
@@ -1189,9 +1338,10 @@
             Инструменты
         </div>
 
-        <a
+
+        <button
             class="tool-button"
-            href="/static/freefire-v9.html"
+            onclick="openFreeFireLab()"
         >
 
             <span class="tool-icon">
@@ -1210,7 +1360,7 @@
 
             </div>
 
-        </a>
+        </button>
 
     </div>
 
@@ -1223,6 +1373,52 @@
     <div id="chatList"></div>
 
 </aside>
+
+
+<!-- ВСТРОЕННЫЙ FREE FIRE LAB -->
+
+<section
+    class="tool-view"
+    id="toolView"
+>
+
+    <div class="tool-view-header">
+
+        <button
+            class="tool-back"
+            onclick="closeTool()"
+        >
+            ← Wiens AI
+        </button>
+
+
+        <div class="tool-view-title">
+
+            <div class="tool-view-name">
+                Free Fire Lab
+            </div>
+
+            <div class="tool-view-description">
+                HUD • оружие • кнопка • чувствительность
+            </div>
+
+        </div>
+
+
+        <div class="tool-view-icon">
+            🎯
+        </div>
+
+    </div>
+
+
+    <iframe
+        id="toolFrame"
+        class="tool-frame"
+        title="Free Fire Lab"
+    ></iframe>
+
+</section>
 
 
 <script>
@@ -1247,11 +1443,6 @@ const input =
 const sendButton =
     document.getElementById(
         "sendButton"
-    );
-
-const micButton =
-    document.getElementById(
-        "micButton"
     );
 
 const recordingBar =
@@ -1314,8 +1505,19 @@ const chatList =
         "chatList"
     );
 
+const toolView =
+    document.getElementById(
+        "toolView"
+    );
 
-let chats = [];
+const toolFrame =
+    document.getElementById(
+        "toolFrame"
+    );
+
+
+let chats =
+    [];
 
 let activeChatId =
     null;
@@ -1351,6 +1553,108 @@ let isStreaming =
     false;
 
 
+/* =========================
+   ВСТРОЕННЫЕ ИНСТРУМЕНТЫ
+   ========================= */
+
+function openFreeFireLab() {
+
+    closeDrawer();
+
+    toolView.classList.add(
+        "open"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    if (
+        !toolFrame.src
+        ||
+        !toolFrame.src.includes(
+            "freefire-v9.html"
+        )
+    ) {
+
+        toolFrame.src =
+            "/static/freefire-v9.html";
+    }
+}
+
+
+function closeTool() {
+
+    toolView.classList.remove(
+        "open"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+}
+
+
+/*
+    Free Fire Lab находится на том же сайте,
+    поэтому после загрузки убираем его внутреннюю
+    верхнюю кнопку возврата, чтобы не было
+    двух шапок одна под другой.
+*/
+
+toolFrame.addEventListener(
+    "load",
+    function() {
+
+        try {
+
+            const doc =
+                toolFrame
+                .contentDocument;
+
+
+            if (!doc) {
+                return;
+            }
+
+
+            const style =
+                doc.createElement(
+                    "style"
+                );
+
+
+            style.textContent =
+                `
+                .topbar {
+                    display: none !important;
+                }
+
+                body {
+                    padding-top:
+                        14px !important;
+                }
+                `;
+
+
+            doc.head.appendChild(
+                style
+            );
+
+        } catch(error) {
+
+            console.log(
+                "Tool frame style:",
+                error
+            );
+        }
+    }
+);
+
+
+/* =========================
+   ЧАТЫ
+   ========================= */
+
 function createId() {
 
     return (
@@ -1370,7 +1674,9 @@ function createEmptyChat() {
         new Date()
         .toISOString();
 
+
     return {
+
         id:
             createId(),
 
@@ -1392,7 +1698,9 @@ function createEmptyChat() {
 }
 
 
-function normalizeChat(item) {
+function normalizeChat(
+    item
+) {
 
     if (!item.history) {
         item.history = [];
@@ -1407,6 +1715,7 @@ function normalizeChat(item) {
             "Новый чат";
     }
 
+
     return item;
 }
 
@@ -1416,26 +1725,38 @@ function getActiveChat() {
     return chats.find(
         item =>
             item.id
-            === activeChatId
+            ===
+            activeChatId
     );
 }
 
 
 function saveChats() {
 
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(
-            chats
-        )
-    );
+    try {
 
-    localStorage.setItem(
-        ACTIVE_CHAT_KEY,
-        activeChatId
-        ||
-        ""
-    );
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(
+                chats
+            )
+        );
+
+
+        localStorage.setItem(
+            ACTIVE_CHAT_KEY,
+            activeChatId
+            ||
+            ""
+        );
+
+    } catch(error) {
+
+        console.log(
+            "Chat storage:",
+            error
+        );
+    }
 }
 
 
@@ -1444,20 +1765,25 @@ function saveActiveChat() {
     const current =
         getActiveChat();
 
+
     if (!current) {
         return;
     }
+
 
     normalizeChat(
         current
     );
 
+
     current.history =
         history.slice();
+
 
     current.updatedAt =
         new Date()
         .toISOString();
+
 
     const first =
         current.uiMessages.find(
@@ -1466,6 +1792,7 @@ function saveActiveChat() {
                 ===
                 "user"
         );
+
 
     if (
         first
@@ -1479,6 +1806,7 @@ function saveActiveChat() {
                 35
             );
     }
+
 
     saveChats();
 
@@ -1500,8 +1828,11 @@ function loadChats() {
                 "[]"
             );
 
+
         chats =
-            Array.isArray(saved)
+            Array.isArray(
+                saved
+            )
             ?
             saved.map(
                 normalizeChat
@@ -1511,13 +1842,13 @@ function loadChats() {
 
     } catch {
 
-        chats = [];
+        chats =
+            [];
     }
 
 
     const savedId =
-        localStorage
-        .getItem(
+        localStorage.getItem(
             ACTIVE_CHAT_KEY
         );
 
@@ -1548,9 +1879,11 @@ function loadChats() {
         const fresh =
             createEmptyChat();
 
+
         chats.push(
             fresh
         );
+
 
         activeChatId =
             fresh.id;
@@ -1560,10 +1893,13 @@ function loadChats() {
     const current =
         getActiveChat();
 
+
     history =
         current
         ?
         current.history
+        ||
+        []
         :
         [];
 
@@ -1573,6 +1909,10 @@ function loadChats() {
     renderChatList();
 }
 
+
+/* =========================
+   ПРИВЕТСТВИЕ
+   ========================= */
 
 function welcomeHtml() {
 
@@ -1591,6 +1931,7 @@ function welcomeHtml() {
                     Привет! Я Wiens AI 👋
                 </div>
 
+
                 <img
                     class="assistant-character"
                     id="assistantCharacter"
@@ -1598,6 +1939,7 @@ function welcomeHtml() {
                     alt="Wiens AI assistant"
                     onclick="characterGreeting()"
                 >
+
 
                 <div
                     class="assistant-glow"
@@ -1665,6 +2007,7 @@ function removeWelcome() {
             ".welcome"
         );
 
+
     if (welcome) {
         welcome.remove();
     }
@@ -1678,11 +2021,13 @@ function characterGreeting() {
             "characterBubble"
         );
 
+
     if (bubble) {
 
         bubble.classList.add(
             "show"
         );
+
 
         setTimeout(
             () => {
@@ -1695,6 +2040,7 @@ function characterGreeting() {
             2200
         );
     }
+
 
     speakText(
         "Привет! Я Wiens AI. Чем могу помочь?"
@@ -1711,9 +2057,11 @@ function setCharacterSpeaking(
             "assistantCharacter"
         );
 
+
     if (!character) {
         return;
     }
+
 
     character.classList.toggle(
         "speaking",
@@ -1722,7 +2070,13 @@ function setCharacterSpeaking(
 }
 
 
-function extractUrls(text) {
+/* =========================
+   СООБЩЕНИЯ
+   ========================= */
+
+function extractUrls(
+    text
+) {
 
     return [
         ...new Set(
@@ -1747,6 +2101,7 @@ function addSources(
             text
         );
 
+
     if (
         !urls.length
     ) {
@@ -1759,6 +2114,7 @@ function addSources(
             "div"
         );
 
+
     wrapper.className =
         "sources";
 
@@ -1768,11 +2124,14 @@ function addSources(
             "div"
         );
 
+
     title.className =
         "sources-title";
 
+
     title.textContent =
         "Источники";
+
 
     wrapper.appendChild(
         title
@@ -1792,14 +2151,18 @@ function addSources(
                     "a"
                 );
 
+
             card.className =
                 "source-card";
+
 
             card.href =
                 url;
 
+
             card.target =
                 "_blank";
+
 
             card.rel =
                 "noopener noreferrer";
@@ -1810,8 +2173,10 @@ function addSources(
                     "div"
                 );
 
+
             icon.className =
                 "source-icon";
+
 
             icon.textContent =
                 "🌐";
@@ -1827,6 +2192,7 @@ function addSources(
                 document.createElement(
                     "div"
                 );
+
 
             host.className =
                 "source-host";
@@ -1852,8 +2218,10 @@ function addSources(
                     "div"
                 );
 
+
             address.className =
                 "source-url";
+
 
             address.textContent =
                 url;
@@ -1863,6 +2231,7 @@ function addSources(
                 host
             );
 
+
             textBox.appendChild(
                 address
             );
@@ -1871,6 +2240,7 @@ function addSources(
             card.appendChild(
                 icon
             );
+
 
             card.appendChild(
                 textBox
@@ -1909,6 +2279,7 @@ function addTextMessage(
             "div"
         );
 
+
     row.className =
         "message-row "
         +
@@ -1925,6 +2296,7 @@ function addTextMessage(
         document.createElement(
             "div"
         );
+
 
     bubble.className =
         "message "
@@ -1972,17 +2344,21 @@ function addTextMessage(
                 "button"
             );
 
+
         speak.className =
             "speak-message";
 
+
         speak.textContent =
             "🔊";
+
 
         speak.onclick =
             () =>
                 speakText(
                     text
                 );
+
 
         row.appendChild(
             speak
@@ -2023,6 +2399,7 @@ function addFileCard(
             "div"
         );
 
+
     row.className =
         "message-row user-row";
 
@@ -2031,6 +2408,7 @@ function addFileCard(
         document.createElement(
             "div"
         );
+
 
     card.className =
         "file-card";
@@ -2041,8 +2419,10 @@ function addFileCard(
             "div"
         );
 
+
     iconBox.className =
         "file-icon";
+
 
     iconBox.textContent =
         icon;
@@ -2053,6 +2433,7 @@ function addFileCard(
             "div"
         );
 
+
     nameBox.textContent =
         filename;
 
@@ -2060,6 +2441,7 @@ function addFileCard(
     card.appendChild(
         iconBox
     );
+
 
     card.appendChild(
         nameBox
@@ -2078,11 +2460,14 @@ function addFileCard(
                 "div"
             );
 
+
         bubble.className =
             "message user";
 
+
         bubble.textContent =
             text;
+
 
         row.appendChild(
             bubble
@@ -2110,6 +2495,7 @@ function remember(
     const current =
         getActiveChat();
 
+
     if (!current) {
         return;
     }
@@ -2121,10 +2507,18 @@ function remember(
 
 
     current.uiMessages.push({
-        role,
-        type,
-        text,
-        filename
+
+        role:
+            role,
+
+        type:
+            type,
+
+        text:
+            text,
+
+        filename:
+            filename
     });
 
 
@@ -2152,6 +2546,7 @@ function renderCurrentChat() {
 
         chat.innerHTML =
             welcomeHtml();
+
 
         return;
     }
@@ -2197,6 +2592,10 @@ function renderCurrentChat() {
 }
 
 
+/* =========================
+   СПИСОК ЧАТОВ
+   ========================= */
+
 function renderChatList() {
 
     chatList.innerHTML =
@@ -2211,6 +2610,7 @@ function renderChatList() {
                     "div"
                 );
 
+
             row.className =
                 "history-item";
 
@@ -2219,6 +2619,7 @@ function renderChatList() {
                 document.createElement(
                     "button"
                 );
+
 
             open.className =
                 "history-open";
@@ -2229,6 +2630,7 @@ function renderChatList() {
                     "div"
                 );
 
+
             title.textContent =
                 item.title;
 
@@ -2238,8 +2640,10 @@ function renderChatList() {
                     "div"
                 );
 
+
             date.className =
                 "history-date";
+
 
             date.textContent =
                 new Date(
@@ -2253,6 +2657,7 @@ function renderChatList() {
             open.appendChild(
                 title
             );
+
 
             open.appendChild(
                 date
@@ -2271,8 +2676,10 @@ function renderChatList() {
                     "button"
                 );
 
+
             del.className =
                 "history-delete";
+
 
             del.textContent =
                 "🗑️";
@@ -2288,6 +2695,7 @@ function renderChatList() {
             row.appendChild(
                 open
             );
+
 
             row.appendChild(
                 del
@@ -2308,6 +2716,7 @@ function openDrawer() {
         "open"
     );
 
+
     overlay.classList.add(
         "open"
     );
@@ -2320,13 +2729,16 @@ function closeDrawer() {
         "open"
     );
 
+
     overlay.classList.remove(
         "open"
     );
 }
 
 
-function openChat(id) {
+function openChat(
+    id
+) {
 
     saveActiveChat();
 
@@ -2351,7 +2763,9 @@ function openChat(id) {
 
     saveChats();
 
+
     renderCurrentChat();
+
 
     closeDrawer();
 }
@@ -2398,15 +2812,20 @@ function newChat() {
 
     saveChats();
 
+
     renderCurrentChat();
 
+
     renderChatList();
+
 
     closeDrawer();
 }
 
 
-function deleteChat(id) {
+function deleteChat(
+    id
+) {
 
     if (
         !confirm(
@@ -2445,34 +2864,27 @@ function deleteChat(id) {
         activeChatId =
             chats[0].id;
 
+
         history =
             chats[0].history
             ||
-            [];
-
-    } else {
-
-        const current =
-            getActiveChat();
-
-        history =
-            current
-            ?
-            current.history
-            ||
-            []
-            :
             [];
     }
 
 
     saveChats();
 
+
     renderCurrentChat();
+
 
     renderChatList();
 }
 
+
+/* =========================
+   ФАЙЛЫ
+   ========================= */
 
 function getDocumentType(
     file
@@ -2555,7 +2967,9 @@ fileInput.addEventListener(
                 "Этот тип файла пока не поддерживается."
             );
 
+
             removeSelectedAttachment();
+
 
             return;
         }
@@ -2642,6 +3056,7 @@ function removeSelectedAttachment() {
             selectedImageURL
         );
 
+
         selectedImageURL =
             null;
     }
@@ -2650,12 +3065,14 @@ function removeSelectedAttachment() {
     selectedFile =
         null;
 
+
     selectedFileType =
         null;
 
 
     imagePreview.src =
         "";
+
 
     imagePreview.style.display =
         "none";
@@ -2676,13 +3093,20 @@ function removeSelectedAttachment() {
 }
 
 
-function shouldUseWebSearch(text) {
+/* =========================
+   ИНТЕРНЕТ / ОТПРАВКА
+   ========================= */
+
+function shouldUseWebSearch(
+    text
+) {
 
     const value =
         text.toLowerCase();
 
 
     const words = [
+
         "сегодня",
         "сейчас",
         "новости",
@@ -2788,6 +3212,7 @@ async function sendMessage() {
             text
         );
 
+
         return;
     }
 
@@ -2799,6 +3224,7 @@ async function sendMessage() {
         await sendDocument(
             text
         );
+
 
         return;
     }
@@ -2844,12 +3270,14 @@ async function sendMessage() {
                             "POST",
 
                         headers: {
+
                             "Content-Type":
                                 "application/json"
                         },
 
                         body:
                             JSON.stringify({
+
                                 message:
                                     text,
 
@@ -2892,6 +3320,7 @@ async function sendMessage() {
 
 
             history.push({
+
                 role:
                     "user",
 
@@ -2901,6 +3330,7 @@ async function sendMessage() {
 
 
             history.push({
+
                 role:
                     "assistant",
 
@@ -2932,6 +3362,7 @@ async function sendMessage() {
                 &&
                 thinking.isConnected
             ) {
+
                 thinking.remove();
             }
 
@@ -2957,6 +3388,7 @@ async function sendMessage() {
             "div"
         );
 
+
     row.className =
         "message-row assistant-row";
 
@@ -2966,6 +3398,7 @@ async function sendMessage() {
             "div"
         );
 
+
     bubble.className =
         "message assistant";
 
@@ -2973,6 +3406,7 @@ async function sendMessage() {
     row.appendChild(
         bubble
     );
+
 
     chat.appendChild(
         row
@@ -3002,12 +3436,14 @@ async function sendMessage() {
                         "POST",
 
                     headers: {
+
                         "Content-Type":
                             "application/json"
                     },
 
                     body:
                         JSON.stringify({
+
                             message:
                                 text,
 
@@ -3079,6 +3515,7 @@ async function sendMessage() {
         ) {
 
             history.push({
+
                 role:
                     "user",
 
@@ -3088,6 +3525,7 @@ async function sendMessage() {
 
 
             history.push({
+
                 role:
                     "assistant",
 
@@ -3126,6 +3564,7 @@ async function sendMessage() {
             ) {
 
                 history.push({
+
                     role:
                         "user",
 
@@ -3135,6 +3574,7 @@ async function sendMessage() {
 
 
                 history.push({
+
                     role:
                         "assistant",
 
@@ -3168,6 +3608,10 @@ async function sendMessage() {
     }
 }
 
+
+/* =========================
+   ИЗОБРАЖЕНИЯ
+   ========================= */
 
 async function sendImage(
     text
@@ -3283,6 +3727,7 @@ async function sendImage(
             &&
             thinking.isConnected
         ) {
+
             thinking.remove();
         }
 
@@ -3296,6 +3741,10 @@ async function sendImage(
     }
 }
 
+
+/* =========================
+   ДОКУМЕНТЫ
+   ========================= */
 
 async function sendDocument(
     text
@@ -3431,6 +3880,7 @@ async function sendDocument(
             &&
             thinking.isConnected
         ) {
+
             thinking.remove();
         }
 
@@ -3445,12 +3895,20 @@ async function sendDocument(
 }
 
 
+/* =========================
+   ГОЛОС
+   ========================= */
+
 function chooseAudioMimeType() {
 
     const types = [
+
         "audio/mp4",
+
         "audio/webm;codecs=opus",
+
         "audio/webm",
+
         "audio/ogg;codecs=opus"
     ];
 
@@ -3825,6 +4283,8 @@ function toggleSpeech() {
 }
 
 
+/* ENTER */
+
 input.addEventListener(
     "keydown",
     event => {
@@ -3846,10 +4306,11 @@ input.addEventListener(
 );
 
 
+/* SERVICE WORKER */
+
 if (
     "serviceWorker"
-    in
-    navigator
+    in navigator
 ) {
 
     navigator
@@ -3866,6 +4327,8 @@ if (
     );
 }
 
+
+/* START */
 
 loadChats();
 
