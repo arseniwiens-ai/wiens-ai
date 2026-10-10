@@ -180,7 +180,6 @@
             height: 38px;
 
             border-radius: 11px;
-
             object-fit: cover;
 
             box-shadow:
@@ -275,9 +274,6 @@
                 3.8s
                 ease-in-out
                 infinite;
-
-            user-select: none;
-            -webkit-user-select: none;
         }
 
         .assistant-character.speaking {
@@ -287,12 +283,6 @@
                 ease-in-out
                 infinite
                 alternate;
-
-            filter:
-                drop-shadow(
-                    0 0 28px
-                    rgba(162,108,255,.82)
-                );
         }
 
         .assistant-glow {
@@ -315,12 +305,6 @@
 
             filter:
                 blur(18px);
-
-            animation:
-                glowPulse
-                2.2s
-                ease-in-out
-                infinite;
         }
 
         .character-bubble {
@@ -332,8 +316,7 @@
 
             max-width: 165px;
 
-            padding:
-                9px 12px;
+            padding: 9px 12px;
 
             border:
                 1px solid var(--border);
@@ -345,26 +328,14 @@
                 rgba(23,23,36,.92);
 
             font-size: 12px;
-            line-height: 1.35;
 
             opacity: 0;
 
-            transform:
-                translateY(5px)
-                scale(.96);
-
-            pointer-events: none;
-
-            transition:
-                .25s;
+            transition: .25s;
         }
 
         .character-bubble.show {
             opacity: 1;
-
-            transform:
-                translateY(0)
-                scale(1);
         }
 
         @keyframes characterFloat {
@@ -392,21 +363,9 @@
             }
         }
 
-        @keyframes glowPulse {
-            0%,
-            100% {
-                opacity: .45;
-            }
-
-            50% {
-                opacity: .95;
-            }
-        }
-
         .welcome h1 {
             margin-bottom: 8px;
             font-size: 34px;
-            letter-spacing: -1px;
         }
 
         .welcome p {
@@ -441,6 +400,22 @@
             font-size: 12px;
         }
 
+        .feature-link {
+            text-decoration: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(117,92,255,.22),
+                    rgba(162,108,255,.15)
+                );
+
+            border-color:
+                rgba(162,108,255,.38);
+
+            color: white;
+        }
+
         .message-row {
             display: flex;
             flex-direction: column;
@@ -470,11 +445,6 @@
             overflow-wrap: anywhere;
         }
 
-        .message a {
-            text-decoration: underline;
-            text-underline-offset: 2px;
-        }
-
         .user {
             background:
                 linear-gradient(
@@ -501,20 +471,13 @@
 
         .sources {
             width: 100%;
-
             margin-top: 9px;
-
-            display: flex;
-            flex-direction: column;
-
-            gap: 7px;
         }
 
         .sources-title {
             color: #a3a3b3;
-
             font-size: 11px;
-            font-weight: 650;
+            margin-bottom: 7px;
         }
 
         .source-card {
@@ -526,6 +489,7 @@
             width: 100%;
 
             padding: 9px 11px;
+            margin-bottom: 7px;
 
             border:
                 1px solid var(--border);
@@ -536,6 +500,7 @@
                 rgba(255,255,255,.045);
 
             color: white;
+
             text-decoration: none;
         }
 
@@ -546,41 +511,26 @@
             display: grid;
             place-items: center;
 
-            flex-shrink: 0;
-
             border-radius: 9px;
 
             background:
                 rgba(117,92,255,.16);
         }
 
-        .source-text {
-            min-width: 0;
-        }
-
         .source-host {
-            overflow: hidden;
-
-            color: #ffffff;
-
             font-size: 12px;
             font-weight: 650;
-
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
         .source-url {
-            overflow: hidden;
-
             margin-top: 2px;
 
             color: #828291;
 
             font-size: 9px;
 
+            overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
         .file-card {
@@ -592,8 +542,6 @@
             max-width: 290px;
 
             padding: 12px 14px;
-
-            margin-bottom: 7px;
 
             border:
                 1px solid var(--border);
@@ -608,16 +556,10 @@
             font-size: 27px;
         }
 
-        .file-name {
-            overflow-wrap: anywhere;
-            font-size: 14px;
-        }
-
         .speak-message {
             margin-top: 5px;
 
             border: none;
-
             background: transparent;
 
             color: #9e9eae;
@@ -628,34 +570,11 @@
         .recording-bar {
             display: none;
 
-            align-items: center;
             justify-content: center;
-
-            gap: 8px;
 
             padding: 8px;
 
             color: #ff8294;
-
-            font-size: 13px;
-        }
-
-        .recording-dot {
-            width: 9px;
-            height: 9px;
-
-            border-radius: 50%;
-
-            background: var(--danger);
-
-            animation:
-                pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            50% {
-                opacity: .3;
-            }
         }
 
         .attachment-preview-area {
@@ -665,15 +584,11 @@
                 8px
                 14px
                 0;
-
-            flex-shrink: 0;
         }
 
         .preview-card {
             position: relative;
-
             width: fit-content;
-            max-width: 90%;
         }
 
         #imagePreview {
@@ -684,39 +599,20 @@
 
             object-fit: cover;
 
-            border:
-                1px solid var(--border);
-
             border-radius: 16px;
         }
 
         #documentPreview {
             display: none;
 
-            align-items: center;
-
             gap: 9px;
 
-            max-width: 300px;
-
-            padding:
-                11px
-                38px
-                11px
-                12px;
-
-            border:
-                1px solid var(--border);
+            padding: 12px;
 
             border-radius: 14px;
 
             background:
                 rgba(255,255,255,.06);
-        }
-
-        #documentPreviewName {
-            overflow-wrap: anywhere;
-            font-size: 13px;
         }
 
         .remove-attachment {
@@ -729,12 +625,10 @@
             height: 25px;
 
             border: none;
-
             border-radius: 50%;
 
-            background: #353542;
-
             color: white;
+            background: #353542;
         }
 
         .input-area {
@@ -748,13 +642,6 @@
                     +
                     env(safe-area-inset-bottom)
                 );
-
-            background:
-                linear-gradient(
-                    transparent,
-                    rgba(7,8,13,.98)
-                    25%
-                );
         }
 
         .input-box {
@@ -766,17 +653,12 @@
             padding: 7px;
 
             border:
-                1px solid
-                rgba(255,255,255,.11);
+                1px solid rgba(255,255,255,.11);
 
             border-radius: 22px;
 
             background:
                 rgba(24,24,35,.97);
-
-            box-shadow:
-                0 12px 40px
-                rgba(0,0,0,.32);
         }
 
         textarea {
@@ -793,14 +675,9 @@
             resize: none;
 
             background: transparent;
-
             color: white;
 
             font-size: 16px;
-        }
-
-        textarea::placeholder {
-            color: #777786;
         }
 
         .icon-button {
@@ -810,7 +687,6 @@
             flex-shrink: 0;
 
             border: none;
-
             border-radius: 14px;
 
             font-size: 19px;
@@ -822,10 +698,6 @@
                 rgba(255,255,255,.06);
 
             color: white;
-        }
-
-        .mic.recording {
-            background: var(--danger);
         }
 
         .send {
@@ -841,10 +713,6 @@
 
         .send.stop {
             background: var(--danger);
-        }
-
-        .send:disabled {
-            opacity: .45;
         }
 
         .input-note {
@@ -874,8 +742,6 @@
 
             background:
                 rgba(0,0,0,.55);
-
-            transition: .2s;
         }
 
         .overlay.open {
@@ -895,32 +761,17 @@
             width:
                 min(86vw,340px);
 
-            padding:
-                calc(
-                    14px
-                    +
-                    env(safe-area-inset-top)
-                )
-                12px
-                calc(
-                    14px
-                    +
-                    env(safe-area-inset-bottom)
-                );
+            padding: 20px 12px;
 
             display: flex;
             flex-direction: column;
-
-            border-right:
-                1px solid var(--border);
 
             background: var(--drawer);
 
             transform:
                 translateX(-105%);
 
-            transition:
-                transform .22s ease;
+            transition: .22s;
         }
 
         .drawer.open {
@@ -930,22 +781,17 @@
 
         .drawer-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
 
             margin-bottom: 12px;
         }
 
         .drawer-new {
-            width: 100%;
-
             padding: 12px;
-
             margin-bottom: 12px;
 
             border:
-                1px solid
-                rgba(162,108,255,.35);
+                1px solid var(--border);
 
             border-radius: 14px;
 
@@ -955,23 +801,7 @@
             color: white;
         }
 
-        .drawer-close {
-            width: 38px;
-            height: 38px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,.06);
-
-            color: white;
-        }
-
         #chatList {
-            flex: 1;
             overflow-y: auto;
         }
 
@@ -980,54 +810,29 @@
             align-items: center;
 
             margin-bottom: 6px;
-
-            border-radius: 12px;
-        }
-
-        .history-item.active {
-            background:
-                rgba(117,92,255,.13);
         }
 
         .history-open {
             flex: 1;
-
-            min-width: 0;
 
             padding: 9px;
 
             border: none;
 
             background: transparent;
-
             color: white;
 
             text-align: left;
         }
 
-        .history-title {
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
         .history-date {
-            margin-top: 3px;
-
             color: var(--muted);
-
             font-size: 10px;
         }
 
         .history-delete {
-            width: 36px;
-
             border: none;
-
             background: transparent;
-
-            color: white;
         }
 
         @media (max-width: 600px) {
@@ -1042,11 +847,6 @@
 
             .welcome h1 {
                 font-size: 31px;
-            }
-
-            .brand-label {
-                max-width: 95px;
-                overflow: hidden;
             }
         }
     </style>
@@ -1072,7 +872,6 @@
                 <img
                     class="mini-logo"
                     src="/static/logo.png.PNG"
-                    alt="Wiens AI"
                 >
 
                 <div class="brand-label">
@@ -1088,6 +887,7 @@
             </div>
 
         </div>
+
 
         <div class="header-actions">
 
@@ -1108,7 +908,6 @@
                 <span class="new-chat-text">
                     Новый чат
                 </span>
-
             </button>
 
         </div>
@@ -1123,13 +922,9 @@
         class="recording-bar"
         id="recordingBar"
     >
-
-        <div class="recording-dot"></div>
-
         <span id="recordingText">
             Запись…
         </span>
-
     </div>
 
 
@@ -1140,10 +935,7 @@
 
         <div class="preview-card">
 
-            <img
-                id="imagePreview"
-                alt="Preview"
-            >
+            <img id="imagePreview">
 
             <div id="documentPreview">
 
@@ -1173,26 +965,24 @@
 
             <button
                 class="icon-button attach"
-                onclick="
-                    document
-                    .getElementById('fileInput')
-                    .click()
-                "
+                onclick="fileInput.click()"
             >
                 ＋
             </button>
 
+
             <input
                 id="fileInput"
                 type="file"
-                accept="image/*,.pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+                accept="image/*,.pdf,.docx,.txt"
             >
+
 
             <textarea
                 id="messageInput"
-                rows="1"
                 placeholder="Сообщение Wiens AI..."
             ></textarea>
+
 
             <button
                 class="icon-button mic"
@@ -1201,6 +991,7 @@
             >
                 🎙️
             </button>
+
 
             <button
                 class="icon-button send"
@@ -1240,7 +1031,6 @@
         </h2>
 
         <button
-            class="drawer-close"
             onclick="closeDrawer()"
         >
             ×
@@ -1248,12 +1038,14 @@
 
     </div>
 
+
     <button
         class="drawer-new"
         onclick="newChat()"
     >
         ＋ Новый чат
     </button>
+
 
     <div id="chatList"></div>
 
@@ -1294,70 +1086,75 @@ const fileInput =
     document.getElementById("fileInput");
 
 const attachmentPreviewArea =
-    document.getElementById("attachmentPreviewArea");
+    document.getElementById(
+        "attachmentPreviewArea"
+    );
 
 const imagePreview =
-    document.getElementById("imagePreview");
+    document.getElementById(
+        "imagePreview"
+    );
 
 const documentPreview =
-    document.getElementById("documentPreview");
+    document.getElementById(
+        "documentPreview"
+    );
 
 const documentPreviewIcon =
-    document.getElementById("documentPreviewIcon");
+    document.getElementById(
+        "documentPreviewIcon"
+    );
 
 const documentPreviewName =
-    document.getElementById("documentPreviewName");
+    document.getElementById(
+        "documentPreviewName"
+    );
 
 const drawer =
-    document.getElementById("drawer");
+    document.getElementById(
+        "drawer"
+    );
 
 const overlay =
-    document.getElementById("overlay");
+    document.getElementById(
+        "overlay"
+    );
 
 const chatList =
-    document.getElementById("chatList");
+    document.getElementById(
+        "chatList"
+    );
 
 
 let chats = [];
 
-let activeChatId =
-    null;
+let activeChatId = null;
 
 let history = [];
 
-let selectedFile =
-    null;
+let selectedFile = null;
 
-let selectedFileType =
-    null;
+let selectedFileType = null;
 
-let selectedImageURL =
-    null;
+let selectedImageURL = null;
 
-let mediaRecorder =
-    null;
+let mediaRecorder = null;
 
-let audioChunks =
-    [];
+let audioChunks = [];
 
-let recording =
-    false;
+let recording = false;
 
-let speechEnabled =
-    true;
+let speechEnabled = true;
 
-let streamController =
-    null;
+let streamController = null;
 
-let isStreaming =
-    false;
+let isStreaming = false;
 
 
 function createId() {
 
     return (
-        Date.now()
-        .toString(36)
+        Date.now().toString(36)
         +
         Math.random()
         .toString(36)
@@ -1371,7 +1168,6 @@ function createEmptyChat() {
     const now =
         new Date()
         .toISOString();
-
 
     return {
         id:
@@ -1395,19 +1191,7 @@ function createEmptyChat() {
 }
 
 
-function getActiveChat() {
-
-    return chats.find(
-        item =>
-            item.id
-            === activeChatId
-    );
-}
-
-
-function normalizeChat(
-    item
-) {
+function normalizeChat(item) {
 
     if (!item.history) {
         item.history = [];
@@ -1418,35 +1202,35 @@ function normalizeChat(
     }
 
     if (!item.title) {
-        item.title = "Новый чат";
+        item.title =
+            "Новый чат";
     }
 
     return item;
 }
 
 
+function getActiveChat() {
+
+    return chats.find(
+        item =>
+            item.id
+            === activeChatId
+    );
+}
+
+
 function saveChats() {
 
-    try {
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(chats)
+    );
 
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(chats)
-        );
-
-
-        localStorage.setItem(
-            ACTIVE_CHAT_KEY,
-            activeChatId || ""
-        );
-
-    } catch (error) {
-
-        console.log(
-            "Chat save error",
-            error
-        );
-    }
+    localStorage.setItem(
+        ACTIVE_CHAT_KEY,
+        activeChatId || ""
+    );
 }
 
 
@@ -1455,34 +1239,25 @@ function saveActiveChat() {
     const current =
         getActiveChat();
 
-
     if (!current) {
         return;
     }
 
-
-    normalizeChat(
-        current
-    );
-
+    normalizeChat(current);
 
     current.history =
         history.slice();
-
 
     current.updatedAt =
         new Date()
         .toISOString();
 
-
     const first =
-        current.uiMessages
-        .find(
+        current.uiMessages.find(
             item =>
                 item.role
                 === "user"
         );
-
 
     if (
         first
@@ -1491,16 +1266,13 @@ function saveActiveChat() {
     ) {
 
         current.title =
-            first.text
-            .slice(
+            first.text.slice(
                 0,
                 35
             );
     }
 
-
     saveChats();
-
     renderChatList();
 }
 
@@ -1519,7 +1291,6 @@ function loadChats() {
                 "[]"
             );
 
-
         chats =
             Array.isArray(saved)
             ?
@@ -1529,10 +1300,9 @@ function loadChats() {
             :
             [];
 
-    } catch (error) {
+    } catch {
 
-        chats =
-            [];
+        chats = [];
     }
 
 
@@ -1568,11 +1338,7 @@ function loadChats() {
         const fresh =
             createEmptyChat();
 
-
-        chats.push(
-            fresh
-        );
-
+        chats.push(fresh);
 
         activeChatId =
             fresh.id;
@@ -1582,21 +1348,15 @@ function loadChats() {
     const current =
         getActiveChat();
 
-
     history =
         current
         ?
-        (
-            current.history
-            ||
-            []
-        )
+        current.history
         :
         [];
 
 
     renderCurrentChat();
-
     renderChatList();
 }
 
@@ -1622,7 +1382,6 @@ function welcomeHtml() {
                     class="assistant-character"
                     id="assistantCharacter"
                     src="/static/assistant-boy.png.PNG"
-                    alt="Wiens AI Assistant"
                     onclick="characterGreeting()"
                 >
 
@@ -1632,16 +1391,26 @@ function welcomeHtml() {
 
             </div>
 
+
             <h1>
                 Wiens AI
             </h1>
+
 
             <p>
                 Напишите, скажите голосом
                 или отправьте файл.
             </p>
 
+
             <div class="features">
+
+                <a
+                    class="feature feature-link"
+                    href="/static/freefire.html"
+                >
+                    🎯 Free Fire
+                </a>
 
                 <div class="feature">
                     ⚡ Streaming
@@ -1689,63 +1458,16 @@ function removeWelcome() {
             ".welcome"
         );
 
-
     if (welcome) {
         welcome.remove();
     }
 }
 
 
-function showCharacterBubble(
-    text
-) {
-
-    const bubble =
-        document.getElementById(
-            "characterBubble"
-        );
-
-
-    if (!bubble) {
-        return;
-    }
-
-
-    bubble.textContent =
-        text;
-
-
-    bubble.classList.add(
-        "show"
-    );
-
-
-    setTimeout(
-        () => {
-
-            bubble.classList.remove(
-                "show"
-            );
-
-        },
-        3500
-    );
-}
-
-
 function characterGreeting() {
 
-    const text =
-        "Привет! Я Wiens AI. Чем могу помочь?";
-
-
-    showCharacterBubble(
-        text
-    );
-
-
     speakText(
-        text
+        "Привет! Я Wiens AI. Чем могу помочь?"
     );
 }
 
@@ -1759,11 +1481,9 @@ function setCharacterSpeaking(
             "assistantCharacter"
         );
 
-
     if (!character) {
         return;
     }
-
 
     character.classList.toggle(
         "speaking",
@@ -1772,184 +1492,18 @@ function setCharacterSpeaking(
 }
 
 
-function extractUrls(
-    text
-) {
-
-    const matches =
-        String(text)
-        .match(
-            /https?:\/\/[^\s<>"')\]}]+/gi
-        )
-        ||
-        [];
-
-
-    const cleaned =
-        matches.map(
-            url =>
-                url.replace(
-                    /[.,;:!?]+$/,
-                    ""
-                )
-        );
-
+function extractUrls(text) {
 
     return [
-        ...new Set(cleaned)
-    ];
-}
-
-
-function getHostname(
-    url
-) {
-
-    try {
-
-        return new URL(
-            url
-        )
-        .hostname
-        .replace(
-            /^www\./,
-            ""
-        );
-
-    } catch (error) {
-
-        return "Источник";
-    }
-}
-
-
-function appendLinkedText(
-    container,
-    text
-) {
-
-    container.innerHTML =
-        "";
-
-
-    const value =
-        String(text);
-
-
-    const regex =
-        /https?:\/\/[^\s<>"')\]}]+/gi;
-
-
-    let lastIndex =
-        0;
-
-
-    let match;
-
-
-    while (
-        (
-            match =
-                regex.exec(value)
-        )
-        !== null
-    ) {
-
-        if (
-            match.index
-            >
-            lastIndex
-        ) {
-
-            container.appendChild(
-                document.createTextNode(
-                    value.slice(
-                        lastIndex,
-                        match.index
-                    )
-                )
-            );
-        }
-
-
-        let url =
-            match[0];
-
-
-        const punctuation =
-            url.match(
-                /[.,;:!?]+$/
-            );
-
-
-        if (punctuation) {
-
-            url =
-                url.slice(
-                    0,
-                    -punctuation[0].length
-                );
-        }
-
-
-        const link =
-            document.createElement(
-                "a"
-            );
-
-
-        link.href =
-            url;
-
-
-        link.target =
-            "_blank";
-
-
-        link.rel =
-            "noopener noreferrer";
-
-
-        link.textContent =
-            url;
-
-
-        container.appendChild(
-            link
-        );
-
-
-        if (punctuation) {
-
-            container.appendChild(
-                document.createTextNode(
-                    punctuation[0]
-                )
-            );
-        }
-
-
-        lastIndex =
-            match.index
-            +
-            match[0].length;
-    }
-
-
-    if (
-        lastIndex
-        <
-        value.length
-    ) {
-
-        container.appendChild(
-            document.createTextNode(
-                value.slice(
-                    lastIndex
-                )
+        ...new Set(
+            String(text)
+            .match(
+                /https?:\/\/[^\s<>"')\]}]+/gi
             )
-        );
-    }
+            ||
+            []
+        )
+    ];
 }
 
 
@@ -1958,37 +1512,17 @@ function addSources(
     text
 ) {
 
-    const oldSources =
-        row.querySelector(
-            ".sources"
-        );
-
-
-    if (oldSources) {
-        oldSources.remove();
-    }
-
-
     const urls =
-        extractUrls(
-            text
-        );
+        extractUrls(text);
 
-
-    if (
-        urls.length
-        === 0
-    ) {
-
+    if (!urls.length) {
         return;
     }
-
 
     const wrapper =
         document.createElement(
             "div"
         );
-
 
     wrapper.className =
         "sources";
@@ -1999,14 +1533,11 @@ function addSources(
             "div"
         );
 
-
     title.className =
         "sources-title";
 
-
     title.textContent =
         "Источники";
-
 
     wrapper.appendChild(
         title
@@ -2014,10 +1545,7 @@ function addSources(
 
 
     urls
-    .slice(
-        0,
-        5
-    )
+    .slice(0,5)
     .forEach(
         url => {
 
@@ -2026,21 +1554,14 @@ function addSources(
                     "a"
                 );
 
-
             card.className =
                 "source-card";
-
 
             card.href =
                 url;
 
-
             card.target =
                 "_blank";
-
-
-            card.rel =
-                "noopener noreferrer";
 
 
             const icon =
@@ -2048,23 +1569,17 @@ function addSources(
                     "div"
                 );
 
-
             icon.className =
                 "source-icon";
-
 
             icon.textContent =
                 "🌐";
 
 
-            const content =
+            const textBox =
                 document.createElement(
                     "div"
                 );
-
-
-            content.className =
-                "source-text";
 
 
             const host =
@@ -2072,15 +1587,21 @@ function addSources(
                     "div"
                 );
 
-
             host.className =
                 "source-host";
 
 
-            host.textContent =
-                getHostname(
-                    url
-                );
+            try {
+
+                host.textContent =
+                    new URL(url)
+                    .hostname;
+
+            } catch {
+
+                host.textContent =
+                    "Источник";
+            }
 
 
             const address =
@@ -2088,21 +1609,18 @@ function addSources(
                     "div"
                 );
 
-
             address.className =
                 "source-url";
-
 
             address.textContent =
                 url;
 
 
-            content.appendChild(
+            textBox.appendChild(
                 host
             );
 
-
-            content.appendChild(
+            textBox.appendChild(
                 address
             );
 
@@ -2111,9 +1629,8 @@ function addSources(
                 icon
             );
 
-
             card.appendChild(
-                content
+                textBox
             );
 
 
@@ -2130,38 +1647,6 @@ function addSources(
 }
 
 
-function addSpeakButton(
-    row,
-    text
-) {
-
-    const speak =
-        document.createElement(
-            "button"
-        );
-
-
-    speak.className =
-        "speak-message";
-
-
-    speak.textContent =
-        "🔊";
-
-
-    speak.onclick =
-        () =>
-            speakText(
-                text
-            );
-
-
-    row.appendChild(
-        speak
-    );
-}
-
-
 function addTextMessage(
     text,
     role
@@ -2173,18 +1658,10 @@ function addTextMessage(
     const isUser =
         role === "user";
 
-
-    const isThinking =
-        role.includes(
-            "thinking"
-        );
-
-
     const row =
         document.createElement(
             "div"
         );
-
 
     row.className =
         "message-row "
@@ -2198,13 +1675,12 @@ function addTextMessage(
         );
 
 
-    const message =
+    const bubble =
         document.createElement(
             "div"
         );
 
-
-    message.className =
+    bubble.className =
         "message "
         +
         (
@@ -2216,48 +1692,53 @@ function addTextMessage(
         );
 
 
-    if (isThinking) {
-
-        message.classList.add(
+    if (
+        role.includes(
             "thinking"
-        );
-
-
-        message.textContent =
-            text;
-
-    } else if (
-        !isUser
+        )
     ) {
 
-        appendLinkedText(
-            message,
-            text
+        bubble.classList.add(
+            "thinking"
         );
-
-    } else {
-
-        message.textContent =
-            text;
     }
 
 
+    bubble.textContent =
+        text;
+
+
     row.appendChild(
-        message
+        bubble
     );
 
 
     if (
         !isUser
         &&
-        !isThinking
+        !role.includes(
+            "thinking"
+        )
     ) {
 
-        addSpeakButton(
-            row,
-            text
-        );
+        const speak =
+            document.createElement(
+                "button"
+            );
 
+        speak.className =
+            "speak-message";
+
+        speak.textContent =
+            "🔊";
+
+        speak.onclick =
+            () =>
+                speakText(text);
+
+        row.appendChild(
+            speak
+        );
 
         addSources(
             row,
@@ -2269,7 +1750,6 @@ function addTextMessage(
     chat.appendChild(
         row
     );
-
 
     chat.scrollTop =
         chat.scrollHeight;
@@ -2293,7 +1773,6 @@ function addFileCard(
             "div"
         );
 
-
     row.className =
         "message-row user-row";
 
@@ -2303,47 +1782,20 @@ function addFileCard(
             "div"
         );
 
-
     card.className =
         "file-card";
 
 
-    const iconBox =
-        document.createElement(
-            "div"
-        );
+    card.innerHTML =
+        `
+        <div class="file-icon">
+            ${icon}
+        </div>
 
-
-    iconBox.className =
-        "file-icon";
-
-
-    iconBox.textContent =
-        icon;
-
-
-    const name =
-        document.createElement(
-            "div"
-        );
-
-
-    name.className =
-        "file-name";
-
-
-    name.textContent =
-        filename;
-
-
-    card.appendChild(
-        iconBox
-    );
-
-
-    card.appendChild(
-        name
-    );
+        <div>
+            ${filename}
+        </div>
+        `;
 
 
     row.appendChild(
@@ -2358,14 +1810,11 @@ function addFileCard(
                 "div"
             );
 
-
         bubble.className =
             "message user";
 
-
         bubble.textContent =
             text;
-
 
         row.appendChild(
             bubble
@@ -2376,10 +1825,6 @@ function addFileCard(
     chat.appendChild(
         row
     );
-
-
-    chat.scrollTop =
-        chat.scrollHeight;
 }
 
 
@@ -2393,16 +1838,13 @@ function remember(
     const current =
         getActiveChat();
 
-
     if (!current) {
         return;
     }
 
-
     normalizeChat(
         current
     );
-
 
     current.uiMessages.push({
         role,
@@ -2410,7 +1852,6 @@ function remember(
         text,
         filename
     });
-
 
     saveActiveChat();
 }
@@ -2421,28 +1862,16 @@ function renderCurrentChat() {
     chat.innerHTML =
         "";
 
-
     const current =
         getActiveChat();
 
 
-    if (!current) {
-
-        chat.innerHTML =
-            welcomeHtml();
-
-        return;
-    }
-
-
-    normalizeChat(
-        current
-    );
-
-
     if (
-        current.uiMessages.length
-        === 0
+        !current
+        ||
+        !current.uiMessages
+        ||
+        !current.uiMessages.length
     ) {
 
         chat.innerHTML =
@@ -2463,9 +1892,7 @@ function renderCurrentChat() {
 
                 addFileCard(
                     "📷",
-                    item.filename
-                    ||
-                    "Изображение",
+                    item.filename,
                     item.text
                 );
 
@@ -2475,12 +1902,8 @@ function renderCurrentChat() {
             ) {
 
                 addFileCard(
-                    getDocumentIcon(
-                        item.filename
-                    ),
-                    item.filename
-                    ||
-                    "Документ",
+                    "📄",
+                    item.filename,
                     item.text
                 );
 
@@ -2501,46 +1924,16 @@ function renderChatList() {
     chatList.innerHTML =
         "";
 
-
-    chats
-    .slice()
-    .sort(
-        (a,b) =>
-            new Date(
-                b.updatedAt
-            )
-            -
-            new Date(
-                a.updatedAt
-            )
-    )
-    .forEach(
+    chats.forEach(
         item => {
-
-            normalizeChat(
-                item
-            );
-
 
             const row =
                 document.createElement(
                     "div"
                 );
 
-
             row.className =
                 "history-item";
-
-
-            if (
-                item.id
-                === activeChatId
-            ) {
-
-                row.classList.add(
-                    "active"
-                );
-            }
 
 
             const open =
@@ -2548,55 +1941,20 @@ function renderChatList() {
                     "button"
                 );
 
-
             open.className =
                 "history-open";
 
+            open.innerHTML =
+                `
+                <div>
+                    ${item.title}
+                </div>
 
-            const title =
-                document.createElement(
-                    "div"
-                );
-
-
-            title.className =
-                "history-title";
-
-
-            title.textContent =
-                item.title
-                ||
-                "Новый чат";
-
-
-            const date =
-                document.createElement(
-                    "div"
-                );
-
-
-            date.className =
-                "history-date";
-
-
-            date.textContent =
-                new Date(
-                    item.updatedAt
-                )
-                .toLocaleString(
-                    "ru-RU"
-                );
-
-
-            open.appendChild(
-                title
-            );
-
-
-            open.appendChild(
-                date
-            );
-
+                <div class="history-date">
+                    ${new Date(item.updatedAt)
+                    .toLocaleString("ru-RU")}
+                </div>
+                `;
 
             open.onclick =
                 () =>
@@ -2610,36 +1968,26 @@ function renderChatList() {
                     "button"
                 );
 
-
             del.className =
                 "history-delete";
-
 
             del.textContent =
                 "🗑️";
 
-
             del.onclick =
-                event => {
-
-                    event.stopPropagation();
-
-
+                () =>
                     deleteChat(
                         item.id
                     );
-                };
 
 
             row.appendChild(
                 open
             );
 
-
             row.appendChild(
                 del
             );
-
 
             chatList.appendChild(
                 row
@@ -2655,13 +2003,9 @@ function openDrawer() {
         "open"
     );
 
-
     overlay.classList.add(
         "open"
     );
-
-
-    renderChatList();
 }
 
 
@@ -2671,61 +2015,28 @@ function closeDrawer() {
         "open"
     );
 
-
     overlay.classList.remove(
         "open"
     );
 }
 
 
-function openChat(
-    id
-) {
-
-    if (
-        isStreaming
-    ) {
-
-        stopGeneration();
-    }
-
+function openChat(id) {
 
     saveActiveChat();
-
 
     activeChatId =
         id;
 
-
     const current =
         getActiveChat();
 
-
-    normalizeChat(
-        current
-    );
-
-
     history =
-        current
-        ?
-        (
-            current.history
-            ||
-            []
-        )
-        :
-        [];
-
+        current.history || [];
 
     saveChats();
 
-
-    removeSelectedAttachment();
-
-
     renderCurrentChat();
-
 
     closeDrawer();
 }
@@ -2733,94 +2044,30 @@ function openChat(
 
 function newChat() {
 
-    if (
-        isStreaming
-    ) {
-
-        stopGeneration();
-    }
-
-
-    saveActiveChat();
-
-
-    const current =
-        getActiveChat();
-
-
-    if (
-        current
-        &&
-        current.uiMessages
-        &&
-        current.uiMessages.length
-        === 0
-    ) {
-
-        renderCurrentChat();
-
-        closeDrawer();
-
-        return;
-    }
-
-
     const fresh =
         createEmptyChat();
-
 
     chats.unshift(
         fresh
     );
 
-
     activeChatId =
         fresh.id;
-
 
     history =
         [];
 
-
-    removeSelectedAttachment();
-
-
     saveChats();
-
 
     renderCurrentChat();
 
-
     renderChatList();
-
 
     closeDrawer();
 }
 
 
-function deleteChat(
-    id
-) {
-
-    if (
-        !confirm(
-            "Удалить чат?"
-        )
-    ) {
-
-        return;
-    }
-
-
-    if (
-        isStreaming
-        &&
-        id === activeChatId
-    ) {
-
-        stopGeneration();
-    }
-
+function deleteChat(id) {
 
     chats =
         chats.filter(
@@ -2829,70 +2076,34 @@ function deleteChat(
                 !== id
         );
 
-
-    if (
-        chats.length
-        === 0
-    ) {
+    if (!chats.length) {
 
         chats.push(
             createEmptyChat()
         );
     }
 
-
-    if (
-        !chats.some(
-            item =>
-                item.id
-                === activeChatId
-        )
-    ) {
-
-        activeChatId =
-            chats[0].id;
-    }
-
-
-    const current =
-        getActiveChat();
-
-
-    normalizeChat(
-        current
-    );
-
+    activeChatId =
+        chats[0].id;
 
     history =
-        current
-        ?
-        (
-            current.history
-            ||
-            []
-        )
-        :
+        chats[0].history
+        ||
         [];
-
 
     saveChats();
 
-
     renderCurrentChat();
-
 
     renderChatList();
 }
 
 
-function getDocumentType(
-    file
-) {
+function getDocumentType(file) {
 
     const name =
         file.name
         .toLowerCase();
-
 
     if (
         file.type
@@ -2900,79 +2111,34 @@ function getDocumentType(
             "image/"
         )
     ) {
-
         return "image";
     }
-
 
     if (
         name.endsWith(
             ".pdf"
         )
     ) {
-
         return "pdf";
     }
 
-
     if (
         name.endsWith(
             ".docx"
         )
     ) {
-
         return "docx";
     }
 
-
     if (
         name.endsWith(
             ".txt"
         )
     ) {
-
         return "txt";
     }
 
-
     return null;
-}
-
-
-function getDocumentIcon(
-    filename
-) {
-
-    const name =
-        String(
-            filename
-            ||
-            ""
-        )
-        .toLowerCase();
-
-
-    if (
-        name.endsWith(
-            ".docx"
-        )
-    ) {
-
-        return "📝";
-    }
-
-
-    if (
-        name.endsWith(
-            ".txt"
-        )
-    ) {
-
-        return "📃";
-    }
-
-
-    return "📄";
 }
 
 
@@ -2983,48 +2149,27 @@ fileInput.addEventListener(
         const file =
             fileInput.files[0];
 
-
         if (!file) {
             return;
         }
 
+        selectedFile =
+            file;
 
-        removeSelectedAttachment(
-            false
-        );
-
-
-        const type =
+        selectedFileType =
             getDocumentType(
                 file
             );
 
 
-        if (!type) {
-
-            alert(
-                "Поддерживаются фото, PDF, DOCX и TXT."
-            );
-
-
-            fileInput.value =
-                "";
-
-
-            return;
-        }
-
-
-        selectedFile =
-            file;
-
-
-        selectedFileType =
-            type;
+        attachmentPreviewArea
+        .style
+        .display =
+            "block";
 
 
         if (
-            type
+            selectedFileType
             === "image"
         ) {
 
@@ -3033,162 +2178,74 @@ fileInput.addEventListener(
                     file
                 );
 
-
             imagePreview.src =
                 selectedImageURL;
-
 
             imagePreview.style.display =
                 "block";
 
-
-            documentPreview.style.display =
-                "none";
-
-
-            input.placeholder =
-                "Спросите что-нибудь о фото...";
-
         } else {
-
-            imagePreview.style.display =
-                "none";
-
 
             documentPreview.style.display =
                 "flex";
 
-
-            documentPreviewIcon.textContent =
-                getDocumentIcon(
-                    file.name
-                );
-
-
             documentPreviewName.textContent =
                 file.name;
-
-
-            input.placeholder =
-                "Спросите что-нибудь о документе...";
         }
-
-
-        attachmentPreviewArea
-        .style
-        .display =
-            "block";
     }
 );
 
 
-function removeSelectedAttachment(
-    clearInput = true
-) {
+function removeSelectedAttachment() {
 
     selectedFile =
         null;
 
-
     selectedFileType =
         null;
-
-
-    if (
-        selectedImageURL
-    ) {
-
-        URL.revokeObjectURL(
-            selectedImageURL
-        );
-
-
-        selectedImageURL =
-            null;
-    }
-
-
-    imagePreview.src =
-        "";
-
 
     imagePreview.style.display =
         "none";
 
-
     documentPreview.style.display =
         "none";
 
-
-    attachmentPreviewArea.style.display =
+    attachmentPreviewArea
+    .style
+    .display =
         "none";
 
-
-    input.placeholder =
-        "Сообщение Wiens AI...";
-
-
-    if (
-        clearInput
-    ) {
-
-        fileInput.value =
-            "";
-    }
+    fileInput.value =
+        "";
 }
 
 
-function shouldUseWebSearch(
-    text
-) {
+function shouldUseWebSearch(text) {
 
     const value =
-        String(text)
-        .toLowerCase();
+        text.toLowerCase();
 
-
-    const webWords = [
+    const words = [
         "сегодня",
         "сейчас",
-        "последние",
-        "последний",
         "новости",
         "погода",
-        "курс",
         "цена",
-        "цены",
-        "сколько стоит",
-        "расписание",
-        "открыто",
-        "закрыто",
         "найди",
-        "найти",
         "поищи",
         "интернет",
-        "сайт",
-        "ссылка",
-        "источник",
         "актуальн",
-        "current",
         "today",
         "latest",
         "news",
         "weather",
-        "price",
         "search",
-        "website",
-        "online",
         "heute",
         "aktuell",
-        "nachrichten",
-        "wetter",
-        "preis",
-        "suche",
-        "öffnungszeiten"
+        "wetter"
     ];
 
-
-    return webWords.some(
+    return words.some(
         word =>
             value.includes(
                 word
@@ -3204,35 +2261,17 @@ function setGeneratingState(
     isStreaming =
         state;
 
+    sendButton.textContent =
+        state
+        ?
+        "⏹"
+        :
+        "➤";
 
-    if (state) {
-
-        sendButton.textContent =
-            "⏹";
-
-
-        sendButton.classList.add(
-            "stop"
-        );
-
-
-        sendButton.disabled =
-            false;
-
-    } else {
-
-        sendButton.textContent =
-            "➤";
-
-
-        sendButton.classList.remove(
-            "stop"
-        );
-
-
-        sendButton.disabled =
-            false;
-    }
+    sendButton.classList.toggle(
+        "stop",
+        state
+    );
 }
 
 
@@ -3243,12 +2282,7 @@ function stopGeneration() {
     ) {
 
         streamController.abort();
-
-
-        streamController =
-            null;
     }
-
 
     setGeneratingState(
         false
@@ -3256,9 +2290,7 @@ function stopGeneration() {
 }
 
 
-async function sendMessage(
-    customText = null
-) {
+async function sendMessage() {
 
     if (
         isStreaming
@@ -3271,15 +2303,7 @@ async function sendMessage(
 
 
     const text =
-        (
-            customText
-            !== null
-            ?
-            customText
-            :
-            input.value
-        )
-        .trim();
+        input.value.trim();
 
 
     if (
@@ -3287,7 +2311,6 @@ async function sendMessage(
         &&
         !selectedFile
     ) {
-
         return;
     }
 
@@ -3307,13 +2330,6 @@ async function sendMessage(
 
     if (
         selectedFileType
-        === "pdf"
-        ||
-        selectedFileType
-        === "docx"
-        ||
-        selectedFileType
-        === "txt"
     ) {
 
         await sendDocument(
@@ -3329,25 +2345,15 @@ async function sendMessage(
         "user"
     );
 
-
     remember(
         "user",
         "text",
         text
     );
 
-
     input.value =
         "";
 
-
-    input.style.height =
-        "auto";
-
-
-    /*
-        Fresh information and web search.
-    */
 
     if (
         shouldUseWebSearch(
@@ -3360,10 +2366,6 @@ async function sendMessage(
                 "🌐 Wiens AI ищет в интернете…",
                 "assistant thinking"
             );
-
-
-        sendButton.disabled =
-            true;
 
 
         try {
@@ -3399,21 +2401,6 @@ async function sendMessage(
             thinking.remove();
 
 
-            if (
-                !response.ok
-            ) {
-
-                addTextMessage(
-                    data.error
-                    ||
-                    "Произошла ошибка.",
-                    "assistant"
-                );
-
-                return;
-            }
-
-
             addTextMessage(
                 data.answer,
                 "assistant"
@@ -3444,43 +2431,20 @@ async function sendMessage(
                 data.answer
             );
 
-
-            if (
-                speechEnabled
-            ) {
-
-                speakText(
-                    data.answer
-                );
-            }
-
-        } catch (error) {
+        } catch {
 
             thinking.remove();
-
 
             addTextMessage(
                 "Ошибка соединения.",
                 "assistant"
             );
-
-        } finally {
-
-            sendButton.disabled =
-                false;
-
-
-            input.focus();
         }
 
 
         return;
     }
 
-
-    /*
-        Normal AI answer with streaming.
-    */
 
     removeWelcome();
 
@@ -3489,7 +2453,6 @@ async function sendMessage(
         document.createElement(
             "div"
         );
-
 
     row.className =
         "message-row assistant-row";
@@ -3500,32 +2463,21 @@ async function sendMessage(
             "div"
         );
 
-
     bubble.className =
         "message assistant";
-
-
-    bubble.textContent =
-        "";
 
 
     row.appendChild(
         bubble
     );
 
-
     chat.appendChild(
         row
     );
 
 
-    chat.scrollTop =
-        chat.scrollHeight;
-
-
     streamController =
         new AbortController();
-
 
     setGeneratingState(
         true
@@ -3560,47 +2512,17 @@ async function sendMessage(
                         }),
 
                     signal:
-                        streamController
-                        .signal
+                        streamController.signal
                 }
             );
-
-
-        if (
-            !response.ok
-        ) {
-
-            const errorText =
-                await response.text();
-
-
-            throw new Error(
-                errorText
-                ||
-                "Streaming request failed"
-            );
-        }
-
-
-        if (
-            !response.body
-        ) {
-
-            throw new Error(
-                "Streaming is not supported"
-            );
-        }
 
 
         const reader =
             response.body
             .getReader();
 
-
         const decoder =
-            new TextDecoder(
-                "utf-8"
-            );
+            new TextDecoder();
 
 
         while (true) {
@@ -3608,16 +2530,13 @@ async function sendMessage(
             const result =
                 await reader.read();
 
-
             if (
                 result.done
             ) {
-
                 break;
             }
 
-
-            const chunk =
+            fullAnswer +=
                 decoder.decode(
                     result.value,
                     {
@@ -3625,146 +2544,54 @@ async function sendMessage(
                     }
                 );
 
-
-            fullAnswer +=
-                chunk;
-
-
             bubble.textContent =
                 fullAnswer;
-
 
             chat.scrollTop =
                 chat.scrollHeight;
         }
 
 
-        fullAnswer +=
-            decoder.decode();
+        history.push({
+            role:
+                "user",
+
+            content:
+                text
+        });
+
+
+        history.push({
+            role:
+                "assistant",
+
+            content:
+                fullAnswer
+        });
+
+
+        remember(
+            "assistant",
+            "text",
+            fullAnswer
+        );
 
 
         if (
-            fullAnswer.trim()
+            speechEnabled
         ) {
 
-            appendLinkedText(
-                bubble,
+            speakText(
                 fullAnswer
             );
-
-
-            history.push({
-                role:
-                    "user",
-
-                content:
-                    text
-            });
-
-
-            history.push({
-                role:
-                    "assistant",
-
-                content:
-                    fullAnswer
-            });
-
-
-            remember(
-                "assistant",
-                "text",
-                fullAnswer
-            );
-
-
-            addSpeakButton(
-                row,
-                fullAnswer
-            );
-
-
-            addSources(
-                row,
-                fullAnswer
-            );
-
-
-            if (
-                speechEnabled
-            ) {
-
-                speakText(
-                    fullAnswer
-                );
-            }
         }
 
-    } catch (error) {
+    } catch(error) {
 
         if (
             error.name
-            === "AbortError"
+            !== "AbortError"
         ) {
-
-            if (
-                fullAnswer.trim()
-            ) {
-
-                const stoppedAnswer =
-                    fullAnswer
-                    +
-                    "\n\n⏹ Остановлено";
-
-
-                appendLinkedText(
-                    bubble,
-                    stoppedAnswer
-                );
-
-
-                history.push({
-                    role:
-                        "user",
-
-                    content:
-                        text
-                });
-
-
-                history.push({
-                    role:
-                        "assistant",
-
-                    content:
-                        fullAnswer
-                });
-
-
-                remember(
-                    "assistant",
-                    "text",
-                    fullAnswer
-                );
-
-
-                addSpeakButton(
-                    row,
-                    fullAnswer
-                );
-
-            } else {
-
-                row.remove();
-            }
-
-        } else {
-
-            console.log(
-                "Streaming error:",
-                error
-            );
-
 
             bubble.textContent =
                 "Ошибка получения ответа.";
@@ -3775,29 +2602,22 @@ async function sendMessage(
         streamController =
             null;
 
-
         setGeneratingState(
             false
         );
-
-
-        input.focus();
     }
 }
 
 
-async function sendImage(
-    text
-) {
+async function sendImage(text) {
 
     const file =
         selectedFile;
 
-
     const question =
         text
         ||
-        "Что изображено на этой фотографии?";
+        "Что изображено на фотографии?";
 
 
     addFileCard(
@@ -3807,310 +2627,117 @@ async function sendImage(
     );
 
 
-    remember(
-        "user",
+    const form =
+        new FormData();
+
+    form.append(
         "image",
-        question,
-        file.name
+        file
     );
 
-
-    input.value =
-        "";
+    form.append(
+        "message",
+        question
+    );
 
 
     removeSelectedAttachment();
 
 
-    const thinking =
-        addTextMessage(
-            "Wiens AI анализирует изображение…",
-            "assistant thinking"
+    const response =
+        await fetch(
+            "/api/vision",
+            {
+                method:
+                    "POST",
+
+                body:
+                    form
+            }
         );
 
 
-    sendButton.disabled =
-        true;
+    const data =
+        await response.json();
 
 
-    try {
-
-        const form =
-            new FormData();
-
-
-        form.append(
-            "image",
-            file
-        );
+    addTextMessage(
+        data.answer,
+        "assistant"
+    );
 
 
-        form.append(
-            "message",
-            question
-        );
-
-
-        const response =
-            await fetch(
-                "/api/vision",
-                {
-                    method:
-                        "POST",
-
-                    body:
-                        form
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        thinking.remove();
-
-
-        if (
-            !response.ok
-        ) {
-
-            addTextMessage(
-                data.error
-                ||
-                "Не удалось проанализировать фото.",
-                "assistant"
-            );
-
-
-            return;
-        }
-
-
-        addTextMessage(
-            data.answer,
-            "assistant"
-        );
-
-
-        history.push({
-            role:
-                "user",
-
-            content:
-                "[Image] "
-                +
-                question
-        });
-
-
-        history.push({
-            role:
-                "assistant",
-
-            content:
-                data.answer
-        });
-
-
-        remember(
-            "assistant",
-            "text",
-            data.answer
-        );
-
-
-        if (
-            speechEnabled
-        ) {
-
-            speakText(
-                data.answer
-            );
-        }
-
-    } catch (error) {
-
-        thinking.remove();
-
-
-        addTextMessage(
-            "Ошибка отправки изображения.",
-            "assistant"
-        );
-
-    } finally {
-
-        sendButton.disabled =
-            false;
-    }
+    remember(
+        "assistant",
+        "text",
+        data.answer
+    );
 }
 
 
-async function sendDocument(
-    text
-) {
+async function sendDocument(text) {
 
     const file =
         selectedFile;
 
-
     const question =
         text
         ||
-        "Кратко объясни этот документ и выдели самое важное.";
+        "Объясни этот документ.";
 
 
     addFileCard(
-        getDocumentIcon(
-            file.name
-        ),
+        "📄",
         file.name,
         text
     );
 
 
-    remember(
-        "user",
+    const form =
+        new FormData();
+
+    form.append(
         "document",
-        question,
-        file.name
+        file
     );
 
-
-    input.value =
-        "";
+    form.append(
+        "message",
+        question
+    );
 
 
     removeSelectedAttachment();
 
 
-    const thinking =
-        addTextMessage(
-            "Wiens AI читает документ…",
-            "assistant thinking"
+    const response =
+        await fetch(
+            "/api/document",
+            {
+                method:
+                    "POST",
+
+                body:
+                    form
+            }
         );
 
 
-    sendButton.disabled =
-        true;
+    const data =
+        await response.json();
 
 
-    try {
-
-        const form =
-            new FormData();
-
-
-        form.append(
-            "document",
-            file
-        );
+    addTextMessage(
+        data.answer,
+        "assistant"
+    );
 
 
-        form.append(
-            "message",
-            question
-        );
-
-
-        const response =
-            await fetch(
-                "/api/document",
-                {
-                    method:
-                        "POST",
-
-                    body:
-                        form
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        thinking.remove();
-
-
-        if (
-            !response.ok
-        ) {
-
-            addTextMessage(
-                data.error
-                ||
-                "Не удалось прочитать документ.",
-                "assistant"
-            );
-
-
-            return;
-        }
-
-
-        addTextMessage(
-            data.answer,
-            "assistant"
-        );
-
-
-        history.push({
-            role:
-                "user",
-
-            content:
-                "[Document: "
-                +
-                file.name
-                +
-                "] "
-                +
-                question
-        });
-
-
-        history.push({
-            role:
-                "assistant",
-
-            content:
-                data.answer
-        });
-
-
-        remember(
-            "assistant",
-            "text",
-            data.answer
-        );
-
-
-        if (
-            speechEnabled
-        ) {
-
-            speakText(
-                data.answer
-            );
-        }
-
-    } catch (error) {
-
-        thinking.remove();
-
-
-        addTextMessage(
-            "Ошибка отправки документа.",
-            "assistant"
-        );
-
-    } finally {
-
-        sendButton.disabled =
-            false;
-    }
+    remember(
+        "assistant",
+        "text",
+        data.answer
+    );
 }
 
 
@@ -4120,424 +2747,126 @@ async function toggleRecording() {
         recording
     ) {
 
-        if (
-            mediaRecorder
-            &&
-            mediaRecorder.state
-            !== "inactive"
-        ) {
-
-            mediaRecorder.stop();
-        }
-
+        mediaRecorder.stop();
 
         return;
     }
 
 
-    try {
-
-        const stream =
-            await navigator
-            .mediaDevices
-            .getUserMedia({
-                audio: true
-            });
+    const stream =
+        await navigator
+        .mediaDevices
+        .getUserMedia({
+            audio: true
+        });
 
 
-        let options =
-            {};
+    mediaRecorder =
+        new MediaRecorder(
+            stream
+        );
 
 
-        if (
-            MediaRecorder
-            .isTypeSupported(
-                "audio/mp4"
-            )
-        ) {
-
-            options = {
-                mimeType:
-                    "audio/mp4"
-            };
-
-        } else if (
-            MediaRecorder
-            .isTypeSupported(
-                "audio/webm"
-            )
-        ) {
-
-            options = {
-                mimeType:
-                    "audio/webm"
-            };
-        }
+    audioChunks =
+        [];
 
 
-        mediaRecorder =
-            new MediaRecorder(
-                stream,
-                options
+    mediaRecorder
+    .ondataavailable =
+        event => {
+
+            audioChunks.push(
+                event.data
+            );
+        };
+
+
+    mediaRecorder
+    .onstop =
+        async () => {
+
+            recording =
+                false;
+
+            recordingBar.style.display =
+                "none";
+
+
+            const blob =
+                new Blob(
+                    audioChunks
+                );
+
+
+            const form =
+                new FormData();
+
+
+            form.append(
+                "audio",
+                blob,
+                "voice.webm"
             );
 
 
-        audioChunks =
-            [];
+            const response =
+                await fetch(
+                    "/api/transcribe",
+                    {
+                        method:
+                            "POST",
 
-
-        mediaRecorder
-        .ondataavailable =
-            event => {
-
-                if (
-                    event.data
-                    &&
-                    event.data.size
-                    >
-                    0
-                ) {
-
-                    audioChunks.push(
-                        event.data
-                    );
-                }
-            };
-
-
-        mediaRecorder
-        .onstop =
-            async () => {
-
-                recording =
-                    false;
-
-
-                micButton.textContent =
-                    "🎙️";
-
-
-                micButton.classList.remove(
-                    "recording"
+                        body:
+                            form
+                    }
                 );
 
 
-                recordingBar.style.display =
-                    "none";
+            const data =
+                await response.json();
 
 
-                stream
-                .getTracks()
-                .forEach(
-                    track =>
-                        track.stop()
-                );
+            input.value =
+                data.text
+                ||
+                "";
 
 
-                const mime =
-                    mediaRecorder.mimeType
-                    ||
-                    "audio/webm";
+            stream
+            .getTracks()
+            .forEach(
+                track =>
+                    track.stop()
+            );
+        };
 
 
-                const blob =
-                    new Blob(
-                        audioChunks,
-                        {
-                            type:
-                                mime
-                        }
-                    );
+    mediaRecorder.start();
 
-
-                await transcribeAudio(
-                    blob,
-                    mime
-                );
-            };
-
-
-        mediaRecorder.start();
-
-
-        recording =
-            true;
-
-
-        micButton.textContent =
-            "⏹️";
-
-
-        micButton.classList.add(
-            "recording"
-        );
-
-
-        recordingBar.style.display =
-            "flex";
-
-
-        recordingText.textContent =
-            "Запись голоса… нажмите ⏹️";
-
-    } catch (error) {
-
-        alert(
-            "Разрешите доступ к микрофону."
-        );
-    }
-}
-
-
-async function transcribeAudio(
-    blob,
-    mime
-) {
+    recording =
+        true;
 
     recordingBar.style.display =
         "flex";
-
-
-    recordingText.textContent =
-        "Распознаю голос…";
-
-
-    try {
-
-        const form =
-            new FormData();
-
-
-        form.append(
-            "audio",
-            blob,
-            mime.includes(
-                "mp4"
-            )
-            ?
-            "voice.mp4"
-            :
-            "voice.webm"
-        );
-
-
-        const response =
-            await fetch(
-                "/api/transcribe",
-                {
-                    method:
-                        "POST",
-
-                    body:
-                        form
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        recordingBar.style.display =
-            "none";
-
-
-        if (
-            !response.ok
-        ) {
-
-            addTextMessage(
-                data.error
-                ||
-                "Не удалось распознать голос.",
-                "assistant"
-            );
-
-
-            return;
-        }
-
-
-        if (
-            data.text
-        ) {
-
-            await sendMessage(
-                data.text
-            );
-        }
-
-    } catch (error) {
-
-        recordingBar.style.display =
-            "none";
-
-
-        addTextMessage(
-            "Ошибка отправки голосового сообщения.",
-            "assistant"
-        );
-    }
 }
 
 
-function chooseVoice(
-    language
-) {
+function speakText(text) {
 
-    const voices =
-        window
+    if (
+        !window
         .speechSynthesis
-        .getVoices();
-
-
-    if (
-        !voices
-        ||
-        voices.length
-        === 0
     ) {
-
-        return null;
-    }
-
-
-    const prefix =
-        language
-        .slice(
-            0,
-            2
-        )
-        .toLowerCase();
-
-
-    const matching =
-        voices.filter(
-            voice =>
-                voice.lang
-                &&
-                voice.lang
-                .toLowerCase()
-                .startsWith(
-                    prefix
-                )
-        );
-
-
-    const preferredWords = [
-        "premium",
-        "enhanced",
-        "siri",
-        "milena",
-        "katja",
-        "anna",
-        "daniel"
-    ];
-
-
-    for (
-        const word
-        of
-        preferredWords
-    ) {
-
-        const preferred =
-            matching.find(
-                voice =>
-                    voice.name
-                    .toLowerCase()
-                    .includes(
-                        word
-                    )
-            );
-
-
-        if (preferred) {
-            return preferred;
-        }
-    }
-
-
-    return (
-        matching[0]
-        ||
-        null
-    );
-}
-
-
-function detectSpeechLanguage(
-    text
-) {
-
-    const clean =
-        String(text);
-
-
-    if (
-        /[А-Яа-яЁё]/
-        .test(
-            clean
-        )
-    ) {
-
-        return "ru-RU";
-    }
-
-
-    const germanWords =
-        /\b(ich|du|der|die|das|und|nicht|ist|sind|mit|für|auf|ein|eine|kann|können|wie|was|warum|bitte|heute|morgen|deutsch|arbeit|haben|habe|hat|werden|wird)\b/i;
-
-
-    if (
-        /[äöüßÄÖÜ]/
-        .test(
-            clean
-        )
-        ||
-        germanWords.test(
-            clean
-        )
-    ) {
-
-        return "de-DE";
-    }
-
-
-    return "en-US";
-}
-
-
-function speakText(
-    text
-) {
-
-    if (
-        !(
-            "speechSynthesis"
-            in window
-        )
-    ) {
-
         return;
     }
 
 
-    window
-    .speechSynthesis
-    .cancel();
+    speechSynthesis.cancel();
 
 
     const clean =
-        String(
-            text
-        )
-        .replace(
+        text.replace(
             /https?:\/\/\S+/g,
-            ""
-        )
-        .replace(
-            /[*#`]/g,
             ""
         );
 
@@ -4548,65 +2877,43 @@ function speakText(
         );
 
 
-    const language =
-        detectSpeechLanguage(
-            clean
-        );
+    if (
+        /[А-Яа-яЁё]/
+        .test(clean)
+    ) {
 
+        utterance.lang =
+            "ru-RU";
 
-    utterance.lang =
-        language;
+    } else {
 
-
-    const voice =
-        chooseVoice(
-            language
-        );
-
-
-    if (voice) {
-        utterance.voice = voice;
+        utterance.lang =
+            "de-DE";
     }
 
 
     utterance.rate =
         .96;
 
-
     utterance.pitch =
         .95;
 
 
     utterance.onstart =
-        () => {
-
+        () =>
             setCharacterSpeaking(
                 true
             );
-        };
 
 
     utterance.onend =
-        () => {
-
+        () =>
             setCharacterSpeaking(
                 false
             );
-        };
 
 
-    utterance.onerror =
-        () => {
-
-            setCharacterSpeaking(
-                false
-            );
-        };
-
-
-    window
-    .speechSynthesis
-    .speak(
+    speechSynthesis.speak(
         utterance
     );
 }
@@ -4617,7 +2924,6 @@ function toggleSpeech() {
     speechEnabled =
         !speechEnabled;
 
-
     speakerButton.textContent =
         speechEnabled
         ?
@@ -4625,25 +2931,11 @@ function toggleSpeech() {
         :
         "🔇";
 
-
-    speakerButton.classList.toggle(
-        "speaker-on",
-        speechEnabled
-    );
-
-
     if (
         !speechEnabled
     ) {
 
-        window
-        .speechSynthesis
-        .cancel();
-
-
-        setCharacterSpeaking(
-            false
-        );
+        speechSynthesis.cancel();
     }
 }
 
@@ -4661,28 +2953,8 @@ input.addEventListener(
 
             event.preventDefault();
 
-
             sendMessage();
         }
-    }
-);
-
-
-input.addEventListener(
-    "input",
-    function() {
-
-        this.style.height =
-            "auto";
-
-
-        this.style.height =
-            Math.min(
-                this.scrollHeight,
-                130
-            )
-            +
-            "px";
     }
 );
 
@@ -4692,25 +2964,10 @@ if (
     in navigator
 ) {
 
-    window.addEventListener(
-        "load",
-        () => {
-
-            navigator
-            .serviceWorker
-            .register(
-                "/service-worker.js"
-            )
-            .catch(
-                error => {
-
-                    console.log(
-                        "Service worker error:",
-                        error
-                    );
-                }
-            );
-        }
+    navigator
+    .serviceWorker
+    .register(
+        "/service-worker.js"
     );
 }
 
