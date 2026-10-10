@@ -1,0 +1,3228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>Free Fire v7 — Wiens AI</title>
+
+    <meta
+        name="theme-color"
+        content="#07080d"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #07080d;
+            --panel: rgba(19,21,32,.96);
+            --panel2: rgba(255,255,255,.055);
+            --border: rgba(255,255,255,.10);
+
+            --text: #ffffff;
+            --muted: #9696a8;
+
+            --purple: #765cff;
+            --purple2: #a56cff;
+
+            --green: #46e49b;
+            --yellow: #ffc75c;
+            --red: #ff6079;
+            --blue: #62b6ff;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #25174d 0%,
+                    #10121b 31%,
+                    #07080d 74%
+                );
+
+            color: var(--text);
+
+            padding:
+                calc(12px + env(safe-area-inset-top))
+                14px
+                calc(30px + env(safe-area-inset-bottom));
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+
+            border-radius: 14px;
+
+            object-fit: cover;
+
+            box-shadow:
+                0 0 25px
+                rgba(118,92,255,.45);
+        }
+
+        .brand-title {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            margin-top: 2px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .back {
+            padding: 10px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.06);
+
+            color: white;
+
+            text-decoration: none;
+        }
+
+        .hero {
+            margin-bottom: 14px;
+
+            padding: 21px 18px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(118,92,255,.25),
+                    rgba(165,108,255,.07)
+                );
+        }
+
+        .badge {
+            display: inline-flex;
+
+            margin-bottom: 9px;
+
+            padding: 6px 10px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(70,228,155,.10);
+
+            color: var(--green);
+
+            font-size: 11px;
+        }
+
+        .hero h1 {
+            margin-bottom: 8px;
+
+            font-size: 29px;
+        }
+
+        .hero p {
+            color: var(--muted);
+
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .card {
+            margin-bottom: 14px;
+
+            padding: 17px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background: var(--panel);
+        }
+
+        .card h2 {
+            margin-bottom: 13px;
+
+            font-size: 17px;
+        }
+
+        .note {
+            margin-bottom: 13px;
+
+            color: var(--muted);
+
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #dedee8;
+
+            font-size: 13px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 13px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            outline: none;
+
+            background:
+                rgba(255,255,255,.055);
+
+            color: white;
+
+            font-size: 16px;
+        }
+
+        select option {
+            color: black;
+        }
+
+        .grid-2 {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+        }
+
+        .primary,
+        .secondary,
+        .danger {
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 15px;
+
+            color: white;
+
+            font-weight: 700;
+        }
+
+        .primary {
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+        }
+
+        .secondary {
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        .danger {
+            border:
+                1px solid rgba(255,96,121,.25);
+
+            background:
+                rgba(255,96,121,.08);
+        }
+
+        .buttons {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 9px;
+
+            margin-top: 14px;
+        }
+
+        .overall {
+            margin-bottom: 14px;
+
+            padding: 14px;
+
+            border:
+                1px solid rgba(70,228,155,.22);
+
+            border-radius: 16px;
+
+            background:
+                rgba(70,228,155,.07);
+        }
+
+        .overall-top {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 9px;
+        }
+
+        .overall-label {
+            color: #c0f8dc;
+
+            font-size: 12px;
+        }
+
+        .overall-value {
+            color: var(--green);
+
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .progress {
+            height: 8px;
+
+            overflow: hidden;
+
+            border-radius: 30px;
+
+            background:
+                rgba(255,255,255,.07);
+        }
+
+        .progress-fill {
+            height: 100%;
+
+            width: 0%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #46e49b,
+                    #7af0b6
+                );
+
+            transition: width .25s;
+        }
+
+        .status-grid {
+            display: grid;
+
+            gap: 8px;
+        }
+
+        .status-row {
+            display: grid;
+
+            grid-template-columns:
+                1fr auto;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.04);
+        }
+
+        .status-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .status-meta {
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .status-pill {
+            padding: 6px 9px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+            white-space: nowrap;
+        }
+
+        .status-none {
+            color: #aaaabb;
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        .status-low {
+            color: var(--yellow);
+            background:
+                rgba(255,199,92,.10);
+        }
+
+        .status-good {
+            color: var(--green);
+            background:
+                rgba(70,228,155,.10);
+        }
+
+        .test-card {
+            padding: 15px;
+
+            margin-bottom: 14px;
+
+            border:
+                1px solid
+                rgba(118,92,255,.28);
+
+            border-radius: 17px;
+
+            background:
+                rgba(118,92,255,.08);
+        }
+
+        .test-label {
+            margin-bottom: 5px;
+
+            color: #bfb7ff;
+
+            font-size: 11px;
+        }
+
+        .test-title {
+            font-size: 22px;
+            font-weight: 850;
+
+            margin-bottom: 5px;
+        }
+
+        .test-value {
+            font-size: 39px;
+            font-weight: 900;
+
+            margin-top: 10px;
+        }
+
+        .test-range {
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .direction {
+            display: grid;
+
+            gap: 8px;
+
+            margin-bottom: 14px;
+        }
+
+        .direction button {
+            padding: 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        .direction button.high {
+            border-color:
+                rgba(255,96,121,.60);
+
+            background:
+                rgba(255,96,121,.10);
+        }
+
+        .direction button.good {
+            border-color:
+                rgba(70,228,155,.60);
+
+            background:
+                rgba(70,228,155,.10);
+        }
+
+        .direction button.low {
+            border-color:
+                rgba(255,199,92,.60);
+
+            background:
+                rgba(255,199,92,.10);
+        }
+
+        .hits-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(6,1fr);
+
+            gap: 6px;
+
+            margin-bottom: 14px;
+        }
+
+        .hits-grid button {
+            padding: 9px 4px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        .hits-grid button.active {
+            background:
+                rgba(118,92,255,.28);
+
+            border-color:
+                rgba(165,108,255,.65);
+        }
+
+        .ab-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+
+            margin-bottom: 14px;
+        }
+
+        .candidate {
+            padding: 18px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,.045);
+
+            text-align: center;
+        }
+
+        .candidate-label {
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .candidate-value {
+            margin-top: 5px;
+
+            font-size: 40px;
+            font-weight: 900;
+        }
+
+        .candidate input {
+            margin-top: 10px;
+        }
+
+        .history-row {
+            margin-top: 8px;
+
+            padding: 10px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            color: #d0d0da;
+
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
+        .profile-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 9px;
+        }
+
+        .profile-box {
+            padding: 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,.045);
+        }
+
+        .profile-label {
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        .profile-value {
+            margin-top: 5px;
+
+            font-size: 26px;
+            font-weight: 850;
+        }
+
+        .profile-meta {
+            margin-top: 4px;
+
+            color: #bdb6ff;
+
+            font-size: 10px;
+        }
+
+        .complete {
+            padding: 15px;
+
+            border:
+                1px solid rgba(70,228,155,.24);
+
+            border-radius: 17px;
+
+            background:
+                rgba(70,228,155,.07);
+        }
+
+        .complete strong {
+            display: block;
+
+            margin-bottom: 5px;
+
+            font-size: 18px;
+        }
+
+        .saved-row {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            padding: 11px;
+            margin-top: 8px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.04);
+        }
+
+        .saved-title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .saved-meta {
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+        .mini {
+            padding: 7px 9px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        @media(max-width:560px) {
+
+            .grid-2,
+            .profile-grid,
+            .ab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hits-grid {
+                grid-template-columns:
+                    repeat(4,1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="topbar">
+
+        <div class="brand">
+
+            <img
+                class="logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <div>
+
+                <div class="brand-title">
+                    Wiens AI
+                </div>
+
+                <div class="brand-subtitle">
+                    Free Fire Auto Calibrator v7
+                </div>
+
+            </div>
+
+        </div>
+
+        <a
+            class="back"
+            href="/"
+        >
+            ← AI
+        </a>
+
+    </div>
+
+
+    <section class="hero">
+
+        <div class="badge">
+            🧠 Automatic Calibration
+        </div>
+
+        <h1>
+            Free Fire v7
+        </h1>
+
+        <p>
+            Wiens AI сам выбирает следующую
+            настройку для проверки и постепенно
+            собирает полный профиль оружия.
+        </p>
+
+    </section>
+
+
+    <!-- SETUP -->
+
+    <section
+        class="card"
+        id="setupCard"
+    >
+
+        <h2>
+            🎮 Начать автокалибровку
+        </h2>
+
+        <div class="field">
+
+            <label>
+                Телефон
+            </label>
+
+            <input
+                id="device"
+                placeholder="Например iPhone 17 Pro"
+            >
+
+        </div>
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Оружие
+                </label>
+
+                <select id="weapon">
+
+                    <option value="deagle">
+                        Desert Eagle
+                    </option>
+
+                    <option value="smg">
+                        SMG
+                    </option>
+
+                    <option value="ar">
+                        AR
+                    </option>
+
+                    <option value="shotgun">
+                        Shotgun
+                    </option>
+
+                    <option value="sniper">
+                        Sniper
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    Стартовый диапазон
+                </label>
+
+                <select id="rangePreset">
+
+                    <option value="wide">
+                        Широкий
+                    </option>
+
+                    <option
+                        value="normal"
+                        selected
+                    >
+                        Обычный
+                    </option>
+
+                    <option value="fine">
+                        Уже примерно знаю
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="note">
+            Если у тебя уже есть результаты из v6,
+            v7 автоматически попробует использовать их.
+        </div>
+
+        <button
+            class="primary"
+            onclick="startAutoCalibration()"
+        >
+            🧠 Начать автоматическую настройку
+        </button>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+
+    <section
+        class="card hidden"
+        id="dashboardCard"
+    >
+
+        <h2>
+            📊 Готовность профиля
+        </h2>
+
+        <div class="overall">
+
+            <div class="overall-top">
+
+                <div class="overall-label">
+                    Общая готовность
+                </div>
+
+                <div
+                    class="overall-value"
+                    id="overallValue"
+                >
+                    0%
+                </div>
+
+            </div>
+
+            <div class="progress">
+
+                <div
+                    class="progress-fill"
+                    id="overallFill"
+                ></div>
+
+            </div>
+
+        </div>
+
+        <div
+            class="status-grid"
+            id="statusGrid"
+        ></div>
+
+        <button
+            class="primary"
+            style="margin-top:14px"
+            onclick="nextAutoTest()"
+        >
+            ▶ Следующий автоматический тест
+        </button>
+
+        <button
+            class="secondary"
+            style="margin-top:9px"
+            onclick="showCurrentProfile()"
+        >
+            🏆 Посмотреть текущий профиль
+        </button>
+
+    </section>
+
+
+    <!-- QUICK TEST -->
+
+    <section
+        class="card hidden"
+        id="quickTestCard"
+    >
+
+        <div
+            class="test-card"
+        >
+
+            <div class="test-label">
+                Wiens AI выбрал следующий тест
+            </div>
+
+            <div
+                class="test-title"
+                id="quickTestTitle"
+            >
+                General
+            </div>
+
+            <div
+                class="test-value"
+                id="quickTestValue"
+            >
+                —
+            </div>
+
+            <div
+                class="test-range"
+                id="quickTestRange"
+            ></div>
+
+        </div>
+
+        <div class="note">
+            Выставь это значение в Free Fire
+            и сделай 10 максимально одинаковых оттяжек.
+        </div>
+
+        <div class="direction">
+
+            <button
+                id="dirHigh"
+                onclick="selectDirection('high')"
+            >
+                ⬆️ Перелетает
+            </button>
+
+            <button
+                id="dirGood"
+                onclick="selectDirection('good')"
+            >
+                ✅ По высоте хорошо
+            </button>
+
+            <button
+                id="dirLow"
+                onclick="selectDirection('low')"
+            >
+                ⬇️ Не дотягивает
+            </button>
+
+        </div>
+
+        <div class="note">
+            Сколько хороших попыток из 10?
+        </div>
+
+        <div
+            class="hits-grid"
+            id="hitsGrid"
+        ></div>
+
+        <button
+            class="primary"
+            onclick="submitQuickTest()"
+        >
+            Сохранить результат →
+        </button>
+
+    </section>
+
+
+    <!-- A/B TEST -->
+
+    <section
+        class="card hidden"
+        id="abCard"
+    >
+
+        <h2>
+            🎯 Финальная A/B-доводка
+        </h2>
+
+        <div
+            class="note"
+            id="abDescription"
+        ></div>
+
+        <div class="ab-grid">
+
+            <div class="candidate">
+
+                <div class="candidate-label">
+                    Вариант A
+                </div>
+
+                <div
+                    class="candidate-value"
+                    id="candidateA"
+                >
+                    —
+                </div>
+
+                <input
+                    id="candidateHitsA"
+                    type="number"
+                    min="0"
+                    max="10"
+                    value="0"
+                    placeholder="Из 10"
+                >
+
+            </div>
+
+            <div class="candidate">
+
+                <div class="candidate-label">
+                    Вариант B
+                </div>
+
+                <div
+                    class="candidate-value"
+                    id="candidateB"
+                >
+                    —
+                </div>
+
+                <input
+                    id="candidateHitsB"
+                    type="number"
+                    min="0"
+                    max="10"
+                    value="0"
+                    placeholder="Из 10"
+                >
+
+            </div>
+
+        </div>
+
+        <button
+            class="primary"
+            onclick="submitABTest()"
+        >
+            Сравнить →
+        </button>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section
+        class="card hidden"
+        id="profileCard"
+    >
+
+        <h2>
+            🏆 Текущий профиль
+        </h2>
+
+        <div
+            class="profile-grid"
+            id="profileGrid"
+        ></div>
+
+        <div
+            class="complete"
+            id="profileSummary"
+            style="margin-top:14px"
+        ></div>
+
+        <div class="buttons">
+
+            <button
+                class="secondary"
+                onclick="backToDashboard()"
+            >
+                ← Продолжить
+            </button>
+
+            <button
+                class="primary"
+                onclick="saveCompleteProfile()"
+            >
+                💾 Сохранить профиль
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- SAVED -->
+
+    <section class="card">
+
+        <h2>
+            💾 Сохранённые профили
+        </h2>
+
+        <div id="savedProfiles"></div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+const V7_DATA_KEY =
+    "wiens_ff_v7_data";
+
+const V7_PROFILE_KEY =
+    "wiens_ff_v7_profiles";
+
+const V6_TEST_KEY =
+    "wiens_ff_v6_tests";
+
+
+const settingNames = {
+
+    general:
+        "General",
+
+    redDot:
+        "Red Dot",
+
+    scope2x:
+        "2x Scope",
+
+    scope4x:
+        "4x Scope",
+
+    sniper:
+        "Sniper"
+};
+
+
+const weaponNames = {
+
+    deagle:
+        "Desert Eagle",
+
+    smg:
+        "SMG",
+
+    ar:
+        "AR",
+
+    shotgun:
+        "Shotgun",
+
+    sniper:
+        "Sniper"
+};
+
+
+const weaponSettings = {
+
+    deagle: [
+        "general",
+        "redDot"
+    ],
+
+    smg: [
+        "general",
+        "redDot",
+        "scope2x"
+    ],
+
+    ar: [
+        "general",
+        "redDot",
+        "scope2x",
+        "scope4x"
+    ],
+
+    shotgun: [
+        "general"
+    ],
+
+    sniper: [
+        "general",
+        "scope4x",
+        "sniper"
+    ]
+};
+
+
+let activeWeapon =
+    "deagle";
+
+let activeDevice =
+    "";
+
+let state =
+    {};
+
+let currentSetting =
+    null;
+
+let selectedDirection =
+    null;
+
+let selectedHits =
+    null;
+
+let candidateA =
+    null;
+
+let candidateB =
+    null;
+
+
+function clamp(
+    value,
+    min = 0,
+    max = 200
+) {
+
+    return Math.max(
+        min,
+        Math.min(
+            max,
+            Math.round(value)
+        )
+    );
+}
+
+
+function loadJSON(
+    key,
+    fallback
+) {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(key)
+            );
+
+        return data
+            ?? fallback;
+
+    } catch {
+
+        return fallback;
+    }
+}
+
+
+function saveState() {
+
+    localStorage.setItem(
+        V7_DATA_KEY,
+        JSON.stringify({
+            weapon:
+                activeWeapon,
+
+            device:
+                activeDevice,
+
+            state:
+                state
+        })
+    );
+}
+
+
+function createSettingState(
+    key,
+    center,
+    radius
+) {
+
+    return {
+
+        key:
+            key,
+
+        min:
+            clamp(
+                center - radius
+            ),
+
+        max:
+            clamp(
+                center + radius
+            ),
+
+        best:
+            center,
+
+        tests:
+            [],
+
+        abTests:
+            [],
+
+        confidence:
+            0
+    };
+}
+
+
+function getBaseValue(
+    setting
+) {
+
+    const defaults = {
+
+        general:
+            130,
+
+        redDot:
+            125,
+
+        scope2x:
+            115,
+
+        scope4x:
+            100,
+
+        sniper:
+            70
+    };
+
+
+    return defaults[
+        setting
+    ];
+}
+
+
+function getRadius() {
+
+    const preset =
+        document
+        .getElementById(
+            "rangePreset"
+        )
+        .value;
+
+
+    if (
+        preset === "wide"
+    ) {
+        return 30;
+    }
+
+
+    if (
+        preset === "fine"
+    ) {
+        return 10;
+    }
+
+
+    return 20;
+}
+
+
+function startAutoCalibration() {
+
+    activeWeapon =
+        document
+        .getElementById(
+            "weapon"
+        )
+        .value;
+
+
+    activeDevice =
+        document
+        .getElementById(
+            "device"
+        )
+        .value
+        .trim()
+        ||
+        "Free Fire";
+
+
+    const settings =
+        weaponSettings[
+            activeWeapon
+        ];
+
+
+    const radius =
+        getRadius();
+
+
+    state =
+        {};
+
+
+    settings.forEach(
+        setting => {
+
+            state[
+                setting
+            ] =
+                createSettingState(
+                    setting,
+                    getBaseValue(
+                        setting
+                    ),
+                    radius
+                );
+        }
+    );
+
+
+    importV6Data();
+
+    saveState();
+
+    showDashboard();
+}
+
+
+function importV6Data() {
+
+    const data =
+        loadJSON(
+            V6_TEST_KEY,
+            []
+        );
+
+
+    if (
+        !Array.isArray(data)
+    ) {
+        return;
+    }
+
+
+    const relevant =
+        data.filter(
+            item =>
+                item.weapon
+                === activeWeapon
+        );
+
+
+    relevant.forEach(
+        item => {
+
+            const setting =
+                item.setting;
+
+
+            if (
+                !state[
+                    setting
+                ]
+            ) {
+                return;
+            }
+
+
+            /*
+                v6 Quick data
+            */
+
+            if (
+                typeof item.value
+                === "number"
+            ) {
+
+                state[
+                    setting
+                ]
+                .tests
+                .push({
+
+                    value:
+                        item.value,
+
+                    hits:
+                        Number(
+                            item.hits
+                            ||
+                            0
+                        ),
+
+                    direction:
+                        item.direction
+                        ||
+                        "good",
+
+                    imported:
+                        true
+                });
+            }
+
+
+            /*
+                v6 A/B data
+            */
+
+            if (
+                typeof item.a
+                === "number"
+                &&
+                typeof item.b
+                === "number"
+            ) {
+
+                state[
+                    setting
+                ]
+                .abTests
+                .push({
+
+                    a:
+                        item.a,
+
+                    b:
+                        item.b,
+
+                    hitsA:
+                        Number(
+                            item.hitsA
+                            ||
+                            0
+                        ),
+
+                    hitsB:
+                        Number(
+                            item.hitsB
+                            ||
+                            0
+                        ),
+
+                    imported:
+                        true
+                });
+            }
+        }
+    );
+
+
+    Object.keys(
+        state
+    )
+    .forEach(
+        setting => {
+
+            recalculateSetting(
+                setting
+            );
+        }
+    );
+}
+
+
+function calculateAverage(
+    list
+) {
+
+    if (
+        !list.length
+    ) {
+        return 0;
+    }
+
+
+    return list.reduce(
+        (
+            a,
+            b
+        ) =>
+            a + b,
+        0
+    )
+    /
+    list.length;
+}
+
+
+function calculateDeviation(
+    list
+) {
+
+    if (
+        list.length <= 1
+    ) {
+        return 0;
+    }
+
+
+    const avg =
+        calculateAverage(
+            list
+        );
+
+
+    const variance =
+        list.reduce(
+            (
+                total,
+                value
+            ) =>
+                total
+                +
+                Math.pow(
+                    value - avg,
+                    2
+                ),
+            0
+        )
+        /
+        list.length;
+
+
+    return Math.sqrt(
+        variance
+    );
+}
+
+
+function recalculateSetting(
+    setting
+) {
+
+    const item =
+        state[
+            setting
+        ];
+
+
+    if (!item) {
+        return;
+    }
+
+
+    const allCandidates =
+        {};
+
+
+    item.tests
+    .forEach(
+        test => {
+
+            const key =
+                String(
+                    test.value
+                );
+
+
+            if (
+                !allCandidates[key]
+            ) {
+
+                allCandidates[key] =
+                    [];
+            }
+
+
+            allCandidates[key]
+            .push(
+                test.hits
+            );
+        }
+    );
+
+
+    item.abTests
+    .forEach(
+        test => {
+
+            const keyA =
+                String(
+                    test.a
+                );
+
+
+            const keyB =
+                String(
+                    test.b
+                );
+
+
+            if (
+                !allCandidates[keyA]
+            ) {
+                allCandidates[keyA] =
+                    [];
+            }
+
+
+            if (
+                !allCandidates[keyB]
+            ) {
+                allCandidates[keyB] =
+                    [];
+            }
+
+
+            allCandidates[keyA]
+            .push(
+                test.hitsA
+            );
+
+
+            allCandidates[keyB]
+            .push(
+                test.hitsB
+            );
+        }
+    );
+
+
+    let best =
+        null;
+
+
+    Object.keys(
+        allCandidates
+    )
+    .forEach(
+        valueKey => {
+
+            const results =
+                allCandidates[
+                    valueKey
+                ];
+
+
+            const average =
+                calculateAverage(
+                    results
+                );
+
+
+            const deviation =
+                calculateDeviation(
+                    results
+                );
+
+
+            const repeatBonus =
+                Math.min(
+                    1,
+                    (
+                        results.length - 1
+                    )
+                    *
+                    .25
+                );
+
+
+            const score =
+                average
+                -
+                deviation * .4
+                +
+                repeatBonus;
+
+
+            const candidate = {
+
+                value:
+                    Number(
+                        valueKey
+                    ),
+
+                average:
+                    average,
+
+                deviation:
+                    deviation,
+
+                samples:
+                    results.length,
+
+                score:
+                    score
+            };
+
+
+            if (
+                !best
+                ||
+                candidate.score
+                >
+                best.score
+            ) {
+
+                best =
+                    candidate;
+            }
+        }
+    );
+
+
+    if (
+        best
+    ) {
+
+        item.best =
+            best.value;
+
+
+        const radius =
+            best.samples >= 3
+            ?
+            3
+            :
+            best.samples >= 2
+            ?
+            5
+            :
+            8;
+
+
+        item.min =
+            Math.max(
+                item.min,
+                clamp(
+                    best.value
+                    -
+                    radius
+                )
+            );
+
+
+        item.max =
+            Math.min(
+                item.max,
+                clamp(
+                    best.value
+                    +
+                    radius
+                )
+            );
+    }
+
+
+    const totalTests =
+        item.tests.length
+        +
+        item.abTests.length;
+
+
+    const width =
+        item.max
+        -
+        item.min;
+
+
+    let confidence =
+        0;
+
+
+    confidence +=
+        Math.min(
+            45,
+            totalTests
+            *
+            12
+        );
+
+
+    confidence +=
+        Math.max(
+            0,
+            35
+            -
+            width
+            *
+            2
+        );
+
+
+    if (
+        best
+        &&
+        best.samples >= 2
+    ) {
+
+        confidence +=
+            10;
+    }
+
+
+    if (
+        best
+        &&
+        best.average >= 8
+    ) {
+
+        confidence +=
+            10;
+    }
+
+
+    item.confidence =
+        clamp(
+            confidence,
+            0,
+            98
+        );
+}
+
+
+function overallConfidence() {
+
+    const items =
+        Object.values(
+            state
+        );
+
+
+    if (
+        !items.length
+    ) {
+        return 0;
+    }
+
+
+    return Math.round(
+        items.reduce(
+            (
+                sum,
+                item
+            ) =>
+                sum
+                +
+                item.confidence,
+            0
+        )
+        /
+        items.length
+    );
+}
+
+
+function showDashboard() {
+
+    hideMainCards();
+
+
+    document
+    .getElementById(
+        "dashboardCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    renderDashboard();
+}
+
+
+function hideMainCards() {
+
+    [
+        "setupCard",
+        "dashboardCard",
+        "quickTestCard",
+        "abCard",
+        "profileCard"
+    ]
+    .forEach(
+        id => {
+
+            document
+            .getElementById(id)
+            .classList.add(
+                "hidden"
+            );
+        }
+    );
+}
+
+
+function renderDashboard() {
+
+    Object.keys(
+        state
+    )
+    .forEach(
+        setting => {
+
+            recalculateSetting(
+                setting
+            );
+        }
+    );
+
+
+    saveState();
+
+
+    const confidence =
+        overallConfidence();
+
+
+    document
+    .getElementById(
+        "overallValue"
+    )
+    .textContent =
+        confidence
+        +
+        "%";
+
+
+    document
+    .getElementById(
+        "overallFill"
+    )
+    .style
+    .width =
+        confidence
+        +
+        "%";
+
+
+    const grid =
+        document
+        .getElementById(
+            "statusGrid"
+        );
+
+
+    grid.innerHTML =
+        "";
+
+
+    Object.keys(
+        state
+    )
+    .forEach(
+        setting => {
+
+            const item =
+                state[
+                    setting
+                ];
+
+
+            const row =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "status-row";
+
+
+            let statusText =
+                "Не проверено";
+
+            let statusClass =
+                "status-none";
+
+
+            if (
+                item.confidence >= 80
+            ) {
+
+                statusText =
+                    "Стабильно";
+
+                statusClass =
+                    "status-good";
+
+            } else if (
+                item.confidence > 0
+            ) {
+
+                statusText =
+                    "Мало данных";
+
+                statusClass =
+                    "status-low";
+            }
+
+
+            row.innerHTML =
+                `
+                <div>
+
+                    <div class="status-name">
+                        ${settingNames[setting]}
+                    </div>
+
+                    <div class="status-meta">
+                        Лучшее: ${item.best}
+                        • диапазон ${item.min}–${item.max}
+                        • уверенность ${item.confidence}%
+                    </div>
+
+                </div>
+
+                <div class="status-pill ${statusClass}">
+                    ${statusText}
+                </div>
+                `;
+
+
+            grid.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+function chooseNextSetting() {
+
+    const settings =
+        Object.keys(
+            state
+        );
+
+
+    return settings
+    .slice()
+    .sort(
+        (
+            a,
+            b
+        ) => {
+
+            const A =
+                state[a];
+
+            const B =
+                state[b];
+
+
+            /*
+                Lowest confidence first.
+            */
+
+            if (
+                A.confidence
+                !==
+                B.confidence
+            ) {
+
+                return A.confidence
+                    -
+                    B.confidence;
+            }
+
+
+            /*
+                Wider range first.
+            */
+
+            return (
+                B.max
+                -
+                B.min
+            )
+            -
+            (
+                A.max
+                -
+                A.min
+            );
+        }
+    )[0];
+}
+
+
+function nextAutoTest() {
+
+    currentSetting =
+        chooseNextSetting();
+
+
+    const item =
+        state[
+            currentSetting
+        ];
+
+
+    /*
+        If we already have decent data,
+        use A/B refinement.
+    */
+
+    if (
+        item.confidence >= 55
+        ||
+        (
+            item.max
+            -
+            item.min
+        )
+        <=
+        10
+    ) {
+
+        startABForSetting(
+            currentSetting
+        );
+
+        return;
+    }
+
+
+    startQuickForSetting(
+        currentSetting
+    );
+}
+
+
+function startQuickForSetting(
+    setting
+) {
+
+    selectedDirection =
+        null;
+
+    selectedHits =
+        null;
+
+
+    const item =
+        state[
+            setting
+        ];
+
+
+    const value =
+        Math.round(
+            (
+                item.min
+                +
+                item.max
+            )
+            /
+            2
+        );
+
+
+    item.currentValue =
+        value;
+
+
+    hideMainCards();
+
+
+    document
+    .getElementById(
+        "quickTestCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "quickTestTitle"
+    )
+    .textContent =
+        settingNames[
+            setting
+        ];
+
+
+    document
+    .getElementById(
+        "quickTestValue"
+    )
+    .textContent =
+        value;
+
+
+    document
+    .getElementById(
+        "quickTestRange"
+    )
+    .textContent =
+        `Текущий диапазон: ${item.min}–${item.max}`;
+
+
+    resetDirectionButtons();
+
+    createHitsButtons();
+}
+
+
+function resetDirectionButtons() {
+
+    [
+        "dirHigh",
+        "dirGood",
+        "dirLow"
+    ]
+    .forEach(
+        id => {
+
+            document
+            .getElementById(id)
+            .className =
+                "";
+        }
+    );
+}
+
+
+function selectDirection(
+    direction
+) {
+
+    selectedDirection =
+        direction;
+
+
+    resetDirectionButtons();
+
+
+    const id =
+        direction
+        === "high"
+        ?
+        "dirHigh"
+        :
+        direction
+        === "low"
+        ?
+        "dirLow"
+        :
+        "dirGood";
+
+
+    document
+    .getElementById(id)
+    .classList.add(
+        direction
+    );
+}
+
+
+function createHitsButtons() {
+
+    const box =
+        document
+        .getElementById(
+            "hitsGrid"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    for (
+        let i = 0;
+        i <= 10;
+        i++
+    ) {
+
+        const button =
+            document
+            .createElement(
+                "button"
+            );
+
+
+        button.textContent =
+            i;
+
+
+        button.onclick =
+            () => {
+
+                selectedHits =
+                    i;
+
+
+                box
+                .querySelectorAll(
+                    "button"
+                )
+                .forEach(
+                    element => {
+
+                        element
+                        .classList
+                        .remove(
+                            "active"
+                        );
+                    }
+                );
+
+
+                button
+                .classList
+                .add(
+                    "active"
+                );
+            };
+
+
+        box.appendChild(
+            button
+        );
+    }
+}
+
+
+function submitQuickTest() {
+
+    if (
+        selectedDirection
+        === null
+        ||
+        selectedHits
+        === null
+    ) {
+
+        alert(
+            "Выбери направление и количество хороших попыток."
+        );
+
+        return;
+    }
+
+
+    const item =
+        state[
+            currentSetting
+        ];
+
+
+    const value =
+        item.currentValue;
+
+
+    item.tests.push({
+
+        value:
+            value,
+
+        hits:
+            selectedHits,
+
+        direction:
+            selectedDirection,
+
+        date:
+            new Date()
+            .toISOString()
+    });
+
+
+    if (
+        selectedDirection
+        === "high"
+    ) {
+
+        item.max =
+            Math.max(
+                item.min,
+                value - 1
+            );
+
+    } else if (
+        selectedDirection
+        === "low"
+    ) {
+
+        item.min =
+            Math.min(
+                item.max,
+                value + 1
+            );
+
+    } else {
+
+        const radius =
+            selectedHits >= 9
+            ?
+            2
+            :
+            selectedHits >= 7
+            ?
+            4
+            :
+            6;
+
+
+        item.min =
+            Math.max(
+                item.min,
+                value - radius
+            );
+
+
+        item.max =
+            Math.min(
+                item.max,
+                value + radius
+            );
+    }
+
+
+    item.best =
+        value;
+
+
+    recalculateSetting(
+        currentSetting
+    );
+
+
+    saveState();
+
+    showDashboard();
+}
+
+
+function startABForSetting(
+    setting
+) {
+
+    currentSetting =
+        setting;
+
+
+    const item =
+        state[
+            setting
+        ];
+
+
+    const width =
+        Math.max(
+            2,
+            item.max
+            -
+            item.min
+        );
+
+
+    candidateA =
+        clamp(
+            item.min
+            +
+            Math.round(
+                width / 3
+            )
+        );
+
+
+    candidateB =
+        clamp(
+            item.max
+            -
+            Math.round(
+                width / 3
+            )
+        );
+
+
+    if (
+        candidateA
+        === candidateB
+    ) {
+
+        candidateB =
+            clamp(
+                candidateA + 1
+            );
+    }
+
+
+    hideMainCards();
+
+
+    document
+    .getElementById(
+        "abCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "abDescription"
+    )
+    .textContent =
+        `${settingNames[setting]} • `
+        +
+        `сравни два значения в одинаковых условиях.`;
+
+
+    document
+    .getElementById(
+        "candidateA"
+    )
+    .textContent =
+        candidateA;
+
+
+    document
+    .getElementById(
+        "candidateB"
+    )
+    .textContent =
+        candidateB;
+
+
+    document
+    .getElementById(
+        "candidateHitsA"
+    )
+    .value =
+        0;
+
+
+    document
+    .getElementById(
+        "candidateHitsB"
+    )
+    .value =
+        0;
+}
+
+
+function submitABTest() {
+
+    const hitsA =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "candidateHitsA"
+                )
+                .value
+            ),
+            0,
+            10
+        );
+
+
+    const hitsB =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "candidateHitsB"
+                )
+                .value
+            ),
+            0,
+            10
+        );
+
+
+    const item =
+        state[
+            currentSetting
+        ];
+
+
+    item.abTests.push({
+
+        a:
+            candidateA,
+
+        b:
+            candidateB,
+
+        hitsA:
+            hitsA,
+
+        hitsB:
+            hitsB,
+
+        date:
+            new Date()
+            .toISOString()
+    });
+
+
+    if (
+        hitsA > hitsB
+    ) {
+
+        item.best =
+            candidateA;
+
+
+        item.max =
+            Math.max(
+                candidateA,
+                candidateB - 1
+            );
+
+    } else if (
+        hitsB > hitsA
+    ) {
+
+        item.best =
+            candidateB;
+
+
+        item.min =
+            Math.min(
+                candidateB,
+                candidateA + 1
+            );
+
+    } else {
+
+        item.best =
+            Math.round(
+                (
+                    candidateA
+                    +
+                    candidateB
+                )
+                /
+                2
+            );
+
+
+        item.min =
+            Math.min(
+                candidateA,
+                candidateB
+            );
+
+
+        item.max =
+            Math.max(
+                candidateA,
+                candidateB
+            );
+    }
+
+
+    recalculateSetting(
+        currentSetting
+    );
+
+
+    saveState();
+
+    showDashboard();
+}
+
+
+function showCurrentProfile() {
+
+    hideMainCards();
+
+
+    document
+    .getElementById(
+        "profileCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    const grid =
+        document
+        .getElementById(
+            "profileGrid"
+        );
+
+
+    grid.innerHTML =
+        "";
+
+
+    Object.keys(
+        state
+    )
+    .forEach(
+        setting => {
+
+            recalculateSetting(
+                setting
+            );
+
+
+            const item =
+                state[
+                    setting
+                ];
+
+
+            const box =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "profile-box";
+
+
+            box.innerHTML =
+                `
+                <div class="profile-label">
+                    ${settingNames[setting]}
+                </div>
+
+                <div class="profile-value">
+                    ${item.best}
+                </div>
+
+                <div class="profile-meta">
+                    зона ${item.min}–${item.max}
+                    • ${item.confidence}%
+                </div>
+                `;
+
+
+            grid.appendChild(
+                box
+            );
+        }
+    );
+
+
+    const confidence =
+        overallConfidence();
+
+
+    const ready =
+        Object.values(
+            state
+        )
+        .filter(
+            item =>
+                item.confidence >= 80
+        )
+        .length;
+
+
+    const total =
+        Object.keys(
+            state
+        )
+        .length;
+
+
+    document
+    .getElementById(
+        "profileSummary"
+    )
+    .innerHTML =
+        `
+        <strong>
+            Готовность ${confidence}%
+        </strong>
+
+        ${ready} из ${total}
+        настроек уже достаточно стабильны.
+        `;
+}
+
+
+function backToDashboard() {
+
+    showDashboard();
+}
+
+
+function saveCompleteProfile() {
+
+    const profiles =
+        loadJSON(
+            V7_PROFILE_KEY,
+            []
+        );
+
+
+    const cleanState =
+        {};
+
+
+    Object.keys(
+        state
+    )
+    .forEach(
+        setting => {
+
+            cleanState[
+                setting
+            ] = {
+
+                best:
+                    state[
+                        setting
+                    ]
+                    .best,
+
+                min:
+                    state[
+                        setting
+                    ]
+                    .min,
+
+                max:
+                    state[
+                        setting
+                    ]
+                    .max,
+
+                confidence:
+                    state[
+                        setting
+                    ]
+                    .confidence
+            };
+        }
+    );
+
+
+    profiles.unshift({
+
+        id:
+            Date.now(),
+
+        device:
+            activeDevice,
+
+        weapon:
+            activeWeapon,
+
+        confidence:
+            overallConfidence(),
+
+        settings:
+            cleanState,
+
+        savedAt:
+            new Date()
+            .toISOString()
+    });
+
+
+    localStorage.setItem(
+        V7_PROFILE_KEY,
+        JSON.stringify(
+            profiles.slice(
+                0,
+                20
+            )
+        )
+    );
+
+
+    renderSavedProfiles();
+
+
+    alert(
+        "Профиль сохранён ✅"
+    );
+}
+
+
+function renderSavedProfiles() {
+
+    const box =
+        document
+        .getElementById(
+            "savedProfiles"
+        );
+
+
+    const profiles =
+        loadJSON(
+            V7_PROFILE_KEY,
+            []
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    if (
+        !Array.isArray(
+            profiles
+        )
+        ||
+        !profiles.length
+    ) {
+
+        box.innerHTML =
+            `
+            <div class="note">
+                Пока нет сохранённых профилей v7.
+            </div>
+            `;
+
+        return;
+    }
+
+
+    profiles.forEach(
+        profile => {
+
+            const row =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "saved-row";
+
+
+            row.innerHTML =
+                `
+                <div>
+
+                    <div class="saved-title">
+                        ${escapeHtml(profile.device)}
+                    </div>
+
+                    <div class="saved-meta">
+                        ${weaponNames[profile.weapon]}
+                        • готовность ${profile.confidence}%
+                    </div>
+
+                </div>
+
+                <button
+                    class="mini"
+                    onclick="deleteSavedProfile(${profile.id})"
+                >
+                    🗑
+                </button>
+                `;
+
+
+            box.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+function deleteSavedProfile(
+    id
+) {
+
+    const profiles =
+        loadJSON(
+            V7_PROFILE_KEY,
+            []
+        )
+        .filter(
+            item =>
+                item.id !== id
+        );
+
+
+    localStorage.setItem(
+        V7_PROFILE_KEY,
+        JSON.stringify(
+            profiles
+        )
+    );
+
+
+    renderSavedProfiles();
+}
+
+
+function escapeHtml(
+    value
+) {
+
+    return String(value)
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+}
+
+
+renderSavedProfiles();
+
+</script>
+
+</body>
+</html>
