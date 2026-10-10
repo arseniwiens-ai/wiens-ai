@@ -1152,7 +1152,6 @@ let isStreaming = false;
 
 
 function createId() {
-
     return (
         Date.now().toString(36)
         +
@@ -1407,9 +1406,9 @@ function welcomeHtml() {
 
                 <a
                     class="feature feature-link"
-                    href="/static/freefire-v5.html"
+                    href="/static/freefire-v6.html"
                 >
-                    🎯 Free Fire v5
+                    🎯 Free Fire Lab
                 </a>
 
                 <div class="feature">
@@ -1562,6 +1561,9 @@ function addSources(
 
             card.target =
                 "_blank";
+
+            card.rel =
+                "noopener noreferrer";
 
 
             const icon =
@@ -1786,16 +1788,34 @@ function addFileCard(
         "file-card";
 
 
-    card.innerHTML =
-        `
-        <div class="file-icon">
-            ${icon}
-        </div>
+    const iconBox =
+        document.createElement(
+            "div"
+        );
 
-        <div>
-            ${filename}
-        </div>
-        `;
+    iconBox.className =
+        "file-icon";
+
+    iconBox.textContent =
+        icon;
+
+
+    const nameBox =
+        document.createElement(
+            "div"
+        );
+
+    nameBox.textContent =
+        filename;
+
+
+    card.appendChild(
+        iconBox
+    );
+
+    card.appendChild(
+        nameBox
+    );
 
 
     row.appendChild(
@@ -1944,17 +1964,41 @@ function renderChatList() {
             open.className =
                 "history-open";
 
-            open.innerHTML =
-                `
-                <div>
-                    ${item.title}
-                </div>
 
-                <div class="history-date">
-                    ${new Date(item.updatedAt)
-                    .toLocaleString("ru-RU")}
-                </div>
-                `;
+            const title =
+                document.createElement(
+                    "div"
+                );
+
+            title.textContent =
+                item.title;
+
+
+            const date =
+                document.createElement(
+                    "div"
+                );
+
+            date.className =
+                "history-date";
+
+            date.textContent =
+                new Date(
+                    item.updatedAt
+                )
+                .toLocaleString(
+                    "ru-RU"
+                );
+
+
+            open.appendChild(
+                title
+            );
+
+            open.appendChild(
+                date
+            );
+
 
             open.onclick =
                 () =>
@@ -2044,6 +2088,22 @@ function openChat(id) {
 
 function newChat() {
 
+    const current =
+        getActiveChat();
+
+    if (
+        current
+        &&
+        current.uiMessages
+        &&
+        current.uiMessages.length === 0
+    ) {
+
+        closeDrawer();
+        return;
+    }
+
+
     const fresh =
         createEmptyChat();
 
@@ -2068,6 +2128,15 @@ function newChat() {
 
 
 function deleteChat(id) {
+
+    if (
+        !confirm(
+            "Удалить этот чат?"
+        )
+    ) {
+        return;
+    }
+
 
     chats =
         chats.filter(
@@ -2162,6 +2231,20 @@ fileInput.addEventListener(
             );
 
 
+        if (
+            !selectedFileType
+        ) {
+
+            alert(
+                "Этот тип файла пока не поддерживается."
+            );
+
+            removeSelectedAttachment();
+
+            return;
+        }
+
+
         attachmentPreviewArea
         .style
         .display =
@@ -2184,19 +2267,61 @@ fileInput.addEventListener(
             imagePreview.style.display =
                 "block";
 
+            documentPreview.style.display =
+                "none";
+
         } else {
+
+            imagePreview.style.display =
+                "none";
 
             documentPreview.style.display =
                 "flex";
 
             documentPreviewName.textContent =
                 file.name;
+
+
+            if (
+                selectedFileType
+                === "docx"
+            ) {
+
+                documentPreviewIcon.textContent =
+                    "📝";
+
+            } else if (
+                selectedFileType
+                === "txt"
+            ) {
+
+                documentPreviewIcon.textContent =
+                    "📃";
+
+            } else {
+
+                documentPreviewIcon.textContent =
+                    "📄";
+            }
         }
     }
 );
 
 
 function removeSelectedAttachment() {
+
+    if (
+        selectedImageURL
+    ) {
+
+        URL.revokeObjectURL(
+            selectedImageURL
+        );
+
+        selectedImageURL =
+            null;
+    }
+
 
     selectedFile =
         null;
@@ -2401,8 +2526,26 @@ async function sendMessage() {
             thinking.remove();
 
 
+            if (
+                !response.ok
+            ) {
+
+                throw new Error(
+                    data.error
+                    ||
+                    "Ошибка сервера"
+                );
+            }
+
+
+            const answer =
+                data.answer
+                ||
+                "Wiens AI не получил ответ.";
+
+
             addTextMessage(
-                data.answer,
+                answer,
                 "assistant"
             );
 
@@ -2421,22 +2564,34 @@ async function sendMessage() {
                     "assistant",
 
                 content:
-                    data.answer
+                    answer
             });
 
 
             remember(
                 "assistant",
                 "text",
-                data.answer
+                answer
             );
 
-        } catch {
+
+            if (
+                speechEnabled
+            ) {
+
+                speakText(
+                    answer
+                );
+            }
+
+        } catch(error) {
 
             thinking.remove();
 
             addTextMessage(
-                "Ошибка соединения.",
+                "Ошибка соединения: "
+                +
+                error.message,
                 "assistant"
             );
         }
@@ -2517,6 +2672,18 @@ async function sendMessage() {
             );
 
 
+        if (
+            !response.ok
+            ||
+            !response.body
+        ) {
+
+            throw new Error(
+                "Не удалось получить ответ."
+            );
+        }
+
+
         const reader =
             response.body
             .getReader();
@@ -2552,46 +2719,82 @@ async function sendMessage() {
         }
 
 
-        history.push({
-            role:
-                "user",
-
-            content:
-                text
-        });
-
-
-        history.push({
-            role:
-                "assistant",
-
-            content:
-                fullAnswer
-        });
-
-
-        remember(
-            "assistant",
-            "text",
-            fullAnswer
-        );
-
-
         if (
-            speechEnabled
+            fullAnswer.trim()
         ) {
 
-            speakText(
+            history.push({
+                role:
+                    "user",
+
+                content:
+                    text
+            });
+
+
+            history.push({
+                role:
+                    "assistant",
+
+                content:
+                    fullAnswer
+            });
+
+
+            remember(
+                "assistant",
+                "text",
                 fullAnswer
             );
+
+
+            if (
+                speechEnabled
+            ) {
+
+                speakText(
+                    fullAnswer
+                );
+            }
         }
 
     } catch(error) {
 
         if (
             error.name
-            !== "AbortError"
+            === "AbortError"
         ) {
+
+            if (
+                fullAnswer.trim()
+            ) {
+
+                history.push({
+                    role:
+                        "user",
+
+                    content:
+                        text
+                });
+
+
+                history.push({
+                    role:
+                        "assistant",
+
+                    content:
+                        fullAnswer
+                });
+
+
+                remember(
+                    "assistant",
+                    "text",
+                    fullAnswer
+                );
+            }
+
+        } else {
 
             bubble.textContent =
                 "Ошибка получения ответа.";
@@ -2627,6 +2830,14 @@ async function sendImage(text) {
     );
 
 
+    remember(
+        "user",
+        "image",
+        text,
+        file.name
+    );
+
+
     const form =
         new FormData();
 
@@ -2644,34 +2855,76 @@ async function sendImage(text) {
     removeSelectedAttachment();
 
 
-    const response =
-        await fetch(
-            "/api/vision",
-            {
-                method:
-                    "POST",
-
-                body:
-                    form
-            }
+    const thinking =
+        addTextMessage(
+            "📷 Wiens AI анализирует изображение…",
+            "assistant thinking"
         );
 
 
-    const data =
-        await response.json();
+    try {
+
+        const response =
+            await fetch(
+                "/api/vision",
+                {
+                    method:
+                        "POST",
+
+                    body:
+                        form
+                }
+            );
 
 
-    addTextMessage(
-        data.answer,
-        "assistant"
-    );
+        const data =
+            await response.json();
 
 
-    remember(
-        "assistant",
-        "text",
-        data.answer
-    );
+        thinking.remove();
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                data.error
+                ||
+                "Ошибка анализа изображения."
+            );
+        }
+
+
+        const answer =
+            data.answer
+            ||
+            "Не удалось получить описание изображения.";
+
+
+        addTextMessage(
+            answer,
+            "assistant"
+        );
+
+
+        remember(
+            "assistant",
+            "text",
+            answer
+        );
+
+    } catch(error) {
+
+        thinking.remove();
+
+        addTextMessage(
+            "Ошибка изображения: "
+            +
+            error.message,
+            "assistant"
+        );
+    }
 }
 
 
@@ -2680,16 +2933,39 @@ async function sendDocument(text) {
     const file =
         selectedFile;
 
+    const fileType =
+        selectedFileType;
+
     const question =
         text
         ||
         "Объясни этот документ.";
 
 
+    const icon =
+        fileType === "docx"
+        ?
+        "📝"
+        :
+        fileType === "txt"
+        ?
+        "📃"
+        :
+        "📄";
+
+
     addFileCard(
-        "📄",
+        icon,
         file.name,
         text
+    );
+
+
+    remember(
+        "user",
+        "document",
+        text,
+        file.name
     );
 
 
@@ -2710,34 +2986,109 @@ async function sendDocument(text) {
     removeSelectedAttachment();
 
 
-    const response =
-        await fetch(
-            "/api/document",
-            {
-                method:
-                    "POST",
-
-                body:
-                    form
-            }
+    const thinking =
+        addTextMessage(
+            "📄 Wiens AI читает документ…",
+            "assistant thinking"
         );
 
 
-    const data =
-        await response.json();
+    try {
+
+        const response =
+            await fetch(
+                "/api/document",
+                {
+                    method:
+                        "POST",
+
+                    body:
+                        form
+                }
+            );
 
 
-    addTextMessage(
-        data.answer,
-        "assistant"
-    );
+        const data =
+            await response.json();
 
 
-    remember(
-        "assistant",
-        "text",
-        data.answer
-    );
+        thinking.remove();
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                data.error
+                ||
+                "Ошибка обработки документа."
+            );
+        }
+
+
+        const answer =
+            data.answer
+            ||
+            "Не удалось получить ответ по документу.";
+
+
+        addTextMessage(
+            answer,
+            "assistant"
+        );
+
+
+        remember(
+            "assistant",
+            "text",
+            answer
+        );
+
+    } catch(error) {
+
+        thinking.remove();
+
+        addTextMessage(
+            "Ошибка документа: "
+            +
+            error.message,
+            "assistant"
+        );
+    }
+}
+
+
+function chooseAudioMimeType() {
+
+    const types = [
+        "audio/mp4",
+        "audio/webm;codecs=opus",
+        "audio/webm",
+        "audio/ogg;codecs=opus"
+    ];
+
+
+    for (
+        const type of types
+    ) {
+
+        if (
+            window.MediaRecorder
+            &&
+            MediaRecorder.isTypeSupported
+            &&
+            MediaRecorder.isTypeSupported(
+                type
+            )
+        ) {
+
+            return type;
+        }
+    }
+
+
+    return "";
 }
 
 
@@ -2753,101 +3104,212 @@ async function toggleRecording() {
     }
 
 
-    const stream =
-        await navigator
-        .mediaDevices
-        .getUserMedia({
-            audio: true
-        });
+    try {
+
+        const stream =
+            await navigator
+            .mediaDevices
+            .getUserMedia({
+                audio: true
+            });
 
 
-    mediaRecorder =
-        new MediaRecorder(
-            stream
-        );
+        const mimeType =
+            chooseAudioMimeType();
 
 
-    audioChunks =
-        [];
-
-
-    mediaRecorder
-    .ondataavailable =
-        event => {
-
-            audioChunks.push(
-                event.data
+        mediaRecorder =
+            mimeType
+            ?
+            new MediaRecorder(
+                stream,
+                {
+                    mimeType:
+                        mimeType
+                }
+            )
+            :
+            new MediaRecorder(
+                stream
             );
-        };
 
 
-    mediaRecorder
-    .onstop =
-        async () => {
-
-            recording =
-                false;
-
-            recordingBar.style.display =
-                "none";
+        audioChunks =
+            [];
 
 
-            const blob =
-                new Blob(
-                    audioChunks
+        mediaRecorder
+        .ondataavailable =
+            event => {
+
+                if (
+                    event.data
+                    &&
+                    event.data.size
+                    >
+                    0
+                ) {
+
+                    audioChunks.push(
+                        event.data
+                    );
+                }
+            };
+
+
+        mediaRecorder
+        .onstop =
+            async () => {
+
+                recording =
+                    false;
+
+                recordingBar.style.display =
+                    "none";
+
+
+                const actualType =
+                    mediaRecorder.mimeType
+                    ||
+                    mimeType
+                    ||
+                    "audio/webm";
+
+
+                const blob =
+                    new Blob(
+                        audioChunks,
+                        {
+                            type:
+                                actualType
+                        }
+                    );
+
+
+                let filename =
+                    "voice.webm";
+
+
+                if (
+                    actualType.includes(
+                        "mp4"
+                    )
+                ) {
+
+                    filename =
+                        "voice.mp4";
+
+                } else if (
+                    actualType.includes(
+                        "ogg"
+                    )
+                ) {
+
+                    filename =
+                        "voice.ogg";
+                }
+
+
+                const form =
+                    new FormData();
+
+
+                form.append(
+                    "audio",
+                    blob,
+                    filename
                 );
 
 
-            const form =
-                new FormData();
+                try {
+
+                    recordingText.textContent =
+                        "Распознаю…";
+
+                    recordingBar.style.display =
+                        "flex";
 
 
-            form.append(
-                "audio",
-                blob,
-                "voice.webm"
-            );
+                    const response =
+                        await fetch(
+                            "/api/transcribe",
+                            {
+                                method:
+                                    "POST",
+
+                                body:
+                                    form
+                            }
+                        );
 
 
-            const response =
-                await fetch(
-                    "/api/transcribe",
-                    {
-                        method:
-                            "POST",
+                    const data =
+                        await response.json();
 
-                        body:
-                            form
+
+                    if (
+                        !response.ok
+                    ) {
+
+                        throw new Error(
+                            data.error
+                            ||
+                            "Ошибка распознавания."
+                        );
                     }
-                );
 
 
-            const data =
-                await response.json();
+                    input.value =
+                        data.text
+                        ||
+                        "";
+
+                } catch(error) {
+
+                    alert(
+                        "Ошибка голосового сообщения: "
+                        +
+                        error.message
+                    );
+
+                } finally {
+
+                    recordingBar.style.display =
+                        "none";
+
+                    recordingText.textContent =
+                        "Запись…";
 
 
-            input.value =
-                data.text
-                ||
-                "";
+                    stream
+                    .getTracks()
+                    .forEach(
+                        track =>
+                            track.stop()
+                    );
+                }
+            };
 
 
-            stream
-            .getTracks()
-            .forEach(
-                track =>
-                    track.stop()
-            );
-        };
+        mediaRecorder.start();
 
+        recording =
+            true;
 
-    mediaRecorder.start();
+        recordingText.textContent =
+            "Запись…";
 
-    recording =
-        true;
+        recordingBar.style.display =
+            "flex";
 
-    recordingBar.style.display =
-        "flex";
+    } catch(error) {
+
+        alert(
+            "Не удалось включить микрофон: "
+            +
+            error.message
+        );
+    }
 }
 
 
@@ -2865,7 +3327,8 @@ function speakText(text) {
 
 
     const clean =
-        text.replace(
+        String(text)
+        .replace(
             /https?:\/\/\S+/g,
             ""
         );
@@ -2913,6 +3376,13 @@ function speakText(text) {
             );
 
 
+    utterance.onerror =
+        () =>
+            setCharacterSpeaking(
+                false
+            );
+
+
     speechSynthesis.speak(
         utterance
     );
@@ -2931,11 +3401,21 @@ function toggleSpeech() {
         :
         "🔇";
 
+    speakerButton.classList.toggle(
+        "speaker-on",
+        speechEnabled
+    );
+
+
     if (
         !speechEnabled
     ) {
 
         speechSynthesis.cancel();
+
+        setCharacterSpeaking(
+            false
+        );
     }
 }
 
@@ -2968,6 +3448,13 @@ if (
     .serviceWorker
     .register(
         "/service-worker.js"
+    )
+    .catch(
+        error =>
+            console.log(
+                "Service Worker:",
+                error
+            )
     );
 }
 
