@@ -1,0 +1,3031 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>Free Fire v6 — Wiens AI</title>
+
+    <meta name="theme-color" content="#07080d">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #07080d;
+            --panel: rgba(19,21,32,.96);
+            --panel2: rgba(255,255,255,.055);
+            --border: rgba(255,255,255,.10);
+
+            --text: #fff;
+            --muted: #9999aa;
+
+            --purple: #765cff;
+            --purple2: #a66cff;
+            --green: #45e49a;
+            --yellow: #ffc75c;
+            --red: #ff6079;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #25174d 0%,
+                    #10121b 31%,
+                    #07080d 73%
+                );
+
+            color: var(--text);
+
+            padding:
+                calc(12px + env(safe-area-inset-top))
+                14px
+                calc(30px + env(safe-area-inset-bottom));
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .app {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 46px;
+            height: 46px;
+
+            border-radius: 14px;
+            object-fit: cover;
+
+            box-shadow:
+                0 0 25px rgba(118,92,255,.45);
+        }
+
+        .brand-title {
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .back {
+            padding: 10px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.06);
+
+            color: white;
+            text-decoration: none;
+        }
+
+        .hero {
+            padding: 21px 18px;
+            margin-bottom: 14px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(118,92,255,.25),
+                    rgba(166,108,255,.07)
+                );
+        }
+
+        .badge {
+            display: inline-flex;
+
+            padding: 6px 10px;
+            margin-bottom: 9px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(69,228,154,.10);
+
+            color: var(--green);
+
+            font-size: 11px;
+        }
+
+        .hero h1 {
+            font-size: 29px;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            color: var(--muted);
+
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .card {
+            padding: 17px;
+            margin-bottom: 14px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 20px;
+
+            background: var(--panel);
+        }
+
+        .card h2 {
+            margin-bottom: 13px;
+            font-size: 17px;
+        }
+
+        .note {
+            color: var(--muted);
+
+            font-size: 12px;
+            line-height: 1.5;
+
+            margin-bottom: 13px;
+        }
+
+        .mode-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .mode {
+            width: 100%;
+            padding: 16px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,.045);
+
+            color: white;
+            text-align: left;
+        }
+
+        .mode strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .mode span {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .mode.primary-mode {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(118,92,255,.25),
+                    rgba(166,108,255,.12)
+                );
+
+            border-color:
+                rgba(166,108,255,.40);
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #dedee8;
+            font-size: 13px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 13px 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            outline: none;
+
+            background:
+                rgba(255,255,255,.055);
+
+            color: white;
+
+            font-size: 16px;
+        }
+
+        select option {
+            color: black;
+        }
+
+        .grid-2 {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+        }
+
+        .primary,
+        .secondary,
+        .danger {
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 15px;
+
+            color: white;
+            font-weight: 700;
+        }
+
+        .primary {
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple2)
+                );
+        }
+
+        .secondary {
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        .danger {
+            border:
+                1px solid rgba(255,96,121,.28);
+
+            background:
+                rgba(255,96,121,.09);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .settings-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 9px;
+        }
+
+        .setting-box {
+            padding: 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 15px;
+
+            background:
+                var(--panel2);
+        }
+
+        .setting-label {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .setting-value {
+            margin-top: 5px;
+
+            font-size: 25px;
+            font-weight: 850;
+        }
+
+        .setting-range {
+            margin-top: 4px;
+
+            color: #beb6ff;
+            font-size: 10px;
+        }
+
+        .buttons {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .test-box {
+            padding: 15px;
+            margin-bottom: 14px;
+
+            border:
+                1px solid rgba(118,92,255,.28);
+
+            border-radius: 16px;
+
+            background:
+                rgba(118,92,255,.08);
+        }
+
+        .test-label {
+            color: #bdb6ff;
+
+            font-size: 11px;
+            margin-bottom: 5px;
+        }
+
+        .test-value {
+            font-size: 36px;
+            font-weight: 900;
+        }
+
+        .test-range {
+            color: var(--muted);
+
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .direction {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .direction button {
+            padding: 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        .direction button.active-high {
+            border-color:
+                rgba(255,96,121,.6);
+
+            background:
+                rgba(255,96,121,.10);
+        }
+
+        .direction button.active-good {
+            border-color:
+                rgba(69,228,154,.6);
+
+            background:
+                rgba(69,228,154,.10);
+        }
+
+        .direction button.active-low {
+            border-color:
+                rgba(255,199,92,.6);
+
+            background:
+                rgba(255,199,92,.10);
+        }
+
+        .hits-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(6,1fr);
+
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .hits-grid button {
+            padding: 9px 4px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        .hits-grid button.active {
+            background:
+                rgba(118,92,255,.28);
+
+            border-color:
+                rgba(166,108,255,.65);
+        }
+
+        .ab-grid {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .candidate {
+            padding: 17px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,.045);
+
+            text-align: center;
+        }
+
+        .candidate-title {
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .candidate-value {
+            margin-top: 4px;
+
+            font-size: 38px;
+            font-weight: 900;
+        }
+
+        .candidate input {
+            margin-top: 10px;
+        }
+
+        .result {
+            padding: 14px;
+
+            border:
+                1px solid rgba(69,228,154,.24);
+
+            border-radius: 15px;
+
+            background:
+                rgba(69,228,154,.07);
+        }
+
+        .result-label {
+            color: #bdf7d9;
+            font-size: 11px;
+        }
+
+        .result-value {
+            font-size: 31px;
+            font-weight: 900;
+
+            margin-top: 5px;
+        }
+
+        .result-meta {
+            color: var(--muted);
+
+            font-size: 11px;
+            line-height: 1.5;
+
+            margin-top: 5px;
+        }
+
+        .profile-row {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 11px;
+            margin-top: 8px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.04);
+        }
+
+        .profile-title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .profile-meta {
+            color: var(--muted);
+
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .mini {
+            padding: 7px 9px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            color: white;
+        }
+
+        .history-row {
+            padding: 10px;
+            margin-top: 8px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            color: #d0d0da;
+
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .top-result {
+            padding: 13px;
+            margin-bottom: 9px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,.045);
+        }
+
+        @media(max-width:560px) {
+            .grid-2,
+            .settings-grid,
+            .ab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hits-grid {
+                grid-template-columns:
+                    repeat(4,1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="topbar">
+
+        <div class="brand">
+
+            <img
+                class="logo"
+                src="/static/logo.png.PNG"
+                alt="Wiens AI"
+            >
+
+            <div>
+
+                <div class="brand-title">
+                    Wiens AI
+                </div>
+
+                <div class="brand-subtitle">
+                    Free Fire Calibrator v6
+                </div>
+
+            </div>
+
+        </div>
+
+        <a class="back" href="/">
+            ← AI
+        </a>
+
+    </div>
+
+
+    <section class="hero">
+
+        <div class="badge">
+            🎯 Unified Calibration
+        </div>
+
+        <h1>
+            Free Fire Lab v6
+        </h1>
+
+        <p>
+            Быстрый поиск рабочей зоны,
+            точная A/B-доводка и сохранение
+            лучших результатов по каждому оружию.
+        </p>
+
+    </section>
+
+
+    <section
+        class="card"
+        id="homeCard"
+    >
+
+        <h2>
+            Что делаем?
+        </h2>
+
+        <div class="mode-grid">
+
+            <button
+                class="mode primary-mode"
+                onclick="openQuickSetup()"
+            >
+                <strong>
+                    ⚡ Быстрая настройка
+                </strong>
+
+                <span>
+                    Находим примерную рабочую зону
+                    через серии по 10 оттяжек.
+                </span>
+            </button>
+
+            <button
+                class="mode"
+                onclick="openABSetup()"
+            >
+                <strong>
+                    🎯 Точная A/B-калибровка
+                </strong>
+
+                <span>
+                    Сравниваем два близких значения
+                    и доводим настройку до 1–2 пунктов.
+                </span>
+            </button>
+
+            <button
+                class="mode"
+                onclick="openProfiles()"
+            >
+                <strong>
+                    🏆 Мои лучшие профили
+                </strong>
+
+                <span>
+                    Лучшие сохранённые результаты
+                    для Deagle, SMG, AR, Shotgun и Sniper.
+                </span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- QUICK SETUP -->
+
+    <section
+        class="card hidden"
+        id="quickSetupCard"
+    >
+
+        <h2>
+            ⚡ Быстрая настройка
+        </h2>
+
+        <div class="field">
+
+            <label>
+                Телефон
+            </label>
+
+            <input
+                id="quickDevice"
+                placeholder="Например iPhone 17 Pro"
+            >
+
+        </div>
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Оружие
+                </label>
+
+                <select id="quickWeapon">
+
+                    <option value="deagle">
+                        Desert Eagle
+                    </option>
+
+                    <option value="smg">
+                        SMG
+                    </option>
+
+                    <option value="ar">
+                        AR
+                    </option>
+
+                    <option value="shotgun">
+                        Shotgun
+                    </option>
+
+                    <option value="sniper">
+                        Sniper
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    Настройка
+                </label>
+
+                <select id="quickSetting">
+
+                    <option value="general">
+                        General
+                    </option>
+
+                    <option value="redDot">
+                        Red Dot
+                    </option>
+
+                    <option value="scope2x">
+                        2x Scope
+                    </option>
+
+                    <option value="scope4x">
+                        4x Scope
+                    </option>
+
+                    <option value="sniper">
+                        Sniper
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Нижняя граница
+                </label>
+
+                <input
+                    id="quickMin"
+                    type="number"
+                    value="110"
+                    min="0"
+                    max="200"
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    Верхняя граница
+                </label>
+
+                <input
+                    id="quickMax"
+                    type="number"
+                    value="150"
+                    min="0"
+                    max="200"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="secondary"
+                onclick="goHome()"
+            >
+                ← Назад
+            </button>
+
+            <button
+                class="primary"
+                onclick="startQuick()"
+            >
+                Начать →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="card hidden"
+        id="quickTestCard"
+    >
+
+        <h2 id="quickTitle">
+            Быстрый тест
+        </h2>
+
+        <div class="test-box">
+
+            <div class="test-label">
+                Выставь значение
+            </div>
+
+            <div
+                class="test-value"
+                id="quickValue"
+            >
+                —
+            </div>
+
+            <div
+                class="test-range"
+                id="quickRange"
+            ></div>
+
+        </div>
+
+        <div class="note">
+            Сделай 10 максимально одинаковых оттяжек.
+        </div>
+
+        <div class="direction">
+
+            <button
+                id="quickHigh"
+                onclick="quickDirection('high')"
+            >
+                ⬆️ Перелетает
+            </button>
+
+            <button
+                id="quickGood"
+                onclick="quickDirection('good')"
+            >
+                ✅ Нормально
+            </button>
+
+            <button
+                id="quickLow"
+                onclick="quickDirection('low')"
+            >
+                ⬇️ Не дотягивает
+            </button>
+
+        </div>
+
+        <div class="note">
+            Сколько хороших попыток из 10?
+        </div>
+
+        <div
+            class="hits-grid"
+            id="quickHits"
+        ></div>
+
+        <button
+            class="primary"
+            onclick="submitQuick()"
+        >
+            Следующий тест →
+        </button>
+
+        <div id="quickHistory"></div>
+
+    </section>
+
+
+    <section
+        class="card hidden"
+        id="quickResultCard"
+    >
+
+        <h2>
+            ⚡ Результат быстрой настройки
+        </h2>
+
+        <div class="result">
+
+            <div class="result-label">
+                Рекомендуемое значение
+            </div>
+
+            <div
+                class="result-value"
+                id="quickBest"
+            >
+                —
+            </div>
+
+            <div
+                class="result-meta"
+                id="quickBestMeta"
+            ></div>
+
+        </div>
+
+        <div class="buttons">
+
+            <button
+                class="secondary"
+                onclick="quickToAB()"
+            >
+                🎯 Довести A/B
+            </button>
+
+            <button
+                class="primary"
+                onclick="saveQuickProfile()"
+            >
+                💾 Сохранить
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- AB SETUP -->
+
+    <section
+        class="card hidden"
+        id="abSetupCard"
+    >
+
+        <h2>
+            🎯 Точная A/B-калибровка
+        </h2>
+
+        <div class="field">
+
+            <label>
+                Телефон
+            </label>
+
+            <input
+                id="abDevice"
+                placeholder="Например iPhone 17 Pro"
+            >
+
+        </div>
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Оружие
+                </label>
+
+                <select id="abWeapon">
+
+                    <option value="deagle">
+                        Desert Eagle
+                    </option>
+
+                    <option value="smg">
+                        SMG
+                    </option>
+
+                    <option value="ar">
+                        AR
+                    </option>
+
+                    <option value="shotgun">
+                        Shotgun
+                    </option>
+
+                    <option value="sniper">
+                        Sniper
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    Настройка
+                </label>
+
+                <select id="abSetting">
+
+                    <option value="general">
+                        General
+                    </option>
+
+                    <option value="redDot">
+                        Red Dot
+                    </option>
+
+                    <option value="scope2x">
+                        2x Scope
+                    </option>
+
+                    <option value="scope4x">
+                        4x Scope
+                    </option>
+
+                    <option value="sniper">
+                        Sniper
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="grid-2">
+
+            <div class="field">
+
+                <label>
+                    Нижняя граница
+                </label>
+
+                <input
+                    id="abMin"
+                    type="number"
+                    value="125"
+                    min="0"
+                    max="200"
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    Верхняя граница
+                </label>
+
+                <input
+                    id="abMax"
+                    type="number"
+                    value="140"
+                    min="0"
+                    max="200"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="field">
+
+            <label>
+                Серий на каждое значение
+            </label>
+
+            <select id="abSeries">
+
+                <option value="1">
+                    1
+                </option>
+
+                <option value="2" selected>
+                    2
+                </option>
+
+                <option value="3">
+                    3
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="buttons">
+
+            <button
+                class="secondary"
+                onclick="goHome()"
+            >
+                ← Назад
+            </button>
+
+            <button
+                class="primary"
+                onclick="startAB()"
+            >
+                Начать A/B →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="card hidden"
+        id="abTestCard"
+    >
+
+        <h2>
+            🎯 A/B-тест
+        </h2>
+
+        <div
+            class="note"
+            id="abRoundText"
+        ></div>
+
+        <div class="ab-grid">
+
+            <div class="candidate">
+
+                <div class="candidate-title">
+                    Вариант A
+                </div>
+
+                <div
+                    class="candidate-value"
+                    id="abValueA"
+                >
+                    —
+                </div>
+
+                <input
+                    id="abHitsA"
+                    type="number"
+                    min="0"
+                    max="10"
+                    value="0"
+                    placeholder="Попаданий из 10"
+                >
+
+            </div>
+
+
+            <div class="candidate">
+
+                <div class="candidate-title">
+                    Вариант B
+                </div>
+
+                <div
+                    class="candidate-value"
+                    id="abValueB"
+                >
+                    —
+                </div>
+
+                <input
+                    id="abHitsB"
+                    type="number"
+                    min="0"
+                    max="10"
+                    value="0"
+                    placeholder="Попаданий из 10"
+                >
+
+            </div>
+
+        </div>
+
+        <button
+            class="primary"
+            onclick="submitAB()"
+        >
+            Сравнить →
+        </button>
+
+        <div id="abHistory"></div>
+
+    </section>
+
+
+    <section
+        class="card hidden"
+        id="abResultCard"
+    >
+
+        <h2>
+            🏆 Результат A/B
+        </h2>
+
+        <div class="result">
+
+            <div class="result-label">
+                Лучшее значение
+            </div>
+
+            <div
+                class="result-value"
+                id="abBest"
+            >
+                —
+            </div>
+
+            <div
+                class="result-meta"
+                id="abBestMeta"
+            ></div>
+
+        </div>
+
+        <div class="buttons">
+
+            <button
+                class="secondary"
+                onclick="continueAB()"
+            >
+                🔬 Ещё точнее
+            </button>
+
+            <button
+                class="primary"
+                onclick="saveABProfile()"
+            >
+                💾 Сохранить
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PROFILES -->
+
+    <section
+        class="card hidden"
+        id="profilesCard"
+    >
+
+        <h2>
+            🏆 Мои лучшие профили
+        </h2>
+
+        <div
+            class="note"
+        >
+            Здесь сохраняются результаты
+            быстрых и A/B-тестов.
+        </div>
+
+        <div id="profilesList"></div>
+
+        <button
+            class="secondary"
+            style="margin-top:14px"
+            onclick="goHome()"
+        >
+            ← На главную
+        </button>
+
+    </section>
+
+</div>
+
+
+<script>
+
+const PROFILE_KEY =
+    "wiens_ff_v6_profiles";
+
+const TEST_KEY =
+    "wiens_ff_v6_tests";
+
+
+const weaponNames = {
+    deagle:
+        "Desert Eagle",
+
+    smg:
+        "SMG",
+
+    ar:
+        "AR",
+
+    shotgun:
+        "Shotgun",
+
+    sniper:
+        "Sniper"
+};
+
+
+const settingNames = {
+    general:
+        "General",
+
+    redDot:
+        "Red Dot",
+
+    scope2x:
+        "2x Scope",
+
+    scope4x:
+        "4x Scope",
+
+    sniper:
+        "Sniper"
+};
+
+
+let quickMin = 0;
+let quickMax = 0;
+let quickValue = 0;
+let quickStep = 0;
+let quickDirectionValue = null;
+let quickHitsValue = null;
+let quickRecords = [];
+
+
+let abMin = 0;
+let abMax = 0;
+
+let abA = 0;
+let abB = 0;
+
+let abRound = 0;
+
+let abSeriesCount = 2;
+let abCurrentSeries = 1;
+
+let abScoresA = [];
+let abScoresB = [];
+
+let abRecords = [];
+
+
+function clamp(
+    value,
+    min = 0,
+    max = 200
+) {
+
+    return Math.max(
+        min,
+        Math.min(
+            max,
+            Math.round(value)
+        )
+    );
+}
+
+
+function hideAll() {
+
+    [
+        "homeCard",
+        "quickSetupCard",
+        "quickTestCard",
+        "quickResultCard",
+        "abSetupCard",
+        "abTestCard",
+        "abResultCard",
+        "profilesCard"
+    ]
+    .forEach(
+        id => {
+
+            document
+            .getElementById(id)
+            .classList.add(
+                "hidden"
+            );
+        }
+    );
+}
+
+
+function goHome() {
+
+    hideAll();
+
+    document
+    .getElementById(
+        "homeCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+}
+
+
+function openQuickSetup() {
+
+    hideAll();
+
+    document
+    .getElementById(
+        "quickSetupCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+}
+
+
+function openABSetup() {
+
+    hideAll();
+
+    document
+    .getElementById(
+        "abSetupCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+}
+
+
+function openProfiles() {
+
+    hideAll();
+
+    renderProfiles();
+
+    document
+    .getElementById(
+        "profilesCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+}
+
+
+function getProfiles() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage
+                .getItem(
+                    PROFILE_KEY
+                )
+                ||
+                "[]"
+            );
+
+        return Array.isArray(data)
+            ?
+            data
+            :
+            [];
+
+    } catch {
+
+        return [];
+    }
+}
+
+
+function getTests() {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage
+                .getItem(
+                    TEST_KEY
+                )
+                ||
+                "[]"
+            );
+
+        return Array.isArray(data)
+            ?
+            data
+            :
+            [];
+
+    } catch {
+
+        return [];
+    }
+}
+
+
+function saveTest(record) {
+
+    const tests =
+        getTests();
+
+    tests.push(record);
+
+    localStorage.setItem(
+        TEST_KEY,
+        JSON.stringify(
+            tests.slice(-1000)
+        )
+    );
+}
+
+
+/* QUICK MODE */
+
+function startQuick() {
+
+    quickMin =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "quickMin"
+                )
+                .value
+            )
+        );
+
+
+    quickMax =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "quickMax"
+                )
+                .value
+            )
+        );
+
+
+    if (
+        quickMin >= quickMax
+    ) {
+
+        alert(
+            "Верхняя граница должна быть выше нижней."
+        );
+
+        return;
+    }
+
+
+    quickStep = 0;
+
+    quickRecords = [];
+
+    showQuickTest();
+}
+
+
+function showQuickTest() {
+
+    hideAll();
+
+    document
+    .getElementById(
+        "quickTestCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    quickDirectionValue = null;
+    quickHitsValue = null;
+
+
+    quickValue =
+        Math.round(
+            (
+                quickMin
+                +
+                quickMax
+            )
+            /
+            2
+        );
+
+
+    const weapon =
+        document
+        .getElementById(
+            "quickWeapon"
+        )
+        .value;
+
+
+    const setting =
+        document
+        .getElementById(
+            "quickSetting"
+        )
+        .value;
+
+
+    document
+    .getElementById(
+        "quickTitle"
+    )
+    .textContent =
+        `${weaponNames[weapon]} • ${settingNames[setting]}`;
+
+
+    document
+    .getElementById(
+        "quickValue"
+    )
+    .textContent =
+        quickValue;
+
+
+    document
+    .getElementById(
+        "quickRange"
+    )
+    .textContent =
+        `Текущий поиск: ${quickMin}–${quickMax}`;
+
+
+    [
+        "quickHigh",
+        "quickGood",
+        "quickLow"
+    ]
+    .forEach(
+        id =>
+            document
+            .getElementById(id)
+            .className = ""
+    );
+
+
+    createQuickHits();
+
+    renderQuickHistory();
+}
+
+
+function quickDirection(
+    direction
+) {
+
+    quickDirectionValue =
+        direction;
+
+
+    document
+    .getElementById(
+        "quickHigh"
+    )
+    .className =
+        direction === "high"
+        ?
+        "active-high"
+        :
+        "";
+
+
+    document
+    .getElementById(
+        "quickGood"
+    )
+    .className =
+        direction === "good"
+        ?
+        "active-good"
+        :
+        "";
+
+
+    document
+    .getElementById(
+        "quickLow"
+    )
+    .className =
+        direction === "low"
+        ?
+        "active-low"
+        :
+        "";
+}
+
+
+function createQuickHits() {
+
+    const box =
+        document
+        .getElementById(
+            "quickHits"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    for (
+        let i = 0;
+        i <= 10;
+        i++
+    ) {
+
+        const button =
+            document
+            .createElement(
+                "button"
+            );
+
+
+        button.textContent =
+            i;
+
+
+        button.onclick =
+            () => {
+
+                quickHitsValue =
+                    i;
+
+
+                box
+                .querySelectorAll(
+                    "button"
+                )
+                .forEach(
+                    item =>
+                        item.classList.remove(
+                            "active"
+                        )
+                );
+
+
+                button.classList.add(
+                    "active"
+                );
+            };
+
+
+        box.appendChild(
+            button
+        );
+    }
+}
+
+
+function submitQuick() {
+
+    if (
+        quickDirectionValue === null
+        ||
+        quickHitsValue === null
+    ) {
+
+        alert(
+            "Выбери направление и количество хороших попыток."
+        );
+
+        return;
+    }
+
+
+    const record = {
+
+        mode:
+            "quick",
+
+        device:
+            document
+            .getElementById(
+                "quickDevice"
+            )
+            .value
+            .trim(),
+
+        weapon:
+            document
+            .getElementById(
+                "quickWeapon"
+            )
+            .value,
+
+        setting:
+            document
+            .getElementById(
+                "quickSetting"
+            )
+            .value,
+
+        value:
+            quickValue,
+
+        hits:
+            quickHitsValue,
+
+        direction:
+            quickDirectionValue,
+
+        date:
+            new Date()
+            .toISOString()
+    };
+
+
+    quickRecords.push(
+        record
+    );
+
+    saveTest(
+        record
+    );
+
+
+    if (
+        quickDirectionValue
+        === "high"
+    ) {
+
+        quickMax =
+            Math.max(
+                quickMin,
+                quickValue - 1
+            );
+
+    } else if (
+        quickDirectionValue
+        === "low"
+    ) {
+
+        quickMin =
+            Math.min(
+                quickMax,
+                quickValue + 1
+            );
+
+    } else {
+
+        const radius =
+            quickHitsValue >= 9
+            ?
+            2
+            :
+            quickHitsValue >= 7
+            ?
+            3
+            :
+            5;
+
+
+        quickMin =
+            Math.max(
+                quickMin,
+                quickValue - radius
+            );
+
+
+        quickMax =
+            Math.min(
+                quickMax,
+                quickValue + radius
+            );
+    }
+
+
+    quickStep++;
+
+
+    if (
+        quickMax - quickMin <= 3
+        ||
+        quickStep >= 7
+    ) {
+
+        finishQuick();
+
+        return;
+    }
+
+
+    showQuickTest();
+}
+
+
+function finishQuick() {
+
+    const best =
+        Math.round(
+            (
+                quickMin
+                +
+                quickMax
+            )
+            /
+            2
+        );
+
+
+    hideAll();
+
+
+    document
+    .getElementById(
+        "quickResultCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "quickBest"
+    )
+    .textContent =
+        best;
+
+
+    document
+    .getElementById(
+        "quickBestMeta"
+    )
+    .textContent =
+        `Рабочая зона: ${quickMin}–${quickMax}. `
+        +
+        `Проведено тестов: ${quickRecords.length}.`;
+}
+
+
+function renderQuickHistory() {
+
+    const box =
+        document
+        .getElementById(
+            "quickHistory"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    quickRecords
+    .slice(-4)
+    .reverse()
+    .forEach(
+        item => {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "history-row";
+
+
+            const direction =
+                item.direction === "high"
+                ?
+                "перелёт"
+                :
+                item.direction === "low"
+                ?
+                "не дотягивает"
+                :
+                "нормально";
+
+
+            row.textContent =
+                `${item.value} • `
+                +
+                `${item.hits}/10 • `
+                +
+                direction;
+
+
+            box.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+function quickToAB() {
+
+    const best =
+        Math.round(
+            (
+                quickMin
+                +
+                quickMax
+            )
+            /
+            2
+        );
+
+
+    document
+    .getElementById(
+        "abDevice"
+    )
+    .value =
+        document
+        .getElementById(
+            "quickDevice"
+        )
+        .value;
+
+
+    document
+    .getElementById(
+        "abWeapon"
+    )
+    .value =
+        document
+        .getElementById(
+            "quickWeapon"
+        )
+        .value;
+
+
+    document
+    .getElementById(
+        "abSetting"
+    )
+    .value =
+        document
+        .getElementById(
+            "quickSetting"
+        )
+        .value;
+
+
+    document
+    .getElementById(
+        "abMin"
+    )
+    .value =
+        clamp(
+            best - 5
+        );
+
+
+    document
+    .getElementById(
+        "abMax"
+    )
+    .value =
+        clamp(
+            best + 5
+        );
+
+
+    openABSetup();
+}
+
+
+function saveQuickProfile() {
+
+    const best =
+        Math.round(
+            (
+                quickMin
+                +
+                quickMax
+            )
+            /
+            2
+        );
+
+
+    saveProfile({
+
+        type:
+            "quick",
+
+        device:
+            document
+            .getElementById(
+                "quickDevice"
+            )
+            .value
+            .trim()
+            ||
+            "Free Fire",
+
+        weapon:
+            document
+            .getElementById(
+                "quickWeapon"
+            )
+            .value,
+
+        setting:
+            document
+            .getElementById(
+                "quickSetting"
+            )
+            .value,
+
+        best:
+            best,
+
+        min:
+            quickMin,
+
+        max:
+            quickMax
+    });
+}
+
+
+/* A/B MODE */
+
+function startAB() {
+
+    abMin =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "abMin"
+                )
+                .value
+            )
+        );
+
+
+    abMax =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "abMax"
+                )
+                .value
+            )
+        );
+
+
+    if (
+        abMin >= abMax
+    ) {
+
+        alert(
+            "Верхняя граница должна быть выше нижней."
+        );
+
+        return;
+    }
+
+
+    abSeriesCount =
+        Number(
+            document
+            .getElementById(
+                "abSeries"
+            )
+            .value
+        );
+
+
+    abRound = 0;
+    abCurrentSeries = 1;
+
+    abScoresA = [];
+    abScoresB = [];
+
+    abRecords = [];
+
+
+    createABCandidates();
+
+    showAB();
+}
+
+
+function createABCandidates() {
+
+    const width =
+        abMax - abMin;
+
+
+    abA =
+        clamp(
+            abMin
+            +
+            Math.round(
+                width / 3
+            )
+        );
+
+
+    abB =
+        clamp(
+            abMax
+            -
+            Math.round(
+                width / 3
+            )
+        );
+
+
+    if (
+        abA === abB
+    ) {
+
+        abB =
+            clamp(
+                abA + 1
+            );
+    }
+}
+
+
+function showAB() {
+
+    hideAll();
+
+
+    document
+    .getElementById(
+        "abTestCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "abValueA"
+    )
+    .textContent =
+        abA;
+
+
+    document
+    .getElementById(
+        "abValueB"
+    )
+    .textContent =
+        abB;
+
+
+    document
+    .getElementById(
+        "abHitsA"
+    )
+    .value =
+        0;
+
+
+    document
+    .getElementById(
+        "abHitsB"
+    )
+    .value =
+        0;
+
+
+    document
+    .getElementById(
+        "abRoundText"
+    )
+    .textContent =
+        `Раунд ${abRound + 1} • `
+        +
+        `серия ${abCurrentSeries}/${abSeriesCount} • `
+        +
+        `диапазон ${abMin}–${abMax}`;
+
+
+    renderABHistory();
+}
+
+
+function submitAB() {
+
+    const hitsA =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "abHitsA"
+                )
+                .value
+            ),
+            0,
+            10
+        );
+
+
+    const hitsB =
+        clamp(
+            Number(
+                document
+                .getElementById(
+                    "abHitsB"
+                )
+                .value
+            ),
+            0,
+            10
+        );
+
+
+    abScoresA.push(
+        hitsA
+    );
+
+    abScoresB.push(
+        hitsB
+    );
+
+
+    const weapon =
+        document
+        .getElementById(
+            "abWeapon"
+        )
+        .value;
+
+
+    const setting =
+        document
+        .getElementById(
+            "abSetting"
+        )
+        .value;
+
+
+    const record = {
+
+        mode:
+            "ab",
+
+        weapon:
+            weapon,
+
+        setting:
+            setting,
+
+        a:
+            abA,
+
+        b:
+            abB,
+
+        hitsA:
+            hitsA,
+
+        hitsB:
+            hitsB,
+
+        date:
+            new Date()
+            .toISOString()
+    };
+
+
+    abRecords.push(
+        record
+    );
+
+    saveTest(
+        record
+    );
+
+
+    if (
+        abCurrentSeries
+        <
+        abSeriesCount
+    ) {
+
+        abCurrentSeries++;
+
+        showAB();
+
+        return;
+    }
+
+
+    const scoreA =
+        stableScore(
+            abScoresA
+        );
+
+
+    const scoreB =
+        stableScore(
+            abScoresB
+        );
+
+
+    if (
+        scoreA > scoreB
+    ) {
+
+        abMax =
+            Math.max(
+                abA,
+                abB - 1
+            );
+
+    } else if (
+        scoreB > scoreA
+    ) {
+
+        abMin =
+            Math.min(
+                abB,
+                abA + 1
+            );
+
+    } else {
+
+        abMin =
+            Math.min(
+                abA,
+                abB
+            );
+
+
+        abMax =
+            Math.max(
+                abA,
+                abB
+            );
+    }
+
+
+    abRound++;
+
+
+    if (
+        abMax - abMin <= 2
+        ||
+        abRound >= 8
+    ) {
+
+        finishAB();
+
+        return;
+    }
+
+
+    abCurrentSeries = 1;
+
+    abScoresA = [];
+    abScoresB = [];
+
+
+    createABCandidates();
+
+    showAB();
+}
+
+
+function average(list) {
+
+    if (
+        !list.length
+    ) {
+
+        return 0;
+    }
+
+
+    return list.reduce(
+        (
+            a,
+            b
+        ) =>
+            a + b,
+        0
+    )
+    /
+    list.length;
+}
+
+
+function deviation(list) {
+
+    if (
+        list.length <= 1
+    ) {
+
+        return 0;
+    }
+
+
+    const avg =
+        average(
+            list
+        );
+
+
+    const variance =
+        list.reduce(
+            (
+                sum,
+                item
+            ) =>
+                sum
+                +
+                Math.pow(
+                    item - avg,
+                    2
+                ),
+            0
+        )
+        /
+        list.length;
+
+
+    return Math.sqrt(
+        variance
+    );
+}
+
+
+function stableScore(list) {
+
+    return average(list)
+        -
+        deviation(list)
+        *
+        .35;
+}
+
+
+function finishAB() {
+
+    const best =
+        Math.round(
+            (
+                abMin
+                +
+                abMax
+            )
+            /
+            2
+        );
+
+
+    hideAll();
+
+
+    document
+    .getElementById(
+        "abResultCard"
+    )
+    .classList.remove(
+        "hidden"
+    );
+
+
+    document
+    .getElementById(
+        "abBest"
+    )
+    .textContent =
+        best;
+
+
+    document
+    .getElementById(
+        "abBestMeta"
+    )
+    .textContent =
+        `Финальная зона: ${abMin}–${abMax}. `
+        +
+        `A/B-раундов: ${abRound}.`;
+}
+
+
+function continueAB() {
+
+    const best =
+        Math.round(
+            (
+                abMin
+                +
+                abMax
+            )
+            /
+            2
+        );
+
+
+    abMin =
+        clamp(
+            best - 3
+        );
+
+
+    abMax =
+        clamp(
+            best + 3
+        );
+
+
+    abRound = 0;
+    abCurrentSeries = 1;
+
+    abScoresA = [];
+    abScoresB = [];
+
+
+    createABCandidates();
+
+    showAB();
+}
+
+
+function renderABHistory() {
+
+    const box =
+        document
+        .getElementById(
+            "abHistory"
+        );
+
+
+    box.innerHTML =
+        "";
+
+
+    abRecords
+    .slice(-4)
+    .reverse()
+    .forEach(
+        item => {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "history-row";
+
+
+            row.textContent =
+                `A ${item.a} → ${item.hitsA}/10 • `
+                +
+                `B ${item.b} → ${item.hitsB}/10`;
+
+
+            box.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+function saveABProfile() {
+
+    const best =
+        Math.round(
+            (
+                abMin
+                +
+                abMax
+            )
+            /
+            2
+        );
+
+
+    saveProfile({
+
+        type:
+            "ab",
+
+        device:
+            document
+            .getElementById(
+                "abDevice"
+            )
+            .value
+            .trim()
+            ||
+            "Free Fire",
+
+        weapon:
+            document
+            .getElementById(
+                "abWeapon"
+            )
+            .value,
+
+        setting:
+            document
+            .getElementById(
+                "abSetting"
+            )
+            .value,
+
+        best:
+            best,
+
+        min:
+            abMin,
+
+        max:
+            abMax
+    });
+}
+
+
+/* PROFILES */
+
+function saveProfile(profile) {
+
+    const profiles =
+        getProfiles();
+
+
+    profiles.unshift({
+
+        id:
+            Date.now(),
+
+        ...profile,
+
+        savedAt:
+            new Date()
+            .toISOString()
+    });
+
+
+    localStorage.setItem(
+        PROFILE_KEY,
+        JSON.stringify(
+            profiles.slice(
+                0,
+                30
+            )
+        )
+    );
+
+
+    alert(
+        "Профиль сохранён ✅"
+    );
+}
+
+
+function renderProfiles() {
+
+    const box =
+        document
+        .getElementById(
+            "profilesList"
+        );
+
+
+    const profiles =
+        getProfiles();
+
+
+    box.innerHTML =
+        "";
+
+
+    if (
+        !profiles.length
+    ) {
+
+        box.innerHTML =
+            `
+            <div class="note">
+                Пока нет сохранённых профилей.
+            </div>
+            `;
+
+        return;
+    }
+
+
+    profiles.forEach(
+        profile => {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "profile-row";
+
+
+            row.innerHTML =
+                `
+                <div>
+
+                    <div class="profile-title">
+                        ${weaponNames[profile.weapon] || profile.weapon}
+                        •
+                        ${settingNames[profile.setting] || profile.setting}
+                    </div>
+
+                    <div class="profile-meta">
+                        ${escapeHtml(profile.device || "Free Fire")}
+                        •
+                        ${profile.type === "ab" ? "A/B" : "Quick"}
+                        •
+                        зона ${profile.min}–${profile.max}
+                    </div>
+
+                    <div
+                        style="
+                            margin-top:5px;
+                            font-size:20px;
+                            font-weight:800;
+                        "
+                    >
+                        ${profile.best}
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="mini"
+                    onclick="deleteProfile(${profile.id})"
+                >
+                    🗑
+                </button>
+                `;
+
+
+            box.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+function deleteProfile(id) {
+
+    const profiles =
+        getProfiles()
+        .filter(
+            item =>
+                item.id !== id
+        );
+
+
+    localStorage.setItem(
+        PROFILE_KEY,
+        JSON.stringify(
+            profiles
+        )
+    );
+
+
+    renderProfiles();
+}
+
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+}
+
+
+goHome();
+
+</script>
+
+</body>
+</html>
